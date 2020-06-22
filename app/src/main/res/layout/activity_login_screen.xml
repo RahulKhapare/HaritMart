@@ -4,110 +4,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".LoginScreen">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_green"
-   >
-
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="?actionBarSize"
-        android:layout_height="?actionBarSize"
-        android:padding="14dp"
-        android:src="@drawable/ic_arrow" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="91dp"
-        android:layout_marginTop="4dp"
-        android:layout_toRightOf="@id/back"
-        android:text="Global \nGrocery"
-        android:textColor="#ffffff"
-        android:textSize="27dp" />
-
-
-    <LinearLayout
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="180dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_group_4171" />
-
-
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/imageView"
-        android:layout_marginBottom="-38dp"
-        android:background="#ffffff"
-        app:cardCornerRadius="25dp">
+        android:background="@drawable/gradient_green">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            android:padding="14dp"
+            android:clickable="true"
+            android:onClick="onBackClick"
+            android:src="@drawable/ic_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="91dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/back"
+            android:text="Global \nGrocery"
+            android:textColor="#ffffff"
+            android:textSize="27dp" />
 
 
         <LinearLayout
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="15dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="180dp">
 
-            <TextView
-                android:id="@+id/CreateTextView"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Create your Account"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Please enter your registered phone number"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-                android:textStyle="normal" />
-
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="47dp"
-                android:layout_marginEnd="15dp"
-                android:hint="Mobile Number"
-                android:inputType="numberDecimal"
-                android:maxLength="10" />
-
-
-            <Button
-                android:id="@+id/loginBtn"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
                 android:layout_gravity="center"
-                android:layout_margin="21dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/custom_button"
-                android:text="Proceed"
-                android:textColor="#ffffff"
-                android:textSize="14sp"
-                android:textStyle="normal" />
+                android:src="@drawable/ic_group_4171" />
 
 
         </LinearLayout>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/imageView"
+            android:layout_marginBottom="-38dp"
+            android:background="#ffffff"
+            app:cardCornerRadius="25dp">
 
-    </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/CreateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Create your Account"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
 
-</RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Please enter your registered phone number"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="normal" />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="47dp"
+                    android:layout_marginEnd="15dp"
+                    android:hint="Mobile Number"
+                    android:inputType="numberDecimal"
+                    android:maxLength="10" />
+
+
+                <Button
+                    android:id="@+id/loginBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="21dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/custom_button"
+                    android:text="Proceed"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
 </layout>

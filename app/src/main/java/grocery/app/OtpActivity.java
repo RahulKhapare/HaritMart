@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.view.View;
 
 import grocery.app.databinding.ActivityOtpBinding;
 
@@ -14,5 +15,9 @@ public class OtpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityOtpBinding= DataBindingUtil.setContentView(this, R.layout.activity_otp);
+    }
+
+    public void onBackClick(View view) {
+        finish();
     }
 }
