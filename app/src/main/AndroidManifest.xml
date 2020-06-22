@@ -10,9 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SetLocationActivity"></activity>
-        <activity android:name=".OtpActivity" />
-        <activity android:name=".LoginScreen" />
-        <activity android:name=".SplashScreenActivity">
+
+        <activity android:name=".OtpActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".LoginScreen"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".SplashScreenActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

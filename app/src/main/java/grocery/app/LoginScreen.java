@@ -12,21 +12,22 @@ import grocery.app.databinding.ActivityLoginScreenBinding;
 
 public class LoginScreen extends AppCompatActivity {
 
-
-    ActivityLoginScreenBinding activityLoginScreenBinding;
-
+    private ActivityLoginScreenBinding activityLoginScreenBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_screen);
 
-        activityLoginScreenBinding =  DataBindingUtil.setContentView(this, R.layout.activity_otp);
+        activityLoginScreenBinding =  DataBindingUtil.setContentView(this, R.layout.activity_login_screen);
 
-        Button button = activityLoginScreenBinding.loginBtn;
-        button.setOnClickListener(view -> {
-            Intent i = new Intent(LoginScreen.this,OtpActivity.class);
-            startActivity(i);
+        activityLoginScreenBinding.loginBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginScreen.this,OtpActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
+    }
+
+    public void onBackClick(View view) {
+        finish();
     }
 }
