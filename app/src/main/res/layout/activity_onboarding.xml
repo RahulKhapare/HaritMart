@@ -76,31 +76,36 @@
                     android:id="@+id/image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_path_25893"
-                    android:padding="-15dp" />
+                    android:padding="-15dp"
+                    android:src="@drawable/ic_path_25893" />
 
-                <ImageView
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_group_4171" />
+                    android:background="@color/transparent" />
+
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="0dp"
+                    android:clipToPadding="true"
+                    app:tabBackground="@drawable/tab_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorColor="@color/transparent" />
 
 
             </FrameLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Select ipsum dolor sit amet"
-                android:textColor="@color/white"
-                android:layout_marginBottom="25dp"
-                android:textSize="20sp" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
                 android:layout_marginBottom="-10dp"
+                android:background="#ffffff"
                 app:cardCornerRadius="25dp">
 
                 <RelativeLayout
@@ -160,78 +165,87 @@
                         android:src="@drawable/ic_baseline_brightness_1_24"
                         android:tint="#FC8F00" />
 
-
-                   <LinearLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"
-                       android:orientation="vertical"
-                       android:layout_margin="35dp"
-                       android:gravity="center">
-
-                       <Button
-                           android:id="@+id/loginBtn"
-                           android:layout_width="match_parent"
-                           android:layout_height="55dp"
-                           android:layout_gravity="center"
-                          android:layout_marginBottom="15dp"
-                           android:background="@drawable/custom_button"
-                           android:text="Login"
-                           android:textColor="#ffffff"
-                           android:textSize="14sp"
-                           android:textStyle="normal" />
-
-                       <Button
-                           android:id="@+id/createAccount"
-                           android:layout_width="match_parent"
-                           android:layout_height="55dp"
-                           android:layout_gravity="center"
-                           android:layout_marginBottom="15dp"
-                           android:background="@drawable/custom_orange_btn"
-                           android:text="Create Account"
-                           android:textColor="#ffffff"
-                           android:textSize="14sp"
-                           android:textStyle="normal" />
-
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="OR"
-                           android:textColor="@color/black"
-                           android:layout_marginBottom="15dp"
-                           android:textSize="20sp" />
-
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="Login With"
-                           android:textStyle="bold"
-                           android:textColor="@color/black"
-                           android:layout_marginBottom="15dp"
-                           android:textSize="20sp" />
-
-                       <LinearLayout
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:gravity="center"
-                           android:orientation="horizontal">
-
-                           <ImageView
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:src="@drawable/ic_path_15456"
-                               android:background="@drawable/ic_ellipse_63"/>
-
-                           <ImageView
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:src="@drawable/ic_brands_and_logotypes"
-                               android:layout_marginLeft="35dp"
-                               android:background="@drawable/ic_ellipse_63"/>
-
-                       </LinearLayout>
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fillViewport="true">
 
 
-                   </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="35dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+
+                            <Button
+                                android:id="@+id/loginBtn"
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="15dp"
+                                android:background="@drawable/custom_button"
+                                android:text="Login"
+                                android:textColor="#ffffff"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <Button
+                                android:id="@+id/createAccount"
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="15dp"
+                                android:background="@drawable/custom_orange_btn"
+                                android:text="Create Account"
+                                android:textColor="#ffffff"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:text="OR"
+                                android:textColor="@color/black"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:text="Login With"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:layout_marginBottom="25dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/ic_ellipse_63"
+                                    android:src="@drawable/ic_path_15456" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="35dp"
+                                    android:background="@drawable/ic_ellipse_63"
+                                    android:src="@drawable/ic_brands_and_logotypes" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </ScrollView>
 
                 </RelativeLayout>
 
