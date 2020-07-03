@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="H1">23sp</dimen>
+    <dimen name="H2">29sp</dimen>
+    <dimen name="H3">37sp</dimen>
+    <dimen name="H4">47sp</dimen>
+
+</resources>

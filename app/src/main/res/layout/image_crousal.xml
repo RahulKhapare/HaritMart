@@ -17,12 +17,14 @@
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/imageViewBoarding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:src="@drawable/ic_group_4173" />
 
         <TextView
+            android:id="@+id/textBoarding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Select ipsum dolor sit amet"

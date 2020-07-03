@@ -1,0 +1,23 @@
+R_DEF: Internal format may change without notice
+local
+color btn_dialog
+color orange
+color orange_dark
+dimen H1
+dimen H2
+dimen H3
+dimen H4
+drawable dialog_bg
+drawable dialog_title_bg
+drawable round_bg
+id btn_no
+id btn_ok
+id btn_yes
+id message
+id msg
+id rotateLoading
+id title
+layout helper_dialog_loading
+layout helper_dialog_message_ok
+layout helper_dialog_message_yes_no
+string app_name

@@ -11,4 +11,5 @@
     <color name="transparent">#00000000</color>
     <color name="black">#000000</color>
     <color name="semi_transparent">#29000000</color>
+    <color name="grey1">#707070</color>
 </resources>
