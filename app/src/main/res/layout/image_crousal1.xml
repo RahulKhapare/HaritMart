@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,12 +16,24 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_group_4173" />
+            android:layout_height="250dp"
+            app:cardBackgroundColor="@drawable/gradient_board_green"
+            app:cardCornerRadius="35dp">
 
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_group_4173" />
+
+
+        </androidx.cardview.widget.CardView>
+<!--
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +41,7 @@
             android:gravity="center"
             android:text="Select ipsum dolor sit amet"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp" />-->
 
     </LinearLayout>
 

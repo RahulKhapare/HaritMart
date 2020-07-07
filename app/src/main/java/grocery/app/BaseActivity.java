@@ -3,6 +3,7 @@ package grocery.app;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.adoisstudio.helper.H;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import grocery.app.Fragments.HomeFragment;
 
@@ -24,6 +27,13 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        ViewPager2 viewPager2 = findViewById(R.id.onBoardViewPager);
+        //viewPager2.setAdapter(onBoardingAdapter);
+        /*TabLayout tabLayout = findViewById(R.id.tabLayout);
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+
+        });
+        tabLayoutMediator.attach();*/
 
         homeFragment = HomeFragment.newInstance();
         fragmentManager = getSupportFragmentManager();
