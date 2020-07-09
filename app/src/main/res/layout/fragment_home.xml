@@ -1,14 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+      <FrameLayout
+                android:id="@+id/ViewPagerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="259dp">
 
-</FrameLayout>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/onBoardViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="259dp"
+                    android:layout_below="@+id/cardView1Menu"
+                    android:background="@color/transparent" />
+
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="0dp"
+                    android:clipToPadding="true"
+                    app:tabBackground="@drawable/tab_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorColor="@color/transparent" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/txtExplore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ViewPagerLayout"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:text="Explore Category"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/exploreLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtExplore"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/fruit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/clickable_transparent_bg"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        app:cardBackgroundColor="#CAE6B2"
+
+                        app:cardCornerRadius="15dp">
+
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="75dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/fruit" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Fruits \u0026 Veg"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/oil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/clickable_transparent_bg"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        app:cardBackgroundColor="#CAE6B2"
+                        app:cardCornerRadius="15dp">
+
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="75dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/fruit" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Foodgrains\n oil \u0026 Masala  "
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/clickable_transparent_bg"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        app:cardBackgroundColor="#CAE6B2"
+                        app:cardCornerRadius="10dp">
+
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="75dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/fruit" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Bakery, Cakes\n \u0026 dairy"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View All"
+                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    android:textColor="#FC8F00"
+                    />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/newArrived"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/exploreLayout"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:text="New Arrived"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/viewMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/exploreLayout"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:text="View More"
+                android:textColor="#FC8F00"
+                android:gravity="end"
+                android:layout_marginEnd="10dp"
+                android:textSize="14sp"
+                android:layout_marginTop="7dp"
+                android:textStyle="bold" />
+
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_below="@+id/newArrived"
+                android:layout_marginBottom="13dp"/>
+
+</LinearLayout>
