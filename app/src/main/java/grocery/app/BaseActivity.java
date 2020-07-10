@@ -115,7 +115,10 @@ public class BaseActivity extends AppCompatActivity {
 
 
     private void fragmentLoader(Fragment fragment) {
-        fragmentManager.beginTransaction().setCustomAnimations(R.anim.anim_enter, R.anim.anim_exit).replace(R.id.frameLayout, fragment).commit();
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.anim_enter, R.anim.anim_exit)
+                .replace(R.id.frameLayout, fragment)
+                .commit();
 
 
     }
