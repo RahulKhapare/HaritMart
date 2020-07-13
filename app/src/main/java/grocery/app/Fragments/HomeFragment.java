@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.adoisstudio.helper.LoadingDialog;
 import com.google.android.material.tabs.TabLayout;
@@ -50,16 +51,16 @@ public class HomeFragment extends Fragment {
             context = getContext();
             loadingDialog = new LoadingDialog(context);
 
-            setUpTopPager();
+          //  setUpTopPager();
         }
         // Inflate the layout for this fragment
         return fragmentView;
     }
 
-    private void setUpTopPager() {
+  /*  private void setUpTopPager() {
         viewPager2 = fragmentView.findViewById(R.id.viewPager2);
-        ViewPager2Adapter viewPager2Adapter = new ViewPager2Adapter(0);
-        viewPager2.setAdapter(viewPager2Adapter);
+       // ViewPager2Adapter viewPager2Adapter = new ViewPager2Adapter(0);
+        //viewPager2.setAdapter(viewPager2Adapter);
 
         TabLayout tabLayout = fragmentView.findViewById(R.id.tabLayout);
         //tabLayout.setupWithViewPager(viewPager2);
@@ -67,9 +68,9 @@ public class HomeFragment extends Fragment {
 
         });
         tabLayoutMediator.attach();
-    }
+    }*/
 
-    private class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.InnerClass> {
+  /*  private class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.InnerClass> {
         private int i;
 
         private ViewPager2Adapter(int i) {
@@ -102,5 +103,14 @@ public class HomeFragment extends Fragment {
                 super(itemView);
             }
         }
+    }*/
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        Object object = fragmentView.getParent();
+        if (object instanceof FrameLayout)
+            ((FrameLayout) object).removeAllViews();
     }
 }

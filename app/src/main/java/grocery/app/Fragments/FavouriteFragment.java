@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import grocery.app.R;
 
@@ -17,7 +18,7 @@ import grocery.app.R;
  */
 public class FavouriteFragment extends Fragment {
 
-
+private  View fragmentView;
 
 
 
@@ -44,4 +45,13 @@ public class FavouriteFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_favourite, container, false);
     }
+
+  /*  @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        Object object = fragmentView.getParent();
+        if (object instanceof FrameLayout)
+            ((FrameLayout) object).removeAllViews();
+    }*/
 }
