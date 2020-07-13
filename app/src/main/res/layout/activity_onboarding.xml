@@ -231,6 +231,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/ic_ellipse_63"
+                                    android:clickable="true"
                                     android:src="@drawable/ic_path_15456" />
 
                                 <ImageView
@@ -238,6 +239,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="35dp"
                                     android:background="@drawable/ic_ellipse_63"
+                                    android:clickable="true"
                                     android:src="@drawable/ic_brands_and_logotypes" />
 
                             </LinearLayout>
