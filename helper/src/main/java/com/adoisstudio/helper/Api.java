@@ -59,6 +59,7 @@ public class Api {
     }
 
     public Api setMethod(int method) {
+        this.method = method;
         return this;
     }
 
