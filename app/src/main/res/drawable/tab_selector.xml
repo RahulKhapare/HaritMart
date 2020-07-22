@@ -9,7 +9,7 @@
             android:thickness="3dp"
             android:useLevel="false">
 
-            <solid android:color="#9E9E9E"/>
+            <solid android:color="#C7C7C7"/>
 
         </shape>
 
@@ -26,7 +26,7 @@
             <!--<stroke android:color="@color/white"
                 android:width="1.2dp"/>-->
 
-            <solid android:color="#C7C7C7"/>
+            <solid android:color="#9E9E9E"/>
 
         </shape>
 

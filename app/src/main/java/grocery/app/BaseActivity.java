@@ -46,7 +46,8 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         ViewPager2 viewPager2 = findViewById(R.id.onBoardViewPager);
-      //  RecyclerView recyclerView = findViewById(R.id.recyclerView1);
+
+        //  RecyclerView recyclerView = findViewById(R.id.recyclerView1);
         //viewPager2.setAdapter(onBoardingAdapter);
         /*TabLayout tabLayout = findViewById(R.id.tabLayout);
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
@@ -61,7 +62,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
     }
 
 
@@ -112,8 +113,6 @@ public class BaseActivity extends AppCompatActivity {
     }*/
 
 
-
-
     private void fragmentLoader(Fragment fragment) {
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_enter, R.anim.anim_exit)
@@ -158,29 +157,35 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void selectBottomNavigation(View view) {
+        LinearLayout parentLayout = findViewById(R.id.parentLinearLayout);
         int j = (int) H.convertDpToPixel(30, this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(j, j);
-        LinearLayout linearLayout = (LinearLayout) view.getParent();
+        //LinearLayout linearLayout = (LinearLayout) view.getParent();
         LinearLayout childLayout;
         View v;
         ImageView imageView;
         TextView textView;
-        for (int i = 0; i < linearLayout.getChildCount(); i++) {
-            childLayout = (LinearLayout) linearLayout.getChildAt(i);
-            imageView = (ImageView) childLayout.getChildAt(0);
+        for (int i = 0; i < parentLayout.getChildCount(); i++) {
+
+            childLayout = (LinearLayout) parentLayout.getChildAt(i);
+            imageView = childLayout.findViewWithTag("imageView");
             imageView.setColorFilter(getResources().getColor(R.color.grey1));
-            imageView.setLayoutParams(layoutParams);
 
-
+            textView = childLayout.findViewWithTag("textView");
+            textView.setTextColor(getResources().getColor(R.color.grey1));
 
 
         }
-        j = (int)H.convertDpToPixel(32,this);
-        layoutParams = new LinearLayout.LayoutParams(j,j);
-        imageView = (ImageView) ((LinearLayout) view).getChildAt(0);
+        j = (int) H.convertDpToPixel(32, this);
+        layoutParams = new LinearLayout.LayoutParams(j, j);
+
+        imageView = view.findViewWithTag("imageView");
         imageView.setColorFilter(getResources().getColor(R.color.green));
-        imageView.setLayoutParams(layoutParams);
+
+        textView = view.findViewWithTag("textView");
+        textView.setTextColor(getResources().getColor(R.color.green));
 
 
     }
+
 }

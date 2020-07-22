@@ -128,6 +128,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
+                            android:tag="imageView"
                             android:src="@drawable/ic_home_active" />
 
                         <TextView
@@ -135,6 +136,7 @@
                             android:layout_height="25dp"
                             android:fontFamily="@font/product_sans_regular"
                             android:gravity="center"
+                            android:tag="textView"
                             android:text="Home"
                             android:textStyle="bold" />
 
@@ -155,6 +157,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
+                            android:tag="imageView"
                             android:src="@drawable/ic_search_inactive" />
 
                         <TextView
@@ -162,6 +165,7 @@
                             android:layout_height="25dp"
                             android:fontFamily="@font/product_sans_regular"
                             android:gravity="center"
+                            android:tag="textView"
                             android:text="Search"
                             android:textStyle="bold" />
 
@@ -182,7 +186,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
-
+                            android:tag="imageView"
                             android:src="@drawable/ic_cart_inactive" />
 
                         <TextView
@@ -190,6 +194,7 @@
                             android:layout_height="25dp"
                             android:fontFamily="@font/product_sans_regular"
                             android:gravity="center"
+                            android:tag="textView"
                             android:text="Cart"
                             android:textStyle="bold" />
 
@@ -210,7 +215,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
-
+                            android:tag="imageView"
                             android:src="@drawable/ic_favorite_inactive" />
 
                         <TextView
@@ -219,6 +224,7 @@
                             android:fontFamily="@font/product_sans_regular"
                             android:gravity="center"
                             android:text="Favourite"
+                            android:tag="textView"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -238,7 +244,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
-
+                            android:tag="imageView"
                             android:src="@drawable/ic_more_inactive" />
 
                         <TextView
@@ -247,6 +253,7 @@
                             android:fontFamily="@font/product_sans_regular"
                             android:gravity="center"
                             android:text="More"
+                            android:tag="textView"
                             android:textStyle="bold" />
 
                     </LinearLayout>

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
+
 import grocery.app.databinding.ActivityLoginScreenBinding;
 
 public class LoginScreen extends AppCompatActivity {

@@ -14,6 +14,7 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".BaseActivity"></activity>
         <activity android:name=".OnboardingActivity" />
         <activity android:name=".SetLocationActivity" />
@@ -32,6 +33,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+         <service
+           android:name=".common.MyFCMService">
+           <intent-filter>
+               <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+           </intent-filter>
+       </service>
+        <service
+            android:name=".common.MyFCMService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
