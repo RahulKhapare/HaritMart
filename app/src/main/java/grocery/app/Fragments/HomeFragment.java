@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +17,22 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.adoisstudio.helper.Api;
+import com.adoisstudio.helper.H;
+import com.adoisstudio.helper.Json;
+import com.adoisstudio.helper.JsonList;
 import com.adoisstudio.helper.LoadingDialog;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import grocery.app.BaseActivity;
 import grocery.app.OnBoardingAdapter;
 import grocery.app.R;
+import grocery.app.common.P;
 import grocery.app.onBoardItem;
 
 
@@ -60,21 +68,55 @@ public class HomeFragment extends Fragment {
             loadingDialog = new LoadingDialog(context);
 
             setUpTopPager();
-            setUpRecyclerView();
+           // setUpRecyclerView();
+            hitHomeApi();
 
         }
 
         return fragmentView;
     }
 
-    private void setUpRecyclerView() {
+    private void hitHomeApi() {
+        Api.newApi(context, P.baseUrl + "home").addJson(new Json())
+                .setMethod(Api.GET)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    H.showMessage(context, "On error is called");
+                })
+                .onSuccess(json -> {
+                    if (json.getInt(P.status) == 1) {
+                        if (((BaseActivity) context).isDestroyed())
+                            return;
+                        json = json.getJson(P.data);
+                        setUpNewArrivedList(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));
+                    } else
+                        H.showMessage(getContext(), json.getString(P.msg));
+                })
+                .run("hitHomeApi");
+    }
+
+    private void setUpNewArrivedList(String string, JsonList jsonList) {
+
+
+        for (Json json : jsonList)
+            if (!TextUtils.isEmpty(json.getString(P.product_image))){
+                json.addString(P.product_image, P.imgBaseUrl + string + json.getString(P.product_image)+"");
+            }
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(jsonList);
         recyclerView = fragmentView.findViewById(R.id.recyclerView1);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(new RecyclerAdapter());
+        recyclerView.setAdapter(recyclerAdapter);
+
     }
+
+
 
    private class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
    {
+       private JsonList jsonList;
+       public RecyclerAdapter(JsonList jL) {
+           jsonList = jL;
+       }
 
        class ViewHolder extends RecyclerView.ViewHolder {
            ImageView imageView;
@@ -82,8 +124,8 @@ public class HomeFragment extends Fragment {
 
            private ViewHolder(View itemView) {
                super(itemView);
-               imageView = itemView.findViewById(R.id.imageView);
-             //  title = itemView.findViewById(R.id.textView);
+               imageView = itemView.findViewById(R.id.veg);
+               title = itemView.findViewById(R.id.textView);
                itemView.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View v) {
@@ -95,19 +137,26 @@ public class HomeFragment extends Fragment {
        @NonNull
        @Override
        public RecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-           View views = LayoutInflater.from(parent.getContext()).inflate(R.layout.new_arrived_layout, parent, false);
-           //ViewHolder viewHolder=new ViewHolder(views);
-           return new ViewHolder(views);
+
+           return new RecyclerAdapter.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.new_arrived_layout, parent, false));
+
        }
 
        @Override
        public void onBindViewHolder(@NonNull RecyclerAdapter.ViewHolder holder, int position) {
 
+           String imagePath = jsonList.get(position).getString(P.product_image);
+           if (!TextUtils.isEmpty(imagePath)){
+               Picasso.get().load(imagePath).error(R.mipmap.ic_launcher).into(holder.imageView);
+           }
+          String a= jsonList.get(position).getString(P.category_name);
+           holder.title.setText(a);
        }
 
        @Override
        public int getItemCount() {
-           return 6;
+           H.log("sizeIS",jsonList+"");
+           return jsonList.size();
        }
    }
 

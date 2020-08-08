@@ -20,7 +20,9 @@
         <activity android:name=".SetLocationActivity" />
         <activity
             android:name=".OtpActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+        </activity>
         <activity
             android:name=".LoginScreen"
             android:screenOrientation="portrait" />
@@ -32,9 +34,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
-         <service
+      <!--   <service
            android:name=".common.MyFCMService">
            <intent-filter>
                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
@@ -45,7 +48,8 @@
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
-        </service>
+        </service>-->
+
     </application>
 
 </manifest>
