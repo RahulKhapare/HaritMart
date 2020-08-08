@@ -2,4 +2,16 @@
     <string name="app_name">Grocery</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="internetMessage">No internet connection</string>
+    <string name="summary">Summary</string>
+    <string name="subTotal">Sub Total</string>
+    <string name="shippingCharges">Shipping Charges</string>
+    <string name="discount">Discount</string>
+    <string name="shippingInsurance">Shipping Insurance</string>
+    <string name="grandTotal">Grand Total</string>
+    <string name="continueShopping">Continue Shopping</string>
+    <string name="processToPay">Process To Pay</string>
+
 </resources>

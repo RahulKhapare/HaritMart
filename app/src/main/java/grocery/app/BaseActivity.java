@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.adoisstudio.helper.H;
+import com.adoisstudio.helper.Session;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -29,6 +30,7 @@ import grocery.app.Fragments.FavouriteFragment;
 import grocery.app.Fragments.HomeFragment;
 import grocery.app.Fragments.MoreFragment;
 import grocery.app.Fragments.SearchFragment;
+import grocery.app.common.P;
 
 public class BaseActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
@@ -187,5 +189,9 @@ public class BaseActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
 
 }

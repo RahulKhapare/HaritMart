@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="titleSize">20sp</dimen>
+    <dimen name="textSize">16sp</dimen>
+    <dimen name="textSizeMedium">15sp</dimen>
+    <dimen name="textSizeSmall">14sp</dimen>
+    <dimen name="textSizeVerySmall">13sp</dimen>
+    <dimen name="textSizeVerySmall2">11sp</dimen>
+    <dimen name="arrowPadding">13dp</dimen>
+    <dimen name="iconSize">24dp</dimen>
+    <dimen name="iconSizeSmall">16dp</dimen>
+    <dimen name="buttonWidth">232dp</dimen>
+    <dimen name="buttonHeight">56dp</dimen>
+    <dimen name="margin5">5dp</dimen>
+    <dimen name="margin15">15dp</dimen>
+    <dimen name="padding10">10dp</dimen>
+    <dimen name="height">77dp</dimen>
+    <dimen name="weight">88dp</dimen>
+    <dimen name="weight47">47dp</dimen>
+    <dimen name="height47">47dp</dimen>
+    <dimen name="margin20">20dp</dimen>
+    <dimen name="margin25">25dp</dimen>
+
+    <dimen name="startMargingSpinner">10dp</dimen>
+    <dimen name="startMarging">6dp</dimen>
+    <dimen name="frameMarging">6dp</dimen>
+    <dimen name="topMargin30">30dp</dimen>
+    <dimen name="topMargin13">13dp</dimen>
+    <dimen name="paddingStart">20dp</dimen>
+    <dimen name="layoutPadding">19dp</dimen>
+    <dimen name="etxMargin">3dp</dimen>
+    <dimen name="margin50">50dp</dimen>
+
+    <dimen name="weight160">160dp</dimen>
+    <dimen name="weight123">123dp</dimen>
+    <dimen name="height192">192dp</dimen>
+    <dimen name="height109">109dp</dimen>
+    <dimen name="weight202">202dp</dimen>
+    <dimen name="weight240">240dp</dimen>
+    <dimen name="weight315">315dp</dimen>
+</resources>

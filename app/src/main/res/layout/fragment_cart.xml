@@ -1,14 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragments.CartFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Cart Fragment" />
+        android:background="@color/white">
 
-</FrameLayout>
+        <ProgressBar
+            android:id="@+id/progressCircle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="?actionBarSize"
+            android:layout_centerInParent="true"></ProgressBar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/lnrView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/lnrView"
+                android:orientation="vertical">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <LinearLayout
+                    android:id="@+id/lnrSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:padding="19dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/summary"
+                        android:textColor="@color/textColor2"
+                        android:textSize="@dimen/textSizeMedium"
+                        app:fontFamily="@font/product_sans_regular" />
+
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/subTotal"
+                            android:textColor="@color/textColor2"
+                            android:textSize="@dimen/textSizeVerySmall"
+                            app:fontFamily="@font/product_sans_regular" />
+
+                        <TextView
+                            android:id="@+id/txtSubTotal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text=""
+                            android:textColor="@color/textColor2"
+                            android:textSize="@dimen/textSizeVerySmall"
+                            app:fontFamily="@font/product_sans_regular" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/shippingCharges"
+                            android:textColor="@color/textColor2"
+                            android:textSize="@dimen/textSizeVerySmall"
+                            app:fontFamily="@font/product_sans_regular" />
+
+                        <TextView
+                            android:id="@+id/txtShippingCharges"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text=""
+                            android:textColor="@color/textColor2"
+                            android:textSize="@dimen/textSizeVerySmall"
+                            app:fontFamily="@font/product_sans_regular" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/discount"
+                            android:textColor="@color/textColor2"
+                            android:textSize="@dimen/textSizeVerySmall"
+                            app:fontFamily="@font/product_sans_regular" />
+
+                        <TextView
+                            android:id="@+id/txtDiscount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text=""
+                            android:textColor="@color/textColor2"
+                            android:textSize="@dimen/textSizeVerySmall"
+                            app:fontFamily="@font/product_sans_regular" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/shippingInsurance"
+                            android:textColor="@color/textColor2"
+                            android:textSize="@dimen/textSizeVerySmall"
+                            app:fontFamily="@font/product_sans_regular" />
+
+                        <TextView
+                            android:id="@+id/txtInsurance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text=""
+                            android:textColor="@color/textColor2"
+                            android:textSize="@dimen/textSizeVerySmall"
+                            app:fontFamily="@font/product_sans_regular" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/grandTotal"
+                            android:textColor="@color/textColor2"
+                            android:textSize="@dimen/textSizeSmall"
+                            app:fontFamily="@font/product_sans_regular" />
+
+                        <TextView
+                            android:id="@+id/txtGrandTotal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text=""
+                            android:textColor="@color/textColor2"
+                            android:textSize="@dimen/textSizeSmall"
+                            app:fontFamily="@font/product_sans_regular" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+        <LinearLayout
+            android:id="@+id/lnrView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnContinueShopping"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_alignParentBottom="true"
+                android:layout_weight="1"
+                android:background="@color/textColor3"
+                android:text="@string/continueShopping"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize"
+                android:textStyle="bold"
+                app:fontFamily="@font/product_sans_regular" />
+
+            <Button
+                android:id="@+id/btnProcessToPay"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_alignParentBottom="true"
+                android:layout_weight="1"
+                android:background="@color/green"
+                android:text="@string/processToPay"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize"
+                android:textStyle="bold"
+                app:fontFamily="@font/product_sans_regular" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

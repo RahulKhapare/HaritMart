@@ -16,4 +16,15 @@ public class P {
     public static String msg="msg";
     public static String data="data";
     public static String category_name="category_name";
+
+
+    public static String item_id="item_id";
+    public static String item_qty="item_qty";
+    public static String cart_token="cart_token";
+    public static String user_id="user_id";
+    public static String item_list="item_list";
+    public static String cart_count="cart_count";
+
+
+
 }//class
