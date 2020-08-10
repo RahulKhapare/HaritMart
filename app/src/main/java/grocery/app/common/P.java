@@ -25,6 +25,14 @@ public class P {
     public static String item_list="item_list";
     public static String cart_count="cart_count";
 
+    public static String category_list = "category_list";
+    public static String category_image_path = "category_image_path";
+    public static String children = "children";
+    public static String category = "category";
+    public static String name = "name";
+    public static String image = "image";
+
+
 
 
 }//class

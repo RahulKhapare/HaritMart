@@ -3,6 +3,9 @@ package grocery.app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,11 +17,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.adoisstudio.helper.Api;
 import com.adoisstudio.helper.H;
+import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.Session;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -29,99 +36,149 @@ import grocery.app.Fragments.CartFragment;
 import grocery.app.Fragments.FavouriteFragment;
 import grocery.app.Fragments.HomeFragment;
 import grocery.app.Fragments.MoreFragment;
+import grocery.app.Fragments.ProductListFragment;
 import grocery.app.Fragments.SearchFragment;
+import grocery.app.common.App;
 import grocery.app.common.P;
+import grocery.app.databinding.ActivityBaseBinding;
 
 public class BaseActivity extends AppCompatActivity {
+
     private HomeFragment homeFragment;
     private FavouriteFragment favouriteFragment;
     private SearchFragment searchFragment;
     private MoreFragment moreFragment;
     private CartFragment cartFragment;
     private FragmentManager fragmentManager;
-    private long l;
-    TextView textView;
-
+    private ActivityBaseBinding binding;
+    public ProductListFragment productListFragment;
+    private BaseActivity activity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
-        ViewPager2 viewPager2 = findViewById(R.id.onBoardViewPager);
-
-        //  RecyclerView recyclerView = findViewById(R.id.recyclerView1);
-        //viewPager2.setAdapter(onBoardingAdapter);
-        /*TabLayout tabLayout = findViewById(R.id.tabLayout);
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
-
-        });
-        tabLayoutMediator.attach();*/
-
-        homeFragment = HomeFragment.newInstance();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         fragmentManager = getSupportFragmentManager();
-        setUpRecyclerView();
-        fragmentLoader(homeFragment);
+
+        hitCategoryApi();
+        handleDrawerAnimation();
+
     }
 
-    private void setUpRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
-    }
-
-
-
-   /* public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-
-        public RecyclerViewAdapter(ArrayList<CardView> cardViewArrayList, ArrayList<ImageView> imageViews, ArrayList<TextView> textViews, Context mContext) {
-            this.cardViewArrayList = cardViewArrayList;
-            this.imageViews = imageViews;
-            this.textViews = textViews;
-            this.mContext = mContext;
-        }
-
-        private ArrayList<CardView> cardViewArrayList = new ArrayList<>();
-        private ArrayList<ImageView> imageViews = new ArrayList<>();
-        private ArrayList<TextView> textViews = new ArrayList<>();
-        Context mContext;
-
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.new_arrived_layout,parent,false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return textViews.size();
-        }
-
-        public  class ViewHolder extends RecyclerView.ViewHolder{
-            CardView cardView;
-            ImageView imageView;
-
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                cardView=itemView.findViewById(R.id.cardView);
-                imageView=itemView.findViewById(R.id.veg);
-
-
+    private void handleDrawerAnimation() {
+        final DrawerLayout.LayoutParams layoutParams = (DrawerLayout.LayoutParams) binding.frameLayout.getLayoutParams();
+        binding.drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                binding.frameLayout.setTranslationX((((float) drawerView.getWidth() * slideOffset)));
+                binding.frameLayout.setLayoutParams(layoutParams);
             }
-        }
-    }*/
 
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+            }
+        });
+    }
+
+
+    private void hitCategoryApi() {
+        Api.newApi(this, P.baseUrl + "categories").addJson(new Json())
+                .setMethod(Api.GET)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    H.showMessage(this, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        json = json.getJson(P.data);
+                        App.categoryImageUrl = json.getString(P.category_image_path);
+                        App.categoryJsonList = json.getJsonList(P.category_list);
+
+                        setUpDrawerLayout();
+                        homeFragment = HomeFragment.newInstance();
+                        fragmentLoader(homeFragment);
+                    } else
+                        H.showMessage(this, json.getString(P.msg));
+                })
+                .run("hitCategoryApi");
+    }
+
+    private void setUpDrawerLayout() {
+        H.log("drawerDataIs", App.categoryJsonList + "");
+        TextView textView;
+        for (int i = 0; i < App.categoryJsonList.size(); i++) {
+            Json jsonDrawerItem = App.categoryJsonList.get(i);
+            View viewItem = getLayoutInflater().inflate(R.layout.drawer_item_layout, null, false);
+            viewItem.setTag(i);
+
+            textView = viewItem.findViewById(R.id.txtCategory);
+            textView.setText(jsonDrawerItem.getJson(P.category).getString(P.name));
+            textView.setOnClickListener(v -> handleVisibilityOfContainer(v));
+
+            for (int j = 0; j < jsonDrawerItem.getJsonList(P.children).size(); j++) {
+                Json jsonDrawerSub = jsonDrawerItem.getJsonList(P.children).get(j);
+                View viewCategory = getLayoutInflater().inflate(R.layout.drawer_item_category, null, false);
+                viewCategory.setTag(j);
+
+                textView = viewCategory.findViewById(R.id.txtSubCategory);
+                textView.setText(jsonDrawerSub.getJson(P.category).getString(P.name));
+                textView.setOnClickListener(v -> handleVisibilityOfContainer(v));
+
+                for (int k = 0; k < jsonDrawerSub.getJsonList(P.children).size(); k++) {
+                    Json jsonDrawerChild = jsonDrawerSub.getJsonList(P.children).get(k);
+                    View viewChild = getLayoutInflater().inflate(R.layout.drawer_item_child, null, false);
+
+                    viewChild.setTag(k);
+                    textView = viewChild.findViewById(R.id.txtChild);
+                    textView.setText(jsonDrawerChild.getJson(P.category).getString(P.name));
+                    textView.setOnClickListener(v -> startProductListingFragment(v));
+
+                    ((LinearLayout) viewCategory.findViewById(R.id.thirdContainer)).addView(viewChild);
+                }
+
+                ((LinearLayout) viewItem.findViewById(R.id.subCategoryContainer)).addView(viewCategory);
+            }
+
+            binding.categoryContainer.addView(viewItem);
+        }
+    }
+
+    private void handleVisibilityOfContainer(View v) {
+        LinearLayout linearLayout = (LinearLayout) v.getParent();
+        linearLayout = (LinearLayout) linearLayout.getChildAt(1);
+
+        if (linearLayout.getVisibility() == View.VISIBLE)
+            linearLayout.setVisibility(View.GONE);
+        else
+            linearLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void startProductListingFragment(View v) {
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        productListFragment = ProductListFragment.newInstance();
+        fragmentLoader(productListFragment);
+    }
 
     private void fragmentLoader(Fragment fragment) {
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_enter, R.anim.anim_exit)
-                .replace(R.id.frameLayout, fragment)
+                .replace(R.id.frameLayoutChild, fragment)
                 .commit();
+    }
 
-
+    public void onDrawerMenuClick(View view){
+        if (homeFragment.isVisible()){
+            binding.drawerLayout.openDrawer(GravityCompat.START);
+        }
     }
 
     public void onBottomBarClick(View view) {
@@ -189,9 +246,5 @@ public class BaseActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
 
 }

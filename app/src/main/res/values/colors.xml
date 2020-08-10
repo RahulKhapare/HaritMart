@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#52AC03</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <color name="textColor">#393939</color>
+    <color name="semiTrans">#30000000</color>
+    <color name="lightGray">#30B6B3B3</color>
+    <color name="trans">#00000000</color>
     <color name="white">#FFFFFF</color>
     <color name="saffron">#FC8F00</color>
     <color name="green">#52AC03</color>

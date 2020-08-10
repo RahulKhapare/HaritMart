@@ -14,6 +14,8 @@
     <dimen name="margin5">5dp</dimen>
     <dimen name="margin15">15dp</dimen>
     <dimen name="padding10">10dp</dimen>
+    <dimen name="padding20">20dp</dimen>
+    <dimen name="padding30">30dp</dimen>
     <dimen name="height">77dp</dimen>
     <dimen name="weight">88dp</dimen>
     <dimen name="weight47">47dp</dimen>
@@ -31,6 +33,9 @@
     <dimen name="etxMargin">3dp</dimen>
     <dimen name="margin50">50dp</dimen>
 
+    <dimen name="size20">20dp</dimen>
+    <dimen name="size50">50dp</dimen>
+    <dimen name="weight60">60dp</dimen>
     <dimen name="weight160">160dp</dimen>
     <dimen name="weight123">123dp</dimen>
     <dimen name="height192">192dp</dimen>
@@ -38,4 +43,5 @@
     <dimen name="weight202">202dp</dimen>
     <dimen name="weight240">240dp</dimen>
     <dimen name="weight315">315dp</dimen>
+    <dimen name="weight100">100dp</dimen>
 </resources>
