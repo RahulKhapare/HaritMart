@@ -13,6 +13,7 @@ public class App extends Application {
     public static String categoryImageUrl = "";
     public static JsonList categoryJsonList = new JsonList();
     public static Json selectedCategoryJson = new Json();
+    public static Json selectedSubCategoryJson = new Json();
 
     public static String device_id = "";
     public static String session_id = "";

@@ -41,6 +41,7 @@ import grocery.app.Fragments.SearchFragment;
 import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityBaseBinding;
+import grocery.app.util.Config;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -113,7 +114,6 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void setUpDrawerLayout() {
-        H.log("drawerDataIs", App.categoryJsonList + "");
         TextView textView;
         for (int i = 0; i < App.categoryJsonList.size(); i++) {
             Json jsonDrawerItem = App.categoryJsonList.get(i);
@@ -162,13 +162,34 @@ public class BaseActivity extends AppCompatActivity {
             linearLayout.setVisibility(View.VISIBLE);
     }
 
+
     private void startProductListingFragment(View v) {
-        binding.drawerLayout.closeDrawer(GravityCompat.START);
-        productListFragment = ProductListFragment.newInstance();
-        fragmentLoader(productListFragment);
+        try {
+
+            FrameLayout frameLayout = (FrameLayout) v.getParent();
+            int i = H.getInt(frameLayout.getTag() + "");
+            ViewParent viewParent = v.getParent().getParent().getParent();
+            LinearLayout linearLayout = (LinearLayout) viewParent;
+            int j = H.getInt(linearLayout.getTag() + "");
+            viewParent = viewParent.getParent().getParent();
+            linearLayout = (LinearLayout) viewParent;
+            int k = H.getInt(linearLayout.getTag() + "");
+
+            Config.CATEGORY_POSITION = k;
+            Config.SUB_CATEGORY_POSITION = j;
+            Config.CHILD_CATEGORY_POSITION = i;
+
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+            productListFragment = ProductListFragment.newInstance();
+            fragmentLoader(productListFragment);
+
+        }catch (Exception e){
+
+        }
+
     }
 
-    private void fragmentLoader(Fragment fragment) {
+    public void fragmentLoader(Fragment fragment) {
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_enter, R.anim.anim_exit)
                 .replace(R.id.frameLayoutChild, fragment)
@@ -176,8 +197,12 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void onDrawerMenuClick(View view){
-        if (homeFragment.isVisible()){
-            binding.drawerLayout.openDrawer(GravityCompat.START);
+        try {
+            if (homeFragment.isVisible()){
+                binding.drawerLayout.openDrawer(GravityCompat.START);
+            }
+        }catch (Exception e){
+
         }
     }
 

@@ -13,5 +13,7 @@
     <string name="grandTotal">Grand Total</string>
     <string name="continueShopping">Continue Shopping</string>
     <string name="processToPay">Process To Pay</string>
+    <string name="sort">Sort</string>
+    <string name="filter">Filter</string>
 
 </resources>

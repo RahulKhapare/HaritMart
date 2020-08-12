@@ -39,6 +39,7 @@ import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.FragmentHomeBinding;
 import grocery.app.model.ProductModel;
+import grocery.app.util.Config;
 
 
 public class HomeFragment extends Fragment implements ProductAdapter.ItemClick{
@@ -50,7 +51,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.ItemClick{
     private FragmentHomeBinding binding;
     private int spinnerPosition;
     private List<ProductModel> productModelList;
-    ProductAdapter adapter;
+    private ProductAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,8 +110,12 @@ public class HomeFragment extends Fragment implements ProductAdapter.ItemClick{
     }
 
     @Override
-    public void itemClick(String name) {
-        Toast.makeText(context, name, Toast.LENGTH_SHORT).show();
+    public void itemClick(int position) {
+        Config.CATEGORY_POSITION = spinnerPosition;
+        Config.SUB_CATEGORY_POSITION = position;
+        Config.CHILD_CATEGORY_POSITION = -1;
+        ProductListFragment productListFragment = ProductListFragment.newInstance();
+        ((BaseActivity) context).fragmentLoader((productListFragment));
     }
 
     private void hitHomeApi() {

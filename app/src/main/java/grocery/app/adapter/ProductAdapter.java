@@ -29,7 +29,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     private List<ProductModel> productModelList;
     private HomeFragment homeFragment;
     public interface ItemClick{
-        void itemClick(String name);
+        void itemClick(int position);
     }
 
     public ProductAdapter(Context context, List<ProductModel> productModelList,HomeFragment homeFragment) {
@@ -56,7 +56,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.binding.lnrItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((HomeFragment)homeFragment).itemClick(model.getName());
+                ((HomeFragment)homeFragment).itemClick(position);
             }
         });
     }

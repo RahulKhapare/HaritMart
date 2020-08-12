@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/padding20"
+    app:cardElevation="@dimen/margin5"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/trans">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding20"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sort By"
+                android:fontFamily="@font/product_sans_regular"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="@dimen/textSize"></TextView>
+
+            <RadioButton
+                android:id="@+id/radioNew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/green"
+                android:paddingLeft="@dimen/padding10"
+                android:layout_marginTop="@dimen/padding20"
+                android:text="New Production"
+                android:textColor="@color/textColor3"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/radioOld"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/green"
+                android:text="Old Production"
+                android:paddingLeft="@dimen/padding10"
+                android:layout_marginTop="@dimen/padding10"
+                android:textColor="@color/textColor3"></RadioButton>
+
+        </LinearLayout>
+</androidx.cardview.widget.CardView>

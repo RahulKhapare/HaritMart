@@ -29,8 +29,11 @@ public class P {
     public static String category_image_path = "category_image_path";
     public static String children = "children";
     public static String category = "category";
+    public static String parent_id = "parent_id";
+    public static String id = "id";
     public static String name = "name";
     public static String image = "image";
+    public static String main_parent_id = "main_parent_id";
 
 
 
