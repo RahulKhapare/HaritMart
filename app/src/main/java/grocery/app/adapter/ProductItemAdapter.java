@@ -26,18 +26,20 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     private int clickItem;
     private int lastCheckPosition = -1;
     private boolean clearFlag;
+    private boolean flag;
 
-    public ProductItemAdapter(Context context, List<ProductModel> productModelList, ProductListFragment fragment,int clickItem, boolean clearFlag) {
+    public ProductItemAdapter(Context context, List<ProductModel> productModelList, ProductListFragment fragment,int clickItem, boolean clearFlag,boolean flag) {
         this.context = context;
         this.productModelList = productModelList;
         this.fragment = fragment;
         this.clickItem = clickItem;
         this.clearFlag = clearFlag;
+        this.flag = flag;
     }
 
     public interface itemClick{
-        void clickCategory(int position);
-        void clickSubCategory(int position);
+        void clickCategory(int position,int id);
+        void clickSubCategory(int position, int id);
     }
 
     @NonNull
@@ -56,9 +58,9 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
             @Override
             public void onClick(View v) {
                 if (clickItem==1){
-                    ((ProductListFragment)fragment).clickCategory(position);
+                    ((ProductListFragment)fragment).clickCategory(position,Integer.parseInt(model.getId()));
                 }else if (clickItem==2){
-                    ((ProductListFragment)fragment).clickSubCategory(position);
+                    ((ProductListFragment)fragment).clickSubCategory(position,Integer.parseInt(model.getId()));
                 }
                 lastCheckPosition = position;
                 notifyDataSetChanged();
@@ -78,11 +80,13 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
             }
         }else {
             if (clickItem==1){
-                if (clearFlag){
+                if (clearFlag ){
                     if (position==Config.SUB_CATEGORY_POSITION){
                         clearFlag = false;
-                        holder.binding.txtCategory.setBackground(context.getResources().getDrawable(R.drawable.green_bg));
-                        holder.binding.txtCategory.setTextColor(context.getResources().getColor(R.color.white));
+                        if (flag){
+                            holder.binding.txtCategory.setBackground(context.getResources().getDrawable(R.drawable.green_bg));
+                            holder.binding.txtCategory.setTextColor(context.getResources().getColor(R.color.white));
+                        }
                     }
                 }else {
                     holder.binding.txtCategory.setBackground(null);

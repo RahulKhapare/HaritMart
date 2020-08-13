@@ -34,7 +34,7 @@ import java.util.List;
 
 import grocery.app.BaseActivity;
 import grocery.app.R;
-import grocery.app.adapter.ProductAdapter;
+import grocery.app.adapter.ProductCategoryAdapter;
 import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.FragmentHomeBinding;
@@ -42,7 +42,7 @@ import grocery.app.model.ProductModel;
 import grocery.app.util.Config;
 
 
-public class HomeFragment extends Fragment implements ProductAdapter.ItemClick{
+public class HomeFragment extends Fragment implements ProductCategoryAdapter.ItemClick{
 
     private Context context;
     private LoadingDialog loadingDialog;
@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.ItemClick{
     private FragmentHomeBinding binding;
     private int spinnerPosition;
     private List<ProductModel> productModelList;
-    private ProductAdapter adapter;
+    private ProductCategoryAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.ItemClick{
         productModelList = new ArrayList<>();
         binding.recyclerProductItem.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         binding.recyclerProductItem.setHasFixedSize(true);
-        adapter = new ProductAdapter(context,productModelList,HomeFragment.this);
+        adapter = new ProductCategoryAdapter(context,productModelList,HomeFragment.this);
         binding.recyclerProductItem.setAdapter(adapter);
     }
 
@@ -111,6 +111,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.ItemClick{
 
     @Override
     public void itemClick(int position) {
+        Config.FROM_HOME = true;
         Config.CATEGORY_POSITION = spinnerPosition;
         Config.SUB_CATEGORY_POSITION = position;
         Config.CHILD_CATEGORY_POSITION = -1;

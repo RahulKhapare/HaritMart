@@ -23,7 +23,7 @@ import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductListBinding;
 import grocery.app.model.ProductModel;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
+public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategoryAdapter.ViewHolder> {
 
     private Context context;
     private List<ProductModel> productModelList;
@@ -32,7 +32,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         void itemClick(int position);
     }
 
-    public ProductAdapter(Context context, List<ProductModel> productModelList,HomeFragment homeFragment) {
+    public ProductCategoryAdapter(Context context, List<ProductModel> productModelList, HomeFragment homeFragment) {
         this.context = context;
         this.productModelList = productModelList;
         this.homeFragment = homeFragment;

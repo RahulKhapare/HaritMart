@@ -175,6 +175,7 @@ public class BaseActivity extends AppCompatActivity {
             linearLayout = (LinearLayout) viewParent;
             int k = H.getInt(linearLayout.getTag() + "");
 
+            Config.FROM_HOME = false;
             Config.CATEGORY_POSITION = k;
             Config.SUB_CATEGORY_POSITION = j;
             Config.CHILD_CATEGORY_POSITION = i;
