@@ -28,6 +28,7 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
     private Context context;
     private List<ProductModel> productModelList;
     private HomeFragment homeFragment;
+    private int maxItem = 4;
     public interface ItemClick{
         void itemClick(int position);
     }
@@ -63,7 +64,11 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
 
     @Override
     public int getItemCount() {
-        return productModelList.size();
+        if (productModelList.size()>maxItem){
+            return maxItem;
+        }else {
+            return productModelList.size();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

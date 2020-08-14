@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Fragments.HomeFragment">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,78 +13,73 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/padding10">
 
-            <!-- <FrameLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="150dp">
-
-                 <androidx.viewpager2.widget.ViewPager2
-                     android:id="@+id/viewPager2"
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:background="@color/grey1"/>
-
-                 <com.google.android.material.tabs.TabLayout
-                     android:id="@+id/tabLayout"
-                     android:layout_width="match_parent"
-                     android:layout_height="50dp"
-                     android:layout_gravity="bottom"
-                     android:layout_marginBottom="-10dp"
-                     android:clipToPadding="true"
-                     app:tabBackground="@drawable/tab_selector"
-                     app:tabGravity="center"
-                     app:tabIndicatorColor="@color/transparent"/>
-
-             </FrameLayout>-->
 
             <FrameLayout
                 android:id="@+id/ViewPagerLayout"
                 android:layout_width="match_parent"
-                android:layout_height="259dp">
+                android:layout_height="200dp">
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPager2"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:background="@color/white" />
+                    >
 
-                <!-- <com.google.android.material.tabs.TabLayout
-                     android:id="@+id/tabLayout"
-                     android:layout_width="match_parent"
-                     android:layout_below="@id/viewPager2"
-                     android:layout_height="50dp"
-                     android:layout_gravity="bottom"
-                     android:clipToPadding="true"
-                     app:tabBackground="@drawable/tav_selector_green"
-                     app:tabGravity="center"
-                     app:tabIndicatorColor="@color/transparent"/>-->
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="0dp"
-                    android:clipToPadding="true"
-                    app:tabBackground="@drawable/tav_selector_green"
-                    app:tabGravity="center"
-                    app:tabIndicatorColor="@color/transparent" />
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_above="@+id/indicator" />
+
+                    <com.viewpagerindicator.CirclePageIndicator
+                        android:id="@+id/indicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dip"
+                        app:centered="true"
+                        android:layout_alignParentBottom="true"
+                        app:fillColor="@color/green"
+                        app:pageColor="@color/semiTrans"
+                        app:snap="false" />
+
+                </RelativeLayout>
 
             </FrameLayout>
 
-            <TextView
-                android:id="@+id/txtExplore"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ViewPagerLayout"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="@dimen/padding10"
-                android:fontFamily="@font/product_sans_regular"
-                android:text="Explore Category"
-                android:textColor="@color/black"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text="Explore Category"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/viewMoreExplorer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:gravity="end|center_vertical"
+                    android:text="View More"
+                    android:textColor="#FC8F00"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/exploreLayout"
@@ -98,16 +92,17 @@
                     android:id="@+id/spinnerCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSizeVerySmall"
-                    android:gravity="right"
                     android:layout_gravity="right"
+                    android:gravity="right"
+                    android:textSize="@dimen/textSizeVerySmall"
+                    android:visibility="gone"
                     app:fontFamily="@font/product_sans_regular" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerProductItem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin15">
+                    android:layout_marginTop="10dp">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -123,17 +118,17 @@
                     android:id="@+id/newArrived"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/exploreLayout"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/product_sans_regular"
                     android:text="New Arrived"
+                    android:gravity="center_vertical"
                     android:textColor="@color/black"
-                    android:textSize="22sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
 
                 <TextView
-                    android:id="@+id/viewMore"
+                    android:id="@+id/viewMoreArrival"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -142,19 +137,18 @@
                     android:gravity="end|center_vertical"
                     android:text="View More"
                     android:textColor="#FC8F00"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView1"
-                android:layout_marginTop="@dimen/padding10"
+                android:id="@+id/recyclerNewArrival"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/newArrived"
-                android:layout_marginStart="@dimen/padding10" />
+                android:layout_marginTop="@dimen/padding10" />
 
         </LinearLayout>
     </ScrollView>

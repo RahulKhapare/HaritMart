@@ -197,15 +197,15 @@ public class BaseActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void onDrawerMenuClick(View view){
-        try {
-            if (homeFragment.isVisible()){
-                binding.drawerLayout.openDrawer(GravityCompat.START);
-            }
-        }catch (Exception e){
-
-        }
-    }
+//    public void onDrawerMenuClick(View view){
+//        try {
+//            if (homeFragment.isVisible()){
+//                binding.drawerLayout.openDrawer(GravityCompat.START);
+//            }
+//        }catch (Exception e){
+//
+//        }
+//    }
 
     public void onBottomBarClick(View view) {
         int i = view.getId();

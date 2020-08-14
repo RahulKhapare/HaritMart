@@ -36,67 +36,96 @@
                         android:elevation="3dp">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:padding="@dimen/padding10">
 
+<!--                            <ImageView-->
+<!--                                android:id="@+id/drawerIconImageView"-->
+<!--                                android:layout_width="@dimen/size50"-->
+<!--                                android:layout_height="@dimen/size50"-->
+<!--                                android:layout_marginStart="@dimen/margin5"-->
+<!--                                android:layout_gravity="center_vertical"-->
+<!--                                android:padding="@dimen/padding10"-->
+<!--                                android:background="@drawable/clickable_transparent_bg"-->
+<!--                                android:clickable="true"-->
+<!--                                android:onClick="onDrawerMenuClick"-->
+<!--                                android:src="@drawable/ic_baseline_dehaze_24" />-->
+
                             <ImageView
-                                android:id="@+id/drawerIconImageView"
-                                android:layout_width="@dimen/size50"
-                                android:layout_height="@dimen/size50"
+                                android:layout_width="?actionBarSize"
+                                android:layout_height="?actionBarSize"
                                 android:layout_marginStart="@dimen/margin5"
                                 android:layout_gravity="center_vertical"
-                                android:padding="@dimen/padding10"
-                                android:background="@drawable/clickable_transparent_bg"
-                                android:clickable="true"
-                                android:onClick="onDrawerMenuClick"
-                                android:src="@drawable/ic_baseline_dehaze_24" />
+                                android:src="@drawable/group2663" />
 
-                            <TextView
-                                android:id="@+id/titleNameTextView"
+                            <LinearLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="10dp"
+                                    android:gravity="center"
+                                    android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                                    android:textColor="#9F9F9F"
+                                    android:text="LOCATION">
+
+                                </TextView>
+
+                                <TextView
+                                    android:id="@+id/txtAddress"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:singleLine="true"
+                                    android:textColor="#515151"
+                                    android:text="Apt. 445, Motilal Nagar"
+                                    android:textAllCaps="true"
+                                    android:textSize="12dp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center_vertical"
-                                android:layout_marginLeft="@dimen/padding10"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:singleLine="true"
-                                android:text="Apt. 445, Motilal Nagar"
-                                android:textAllCaps="true"
-                                android:textSize="@dimen/textSizeVerySmall"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="end"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/imageView"
-                                android:layout_width="?actionBarSize"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/clickable_transparent_bg"
-                                android:clickable="true"
-                                android:padding="10dp"
-                                android:src="@drawable/ic_notification"
-                                android:tint="@color/black" />
-
-                            <ImageView
-                                android:id="@+id/imageView1"
-                                android:layout_width="?actionBarSize"
-                                android:layout_height="match_parent"
                                 android:layout_gravity="end"
-                                android:background="@drawable/clickable_transparent_bg"
-                                android:clickable="true"
-                                android:padding="10dp"
-                                android:src="@drawable/ic_notificationa"
-                                android:tint="@color/black" />
+                                android:padding="3dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/imageView"
+                                    android:layout_width="?actionBarSize"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/clickable_transparent_bg"
+                                    android:clickable="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:src="@drawable/ic_notification"
+                                    android:tint="@color/black" />
+
+                                <ImageView
+                                    android:id="@+id/imageView1"
+                                    android:layout_width="?actionBarSize"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@drawable/clickable_transparent_bg"
+                                    android:clickable="true"
+                                    android:src="@drawable/ic_notificationa"
+                                    android:tint="@color/black" />
+                            </LinearLayout>
+
                         </LinearLayout>
+
+
+
 
                     </FrameLayout>
 
@@ -110,7 +139,7 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         app:cardElevation="4dp">
 
@@ -119,6 +148,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:animateLayoutChanges="true"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:orientation="horizontal"
                             android:weightSum="5">
 

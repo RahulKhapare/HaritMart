@@ -9,8 +9,10 @@ public class P {
 
     public static String status = "status";
     public static String product_image_path="product_image_path";
+    public static String slider_list="slider_list";
 
     public static String latest_product_list="latest_product_list";
+    public static String slider_image_path="slider_image_path";
     public static String product_image="product_image";
 
     public static String msg="msg";
@@ -47,6 +49,9 @@ public class P {
     public static String lable_values = "lable_values";
     public static String value = "value";
 
+    public static String new_window = "new_window";
+    public static String url = "url";
+    public static String image_alt_text = "image_alt_text";
 
 
 }//class
