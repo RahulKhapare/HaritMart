@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardElevation="5dp"
+        android:layout_margin="2dp"
+        app:cardCornerRadius="29dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/veg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/tomato" />
+
+
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="25sp"
+                android:layout_toRightOf="@+id/veg"
+                android:textColor="@color/black"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:text="₹ 35"
+                />
+            <TextView
+                android:id="@+id/discountstrike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="15dp"
+                android:layout_toRightOf="@+id/price"
+                android:layout_marginTop="21dp"
+                android:layout_marginLeft="10dp"
+                android:text="₹ 35"
+                />
+
+            <TextView
+                android:id="@+id/off"
+                android:layout_width="45dp"
+                android:layout_height="25dp"
+                android:background="@drawable/custom_orange_btn"
+                android:text="20% off"
+                android:textSize="10sp"
+                android:layout_toRightOf="@id/discountstrike"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:layout_margin="15dp"
+                android:textStyle="normal"/>
+
+            
+            <TextView
+                android:id="@+id/size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:textColor="#373737"
+                android:text="Onion -Medium"
+                android:layout_toRightOf="@+id/veg"
+               android:layout_below="@+id/off"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="21sp"
+                android:textColor="#373737"
+                android:text="1 KG"
+                android:layout_toRightOf="@+id/veg"
+                android:layout_below="@+id/size"
+                android:layout_marginLeft="10dp"/>
+
+
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+        <View
+            android:layout_width="55dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|bottom"
+            android:background="@drawable/curve_addition1" />
+
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="15dp"
+            android:padding="4dp"
+            android:layout_marginBottom="9dp"
+            android:src="@drawable/ic_plus" />
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
