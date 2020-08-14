@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding10"
+        android:layout_marginBottom="@dimen/padding10"
+        android:layout_marginLeft="@dimen/padding10"
+        android:layout_marginRight="@dimen/padding10"
+        app:cardCornerRadius="@dimen/etxMargin"
+        app:cardElevation="@dimen/margin5">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding10">
+
+            <ImageView
+                android:id="@+id/imgJwellery"
+                android:layout_width="@dimen/weight123"
+                android:layout_height="@dimen/height109"
+                android:layout_centerInParent="true">
+
+            </ImageView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_baseline_favorite_border_24">
+
+            </ImageView>
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

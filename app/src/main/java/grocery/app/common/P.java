@@ -34,7 +34,18 @@ public class P {
     public static String name = "name";
     public static String image = "image";
     public static String main_parent_id = "main_parent_id";
-
+    public static String category_id = "category_id";
+    public static String search_tag = "search_tag";
+    public static String limit = "limit";
+    public static String page = "page";
+    public static String filters = "filters";
+    public static String product_list = "product_list";
+    public static String filter_id = "filter_id";
+    public static String category_filter_data = "category_filter_data";
+    public static String short_by_data = "short_by_data";
+    public static String title = "title";
+    public static String lable_values = "lable_values";
+    public static String value = "value";
 
 
 

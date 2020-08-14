@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtFilterTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:clickable="true"
+        android:background="@drawable/clickable_bg"
+        android:fontFamily="@font/product_sans_regular"
+        android:textColor="@color/white"
+        android:paddingVertical="3dp"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/textSize"
+        android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_circle_24"/>
+
+    <LinearLayout
+        android:id="@+id/filterContainerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:visibility="gone"
+        android:orientation="vertical"/>
+
+</LinearLayout>
