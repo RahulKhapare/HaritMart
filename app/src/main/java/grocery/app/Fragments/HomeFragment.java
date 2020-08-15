@@ -1,6 +1,7 @@
 package grocery.app.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import grocery.app.BaseActivity;
+import grocery.app.ProductCategoryActivity;
 import grocery.app.R;
 import grocery.app.adapter.NewArrivalAdapter;
 import grocery.app.adapter.ProductCategoryAdapter;
@@ -38,7 +40,7 @@ import grocery.app.databinding.FragmentHomeBinding;
 import grocery.app.model.ArrivalModel;
 import grocery.app.model.ProductModel;
 import grocery.app.model.SliderModel;
-
+import grocery.app.util.Config;
 
 public class HomeFragment extends Fragment implements ProductCategoryAdapter.ItemClick{
 
@@ -70,7 +72,6 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
 //            setCategoryData();
             loadCategoryProductItem();
             onClickItemView();
-
         }
 
         return binding.getRoot();
@@ -78,14 +79,16 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
 
     private void onClickItemView(){
 
-        binding.viewMoreArrival.setOnClickListener(new View.OnClickListener() {
+        binding.viewMoreExplorer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent categoryIntent = new Intent(context, ProductCategoryActivity.class);
+                categoryIntent.putExtra(Config.FROM_POSITION,false);
+                startActivity(categoryIntent);
             }
         });
 
-        binding.viewMoreExplorer.setOnClickListener(new View.OnClickListener() {
+        binding.viewMoreArrival.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -160,6 +163,10 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
 
     @Override
     public void itemClick(int position) {
+        Intent categoryIntent = new Intent(context,ProductCategoryActivity.class);
+        categoryIntent.putExtra(Config.PARENT_POSITION,position);
+        categoryIntent.putExtra(Config.FROM_POSITION,true);
+        startActivity(categoryIntent);
 //        Config.FROM_HOME = true;
 //        Config.CATEGORY_POSITION = spinnerPosition;
 //        Config.SUB_CATEGORY_POSITION = position;

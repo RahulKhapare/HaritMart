@@ -13,11 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".WishlistActivity"></activity>
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".BaseActivity" />
-        <activity android:name=".OnboardingActivity" />
-        <activity android:name=".SetLocationActivity" />
+        <activity android:name=".ProductCategoryActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".WishlistActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".EditProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BaseActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".OnboardingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SetLocationActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".OtpActivity"
             android:screenOrientation="portrait" />

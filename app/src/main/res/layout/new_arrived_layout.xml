@@ -57,6 +57,7 @@
             android:layout_gravity="start"
             android:layout_marginTop="5dp"
             android:maxLines="2"
+            android:fontFamily="@font/nunito_sans_regular"
             android:paddingLeft="5dp"
             android:text="Tomato"
             android:textColor="#373737"

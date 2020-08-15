@@ -34,13 +34,13 @@ public class OnboardingActivity extends AppCompatActivity {
         });
         tabLayoutMediator.attach();
         Button button = findViewById(R.id.loginBtn);
-        Button button1 = findViewById(R.id.createAccount);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        Button button1 = findViewById(R.id.createAccount);
+//        button1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
         button.setOnClickListener(view -> {
             Intent intent = new Intent(OnboardingActivity.this, LoginScreen.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -41,9 +41,9 @@
             android:maxLines="2"
             android:gravity="center"
             android:text=""
+            android:fontFamily="@font/nunito_sans_regular"
             android:textColor="#373737"
-            android:textSize="10dp"
-            app:fontFamily="@font/product_sans_regular"></TextView>
+            android:textSize="10dp"></TextView>
 
     </LinearLayout>
 

@@ -37,9 +37,12 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:padding="@dimen/padding10">
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
 
 <!--                            <ImageView-->
 <!--                                android:id="@+id/drawerIconImageView"-->
@@ -63,7 +66,8 @@
                             <LinearLayout
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
                                 android:orientation="vertical">
 
                                 <TextView
@@ -72,6 +76,7 @@
                                     android:layout_gravity="center_horizontal"
                                     android:textSize="10dp"
                                     android:gravity="center"
+                                    android:fontFamily="@font/nunit_sans_bold"
                                     android:drawableLeft="@drawable/ic_baseline_location_on_24"
                                     android:textColor="#9F9F9F"
                                     android:text="LOCATION">
@@ -84,7 +89,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center_vertical"
-                                    android:fontFamily="@font/product_sans_regular"
+                                    android:fontFamily="@font/nunit_sans_bold"
                                     android:singleLine="true"
                                     android:textColor="#515151"
                                     android:text="Apt. 445, Motilal Nagar"
@@ -174,7 +179,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="25dp"
-                                    android:fontFamily="@font/product_sans_regular"
+                                    android:fontFamily="@font/nunit_sans_bold"
                                     android:gravity="center"
                                     android:tag="textView"
                                     android:text="Home"
@@ -203,7 +208,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="25dp"
-                                    android:fontFamily="@font/product_sans_regular"
+                                    android:fontFamily="@font/nunit_sans_bold"
                                     android:gravity="center"
                                     android:tag="textView"
                                     android:text="Search"
@@ -232,7 +237,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="25dp"
-                                    android:fontFamily="@font/product_sans_regular"
+                                    android:fontFamily="@font/nunit_sans_bold"
                                     android:gravity="center"
                                     android:tag="textView"
                                     android:text="Cart"
@@ -260,8 +265,8 @@
 
                                 <TextView
                                     android:layout_width="match_parent"
-                                    android:layout_height="25dp"
-                                    android:fontFamily="@font/product_sans_regular"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/nunit_sans_bold"
                                     android:gravity="center"
                                     android:tag="textView"
                                     android:text="Favourite"
@@ -290,7 +295,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="25dp"
-                                    android:fontFamily="@font/product_sans_regular"
+                                    android:fontFamily="@font/nunit_sans_bold"
                                     android:gravity="center"
                                     android:tag="textView"
                                     android:text="More"

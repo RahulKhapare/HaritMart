@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="69dp"
+            android:layout_height="63dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="#CAE6B2"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="47dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:src="@mipmap/ic_launcher"></ImageView>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:paddingLeft="10dp"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="@string/app_name"
+                android:textColor="#373737">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:id="@+id/txtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="8sp"
+                    android:maxLines="3"
+                    android:fontFamily="@font/nunito_sans_regular"
+                    android:text="@string/app_name"
+                    android:ellipsize="end"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#949494"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_down_24"></ImageView>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
