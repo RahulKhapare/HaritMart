@@ -41,6 +41,7 @@ import grocery.app.Fragments.SearchFragment;
 import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityBaseBinding;
+import grocery.app.util.Click;
 import grocery.app.util.Config;
 
 public class BaseActivity extends AppCompatActivity {
@@ -210,6 +211,7 @@ public class BaseActivity extends AppCompatActivity {
     public void onBottomBarClick(View view) {
         int i = view.getId();
         selectBottomNavigation(view);
+        Click.preventTwoClick(view);
         switch (i) {
             case R.id.homeLayout: {
                 homeFragment = HomeFragment.newInstance();

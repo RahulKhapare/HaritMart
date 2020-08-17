@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp">
+
+        <TextView
+            android:id="@+id/txtCategoryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:text="@string/app_name"
+            android:padding="10dp"
+            android:fontFamily="@font/nunito_sans_semibold">
+
+        </TextView>
+
+    </RelativeLayout>
+</layout>

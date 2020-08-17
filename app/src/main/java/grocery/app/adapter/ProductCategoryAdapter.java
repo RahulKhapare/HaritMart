@@ -22,6 +22,7 @@ import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductListBinding;
 import grocery.app.model.ProductModel;
+import grocery.app.util.Click;
 
 public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategoryAdapter.ViewHolder> {
 
@@ -57,6 +58,7 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
         holder.binding.lnrItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Click.preventTwoClick(v);
                 ((HomeFragment)homeFragment).itemClick(position);
             }
         });

@@ -12,5 +12,7 @@ public class Config {
     public static String SUB_POSITION = "SUB_POSITION";
     public static String CHILD_POSITION = "CHILD_POSITION";
     public static String FROM_POSITION = "FROM_POSITION";
+    public static String TITLE = "TITLE";
+    public static String CHILD_JSON = "CHILD_JSON";
 
 }

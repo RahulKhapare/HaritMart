@@ -1,6 +1,7 @@
 package grocery.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,21 +15,25 @@ import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
+import grocery.app.ProductChildListActivity;
 import grocery.app.R;
 import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.model.ProductModel;
+import grocery.app.util.Click;
+import grocery.app.util.Config;
 
 public class ExpandableProductAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<ProductModel> expandableListTitle;
-    private HashMap<ProductModel, List<ProductModel>> expandableListDetail;
+    private LinkedHashMap<ProductModel, List<ProductModel>> expandableListDetail;
 
     public ExpandableProductAdapter(Context context, List<ProductModel> expandableListTitle,
-                                       HashMap<ProductModel, List<ProductModel>> expandableListDetail) {
+                                    LinkedHashMap<ProductModel, List<ProductModel>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
@@ -60,7 +65,13 @@ public class ExpandableProductAdapter extends BaseExpandableListAdapter {
         lnrSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Click.preventTwoClick(v);
+                App.selectedSubCategoryJson = App.selectedCategoryJson.getJsonList(P.children).get(model.getPosition());
+                Intent intent = new Intent(context, ProductChildListActivity.class);
+                intent.putExtra(Config.TITLE,model.getName());
+                intent.putExtra(Config.CHILD_POSITION,model.getPosition());
+                intent.putExtra(Config.CHILD_JSON,model.getJsonArrayData());
+                context.startActivity(intent);
             }
         });
         return convertView;

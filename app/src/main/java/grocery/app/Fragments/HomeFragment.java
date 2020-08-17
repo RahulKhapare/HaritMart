@@ -119,16 +119,21 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
 
     private void loadCategoryProductItem(){
         productModelList.clear();
-        for (Json data : App.categoryJsonList){
-            Json json = data.getJson(P.category);
-            ProductModel model = new ProductModel();
-            model.setId(json.getString(P.id));
-            model.setName(json.getString(P.name));
-            model.setParent_id(json.getString(P.parent_id));
-            model.setImage(json.getString(P.image));
-            model.setMain_parent_id(json.getString(P.main_parent_id));
-            productModelList.add(model);
+        try {
+            for (Json data : App.categoryJsonList){
+                Json json = data.getJson(P.category);
+                ProductModel model = new ProductModel();
+                model.setId(json.getString(P.id));
+                model.setName(json.getString(P.name));
+                model.setParent_id(json.getString(P.parent_id));
+                model.setImage(json.getString(P.image));
+                model.setMain_parent_id(json.getString(P.main_parent_id));
+                productModelList.add(model);
+            }
+        }catch (Exception e){
+
         }
+
     }
 
     private void setCategoryData(){
@@ -176,23 +181,28 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
     }
 
     private void hitHomeApi() {
-        Api.newApi(context, P.baseUrl + "home").addJson(new Json())
-                .setMethod(Api.GET)
-                //.onHeaderRequest(App::getHeaders)
-                .onError(() -> {
-                    H.showMessage(context, "On error is called");
-                })
-                .onSuccess(json -> {
-                    if (json.getInt(P.status) == 1) {
-                        if (((BaseActivity) context).isDestroyed())
-                            return;
-                        json = json.getJson(P.data);
-                        setUpNewArrivedList(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));
-                        setUpSliderList(json.getString(P.slider_image_path), json.getJsonList(P.slider_list));
-                    } else
-                        H.showMessage(getContext(), json.getString(P.msg));
-                })
-                .run("hitHomeApi");
+        try {
+            Api.newApi(context, P.baseUrl + "home").addJson(new Json())
+                    .setMethod(Api.GET)
+                    //.onHeaderRequest(App::getHeaders)
+                    .onError(() -> {
+                        H.showMessage(context, "On error is called");
+                    })
+                    .onSuccess(json -> {
+                        if (json.getInt(P.status) == 1) {
+                            if (((BaseActivity) context).isDestroyed())
+                                return;
+                            json = json.getJson(P.data);
+                            setUpNewArrivedList(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));
+                            setUpSliderList(json.getString(P.slider_image_path), json.getJsonList(P.slider_list));
+                        } else
+                            H.showMessage(getContext(), json.getString(P.msg));
+                    })
+                    .run("hitHomeApi");
+        }catch (Exception e){
+
+        }
+
     }
 
     private void setUpSliderList(String string,JsonList jsonList){

@@ -12,39 +12,34 @@
         <RelativeLayout
             android:layout_width="136dp"
             android:layout_height="129dp"
-            android:orientation="vertical">
+            android:background="@drawable/product_bg_two">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardBackgroundColor="#CAE6B2"
-                app:cardCornerRadius="15dp">
+            <ImageView
+                android:id="@+id/imgVeg"
+                android:layout_width="105dp"
+                android:layout_height="65dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/tomato" />
 
-                <ImageView
-                    android:id="@+id/imgVeg"
-                    android:layout_width="105dp"
-                    android:layout_height="65dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/tomato" />
+
+            <RelativeLayout
+                android:layout_width="31dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true">
 
                 <View
                     android:layout_width="31dp"
                     android:layout_height="30dp"
-                    android:layout_gravity="end|bottom"
                     android:background="@drawable/curve_addition" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="6dp"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_centerInParent="true"
                     android:src="@drawable/ic_plus" />
 
-
-            </androidx.cardview.widget.CardView>
-
+            </RelativeLayout>
 
 
         </RelativeLayout>

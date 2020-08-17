@@ -1,20 +1,17 @@
 package grocery.app;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.ExpandableListView;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
-
 import com.adoisstudio.helper.Json;
+import com.adoisstudio.helper.JsonList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import grocery.app.adapter.ExpandableProductAdapter;
@@ -44,16 +41,12 @@ public class ProductCategoryActivity extends AppCompatActivity {
         position = getIntent().getIntExtra(Config.PARENT_POSITION,0);
         fromPosition = getIntent().getBooleanExtra(Config.FROM_POSITION,false);
 
-        binding.cardView.setBackgroundResource(R.drawable.card_corner_bg);
-
-        HashMap<ProductModel, List<ProductModel>> expandableListDetail = new HashMap<ProductModel, List<ProductModel>>();
+        LinkedHashMap<ProductModel, List<ProductModel>> expandableListDetail = new LinkedHashMap<ProductModel, List<ProductModel>>();
 
         for (int i = 0; i < App.categoryJsonList.size(); i++) {
 
             Json jsonParentData = App.categoryJsonList.get(i);
             Json jsonParent = jsonParentData.getJson(P.category);
-
-            Log.e("TAG", "onCreateData1 : " + i + " -- " +jsonParent);
 
             ProductModel subModel = new ProductModel();
             subModel.setId(jsonParent.getString(P.id));
@@ -67,11 +60,9 @@ public class ProductCategoryActivity extends AppCompatActivity {
 
             for (int j = 0; j < App.selectedCategoryJson.getJsonList(P.children).size(); j++) {
 
-
                 Json jsonChildData = App.selectedCategoryJson.getJsonList(P.children).get(j);
                 Json jsonChild = jsonChildData.getJson(P.category);
-
-                Log.e("TAG", "onCreateData2 : " + j + " -- " +jsonChild);
+                JsonList subChildList = jsonChildData.getJsonList(P.children);
 
                 ProductModel childModel = new ProductModel();
                 childModel.setId(jsonChild.getString(P.id));
@@ -79,7 +70,8 @@ public class ProductCategoryActivity extends AppCompatActivity {
                 childModel.setName(jsonChild.getString(P.name));
                 childModel.setImage(jsonChild.getString(P.image));
                 childModel.setMain_parent_id(jsonChild.getString(P.main_parent_id));
-
+                childModel.setPosition(j);
+                childModel.setJsonArrayData(subChildList+"");
                 childItem.add(childModel);
 
             }

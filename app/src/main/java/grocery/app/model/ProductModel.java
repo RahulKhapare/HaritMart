@@ -1,5 +1,7 @@
 package grocery.app.model;
 
+import org.json.JSONArray;
+
 public class ProductModel {
 
     String id;
@@ -10,6 +12,16 @@ public class ProductModel {
     String filter_id;
     String category_name;
     String product_image;
+    int position;
+    String jsonArrayData;
+
+    public String getJsonArrayData() {
+        return jsonArrayData;
+    }
+
+    public void setJsonArrayData(String jsonArrayData) {
+        this.jsonArrayData = jsonArrayData;
+    }
 
     public String getProduct_image() {
         return product_image;
@@ -29,6 +41,14 @@ public class ProductModel {
 
     public String getCategory_name() {
         return category_name;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public void setCategory_name(String category_name) {
