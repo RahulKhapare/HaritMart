@@ -17,15 +17,19 @@ import java.util.List;
 import grocery.app.ProductChildListActivity;
 import grocery.app.R;
 import grocery.app.common.P;
-import grocery.app.databinding.ActivityProductChildBgBinding;
 import grocery.app.databinding.ActivityProductItemListBgBinding;
 import grocery.app.model.ProductModel;
+import grocery.app.util.Click;
 import grocery.app.util.Config;
+import grocery.app.util.ConnectionUtil;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
     private Context context;
     private List<ProductModel> productModelList;
+    public interface Click{
+        void add(int filterId);
+    }
 
     public ProductListAdapter(Context context, List<ProductModel> productModelList) {
         this.context = context;
@@ -48,11 +52,18 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.binding.txtProductOff.setText("₹.27");
         holder.binding.txtProductPrice.setText("₹.22");
         holder.binding.txtPercent.setText("20% OFF");
+
         holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         holder.binding.lnrAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                grocery.app.util.Click.preventTwoClick(v);
+                if (ConnectionUtil.isOnline(context)){
+                    ((ProductChildListActivity)context).add(Integer.parseInt(model.getFilter_id()));
+                }else {
+                    context.getResources().getString(R.string.internetMessage);
+                }
 
             }
         });

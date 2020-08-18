@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import grocery.app.util.WindowBarColor;
+
 public class WishlistActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowBarColor.setColor(this);
         setContentView(R.layout.activity_wishlist);
         ListView listView = findViewById(R.id.listView);
         ListViewAdapter listViewAdapter = new ListViewAdapter();

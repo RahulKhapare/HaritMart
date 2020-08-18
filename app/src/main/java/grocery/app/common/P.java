@@ -23,9 +23,15 @@ public class P {
     public static String item_id="item_id";
     public static String item_qty="item_qty";
     public static String cart_token="cart_token";
+    public static String option="option";
     public static String user_id="user_id";
     public static String item_list="item_list";
     public static String cart_count="cart_count";
+    public static String product_filter_id="product_filter_id";
+    public static String quantity="quantity";
+    public static String option1="option1";
+    public static String option2="option2";
+    public static String option3="option3";
 
     public static String category_list = "category_list";
     public static String category_image_path = "category_image_path";

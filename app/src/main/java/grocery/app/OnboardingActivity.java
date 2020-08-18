@@ -17,6 +17,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
 import java.util.List;
 
+import grocery.app.util.WindowBarColor;
+
 public class OnboardingActivity extends AppCompatActivity {
 
     private OnBoardingAdapter onBoardingAdapter;
@@ -24,6 +26,7 @@ public class OnboardingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowBarColor.setColor(this);
         setContentView(R.layout.activity_onboarding);
         setupOnBoardingItems();
         ViewPager2 viewPager2 = findViewById(R.id.onBoardViewPager);

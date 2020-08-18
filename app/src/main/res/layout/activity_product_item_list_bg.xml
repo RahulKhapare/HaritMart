@@ -7,7 +7,10 @@
         android:layout_height="97dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
-        android:layout_margin="10dp">
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -126,7 +129,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_baseline_adjust_24" />
+                android:src="@drawable/ic_veg" />
 
 
             <TextView
@@ -135,7 +138,10 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_semibold"
                 android:maxLines="1"
-                android:padding="2dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="2dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/product_bg_child_fill"

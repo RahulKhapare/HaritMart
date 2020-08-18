@@ -23,6 +23,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/lnrAdd"
                 android:layout_width="31dp"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import grocery.app.databinding.ActivityOtpBinding;
+import grocery.app.util.WindowBarColor;
 
 public class OtpActivity extends AppCompatActivity {
     ActivityOtpBinding activityOtpBinding;
@@ -16,6 +17,7 @@ public class OtpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowBarColor.setColor(this);
         activityOtpBinding= DataBindingUtil.setContentView(this, R.layout.activity_otp);
         Button button = findViewById(R.id.otpBtn);
         button.setOnClickListener(new View.OnClickListener() {

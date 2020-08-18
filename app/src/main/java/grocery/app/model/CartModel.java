@@ -16,16 +16,6 @@ public class CartModel {
     String cart_image;
     String name;
 
-    public CartModel(String id, String product_id, String qty,String total_price, String price, String cart_image, String name) {
-        this.id = id;
-        this.product_id = product_id;
-        this.qty = qty;
-        this.total_price = total_price;
-        this.price = price;
-        this.cart_image = cart_image;
-        this.name = name;
-    }
-
     public CartModel() {
 
     }

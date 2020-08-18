@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.adoisstudio.helper.Api;
 import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
+import com.adoisstudio.helper.LoadingDialog;
 import com.adoisstudio.helper.Session;
 
 import org.json.JSONArray;
@@ -40,7 +41,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     private List<CartModel> cartModelList;
     private CartAdapter cartAdapter;
     private String rs = "₹.";
-    private String imageUrl = "https://cropcart.biz/stores/740/images/grocery.png";
+    private LoadingDialog loadingDialog;
 
     public static CartFragment newInstance() {
         return new CartFragment();
@@ -50,6 +51,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false);
         context = inflater.getContext();
+        loadingDialog = new LoadingDialog(context);
         initView();
         binding.btnProcessToPay.setOnClickListener(this);
         return binding.getRoot();
@@ -59,8 +61,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     public void onResume() {
         super.onResume();
         if (getUserVisibleHint()) {
-//            hitCartListApi();
-            loadCartData();
+            hitCartListApi();
         }
     }
 
@@ -68,8 +69,6 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnProcessToPay:
-                break;
-            case R.id.btnContinueShopping:
                 break;
         }
     }
@@ -83,34 +82,14 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         binding.recyclerViewCard.setAdapter(cartAdapter);
     }
 
-    private void loadCartData(){
-        showProgress();
-
-        cartModelList.add(new CartModel("0","0","3","00000","000",imageUrl,"Cart Item"));
-        cartModelList.add(new CartModel("0","0","3","00000","000",imageUrl,"Cart Item"));
-        cartModelList.add(new CartModel("0","0","3","00000","000",imageUrl,"Cart Item"));
-        cartModelList.add(new CartModel("0","0","3","00000","000",imageUrl,"Cart Item"));
-
-        binding.txtSubTotal.setText(rs + "0000");
-        binding.txtShippingCharges.setText("00");
-        binding.txtDiscount.setText("000");
-        binding.txtGrandTotal.setText(rs + "0000000");
-
-        cartAdapter.notifyDataSetChanged();
-        showSummary();
-        hideProgress();
-    }
-
     @Override
     public void removeCart(int item_id, int position, CardView cardView) {
-//        hitRemoveCartApi(item_id, position, cardView);
-        cardView.startAnimation(removeItem(position));
+        hitRemoveCartApi(item_id, position, cardView);
     }
 
     @Override
     public void updateCart(int item_id, int item_qty, TextView textView) {
-//        hitUpdateCartApi(item_id, item_qty, textView);
-        textView.setText(item_qty + "");
+        hitUpdateCartApi(item_id, item_qty, textView);
     }
 
     private void hitRemoveCartApi(int item_id, int position, CardView cardView) {
@@ -187,22 +166,31 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 CartModel model = new CartModel();
                                 model.setId(jsonObject.getString("id"));
+                                model.setTemp_id(jsonObject.getString("temp_id"));
                                 model.setProduct_id(jsonObject.getString("product_id"));
+                                model.setProducts_variants_id(jsonObject.getString("products_variants_id"));
                                 model.setQty(jsonObject.getString("qty"));
+                                model.setOption1(jsonObject.getString("option1"));
+                                model.setOption2(jsonObject.getString("option2"));
+                                model.setOption3(jsonObject.getString("option3"));
                                 model.setTotal_price(jsonObject.getString("total_price"));
                                 model.setPrice(jsonObject.getString("price"));
-                                model.setCart_image(jsonObject.getString("image"));
-                                model.setName(jsonObject.getString("name"));
+                                model.setCoupon_discount_amount(jsonObject.getString("coupon_discount_amount"));
+//                                model.setCart_image(jsonObject.getString("image"));
+//                                model.setName(jsonObject.getString("name"));
                                 cartModelList.add(model);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             cartAdapter.notifyDataSetChanged();
                         }
+
                         binding.txtSubTotal.setText(rs + json.getString("item_total"));
-                        binding.txtShippingCharges.setText(json.getString("delivery_amount"));
-                        binding.txtDiscount.setText(json.getString("coupon_discount_amount"));
-                        binding.txtGrandTotal.setText(rs + json.getString("grand_total"));
+                        binding.txtTaxName.setText(json.getString("tax_name"));
+                        binding.txtTaxCharge.setText(rs + json.getString("tax_amount"));
+                        binding.txtDeliverCharge.setText(rs + json.getString("delivery_amount"));
+                        binding.txtTotalAMount.setText(rs + json.getString("grand_total"));
+
                         hideProgress();
                         showSummary();
                     } else {
@@ -230,9 +218,10 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                     if (json.getInt(P.status) == 1) {
                         json = json.getJson(P.data);
                         binding.txtSubTotal.setText(rs + json.getString("item_total"));
-                        binding.txtShippingCharges.setText(json.getString("delivery_amount"));
-                        binding.txtDiscount.setText(json.getString("coupon_discount_amount"));
-                        binding.txtGrandTotal.setText(rs + json.getString("grand_total"));
+                        binding.txtTaxName.setText(json.getString("tax_name"));
+                        binding.txtTaxCharge.setText(json.getString("tax_amount"));
+                        binding.txtDeliverCharge.setText(json.getString("delivery_amount"));
+                        binding.txtTotalAMount.setText(rs + json.getString("grand_total"));
                     } else {
                         H.showMessage(context, json.getString(P.msg));
                     }
@@ -276,11 +265,11 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     }
 
     private void showProgress() {
-        binding.progressCircle.setVisibility(View.VISIBLE);
+        loadingDialog.show("Please wait..");
     }
 
     private void hideProgress() {
-        binding.progressCircle.setVisibility(View.GONE);
+        loadingDialog.hide();
     }
 
 }

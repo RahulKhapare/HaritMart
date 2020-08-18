@@ -22,6 +22,7 @@ import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.JsonList;
 import com.adoisstudio.helper.LoadingDialog;
+import com.adoisstudio.helper.Session;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import org.json.JSONArray;
@@ -37,8 +38,9 @@ import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductChildListBinding;
 import grocery.app.model.ProductModel;
 import grocery.app.util.Config;
+import grocery.app.util.WindowBarColor;
 
-public class ProductChildListActivity extends AppCompatActivity implements ProductChildItemAdapter.ClickView {
+public class ProductChildListActivity extends AppCompatActivity implements ProductChildItemAdapter.ClickView,ProductListAdapter.Click {
 
     private ProductChildListActivity activity = this;
     private ActivityProductChildListBinding binding;
@@ -60,6 +62,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowBarColor.setColor(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_child_list);
 
         title = getIntent().getStringExtra(Config.TITLE);
@@ -74,6 +77,14 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
 
         initData();
         onActionClick();
+    }
+
+    private void showLoader(){
+        loadingDialog.show("Please wait...");
+    }
+
+    private void hideLoader(){
+        loadingDialog.hide();
     }
 
     private void showView() {
@@ -127,8 +138,35 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         binding.recyclerProductList.setAdapter(productListAdapter);
 
         initSearchView();
-        getProductCategoryData();
+        if(!Config.FROM_HOME){
+            getProductCategoryData();
+        }else {
+            getNewArrivalProduct();
+        }
 
+    }
+
+    private void getNewArrivalProduct(){
+        productModelList.clear();
+        try {
+            JSONArray jsonArray = new JSONArray(jsnData);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                ProductModel model = new ProductModel();
+                model.setCategory_name(jsonObject.getString(P.category_name));
+                model.setId(jsonObject.getString(P.id));
+                model.setFilter_id(jsonObject.getString(P.filter_id));
+                model.setName(jsonObject.getString(P.name));
+                model.setProduct_image(jsonObject.getString(P.product_image));
+                productModelList.add(model);
+            }
+            productListAdapter.notifyDataSetChanged();
+            if (productModelList.isEmpty()){
+                H.showMessage(activity,"No arrived product data found");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void getProductCategoryData() {
@@ -160,9 +198,10 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         hitProductListApi(id);
     }
 
+
     private void hitProductListApi(int categoryId) {
         previousCategoryID = categoryId;
-        loadingDialog.show("Please wait....");
+        showLoader();
         productModelList.clear();
         Json j = new Json();
         j.addInt(P.category_id, categoryId);
@@ -179,7 +218,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
                     .setMethod(Api.POST)
                     //.onHeaderRequest(App::getHeaders)
                     .onError(() -> {
-                        loadingDialog.hide();
+                        hideLoader();
                         H.showMessage(activity, "On error is called");
                     })
                     .onSuccess(json ->
@@ -212,11 +251,11 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
                             }
 
                         } else {
-                            loadingDialog.hide();
+                            hideLoader();
                             H.showMessage(activity, json.getString(P.msg));
                         }
 
-                        loadingDialog.hide();
+                        hideLoader();
                         if (productModelList.isEmpty()) {
                             H.showMessage(activity, "No product found for this category");
                         }
@@ -403,11 +442,32 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         }
     }
 
+    private void hitAddToCartApi(Json j) {
+        Api.newApi(this, P.baseUrl + "add_to_cart").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    H.showMessage(this, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        H.showMessage(this, json.getString(P.msg));
+                    } else
+                        H.showMessage(this, json.getString(P.msg));
+                })
+                .run("hitAddToCartApi");
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.product, menu);
         MenuItem item = menu.findItem(R.id.action_search);
+        MenuItem filter = menu.findItem(R.id.action_filter);
         searchView.setMenuItem(item);
+        if (Config.FROM_HOME){
+            filter.setVisible(false);
+        }
         return true;
     }
 
@@ -433,5 +493,18 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
     @Override
     public void itemClick(int position, int id) {
         updateProductList(id);
+    }
+
+    @Override
+    public void add(int filterId) {
+        Json json = new Json();
+        json.addInt(P.product_filter_id,filterId);
+        json.addString(P.cart_token, new Session(this).getString(P.cart_token));
+        json.addString(P.user_id, "");
+        json.addInt(P.quantity, 1);
+        json.addInt(P.option1, 0);
+        json.addInt(P.option2, 0);
+        json.addInt(P.option3, 0);
+        hitAddToCartApi(json);
     }
 }

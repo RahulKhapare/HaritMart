@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import grocery.app.databinding.ActivityLoginScreenBinding;
+import grocery.app.util.WindowBarColor;
 
 public class LoginScreen extends AppCompatActivity {
 
@@ -19,7 +20,7 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        WindowBarColor.setColor(this);
         activityLoginScreenBinding =  DataBindingUtil.setContentView(this, R.layout.activity_login_screen);
 
         activityLoginScreenBinding.loginBtn.setOnClickListener(view -> {

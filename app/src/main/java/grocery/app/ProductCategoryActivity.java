@@ -20,6 +20,7 @@ import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductCategoryBinding;
 import grocery.app.model.ProductModel;
 import grocery.app.util.Config;
+import grocery.app.util.WindowBarColor;
 
 public class ProductCategoryActivity extends AppCompatActivity {
 
@@ -31,6 +32,7 @@ public class ProductCategoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowBarColor.setColor(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_category);
 
         binding.toolbar.setTitle("Category");

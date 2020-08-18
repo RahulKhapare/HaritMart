@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -22,6 +21,7 @@ import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.JsonList;
 import com.adoisstudio.helper.LoadingDialog;
+import com.adoisstudio.helper.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,7 @@ import java.util.TimerTask;
 
 import grocery.app.BaseActivity;
 import grocery.app.ProductCategoryActivity;
+import grocery.app.ProductChildListActivity;
 import grocery.app.R;
 import grocery.app.adapter.NewArrivalAdapter;
 import grocery.app.adapter.ProductCategoryAdapter;
@@ -42,8 +43,9 @@ import grocery.app.model.ProductModel;
 import grocery.app.model.SliderModel;
 import grocery.app.util.Config;
 
-public class HomeFragment extends Fragment implements ProductCategoryAdapter.ItemClick{
+public class HomeFragment extends Fragment implements ProductCategoryAdapter.ItemClick,NewArrivalAdapter.ClickItem{
 
+    SliderImageAdapter sliderImageAdapter;
     private Context context;
     private LoadingDialog loadingDialog;
     private ViewPager2 viewPager2;
@@ -57,7 +59,13 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
     private int currentPage = 0;
     private int NUM_PAGES = 0;
     private List<SliderModel> sliderModelList;
-    SliderImageAdapter sliderImageAdapter;
+    private JsonList arrivalJSON;
+
+    public static HomeFragment newInstance() {
+        HomeFragment fragment = new HomeFragment();
+
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,7 +77,6 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
             loadingDialog = new LoadingDialog(context);
             initProductView();
             hitHomeApi();
-//            setCategoryData();
             loadCategoryProductItem();
             onClickItemView();
         }
@@ -91,7 +98,12 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         binding.viewMoreArrival.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, ProductChildListActivity.class);
+                intent.putExtra(Config.TITLE,"New Arrived");
+                intent.putExtra(Config.CHILD_POSITION,0);
+                intent.putExtra(Config.CHILD_JSON,arrivalJSON+"");
+                Config.FROM_HOME = true;
+                startActivity(intent);
             }
         });
 
@@ -108,7 +120,7 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         arrivalModelList = new ArrayList<>();
         binding.recyclerNewArrival.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         binding.recyclerNewArrival.setHasFixedSize(true);
-        arrivalAdapter = new NewArrivalAdapter(context,arrivalModelList);
+        arrivalAdapter = new NewArrivalAdapter(context,arrivalModelList,HomeFragment.this);
         binding.recyclerNewArrival.setAdapter(arrivalAdapter);
 
         sliderModelList = new ArrayList<>();
@@ -136,56 +148,22 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
 
     }
 
-    private void setCategoryData(){
-        ArrayList<String> arrayList = new ArrayList<>();
-        for (Json json : App.categoryJsonList){
-            arrayList.add(json.getJson(P.category).getString(P.name));
-        }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, R.layout.spinner_item_view, arrayList);
-        binding.spinnerCategory.setAdapter(arrayAdapter);
-        binding.spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                App.selectedCategoryJson = App.categoryJsonList.get(position);
-                spinnerPosition = position;
-                loadProductList();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
-    private void loadProductList(){
-        productModelList.clear();
-        for (Json data : App.selectedCategoryJson.getJsonList(P.children)) {
-            Json json = data.getJson(P.category);
-            productModelList.add(new ProductModel(json.getString(P.image), json.getString(P.name)));
-        }
-        adapter.notifyDataSetChanged();
-    }
-
     @Override
     public void itemClick(int position) {
         Intent categoryIntent = new Intent(context,ProductCategoryActivity.class);
         categoryIntent.putExtra(Config.PARENT_POSITION,position);
         categoryIntent.putExtra(Config.FROM_POSITION,true);
         startActivity(categoryIntent);
-//        Config.FROM_HOME = true;
-//        Config.CATEGORY_POSITION = spinnerPosition;
-//        Config.SUB_CATEGORY_POSITION = position;
-//        Config.CHILD_CATEGORY_POSITION = -1;
-//        ProductListFragment productListFragment = ProductListFragment.newInstance();
-//        ((BaseActivity) context).fragmentLoader((productListFragment));
     }
 
     private void hitHomeApi() {
+        showLoader();
         try {
             Api.newApi(context, P.baseUrl + "home").addJson(new Json())
                     .setMethod(Api.GET)
                     //.onHeaderRequest(App::getHeaders)
                     .onError(() -> {
+                        hideLoader();
                         H.showMessage(context, "On error is called");
                     })
                     .onSuccess(json -> {
@@ -195,12 +173,15 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
                             json = json.getJson(P.data);
                             setUpNewArrivedList(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));
                             setUpSliderList(json.getString(P.slider_image_path), json.getJsonList(P.slider_list));
-                        } else
+                        } else{
                             H.showMessage(getContext(), json.getString(P.msg));
+                        }
+                        hideLoader();
+
                     })
                     .run("hitHomeApi");
         }catch (Exception e){
-
+            hideLoader();
         }
 
     }
@@ -268,6 +249,7 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
     }
 
     private void setUpNewArrivedList(String string, JsonList jsonList) {
+        arrivalJSON = jsonList;
         arrivalModelList.clear();
         for (Json json : jsonList){
             ArrivalModel model = new ArrivalModel();
@@ -281,18 +263,41 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         arrivalAdapter.notifyDataSetChanged();
     }
 
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
-
-        return fragment;
+    private void hitAddToCartApi(Json j) {
+        Api.newApi(context, P.baseUrl + "add_to_cart").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    H.showMessage(context, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        H.showMessage(context, json.getString(P.msg));
+                    } else
+                        H.showMessage(context, json.getString(P.msg));
+                })
+                .run("hitAddToCartApi");
     }
 
     private void showLoader(){
-        loadingDialog.show("loading...");
+        loadingDialog.show("Please wait...");
     }
 
     private void hideLoader(){
         loadingDialog.hide();
     }
 
+    @Override
+    public void add(int filterId) {
+        Json json = new Json();
+        json.addInt(P.product_filter_id,filterId);
+        json.addString(P.cart_token, new Session(context).getString(P.cart_token));
+        json.addString(P.user_id, "");
+        json.addInt(P.quantity, 1);
+        json.addInt(P.option1, 0);
+        json.addInt(P.option2, 0);
+        json.addInt(P.option3, 0);
+        hitAddToCartApi(json);
+    }
 }

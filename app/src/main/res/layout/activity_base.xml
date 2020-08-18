@@ -40,60 +40,48 @@
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
                             android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
                             android:paddingTop="5dp"
+                            android:paddingRight="10dp"
                             android:paddingBottom="5dp">
-
-<!--                            <ImageView-->
-<!--                                android:id="@+id/drawerIconImageView"-->
-<!--                                android:layout_width="@dimen/size50"-->
-<!--                                android:layout_height="@dimen/size50"-->
-<!--                                android:layout_marginStart="@dimen/margin5"-->
-<!--                                android:layout_gravity="center_vertical"-->
-<!--                                android:padding="@dimen/padding10"-->
-<!--                                android:background="@drawable/clickable_transparent_bg"-->
-<!--                                android:clickable="true"-->
-<!--                                android:onClick="onDrawerMenuClick"-->
-<!--                                android:src="@drawable/ic_baseline_dehaze_24" />-->
 
                             <ImageView
                                 android:layout_width="?actionBarSize"
                                 android:layout_height="?actionBarSize"
-                                android:layout_marginStart="@dimen/margin5"
                                 android:layout_gravity="center_vertical"
+                                android:layout_marginStart="@dimen/margin5"
                                 android:src="@drawable/group2663" />
 
                             <LinearLayout
-                                android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
-                                    android:textSize="10dp"
-                                    android:gravity="center"
-                                    android:fontFamily="@font/nunit_sans_bold"
                                     android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                                    android:fontFamily="@font/nunit_sans_bold"
+                                    android:gravity="center"
+                                    android:text="LOCATION"
                                     android:textColor="#9F9F9F"
-                                    android:text="LOCATION">
+                                    android:textSize="10dp">
 
                                 </TextView>
 
                                 <TextView
                                     android:id="@+id/txtAddress"
-                                    android:layout_gravity="center_horizontal"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
+                                    android:layout_gravity="center_horizontal"
                                     android:fontFamily="@font/nunit_sans_bold"
+                                    android:gravity="center_vertical"
                                     android:singleLine="true"
-                                    android:textColor="#515151"
                                     android:text="Apt. 445, Motilal Nagar"
                                     android:textAllCaps="true"
+                                    android:textColor="#515151"
                                     android:textSize="12dp"
                                     android:textStyle="bold" />
 
@@ -103,16 +91,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="end"
-                                android:padding="3dp"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:padding="3dp">
 
                                 <ImageView
                                     android:id="@+id/imageView"
                                     android:layout_width="?actionBarSize"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="center_vertical"
                                     android:background="@drawable/clickable_transparent_bg"
                                     android:clickable="true"
-                                    android:layout_gravity="center_vertical"
                                     android:src="@drawable/ic_notification"
                                     android:tint="@color/black" />
 
@@ -128,8 +116,6 @@
                             </LinearLayout>
 
                         </LinearLayout>
-
-
 
 
                     </FrameLayout>
@@ -153,9 +139,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:animateLayoutChanges="true"
+                            android:orientation="horizontal"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:orientation="horizontal"
                             android:weightSum="5">
 
                             <LinearLayout
@@ -178,10 +164,11 @@
 
                                 <TextView
                                     android:layout_width="match_parent"
-                                    android:layout_height="25dp"
+                                    android:layout_height="wrap_content"
                                     android:fontFamily="@font/nunit_sans_bold"
                                     android:gravity="center"
                                     android:tag="textView"
+                                    android:textColor="@color/green"
                                     android:text="Home"
                                     android:textStyle="bold" />
 
@@ -312,93 +299,6 @@
             </LinearLayout>
 
         </FrameLayout>
-
-        <ScrollView
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fillViewport="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/green"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/padding20">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:layout_width="@dimen/weight60"
-                                android:layout_height="@dimen/weight60"
-                                android:src="@mipmap/ic_launcher">
-
-                            </de.hdodenhof.circleimageview.CircleImageView>
-
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="@dimen/margin20"
-                                android:gravity="center_vertical"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:maxLines="1"
-                                    android:text="Rahul"
-                                    android:textColor="@color/white"
-                                    android:textSize="@dimen/textSize"
-                                    android:textStyle="bold"
-                                    app:fontFamily="@font/product_sans_regular" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/padding10"
-                                    android:maxLines="1"
-                                    android:text="Khapare"
-                                    android:textColor="@color/white"
-                                    android:textSize="@dimen/textSizeMedium"
-                                    app:fontFamily="@font/product_sans_regular" />
-
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="@dimen/padding10"
-                            android:layout_marginBottom="@dimen/padding10"
-                            android:background="@color/white"></LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/categoryContainer"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-
-            </LinearLayout>
-
-        </ScrollView>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

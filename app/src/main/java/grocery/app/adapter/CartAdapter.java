@@ -1,6 +1,7 @@
 package grocery.app.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private List<CartModel> cartModelList;
     private CartFragment cartFragment;
     private boolean isFragment;
+    private String rs = "₹.";
 
 
     public interface CartInterface{
@@ -56,15 +58,36 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         CartModel model = cartModelList.get(position);
-//        Picasso.get().load(P.imgBaseUrl+model.getCart_image()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgItem);
-        Picasso.get().load(model.getCart_image()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgItem);
-        if (TextUtils.isEmpty(model.getName()) || model.getName().equals("null")){
-            holder.binding.txtTitle.setVisibility(View.GONE);
-        }else {
-            holder.binding.txtTitle.setText(model.getName());
+
+        Picasso.get().load(P.imgBaseUrl+model.getCart_image()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgProduct);
+
+        holder.binding.txtAmount.setText(rs + model.getPrice());
+        holder.binding.txtProductOff.setText(rs + model.getCoupon_discount_amount());
+
+        int actualValue = Integer.parseInt(model.getPrice());
+        int discountValue = Integer.parseInt(model.getCoupon_discount_amount());
+        int offValue = 0;
+        try {
+            if(actualValue !=0 && discountValue!=0){
+                offValue = (actualValue-discountValue)/(discountValue)*100;
+            }
+        }catch (Exception e){
         }
-        holder.binding.txtAmount.setText("₹. "+model.getPrice());
+
+        holder.binding.txtPercent.setText(offValue+"% OFF");
+        if (!TextUtils.isEmpty(model.getName())){
+            holder.binding.txtProductName.setText(model.getName());
+        }else {
+            holder.binding.txtProductName.setText("Product Name");
+            holder.binding.txtProductName.setPaintFlags(holder.binding.txtProductName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
+        holder.binding.txtWeight.setText("0 KG");
+        holder.binding.txtWeight.setPaintFlags(holder.binding.txtWeight.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
         holder.binding.txtItemCount.setText(model.getQty());
+        holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
         onClickItem(model,holder,position);
     }
 
@@ -96,7 +119,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             }
         });
 
-        holder.binding.imgRemove.setOnClickListener(v -> {
+        holder.binding.cardView.setOnClickListener(v -> {
             Click.preventTwoClick(v);
             if (isFragment){
                 if (ConnectionUtil.isOnline(context)){

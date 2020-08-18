@@ -71,6 +71,7 @@ public class ExpandableProductAdapter extends BaseExpandableListAdapter {
                 intent.putExtra(Config.TITLE,model.getName());
                 intent.putExtra(Config.CHILD_POSITION,model.getPosition());
                 intent.putExtra(Config.CHILD_JSON,model.getJsonArrayData());
+                Config.FROM_HOME = false;
                 context.startActivity(intent);
             }
         });
