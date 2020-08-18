@@ -1,65 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".WishlistActivity">
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/green"
+            android:theme="@style/ToolbarColoredBackArrow"
+            app:titleTextColor="@color/white">
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient_green">
+            android:layout_below="@+id/toolbar"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="-38dp"
+            android:background="#f9f9f9"
+            app:cardCornerRadius="25dp">
 
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="?actionBarSize"
-                android:layout_height="?actionBarSize"
-                android:padding="14dp"
-                android:clickable="true"
-                android:onClick="onBackClick"
-                android:src="@drawable/ic_arrow" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="13dp"
-                android:layout_toRightOf="@id/back"
-                android:text="Wishlist"
-
-                android:textColor="#ffffff"
-                android:textSize="27dp" />
-
-
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycelrWishList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/imageView"
-                android:layout_marginTop="65dp"
-                android:layout_marginBottom="-38dp"
-                android:background="#f9f9f9"
-                app:cardCornerRadius="25dp">
-
-                <ListView
-                    android:id="@+id/listView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:divider="@null"
-                    android:dividerHeight="10dp"
-                    android:fadeScrollbars="false" />
+                android:layout_margin="10dp"
+                android:divider="@null"
+                android:dividerHeight="10dp"
+                android:fadeScrollbars="false" />
 
 
-            </androidx.cardview.widget.CardView>
-
-        </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
 
 
-</RelativeLayout>
+
+
+</layout>

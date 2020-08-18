@@ -67,6 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="Verify your Number"
+                    android:fontFamily="@font/nunit_sans_bold"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -77,6 +78,7 @@
                     android:text="Please enter the PIN"
                     android:textColor="@color/black"
                     android:textSize="14dp"
+                    android:fontFamily="@font/nunito_sans_regular"
                     android:textStyle="normal" />
 
                 <LinearLayout
