@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".LoginScreen">
+    tools:context=".LoginMobile">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,9 +13,9 @@
             android:id="@+id/back"
             android:layout_width="?actionBarSize"
             android:layout_height="?actionBarSize"
-            android:padding="14dp"
             android:clickable="true"
             android:onClick="onBackClick"
+            android:padding="14dp"
             android:src="@drawable/ic_arrow" />
 
         <TextView
@@ -66,18 +66,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/nunit_sans_bold"
-                    android:text="Create your Account"
+                    android:text="Welcome"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                     />
+                    android:textSize="20sp" />
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Please enter your registered phone number"
-                    android:textColor="@color/black"
                     android:fontFamily="@font/nunito_sans_semibold"
+                    android:text="Please login to your account"
+                    android:textColor="@color/black"
                     android:textSize="14dp"
                     android:textStyle="normal" />
 
@@ -114,3 +113,4 @@
 
     </RelativeLayout>
 </layout>
+

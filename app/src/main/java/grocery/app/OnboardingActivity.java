@@ -7,18 +7,36 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.adoisstudio.helper.H;
+import com.adoisstudio.helper.Session;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class OnboardingActivity extends AppCompatActivity {
+import grocery.app.common.App;
+import grocery.app.common.P;
 
+public class OnboardingActivity extends AppCompatActivity {
+    private CallbackManager callbackManager;
     private OnBoardingAdapter onBoardingAdapter;
 
     @Override
@@ -26,6 +44,7 @@ public class OnboardingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
         setupOnBoardingItems();
+        setUpFaceBookLogIn();
         ViewPager2 viewPager2 = findViewById(R.id.onBoardViewPager);
         viewPager2.setAdapter(onBoardingAdapter);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -68,6 +87,67 @@ public class OnboardingActivity extends AppCompatActivity {
         onBoardItems.add(onBoardItem2);
 
         onBoardingAdapter = new OnBoardingAdapter(onBoardItems);
+    }
+
+    public void onFacebookClick(View view) {
+        LoginManager.getInstance().logOut();
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+    }
+
+    private void setUpFaceBookLogIn() {
+        callbackManager = CallbackManager.Factory.create();
+
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        loadFacebookInfo(loginResult.getAccessToken());
+                        Log.e("onSuccess", "isExecuted");
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.e("onCancel", "isExecuted");
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        Log.e("exceptionIs", exception.getMessage());
+
+                        H.showMessage(OnboardingActivity.this, "Could not login. Please try another login method");
+                    }
+                });
+    }
+
+
+    private void loadFacebookInfo(final AccessToken token) {
+        //
+        GraphRequest request = GraphRequest.newMeRequest(token,
+                (json, response) -> {
+                    //socialLogin("facebook", Api.getString(json, "name"),Api.getString(json, "email"), token.getToken());
+                    Log.e("usernameIs", json.toString());
+
+                    try {
+                        Session session = new Session(OnboardingActivity.this);
+
+                        session.addString(P.full_name, json.getString("name") + "");
+                        session.addString(P.email_id, json.getString("email") + "");
+                        session.addString(P.id, json.getString("id") + "");
+                       App.startHomeActivity(OnboardingActivity.this);
+
+                     //   hitSocialLoginApi(session, 3); Api calling using Apk
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.e("responseIs", response.toString());
+                });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,email,name");
+        request.setParameters(parameters);
+        request.executeAsync();
     }
 
    /* private void setUpPager() {

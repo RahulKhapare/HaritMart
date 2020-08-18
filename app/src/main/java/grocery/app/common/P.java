@@ -54,4 +54,6 @@ public class P {
     public static String image_alt_text = "image_alt_text";
 
 
+    public static String full_name="full_name";
+    public static String email_id="email_id";
 }//class

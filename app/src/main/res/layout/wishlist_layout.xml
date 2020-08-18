@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
@@ -11,7 +8,7 @@
         android:layout_height="125dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardElevation="5dp"
-        android:layout_margin="2dp"
+        android:layout_margin="12dp"
         app:cardCornerRadius="29dp">
 
         <RelativeLayout
@@ -20,7 +17,7 @@
 
 
         <ImageView
-            android:id="@+id/veg"
+            android:id="@+id/vegImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -30,37 +27,37 @@
 
 
             <TextView
-                android:id="@+id/price"
+                android:id="@+id/priceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/product_sans_regular"
                 android:textSize="25sp"
-                android:layout_toRightOf="@+id/veg"
+                android:layout_toRightOf="@+id/vegImage"
                 android:textColor="@color/black"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="10dp"
                 android:text="₹ 35"
                 />
             <TextView
-                android:id="@+id/discountstrike"
+                android:id="@+id/discountstrikeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/product_sans_regular"
                 android:textSize="15dp"
-                android:layout_toRightOf="@+id/price"
+                android:layout_toRightOf="@+id/priceTextView"
                 android:layout_marginTop="21dp"
                 android:layout_marginLeft="10dp"
                 android:text="₹ 35"
                 />
 
             <TextView
-                android:id="@+id/off"
+                android:id="@+id/offTextView"
                 android:layout_width="45dp"
                 android:layout_height="25dp"
                 android:background="@drawable/custom_orange_btn"
                 android:text="20% off"
                 android:textSize="10sp"
-                android:layout_toRightOf="@id/discountstrike"
+                android:layout_toRightOf="@id/discountstrikeTextView"
                 android:gravity="center"
                 android:textColor="#ffffff"
                 android:layout_margin="15dp"
@@ -68,24 +65,25 @@
 
             
             <TextView
-                android:id="@+id/size"
+                android:id="@+id/sizeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
                 android:textColor="#373737"
                 android:text="Onion -Medium"
-                android:layout_toRightOf="@+id/veg"
-               android:layout_below="@+id/off"
+                android:layout_toRightOf="@+id/vegImage"
+               android:layout_below="@+id/offTextView"
                 android:layout_marginLeft="10dp"/>
 
             <TextView
+                android:id="@+id/weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="21sp"
                 android:textColor="#373737"
                 android:text="1 KG"
-                android:layout_toRightOf="@+id/veg"
-                android:layout_below="@+id/size"
+                android:layout_toRightOf="@+id/vegImage"
+                android:layout_below="@+id/sizeTextView"
                 android:layout_marginLeft="10dp"/>
 
 
@@ -119,4 +117,4 @@
 
     </androidx.cardview.widget.CardView>
 
-</LinearLayout>
+</layout>

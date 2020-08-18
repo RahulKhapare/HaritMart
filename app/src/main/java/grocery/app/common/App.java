@@ -1,11 +1,15 @@
 package grocery.app.common;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 import android.provider.Settings;
 
 import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.JsonList;
 import com.adoisstudio.helper.Static;
+
+import grocery.app.BaseActivity;
 
 
 public class App extends Application {
@@ -21,6 +25,12 @@ public class App extends Application {
 
     public static String generatedOtp = "";
     public static String api_key="";
+
+    public static void startHomeActivity(Context context) {
+        Intent intent = new Intent(context, BaseActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+    }
 
 
     @Override

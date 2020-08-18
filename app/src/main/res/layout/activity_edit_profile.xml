@@ -7,13 +7,14 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:elevation="2dp">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:animateLayoutChanges="true"
-            android:background="@color/white"
+            android:background="@color/green"
             android:elevation="3dp">
 
             <ImageButton
@@ -23,7 +24,7 @@
                 android:background="@drawable/clickable_bg"
                 android:onClick="onBackClick"
                 android:src="@drawable/ic_arrow"
-                android:tint="@color/black" />
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -32,7 +33,7 @@
                 android:gravity="center"
                 android:text="edit profile"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/product_sans_regular" />
@@ -111,17 +112,7 @@
                     android:textSize="16sp"
                     android:layout_marginBottom="17dp"/>
 
-                <EditText
-                    android:id="@+id/locationEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:background="@drawable/grey_border"
-                    android:hint="Store Location"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:paddingHorizontal="15dp"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="17dp"/>
+
 
                 <EditText
                     android:id="@+id/editTextAddress"
