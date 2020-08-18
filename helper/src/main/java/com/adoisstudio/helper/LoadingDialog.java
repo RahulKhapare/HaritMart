@@ -1,11 +1,14 @@
 package com.adoisstudio.helper;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import android.os.Build;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
@@ -22,15 +25,15 @@ public class LoadingDialog extends Dialog {
 
     public LoadingDialog(@NonNull Context context) {
         super(context);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        requestWindowFeature(Window.FEATURE_ACTION_BAR);
 
         setContentView(R.layout.helper_dialog_loading);
         rotateLoading = findViewById(R.id.rotateLoading);
         rotateLoading.start();
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(50, 0, 0, 0)));
-        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-    }//init
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(5, 0, 0, 0)));
+        getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+    }//initx
 
     public LoadingDialog(@NonNull Context context, boolean cancelable) {
         super(context);
