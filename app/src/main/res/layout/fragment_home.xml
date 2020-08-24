@@ -20,7 +20,7 @@
             <FrameLayout
                 android:id="@+id/ViewPagerLayout"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="wrap_content">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -30,19 +30,17 @@
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/pager"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_above="@+id/indicator" />
+                        android:layout_height="200dp" />
 
-                    <com.viewpagerindicator.CirclePageIndicator
-                        android:id="@+id/indicator"
+                    <com.google.android.material.tabs.TabLayout
+                        android:layout_below="@+id/pager"
+                        android:id="@+id/tabLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dip"
-                        app:centered="true"
-                        android:layout_alignParentBottom="true"
-                        app:fillColor="@color/green"
-                        app:pageColor="@color/semiTrans"
-                        app:snap="false" />
+                        android:layout_marginTop="-10dp"
+                        app:tabBackground="@drawable/tab_selected"
+                        app:tabGravity="center"
+                        app:tabIndicatorHeight="0dp" />
 
                 </RelativeLayout>
 

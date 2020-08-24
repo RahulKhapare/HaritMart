@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,6 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.adoisstudio.helper.Api;
 import com.adoisstudio.helper.H;
@@ -25,8 +21,6 @@ import com.adoisstudio.helper.Session;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import grocery.app.BaseActivity;
 import grocery.app.ProductCategoryActivity;
@@ -43,21 +37,16 @@ import grocery.app.model.ProductModel;
 import grocery.app.model.SliderModel;
 import grocery.app.util.Config;
 
-public class HomeFragment extends Fragment implements ProductCategoryAdapter.ItemClick,NewArrivalAdapter.ClickItem{
+public class HomeFragment extends Fragment implements ProductCategoryAdapter.ItemClick, NewArrivalAdapter.ClickItem {
 
     SliderImageAdapter sliderImageAdapter;
     private Context context;
     private LoadingDialog loadingDialog;
-    private ViewPager2 viewPager2;
-    private RecyclerView recyclerView;
     private FragmentHomeBinding binding;
-    private int spinnerPosition;
     private List<ProductModel> productModelList;
     private List<ArrivalModel> arrivalModelList;
     private ProductCategoryAdapter adapter;
     private NewArrivalAdapter arrivalAdapter;
-    private int currentPage = 0;
-    private int NUM_PAGES = 0;
     private List<SliderModel> sliderModelList;
     private JsonList arrivalJSON;
 
@@ -84,13 +73,13 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         return binding.getRoot();
     }
 
-    private void onClickItemView(){
+    private void onClickItemView() {
 
         binding.viewMoreExplorer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent categoryIntent = new Intent(context, ProductCategoryActivity.class);
-                categoryIntent.putExtra(Config.FROM_POSITION,false);
+                categoryIntent.putExtra(Config.FROM_POSITION, false);
                 startActivity(categoryIntent);
             }
         });
@@ -99,9 +88,9 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductChildListActivity.class);
-                intent.putExtra(Config.TITLE,"New Arrived");
-                intent.putExtra(Config.CHILD_POSITION,0);
-                intent.putExtra(Config.CHILD_JSON,arrivalJSON+"");
+                intent.putExtra(Config.TITLE, "New Arrived");
+                intent.putExtra(Config.CHILD_POSITION, 0);
+                intent.putExtra(Config.CHILD_JSON, arrivalJSON + "");
                 Config.FROM_HOME = true;
                 startActivity(intent);
             }
@@ -109,30 +98,36 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
 
     }
 
-    private void initProductView(){
+    private void initProductView() {
 
         productModelList = new ArrayList<>();
-        binding.recyclerProductItem.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+        binding.recyclerProductItem.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         binding.recyclerProductItem.setHasFixedSize(true);
-        adapter = new ProductCategoryAdapter(context,productModelList,HomeFragment.this);
+        adapter = new ProductCategoryAdapter(context, productModelList, HomeFragment.this);
         binding.recyclerProductItem.setAdapter(adapter);
 
         arrivalModelList = new ArrayList<>();
-        binding.recyclerNewArrival.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+        binding.recyclerNewArrival.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         binding.recyclerNewArrival.setHasFixedSize(true);
-        arrivalAdapter = new NewArrivalAdapter(context,arrivalModelList,HomeFragment.this);
+        arrivalAdapter = new NewArrivalAdapter(context, arrivalModelList, HomeFragment.this);
         binding.recyclerNewArrival.setAdapter(arrivalAdapter);
 
         sliderModelList = new ArrayList<>();
         sliderImageAdapter = new SliderImageAdapter(context, sliderModelList);
         binding.pager.setAdapter(sliderImageAdapter);
+        binding.tabLayout.setupWithViewPager(binding.pager, true);
+
+//        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(binding.tL, binding.vP2, (tab, position) -> {
+//        });
+//        tabLayoutMediator.attach();
+
 
     }
 
-    private void loadCategoryProductItem(){
+    private void loadCategoryProductItem() {
         productModelList.clear();
         try {
-            for (Json data : App.categoryJsonList){
+            for (Json data : App.categoryJsonList) {
                 Json json = data.getJson(P.category);
                 ProductModel model = new ProductModel();
                 model.setId(json.getString(P.id));
@@ -142,17 +137,16 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
                 model.setMain_parent_id(json.getString(P.main_parent_id));
                 productModelList.add(model);
             }
-        }catch (Exception e){
-
+        } catch (Exception e) {
         }
 
     }
 
     @Override
     public void itemClick(int position) {
-        Intent categoryIntent = new Intent(context,ProductCategoryActivity.class);
-        categoryIntent.putExtra(Config.PARENT_POSITION,position);
-        categoryIntent.putExtra(Config.FROM_POSITION,true);
+        Intent categoryIntent = new Intent(context, ProductCategoryActivity.class);
+        categoryIntent.putExtra(Config.PARENT_POSITION, position);
+        categoryIntent.putExtra(Config.FROM_POSITION, true);
         startActivity(categoryIntent);
     }
 
@@ -173,24 +167,22 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
                             json = json.getJson(P.data);
                             setUpNewArrivedList(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));
                             setUpSliderList(json.getString(P.slider_image_path), json.getJsonList(P.slider_list));
-                        } else{
+                        } else {
                             H.showMessage(getContext(), json.getString(P.msg));
                         }
                         hideLoader();
 
                     })
                     .run("hitHomeApi");
-        }catch (Exception e){
+        } catch (Exception e) {
             hideLoader();
         }
 
     }
 
-    private void setUpSliderList(String string,JsonList jsonList){
-
+    private void setUpSliderList(String string, JsonList jsonList) {
         sliderModelList.clear();
-
-        for (Json json : jsonList){
+        for (Json json : jsonList) {
             SliderModel model = new SliderModel();
             model.setImage(P.imgBaseUrl + string + json.getString(P.image));
             model.setImage_alt_text(json.getString(P.image_alt_text));
@@ -199,59 +191,30 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
             model.setUrl(json.getString(P.url));
             sliderModelList.add(model);
         }
-
-        currentPage = 0;
-        NUM_PAGES = 0;
-
         sliderImageAdapter.notifyDataSetChanged();
-        binding.indicator.setViewPager(binding.pager);
 
-        final float density = getResources().getDisplayMetrics().density;
+        Handler handler = new Handler();
+        Runnable runnable = null;
 
-        //Set circle indicator radius
-        binding.indicator.setRadius(5 * density);
-
-        NUM_PAGES = sliderModelList.size();
-
-        // Auto start of viewpager
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
+        if (runnable != null)
+            handler.removeCallbacks(runnable);
+        runnable = new Runnable() {
+            @Override
             public void run() {
-                if (currentPage == NUM_PAGES) {
-                    currentPage = 0;
-                }
-                binding.pager.setCurrentItem(currentPage++, true);
+                handler.postDelayed(this, 3000);
+                if (binding.pager.getCurrentItem() == sliderImageAdapter.getCount() - 1)
+                    binding.pager.setCurrentItem(0);
+                else
+                    binding.pager.setCurrentItem(binding.pager.getCurrentItem() + 1);
             }
         };
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 3000, 3000);
-
-        // Pager listener over indicator
-        binding.indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                currentPage = position;
-            }
-            @Override
-            public void onPageScrolled(int pos, float arg1, int arg2) {
-
-            }
-            @Override
-            public void onPageScrollStateChanged(int pos) {
-
-            }
-        });
+        runnable.run();
     }
 
     private void setUpNewArrivedList(String string, JsonList jsonList) {
         arrivalJSON = jsonList;
         arrivalModelList.clear();
-        for (Json json : jsonList){
+        for (Json json : jsonList) {
             ArrivalModel model = new ArrivalModel();
             model.setCategory_name(json.getString(P.category_name));
             model.setFilter_id(json.getString(P.filter_id));
@@ -280,18 +243,18 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
                 .run("hitAddToCartApi");
     }
 
-    private void showLoader(){
+    private void showLoader() {
         loadingDialog.show("Please wait...");
     }
 
-    private void hideLoader(){
+    private void hideLoader() {
         loadingDialog.hide();
     }
 
     @Override
     public void add(int filterId) {
         Json json = new Json();
-        json.addInt(P.product_filter_id,filterId);
+        json.addInt(P.product_filter_id, filterId);
         json.addString(P.cart_token, new Session(context).getString(P.cart_token));
         json.addString(P.user_id, "");
         json.addInt(P.quantity, 1);
