@@ -36,6 +36,9 @@
             android:name=".ProductCategoryActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ProductChildListActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".WishlistActivity"
             android:screenOrientation="portrait" />
         <activity
