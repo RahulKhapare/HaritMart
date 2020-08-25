@@ -62,4 +62,6 @@ public class P {
 
     public static String full_name="full_name";
     public static String email_id="email_id";
+    public static String locationAddress="locationAddress";
+
 }//class

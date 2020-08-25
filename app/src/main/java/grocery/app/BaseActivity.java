@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import com.adoisstudio.helper.Api;
 import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
+import com.adoisstudio.helper.Session;
 
 import grocery.app.Fragments.CartFragment;
 import grocery.app.Fragments.FavouriteFragment;
@@ -43,7 +44,7 @@ public class BaseActivity extends AppCompatActivity {
         WindowBarColor.setColor(activity);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         fragmentManager = getSupportFragmentManager();
-
+        binding.txtAddress.setText(new Session(activity).getString(P.locationAddress));
         hitCategoryApi();
 
 

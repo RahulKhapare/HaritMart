@@ -40,9 +40,9 @@
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
                             android:paddingLeft="10dp"
-                            android:paddingTop="5dp"
+                            android:paddingTop="2dp"
                             android:paddingRight="10dp"
-                            android:paddingBottom="5dp">
+                            android:paddingBottom="2dp">
 
                             <ImageView
                                 android:layout_width="?actionBarSize"
@@ -77,12 +77,12 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
                                     android:fontFamily="@font/nunit_sans_bold"
-                                    android:gravity="center_vertical"
-                                    android:singleLine="true"
-                                    android:text="Apt. 445, Motilal Nagar"
-                                    android:textAllCaps="true"
+                                    android:gravity="center_horizontal"
+                                    android:text=""
+                                    android:maxLines="2"
+                                    android:textAllCaps="false"
                                     android:textColor="#515151"
-                                    android:textSize="12dp"
+                                    android:textSize="10dp"
                                     android:textStyle="bold" />
 
                             </LinearLayout>
