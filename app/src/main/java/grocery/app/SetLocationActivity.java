@@ -17,6 +17,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -52,13 +53,16 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
     private ActivitySetLocationBinding binding;
     private String checkingAddress = "Get Location";
     private String setLocation = "Set Location";
+    public boolean isCurrentLocation;
+    public static boolean isCurrentLocationFromSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WindowBarColor.setColor(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_set_location);
-
+        isCurrentLocation = true;
+        isCurrentLocationFromSearch = false;
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapFrame);
         mapFragment.getMapAsync(this);
@@ -68,12 +72,35 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
         binding.btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (binding.btnLocation.getText().toString().equals(checkingAddress)){
+                if (binding.btnLocation.getText().toString().equals(checkingAddress)) {
                     checkGPS();
-                }else {
-                    Intent baseIntent = new Intent(activity,BaseActivity.class);
+                } else {
+                    Intent baseIntent = new Intent(activity, BaseActivity.class);
                     startActivity(baseIntent);
                 }
+            }
+        });
+
+        binding.txtEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (statusCheck()) {
+                    if (ActivityCompat.checkSelfPermission(activity,
+                            Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        getPermission();
+                    } else {
+                        Intent editIntent = new Intent(activity, SearchLocationActivity.class);
+                        startActivityForResult(editIntent, 3);
+                    }
+                }
+            }
+        });
+
+        binding.cardCurrentLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isCurrentLocation = true;
+                checkGPS();
             }
         });
     }
@@ -81,8 +108,9 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        updateLocation();
+        if (isCurrentLocation) {
+            updateLocation(currentLat, currentLong);
+        }
     }
 
     private void checkGPS() {
@@ -114,8 +142,8 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
                 new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog,
                                         final int id) {
-                        startActivity(new Intent(
-                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        startActivityForResult(new Intent(
+                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), 2);
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -189,10 +217,12 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
     public void onLocationChanged(Location location) {
         currentLat = location.getLatitude();
         currentLong = location.getLongitude();
-        updateLocation();
+        if (isCurrentLocation) {
+            updateLocation(currentLat, currentLong);
+        }
     }
 
-    private String getAddress(){
+    private String getAddress(double currentLat, double currentLong) {
         String addressData = "";
         Geocoder geocoder;
         List<Address> addresses;
@@ -208,7 +238,7 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
             String postalCode = addresses.get(0).getPostalCode();
             String knownName = addresses.get(0).getFeatureName();
 
-            if (!TextUtils.isEmpty(address)){
+            if (!TextUtils.isEmpty(address)) {
                 addressData = address + "";
             }
 //            if (!TextUtils.isEmpty(city)){
@@ -225,18 +255,20 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
             e.printStackTrace();
         }
 
-      return addressData;
+        return addressData;
     }
 
-    private void updateLocation(){
-        if (currentLat!=0 && currentLong!=0 && mMap!=null){
+    private void updateLocation(double currentLat, double currentLong) {
+        if (currentLat != 0 && currentLong != 0 && mMap != null) {
+            mMap.clear();
+            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             LatLng latLong = new LatLng(currentLat, currentLong);
             mMap.addMarker(new MarkerOptions().position(latLong).title("Current Location"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLong));
-            mMap.animateCamera( CameraUpdateFactory.zoomTo( 17.0f ));
-            binding.txtAddress.setText(getAddress());
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
+            binding.txtAddress.setText(getAddress(currentLat,currentLong));
             binding.btnLocation.setText(setLocation);
-            new Session(activity).addString(P.locationAddress,getAddress());
+            new Session(activity).addString(P.locationAddress, binding.txtAddress.getText().toString());
         }
     }
 
@@ -268,7 +300,7 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
         intent.setData(uri);
-        activity.startActivity(intent);
+        startActivityForResult(intent,4);
     }
 
     private void permissionDialog() {
@@ -299,6 +331,32 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2) {
+            getPermission();
+        }else if (requestCode == 3) {
+            try {
+                if (isCurrentLocationFromSearch){
+                    isCurrentLocation = true;
+                    isCurrentLocationFromSearch = false;
+                    checkGPS();
+                }else{
+                    isCurrentLocation = false;
+                    double latValue = data.getDoubleExtra("latValue", 0);
+                    double langValue = data.getDoubleExtra("langValue", 0);
+                    if (latValue!=0 && langValue!=0){
+                        updateLocation(latValue, langValue);
+                    }
+                }
+            }catch (Exception e){
+            }
+        }else if (requestCode == 4) {
+            getPermission();
+        }
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -306,7 +364,7 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     checkProvider();
-               } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                     permissionDialog();
                 } else {
                     getPermission();
