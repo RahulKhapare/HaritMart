@@ -54,4 +54,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
 }

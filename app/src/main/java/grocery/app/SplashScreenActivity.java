@@ -1,11 +1,10 @@
 package grocery.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.adoisstudio.helper.Api;
 import com.adoisstudio.helper.H;
@@ -20,7 +19,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private LoadingDialog loadingDialog;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +29,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         hitCartTokenApi();
         hitInitApi();
     }
-    
 
     private void hitInitApi() {
-        Api.newApi(this, P.baseUrl+"init").addJson(new Json())
+        Api.newApi(this, P.baseUrl + "init").addJson(new Json())
                 .setMethod(Api.GET)
                 .onLoading(isLoading -> {
                     if (!isDestroyed()) {
@@ -51,12 +48,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                     if (j.getInt(P.status) == 1) {
 
 
-                        new Handler().postDelayed(()->{
-                            Intent intent = new Intent(this,OnboardingActivity.class);
+                        new Handler().postDelayed(() -> {
+                            Intent intent = new Intent(this, OnboardingActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();
-                        },1230);
+                        }, 1230);
 
                     } else {
                         H.showMessage(this, "Something went wrong");

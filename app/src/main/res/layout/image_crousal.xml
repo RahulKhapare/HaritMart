@@ -8,19 +8,17 @@
 
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/imageViewBoarding"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/textBoarding"
             android:src="@drawable/ic_group_4173" />
 
         <TextView
@@ -30,11 +28,13 @@
             android:text="Select ipsum dolor sit amet"
             android:textColor="@color/white"
             android:gravity="center"
-            android:layout_marginLeft="17dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="0dp"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:layout_alignParentBottom="true"
             android:textSize="20sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>
