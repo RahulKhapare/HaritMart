@@ -8,25 +8,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient_green">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="?actionBarSize"
-            android:layout_height="?actionBarSize"
-            android:padding="14dp"
-            android:clickable="true"
-            android:onClick="onBackClick"
-            android:src="@drawable/ic_arrow" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="91dp"
-            android:layout_marginTop="4dp"
-            android:layout_toRightOf="@id/back"
-            android:text="Global \nGrocery"
-            android:textColor="#ffffff"
-            android:textSize="27dp" />
+            android:weightSum="10">
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="onBackClick"
+                android:padding="14dp"
+                android:src="@drawable/ic_arrow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="4dp"
+                android:layout_weight="8"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/back"
+                android:text="Global \nGrocery"
+                android:textColor="#ffffff"
+                android:textSize="27dp" />
+        </LinearLayout>
 
 
         <LinearLayout
@@ -52,6 +60,12 @@
             android:layout_marginBottom="-38dp"
             android:background="#ffffff"
             app:cardCornerRadius="25dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
 
 
             <LinearLayout
@@ -102,10 +116,13 @@
                     android:text="Proceed"
                     android:textColor="#ffffff"
                     android:textSize="14sp"
+                    android:layout_marginBottom="45dp"
                     android:textStyle="normal" />
 
 
             </LinearLayout>
+
+            </ScrollView>
 
 
         </androidx.cardview.widget.CardView>
