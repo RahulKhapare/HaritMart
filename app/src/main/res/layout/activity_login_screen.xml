@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_green">
         <LinearLayout
+            android:id="@+id/appName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="10">
@@ -40,19 +41,105 @@
         <LinearLayout
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="180dp">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appName"
+            android:orientation="vertical"
+           >
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="268dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_group_4171" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/product_bg_card">
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="15dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/CreateTextView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="15dp"
+                                    android:fontFamily="@font/nunit_sans_bold"
+                                    android:text="Create your Account"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp" />
+
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/nunito_sans_semibold"
+                                    android:text="Please enter your registered phone number"
+                                    android:textColor="@color/black"
+                                    android:textSize="14dp"
+                                    android:textStyle="normal" />
+
+
+                                <EditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="47dp"
+                                    android:layout_marginEnd="15dp"
+                                    android:hint="Mobile Number"
+                                    android:inputType="numberDecimal"
+                                    android:maxLength="10" />
+
+
+                                <Button
+                                    android:id="@+id/loginBtn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="55dp"
+                                    android:layout_marginTop="30dp"
+                                    android:layout_marginEnd="21dp"
+                                    android:background="@drawable/custom_button"
+                                    android:text="Proceed"
+                                    android:textColor="#ffffff"
+                                    android:textSize="14sp"
+                                    android:textStyle="normal" />
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+       <!-- <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -125,7 +212,7 @@
             </ScrollView>
 
 
-        </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>-->
 
 
     </RelativeLayout>

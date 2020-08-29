@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".OtpActivity">
@@ -11,9 +10,11 @@
         android:background="@drawable/gradient_green">
 
         <LinearLayout
+            android:id="@+id/appName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="10">
+
             <ImageView
                 android:id="@+id/back"
                 android:layout_width="?actionBarSize"
@@ -42,130 +43,239 @@
         <LinearLayout
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="180dp">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appName"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="268dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_group_4171" />
-
-
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/imageView"
-            android:layout_marginBottom="-38dp"
-            android:background="#ffffff"
-            app:cardCornerRadius="25dp">
-
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginBottom="45dp"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:background="@drawable/product_bg_card">
 
-                <TextView
-                    android:id="@+id/CreateTextView"
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Verify your Number"
-                    android:fontFamily="@font/nunit_sans_bold"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Please enter the PIN"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:fontFamily="@font/nunito_sans_regular"
-                    android:textStyle="normal" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="45dp"
+                        android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="4">
+                        <TextView
+                            android:id="@+id/CreateTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="Verify your Number"
+                            android:fontFamily="@font/nunit_sans_bold"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
 
-                    <EditText
-                        android:layout_width="15dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="47dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:imeOptions="actionNext"
-                        android:inputType="numberDecimal"
-                        android:maxLength="1" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Please enter the PIN"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/nunito_sans_regular"
+                            android:textStyle="normal" />
 
-                    <EditText
-                        android:layout_width="15dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="47dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:imeOptions="actionNext"
-                        android:inputType="numberDecimal"
-                        android:maxLength="1" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="4">
 
-                    <EditText
-                        android:layout_width="15dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="47dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:imeOptions="actionNext"
-                        android:inputType="numberDecimal"
-                        android:maxLength="1" />
+                            <EditText
+                                android:layout_width="15dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="47dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberDecimal"
+                                android:maxLength="1" />
 
-                    <EditText
-                        android:layout_width="15dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="47dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:imeOptions="actionNext"
-                        android:inputType="numberDecimal"
-                        android:maxLength="1" />
+                            <EditText
+                                android:layout_width="15dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="47dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberDecimal"
+                                android:maxLength="1" />
 
-                </LinearLayout>
+                            <EditText
+                                android:layout_width="15dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="47dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberDecimal"
+                                android:maxLength="1" />
 
-                <Button
-                    android:id="@+id/otpBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginEnd="21dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/custom_button"
-                    android:text="Proceed"
-                    android:textColor="#ffffff"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="45dp"
-                    android:textStyle="normal" />
+                            <EditText
+                                android:layout_width="15dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="47dp"
+                                android:layout_marginEnd="15dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberDecimal"
+                                android:maxLength="1" />
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/otpBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_marginEnd="21dp"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/custom_button"
+                            android:text="Proceed"
+                            android:textColor="#ffffff"
+                            android:textSize="14sp"
+                            android:layout_marginBottom="45dp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
 
             </LinearLayout>
 
-            </ScrollView>
 
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <!--   <androidx.cardview.widget.CardView
+               android:id="@+id/cardView"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_below="@+id/imageView"
+               android:layout_marginBottom="-38dp"
+               android:background="#ffffff"
+               app:cardCornerRadius="25dp">
+
+
+               <ScrollView
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:fillViewport="true">
+
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layout_marginStart="15dp"
+                   android:layout_marginBottom="45dp"
+                   android:orientation="vertical">
+
+                   <TextView
+                       android:id="@+id/CreateTextView"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="15dp"
+                       android:text="Verify your Number"
+                       android:fontFamily="@font/nunit_sans_bold"
+                       android:textColor="@color/black"
+                       android:textSize="20dp"
+                       android:textStyle="bold" />
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="Please enter the PIN"
+                       android:textColor="@color/black"
+                       android:textSize="14dp"
+                       android:fontFamily="@font/nunito_sans_regular"
+                       android:textStyle="normal" />
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:weightSum="4">
+
+                       <EditText
+                           android:layout_width="15dp"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="47dp"
+                           android:layout_marginEnd="5dp"
+                           android:layout_weight="1"
+                           android:gravity="center"
+                           android:imeOptions="actionNext"
+                           android:inputType="numberDecimal"
+                           android:maxLength="1" />
+
+                       <EditText
+                           android:layout_width="15dp"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="47dp"
+                           android:layout_marginEnd="5dp"
+                           android:layout_weight="1"
+                           android:gravity="center"
+                           android:imeOptions="actionNext"
+                           android:inputType="numberDecimal"
+                           android:maxLength="1" />
+
+                       <EditText
+                           android:layout_width="15dp"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="47dp"
+                           android:layout_marginEnd="5dp"
+                           android:layout_weight="1"
+                           android:gravity="center"
+                           android:imeOptions="actionNext"
+                           android:inputType="numberDecimal"
+                           android:maxLength="1" />
+
+                       <EditText
+                           android:layout_width="15dp"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="47dp"
+                           android:layout_marginEnd="15dp"
+                           android:layout_weight="1"
+                           android:gravity="center"
+                           android:imeOptions="actionNext"
+                           android:inputType="numberDecimal"
+                           android:maxLength="1" />
+
+                   </LinearLayout>
+
+                   <Button
+                       android:id="@+id/otpBtn"
+                       android:layout_width="match_parent"
+                       android:layout_height="55dp"
+                       android:layout_marginEnd="21dp"
+                       android:layout_marginTop="30dp"
+                       android:background="@drawable/custom_button"
+                       android:text="Proceed"
+                       android:textColor="#ffffff"
+                       android:textSize="14sp"
+                       android:layout_marginBottom="45dp"
+                       android:textStyle="normal" />
+
+               </LinearLayout>
+
+               </ScrollView>
+
+           </androidx.cardview.widget.CardView>-->
 
     </RelativeLayout>
 
