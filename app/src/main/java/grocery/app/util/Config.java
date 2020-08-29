@@ -14,5 +14,6 @@ public class Config {
     public static String FROM_POSITION = "FROM_POSITION";
     public static String TITLE = "TITLE";
     public static String CHILD_JSON = "CHILD_JSON";
+    public static String LOGIN_NUMBER = "LOGIN_NUMBER";
 
 }

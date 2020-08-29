@@ -11,6 +11,15 @@
         android:padding="10dp"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:textSize="22sp"></TextView>
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgUser"
             android:layout_width="100dp"
@@ -89,8 +98,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/green"
-                android:gravity="center"
-                android:text="Change Account">
+                android:text="Switch Account"
+                android:gravity="center">
 
             </TextView>
 

@@ -1,172 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".OtpActivity">
+    tools:context=".OnboardingActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_green">
+        android:background="@drawable/gradient_board_green">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="10">
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="?actionBarSize"
-                android:layout_height="?actionBarSize"
-                android:clickable="true"
-                android:layout_weight="1"
-                android:onClick="onBackClick"
-                android:padding="14dp"
-                android:src="@drawable/ic_arrow" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginTop="4dp"
-                android:layout_weight="8"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@id/back"
-                android:text="Global \nGrocery"
-                android:textColor="#ffffff"
-                android:textSize="27dp" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="180dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_group_4171" />
-
-
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/imageView"
-            android:layout_marginBottom="-38dp"
-            android:background="#ffffff"
-            app:cardCornerRadius="25dp">
+            android:gravity="center"
+            android:layout_below="@+id/txtSkip"
+            android:orientation="vertical">
 
-
-            <ScrollView
+            <RelativeLayout
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true">
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:titleTextColor="@color/white"
+                    app:subtitleTextColor="@color/white"
+                    android:theme="@style/ToolbarColoredBackArrow"
+                    android:background="@color/trans"/>
+
+                <ImageView
+                    android:layout_below="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:paddingTop="80dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ic_group_4171" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:text="  Global\nGrocery"
+                    android:textColor="#ffffff"
+                    android:layout_marginTop="10dp"
+                    android:textSize="27dp" />
+
+            </RelativeLayout>
 
 
             <LinearLayout
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginBottom="45dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/product_bg_card">
 
-                <TextView
-                    android:id="@+id/CreateTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Verify your Number"
-                    android:fontFamily="@font/nunit_sans_bold"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Please enter the PIN"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:fontFamily="@font/nunito_sans_regular"
-                    android:textStyle="normal" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="4">
+                    android:orientation="vertical"
+                    android:layout_margin="20dp">
 
-                    <EditText
-                        android:layout_width="15dp"
+                    <TextView
+                        android:id="@+id/CreateTextView"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="47dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:imeOptions="actionNext"
-                        android:inputType="numberDecimal"
-                        android:maxLength="1" />
+                        android:fontFamily="@font/nunit_sans_bold"
+                        android:text="Verify Your Number"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
 
-                    <EditText
-                        android:layout_width="15dp"
+                    <TextView
+                        android:id="@+id/txtInfo"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="47dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:imeOptions="actionNext"
-                        android:inputType="numberDecimal"
-                        android:maxLength="1" />
-
-                    <EditText
-                        android:layout_width="15dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="47dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:imeOptions="actionNext"
-                        android:inputType="numberDecimal"
-                        android:maxLength="1" />
-
-                    <EditText
-                        android:layout_width="15dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="47dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:imeOptions="actionNext"
-                        android:inputType="numberDecimal"
-                        android:maxLength="1" />
+                        android:textColor="@color/grey1"
+                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/otpBtn"
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginEnd="21dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/custom_button"
-                    android:text="Proceed"
-                    android:textColor="#ffffff"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="45dp"
-                    android:textStyle="normal" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <grocery.app.util.OtpEditText
+                        android:id="@+id/etxOtp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:cursorVisible="false"
+                        android:digits="1234567890"
+                        android:maxLength="4"
+                        android:textIsSelectable="false"
+                        android:textColorHint="@color/grey1"
+                        android:layout_margin="20dp"
+                        android:inputType="number" />
+
+                    <Button
+                        android:id="@+id/btnProcess"
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:layout_gravity="center"
+                        android:background="@drawable/custom_button"
+                        android:text="Proceed"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginRight="50dp"
+                        android:layout_marginLeft="50dp"
+                        android:textAllCaps="false"
+                        android:textColor="#ffffff"
+                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:textSize="19sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/txtResent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/saffron"
+                        android:text="Resent OTP"
+                        android:gravity="center_horizontal"
+                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            </ScrollView>
 
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
 
     </RelativeLayout>
 
 </layout>
+

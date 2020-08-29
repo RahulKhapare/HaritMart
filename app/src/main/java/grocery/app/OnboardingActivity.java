@@ -2,25 +2,33 @@ package grocery.app;
 
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Bundle;
+import android.se.omapi.Session;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.databinding.DataBindingUtil;
 
 import com.adoisstudio.helper.H;
-import com.adoisstudio.helper.Session;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
@@ -32,49 +40,80 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import grocery.app.common.App;
-import grocery.app.common.P;
+import grocery.app.databinding.ActivityOnboardingBinding;
 
 public class OnboardingActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    private CallbackManager callbackManager;
     private OnBoardingAdapter onBoardingAdapter;
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions gso;
-    private static final int RC_SIGN_IN = 1;
+    private static final int RC_SIGN_IN_GOOGLE = 1;
     private OnboardingActivity activity = this;
+
+    private static final String TAG = "FacebookLogin";
+    private static final int RC_SIGN_IN_FB = 12345;
+    private CallbackManager mCallbackManager;
+    private FirebaseAuth mAuth;
+    private ActivityOnboardingBinding binding;
+
+    private int googleFlag = 1;
+    private int facebookFlag = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_onboarding);
+        binding = DataBindingUtil.setContentView(activity,R.layout.activity_onboarding);
         setupOnBoardingItems();
-        setUpFaceBookLogIn();
+        initFacebookLogin();
         onInitGoogle();
-        ViewPager2 viewPager2 = findViewById(R.id.onBoardViewPager);
-        viewPager2.setAdapter(onBoardingAdapter);
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+        binding.onBoardViewPager.setAdapter(onBoardingAdapter);
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(binding.tabLayout, binding.onBoardViewPager, (tab, position) -> {
 
         });
         tabLayoutMediator.attach();
-        Button button = findViewById(R.id.loginBtn);
-        button.setOnClickListener(view -> {
+        binding.loginBtn.setOnClickListener(view -> {
             Intent intent = new Intent(OnboardingActivity.this, LoginScreen.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
+        binding.txtSkip.setOnClickListener(view -> {
+            Intent intent = new Intent(OnboardingActivity.this, BaseActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+        printHashKey(activity);
+    }
+
+    public static void printHashKey(Context pContext) {
+        try {
+            PackageInfo info = pContext.getPackageManager().getPackageInfo(pContext.getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String hashKey = new String(Base64.encode(md.digest(), 0));
+                Log.i("TAG", "printHashKey() Hash Key: " + hashKey);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("TAG", "printHashKey()", e);
+        } catch (Exception e) {
+            Log.e("TAG", "printHashKey()", e);
+        }
     }
 
     private void onInitGoogle() {
@@ -94,15 +133,17 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
 
     private void requestGoogleLogin() {
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-        startActivityForResult(intent, RC_SIGN_IN);
+        startActivityForResult(intent, RC_SIGN_IN_GOOGLE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == RC_SIGN_IN_GOOGLE) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
+        }else {
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -133,7 +174,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
     private void handleUserData(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
-            googleDialog(account);
+            successDialog(googleFlag,account.getDisplayName(),account.getEmail(),account.getPhotoUrl());
         } else {
             H.showMessage(activity, "User data not found");
         }
@@ -153,23 +194,98 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
                 });
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        H.showMessage(activity, "Connection fail.");
+    }
 
-    public void googleDialog(GoogleSignInAccount account) {
+
+    // Facebook integration
+    public void onFacebookClick(View view) {
+        checkForFacebookLogin();
+    }
+
+    private void checkForFacebookLogin(){
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser==null){
+            binding.loginButton.performClick();
+        }else {
+            successDialog(facebookFlag,currentUser.getDisplayName(),currentUser.getEmail(),currentUser.getPhotoUrl());
+        }
+    }
+
+    private void initFacebookLogin(){
+//        FacebookSdk.sdkInitialize(activity);
+        mAuth = FirebaseAuth.getInstance();
+        mCallbackManager = CallbackManager.Factory.create();
+        binding.loginButton.setReadPermissions("email", "public_profile");
+        binding.loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                H.showMessage(activity,"Unable to login.");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                H.showMessage(activity,"Unable to login.");
+            }
+
+        });
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            successDialog(facebookFlag,currentUser.getDisplayName(),currentUser.getEmail(),currentUser.getPhotoUrl());
+                        } else {
+                            H.showMessage(activity,"Authentication failed.");
+                        }
+                    }
+                });
+    }
+
+    private void logOutFromFacebook(){
+//        LoginManager.getInstance().logOut();
+    }
+
+    private void successDialog(int flag,String name, String email, Uri image) {
         Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setTitle("Google Login");
-        dialog.setContentView(R.layout.activity_google_view);
+//        dialog.setTitle("");
+        dialog.setContentView(R.layout.activity_success_view);
         CircleImageView imgUser = dialog.findViewById(R.id.imgUser);
+        TextView txtTitle = dialog.findViewById(R.id.txtTitle);
         TextView txtUserName = dialog.findViewById(R.id.txtUserName);
         TextView txtUserEmail = dialog.findViewById(R.id.txtUserEmail);
-        Picasso.get().load(account.getPhotoUrl()).error(R.mipmap.ic_launcher).into(imgUser);
-        txtUserName.setText(account.getDisplayName());
-        txtUserEmail.setText(account.getEmail());
-        dialog.findViewById(R.id.txtChangeAccount).setOnClickListener(new View.OnClickListener() {
+        TextView txtChangeAccount = dialog.findViewById(R.id.txtChangeAccount);
+        Picasso.get().load(image).error(R.mipmap.ic_launcher).into(imgUser);
+        if (flag==facebookFlag){
+            txtTitle.setText("Facebook Login");
+            txtChangeAccount.setText("Cancel");
+        }else if (flag==googleFlag){
+            txtTitle.setText("Google Login");
+        }
+        txtUserName.setText(name);
+        txtUserEmail.setText(email);
+        txtChangeAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.cancel();
-                logOutFromGoogle();
+                if (flag==facebookFlag){
+                    logOutFromFacebook();
+                }else if (flag==googleFlag){
+                    logOutFromGoogle();
+                }
             }
         });
         dialog.findViewById(R.id.txtContinue).setOnClickListener(new View.OnClickListener() {
@@ -182,7 +298,6 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         dialog.show();
         Window window = dialog.getWindow();
         window.setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
-
     }
 
     private void setupOnBoardingItems() {
@@ -199,7 +314,6 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         onBoardItem2.setImage(R.drawable.ic_group_4172);
         onBoardItem2.setTitle("Fast Doorstep Deliveries ");
 
-
         onBoardItems.add(onBoardItem);
         onBoardItems.add(onBoardItem1);
         onBoardItems.add(onBoardItem2);
@@ -207,69 +321,4 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         onBoardingAdapter = new OnBoardingAdapter(onBoardItems);
     }
 
-    public void onFacebookClick(View view) {
-        LoginManager.getInstance().logOut();
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
-    }
-
-    private void setUpFaceBookLogIn() {
-        callbackManager = CallbackManager.Factory.create();
-
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        loadFacebookInfo(loginResult.getAccessToken());
-                        Log.e("onSuccess", "isExecuted");
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        Log.e("onCancel", "isExecuted");
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        Log.e("exceptionIs", exception.getMessage());
-
-                        H.showMessage(OnboardingActivity.this, "Could not login. Please try another login method");
-                    }
-                });
-    }
-
-
-    private void loadFacebookInfo(final AccessToken token) {
-        //
-        GraphRequest request = GraphRequest.newMeRequest(token,
-                (json, response) -> {
-                    //socialLogin("facebook", Api.getString(json, "name"),Api.getString(json, "email"), token.getToken());
-                    Log.e("usernameIs", json.toString());
-
-                    try {
-                        Session session = new Session(OnboardingActivity.this);
-
-                        session.addString(P.full_name, json.getString("name") + "");
-                        session.addString(P.email_id, json.getString("email") + "");
-                        session.addString(P.id, json.getString("id") + "");
-                        App.startHomeActivity(OnboardingActivity.this);
-
-                        //   hitSocialLoginApi(session, 3); Api calling using Apk
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    Log.e("responseIs", response.toString());
-                });
-
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,email,name");
-        request.setParameters(parameters);
-        request.executeAsync();
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
 }
