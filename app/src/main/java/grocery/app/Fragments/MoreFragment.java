@@ -1,7 +1,9 @@
 package grocery.app.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,45 +12,23 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import grocery.app.R;
+import grocery.app.databinding.FragmentMoreBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MoreFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MoreFragment extends Fragment {
-        private  View fragmentView;
 
-    public MoreFragment() {
-        // Required empty public constructor
-    }
-
-
-    public static MoreFragment newInstance() {
-        MoreFragment fragment = new MoreFragment();
-
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
+    private FragmentMoreBinding binding;
+    private Context context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_more, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_more, container, false);
+        context = inflater.getContext();
+        return binding.getRoot();
     }
 
-  /*  @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        Object object = fragmentView.getParent();
-        if (object instanceof FrameLayout)
-            ((FrameLayout) object).removeAllViews();
-    }*/
+    public static MoreFragment newInstance() {
+        MoreFragment fragment = new MoreFragment();
+        return fragment;
+    }
 }

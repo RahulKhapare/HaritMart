@@ -154,6 +154,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                 //.onHeaderRequest(App::getHeaders)
                 .onError(() -> {
                     hideProgress();
+                    checkError();
                     H.showMessage(context, "On error is called");
                 })
                 .onSuccess(json ->
@@ -183,6 +184,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                                 e.printStackTrace();
                             }
                             cartAdapter.notifyDataSetChanged();
+
                         }
 
                         binding.txtSubTotal.setText(rs + json.getString("item_total"));
@@ -195,9 +197,9 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                         showSummary();
                     } else {
                         hideProgress();
-                        H.showMessage(context, json.getString(P.msg));
+//                        H.showMessage(context, json.getString(P.msg));
                     }
-
+                    checkError();
                 })
                 .run("hitCartListApi");
     }
@@ -211,6 +213,10 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                 .setMethod(Api.POST)
                 //.onHeaderRequest(App::getHeaders)
                 .onError(() -> {
+                    checkError();
+                    if (cartModelList.isEmpty()) {
+                        hideSummary();
+                    }
                     H.showMessage(context, "On error is called");
                 })
                 .onSuccess(json ->
@@ -228,6 +234,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                     if (cartModelList.isEmpty()) {
                         hideSummary();
                     }
+                    checkError();
                 })
                 .run("hitToUpdateSummery");
     }
@@ -250,12 +257,31 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                 cartAdapter.notifyDataSetChanged();
                 if(cartModelList.isEmpty()){
                     hideSummary();
+                    checkError();
                 }
             }
         });
         return animation;
     }
 
+    private void checkError(){
+        if (cartModelList.isEmpty()){
+            showError();
+        }else {
+            hideError();
+        }
+    }
+
+    private void showError(){
+        if (binding.lnrError.getVisibility()==View.GONE){
+            binding.lnrError.setVisibility(View.VISIBLE);
+        }
+    }
+    private void hideError(){
+        if (binding.lnrError.getVisibility()==View.VISIBLE){
+            binding.lnrError.setVisibility(View.GONE);
+        }
+    }
     private void showSummary() {
         binding.lnrSummary.setVisibility(View.VISIBLE);
     }

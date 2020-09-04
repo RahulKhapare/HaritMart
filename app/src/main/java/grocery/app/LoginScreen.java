@@ -43,7 +43,6 @@ public class LoginScreen extends AppCompatActivity {
         }else {
             Intent intent = new Intent(LoginScreen.this,OtpActivity.class);
             intent.putExtra(Config.LOGIN_NUMBER,binding.etxNumber.getText().toString());
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
     }

@@ -1,5 +1,6 @@
 package grocery.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -50,6 +51,15 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    public void onClickNotification(View view){
+
+    }
+
+    public void onClickProfile(View view){
+        Intent accountIntent = new Intent(activity,MyAccountActivity.class);
+        startActivity(accountIntent);
+    }
+
     private void hitCategoryApi() {
         try {
             Api.newApi(this, P.baseUrl + "categories").addJson(new Json())
@@ -81,7 +91,7 @@ public class BaseActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_enter, R.anim.anim_exit)
                 .replace(R.id.frameLayoutChild, fragment)
-//                .addToBackStack(null)
+                .addToBackStack(null)
                 .commit();
     }
 
@@ -153,10 +163,10 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        if(getSupportFragmentManager().getBackStackEntryCount() > 0)
-//            getSupportFragmentManager().popBackStack();
-//        else
-//            super.onBackPressed();
-        super.onBackPressed();
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0){
+            getSupportFragmentManager().popBackStack();
+        }else {
+            super.onBackPressed();
+        }
     }
 }

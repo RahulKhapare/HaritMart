@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".Fragments.SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="search Fragment" />
+        android:background="@color/white">
 
-</FrameLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
+
+                <EditText
+                    android:id="@+id/etxSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:textSize="14sp"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/nunito_sans_semibold"
+                    android:textColor="@color/textColor"
+                    android:textColorHint="#373737"
+                    android:background="@drawable/search_bg"
+                    android:drawableTint="@color/colorPrimaryDark"
+                    android:drawableLeft="@drawable/ic_baseline_search_24"
+                    android:hint="Search for products">
+
+                </EditText>
+
+                <LinearLayout
+                    android:layout_below="@+id/etxSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtSearchHistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#373737"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:text="Search History"></TextView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/recyclerSearchHistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <TextView
+                        android:id="@+id/txtSearchTrend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#373737"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:layout_marginTop="20dp"
+                        android:text="Trending Searches"></TextView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/recyclerTrendingSearches"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </FrameLayout>
+
+</layout>

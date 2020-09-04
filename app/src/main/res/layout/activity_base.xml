@@ -55,7 +55,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_horizontal"
+                                android:gravity="center_vertical"
                                 android:layout_weight="1"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginLeft="10dp"
                                 android:orientation="vertical">
 
                                 <TextView
@@ -95,22 +98,23 @@
                                 android:padding="3dp">
 
                                 <ImageView
-                                    android:id="@+id/imageView"
-                                    android:layout_width="?actionBarSize"
-                                    android:layout_height="match_parent"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginRight="10dp"
                                     android:layout_gravity="center_vertical"
                                     android:background="@drawable/clickable_transparent_bg"
                                     android:clickable="true"
+                                    android:onClick="onClickNotification"
                                     android:src="@drawable/ic_notification"
                                     android:tint="@color/black" />
 
                                 <ImageView
-                                    android:id="@+id/imageView1"
-                                    android:layout_width="?actionBarSize"
-                                    android:layout_height="match_parent"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
                                     android:layout_gravity="center_vertical"
                                     android:background="@drawable/clickable_transparent_bg"
                                     android:clickable="true"
+                                    android:onClick="onClickProfile"
                                     android:src="@drawable/ic_notificationa"
                                     android:tint="@color/black" />
                             </LinearLayout>
