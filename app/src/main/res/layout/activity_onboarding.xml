@@ -90,7 +90,6 @@
                                 android:background="@drawable/grey_green_border"
                                 android:clickable="true"
                                 android:textAllCaps="false"
-                                android:visibility="gone"
                                 android:fontFamily="@font/nunito_sans_semibold"
                                 android:gravity="center"
                                 android:text="Secondary Button"

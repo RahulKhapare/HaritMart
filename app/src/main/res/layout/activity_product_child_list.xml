@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="10dp"
-            android:background="@drawable/product_bg_card_gray">
+            android:background="@drawable/product_bg_card">
 
 
             <androidx.recyclerview.widget.RecyclerView

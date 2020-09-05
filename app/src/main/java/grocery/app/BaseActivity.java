@@ -2,6 +2,7 @@ package grocery.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,6 +27,7 @@ import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityBaseBinding;
 import grocery.app.util.Click;
+import grocery.app.util.Config;
 import grocery.app.util.WindowBarColor;
 
 public class BaseActivity extends AppCompatActivity {
@@ -51,12 +53,12 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    public void onClickNotification(View view){
+    public void onClickNotification(View view) {
 
     }
 
-    public void onClickProfile(View view){
-        Intent accountIntent = new Intent(activity,MyAccountActivity.class);
+    public void onClickProfile(View view) {
+        Intent accountIntent = new Intent(activity, MyAccountActivity.class);
         startActivity(accountIntent);
     }
 
@@ -76,22 +78,22 @@ public class BaseActivity extends AppCompatActivity {
                             App.categoryJsonList = json.getJsonList(P.category_list);
 
                             homeFragment = HomeFragment.newInstance();
-                            fragmentLoader(homeFragment);
+                            fragmentLoader(homeFragment, Config.HOME);
                         } else
                             H.showMessage(this, json.getString(P.msg));
                     })
                     .run("hitCategoryApi");
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
     }
 
-    public void fragmentLoader(Fragment fragment) {
+    public void fragmentLoader(Fragment fragment, String tag) {
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_enter, R.anim.anim_exit)
-                .replace(R.id.frameLayoutChild, fragment)
-                .addToBackStack(null)
+                .replace(R.id.frameLayoutChild, fragment, tag)
+                .addToBackStack(tag)
                 .commit();
     }
 
@@ -102,27 +104,27 @@ public class BaseActivity extends AppCompatActivity {
         switch (i) {
             case R.id.homeLayout: {
                 homeFragment = HomeFragment.newInstance();
-                fragmentLoader(homeFragment);
+                fragmentLoader(homeFragment, Config.HOME);
                 break;
             }
             case R.id.favouriteLayout: {
                 favouriteFragment = FavouriteFragment.newInstance();
-                fragmentLoader(favouriteFragment);
+                fragmentLoader(favouriteFragment, Config.FAVORITE);
                 break;
             }
             case R.id.searchLayout: {
                 searchFragment = SearchFragment.newInstance();
-                fragmentLoader(searchFragment);
+                fragmentLoader(searchFragment, Config.SEARCH);
                 break;
             }
             case R.id.cartLayout: {
                 cartFragment = cartFragment.newInstance();
-                fragmentLoader(cartFragment);
+                fragmentLoader(cartFragment, Config.CART);
                 break;
             }
             case R.id.moreLayout: {
                 moreFragment = MoreFragment.newInstance();
-                fragmentLoader(moreFragment);
+                fragmentLoader(moreFragment, Config.MORE);
                 break;
             }
         }
@@ -161,12 +163,38 @@ public class BaseActivity extends AppCompatActivity {
         textView.setTextColor(getResources().getColor(R.color.green));
     }
 
+
+    public void onBackAction(){
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        if (count >0) {
+            if (count>1){
+                String title = getSupportFragmentManager().getBackStackEntryAt(count - 2).getName();
+                getSupportFragmentManager().popBackStack();
+                updateBottomIcon(title);
+            }else {
+                finish();
+            }
+        } else {
+            finish();
+        }
+    }
+
+    private void updateBottomIcon(String tag) {
+        if (tag.equals(Config.HOME)) {
+            selectBottomNavigation(binding.homeLayout);
+        } else if (tag.equals(Config.FAVORITE)) {
+            selectBottomNavigation(binding.favouriteLayout);
+        } else if (tag.equals(Config.SEARCH)) {
+            selectBottomNavigation(binding.searchLayout);
+        } else if (tag.equals(Config.CART)) {
+            selectBottomNavigation(binding.cartLayout);
+        } else if (tag.equals(Config.MORE)) {
+            selectBottomNavigation(binding.moreLayout);
+        }
+    }
+
     @Override
     public void onBackPressed() {
-        if(getSupportFragmentManager().getBackStackEntryCount() > 0){
-            getSupportFragmentManager().popBackStack();
-        }else {
-            super.onBackPressed();
-        }
+        onBackAction();
     }
 }

@@ -419,18 +419,6 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
                 return false;
             }
         });
-
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                //Do some magic
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                //Do some magic
-            }
-        });
     }
 
 
