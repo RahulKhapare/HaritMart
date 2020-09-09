@@ -76,6 +76,7 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
                     checkGPS();
                 } else {
                     Intent baseIntent = new Intent(activity, BaseActivity.class);
+                    baseIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(baseIntent);
                 }
             }

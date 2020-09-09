@@ -49,7 +49,7 @@ public class OtpActivity extends AppCompatActivity {
             H.showMessage(activity,"Enter 4 digit OTP");
         }else {
             Intent intent = new Intent(OtpActivity.this,SetLocationActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }

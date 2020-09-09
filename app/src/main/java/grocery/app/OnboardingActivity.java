@@ -89,12 +89,11 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         tabLayoutMediator.attach();
         binding.loginBtn.setOnClickListener(view -> {
             Intent intent = new Intent(OnboardingActivity.this, LoginScreen.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
         binding.txtSkip.setOnClickListener(view -> {
-            Intent intent = new Intent(OnboardingActivity.this, BaseActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent intent = new Intent(OnboardingActivity.this, SetLocationActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
         printHashKey(activity);
@@ -292,6 +291,9 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
             @Override
             public void onClick(View v) {
                 dialog.cancel();
+                Intent intent = new Intent(OnboardingActivity.this, SetLocationActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
         dialog.setCancelable(true);

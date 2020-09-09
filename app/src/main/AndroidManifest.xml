@@ -15,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".NewAddressActivity"></activity>
+
+        <activity android:name=".MyAddressActivity"
+            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name=".SearchLocationActivity"
             android:screenOrientation="portrait" />
@@ -49,13 +52,7 @@
             android:name=".ProductCategoryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MyAccountActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ProductChildListActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".WishlistActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".EditProfileActivity"
@@ -71,6 +68,9 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".OtpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyAccountActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginScreen"

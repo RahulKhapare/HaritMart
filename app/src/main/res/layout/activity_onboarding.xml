@@ -75,7 +75,7 @@
                                 android:layout_height="?actionBarSize"
                                 android:layout_gravity="center"
                                 android:background="@drawable/custom_button"
-                                android:text="Login"
+                                android:text="Login With Mobile"
                                 android:fontFamily="@font/nunito_sans_semibold"
                                 android:textAllCaps="false"
                                 android:textColor="#ffffff"

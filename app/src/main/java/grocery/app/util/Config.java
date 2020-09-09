@@ -16,4 +16,10 @@ public class Config {
     public static String CHILD_JSON = "CHILD_JSON";
     public static String LOGIN_NUMBER = "LOGIN_NUMBER";
 
+    public static String HOME = "HOME";
+    public static String FAVORITE = "FAVORITE";
+    public static String SEARCH = "SEARCH";
+    public static String CART = "CART";
+    public static String MORE = "MORE";
+
 }
