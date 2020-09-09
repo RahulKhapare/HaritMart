@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MyAccountActivity">
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyAccountActivity">
+   >
 
 
     <RelativeLayout
@@ -12,7 +16,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_green">
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/back"
             android:layout_width="?actionBarSize"
             android:layout_height="?actionBarSize"
@@ -29,7 +33,17 @@
             android:layout_toRightOf="@id/back"
             android:text="My Account"
             android:textColor="#ffffff"
-            android:textSize="27dp" />
+            android:textSize="27dp" />-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/green"
+            android:theme="@style/ToolbarColoredBackArrow"
+            app:subtitleTextColor="@color/white"
+            app:titleTextColor="@color/white">
+
+        </androidx.appcompat.widget.Toolbar>
 
 
         <androidx.cardview.widget.CardView
@@ -135,15 +149,15 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:weightSum="10">
+                            android:layout_gravity="center_vertical"
+                            >
 
                             <TextView
+                                android:layout_weight="1"
                                 android:id="@+id/address"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginTop="7dp"
-                                android:layout_weight="8"
+                                android:layout_gravity="center_vertical"
                                 android:drawableStart="@drawable/ic_position"
                                 android:drawablePadding="2dp"
                                 android:text="Bangur Nagar Goregaon(West)"
@@ -151,15 +165,14 @@
                                 android:textSize="19sp" />
 
                             <TextView
+                                android:layout_margin="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="11dp"
-                                android:layout_marginTop="7dp"
                                 android:layout_toRightOf="@+id/address"
-                                android:layout_weight="2"
                                 android:background="@drawable/grey_border1"
-                                android:padding="2dp"
                                 android:text="change"
+                                android:layout_gravity="center_vertical"
+                                android:padding="5dp"
                                 android:textColor="#FC8F00"
                                 android:textSize="19sp" />
 
@@ -188,8 +201,14 @@
                         android:layout_marginEnd="15dp"
                         android:background="#EFEFEF" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="?actionBarSize"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
@@ -197,8 +216,22 @@
                         android:drawablePadding="7dp"
                         android:gravity="center_vertical"
                         android:text="Wallet"
+                        android:layout_weight="2"
                         android:textColor="#373737"
                         android:textSize="21sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="?actionBarSize"
+                            android:layout_gravity="center"
+                            android:gravity="center_vertical"
+                            android:text="Rs 0.00"
+                            android:layout_weight="1"
+                            android:textColor="#52AC03"
+                            android:textSize="21sp" />
+                    </LinearLayout>
+
+
 
                     <View
                         android:layout_width="match_parent"
@@ -326,4 +359,5 @@
 
 
 </RelativeLayout>
+</layout>
 
