@@ -15,10 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".MyAddressActivity"
-            android:screenOrientation="portrait"></activity>
-
+        <activity
+            android:name=".MyAddressActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SearchLocationActivity"
             android:screenOrientation="portrait" />
@@ -65,7 +64,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".SetLocationActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".OtpActivity"
             android:screenOrientation="portrait" />
