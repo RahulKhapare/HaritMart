@@ -91,6 +91,7 @@
 
 
                         <EditText
+                            android:id="@+id/editText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="47dp"
@@ -109,6 +110,7 @@
                             android:layout_marginBottom="45dp"
                             android:background="@drawable/custom_button"
                             android:text="Proceed"
+                            android:onClick="onLoginClick"
                             android:textColor="#ffffff"
                             android:textSize="14sp"
                             android:textStyle="normal" />

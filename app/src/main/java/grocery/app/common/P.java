@@ -64,4 +64,7 @@ public class P {
     public static String email_id="email_id";
     public static String locationAddress="locationAddress";
 
+    public static String phone="phone";
+    public static String otp="otp";
+    public static String json="json";
 }//class

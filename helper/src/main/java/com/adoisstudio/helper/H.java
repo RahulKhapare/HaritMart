@@ -167,6 +167,17 @@ public class H {
         //Log.e(tag, msg);
     }//log
 
+
+    public static long getLong(String string) {
+        long l = 0;
+        try {
+            l = Long.parseLong(string);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+
     public static double getDouble(String val) {
 
         try {
