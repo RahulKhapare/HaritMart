@@ -49,7 +49,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
                         new Handler().postDelayed(() -> {
-                            Intent intent = new Intent(this, TermsAndCondition.class);
+                            Intent intent = new Intent(this, OnboardingActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();
