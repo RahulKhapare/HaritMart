@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".TermsAndCondition"></activity>
+        <activity android:name=".Checkout" />
+        <activity android:name=".WelcomeLoginActivity" />
         <activity
             android:name=".MyAddressActivity"
             android:screenOrientation="portrait" />

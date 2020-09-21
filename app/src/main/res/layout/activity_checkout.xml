@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Checkout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/green">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <FrameLayout
+                android:id="@+id/frameView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:background="@color/green"
+                    android:theme="@style/ToolbarColoredBackArrow"
+                    app:subtitleTextColor="@color/white"
+                    app:titleTextColor="@color/white">
+
+                </androidx.appcompat.widget.Toolbar>
+
+                <com.miguelcatalan.materialsearchview.MaterialSearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/product_bg_card"
+                android:orientation="vertical">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fillViewport="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/nunito_sans_semibold"
+                            android:text="Shipping to"
+                            android:textColor="#373737"
+                            android:textSize="22sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RadioGroup
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="15dp"
+                                    android:layout_marginTop="25dp"
+                                    app:cardCornerRadius="15dp"
+                                    app:cardElevation="10dp">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="15dp"
+                                        android:layout_marginStart="14dp"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal">
+
+                                        <RadioButton
+                                            android:id="@+id/home"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_horizontal"
+                                            android:buttonTint="@color/green"
+                                            android:fontFamily="@font/nunito_sans_semibold"
+                                            android:gravity="center_vertical"
+                                            android:text="Home"
+                                            android:textSize="20sp" />
+
+                                        <ImageView
+                                            android:layout_width="15dp"
+                                            android:layout_height="21dp"
+                                            android:layout_alignParentTop="true"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_marginTop="10dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:clickable="true"
+                                            android:src="@drawable/ic_pencil" />
+
+
+                                        <TextView
+                                            android:id="@+id/phone"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/home"
+                                            android:layout_marginStart="27dp"
+                                            android:fontFamily="@font/nunito_sans_semibold"
+                                            android:text="ph:991234578"
+                                            android:textSize="19sp" />
+
+
+                                        <TextView
+                                            android:id="@+id/address"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/phone"
+                                            android:layout_marginStart="27dp"
+                                            android:fontFamily="@font/nunito_sans_semibold"
+                                            android:text="123, building name, street name,"
+                                            android:textSize="19sp" />
+
+
+                                    </RelativeLayout>
+
+
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="15dp"
+                                    android:layout_marginTop="25dp"
+                                    app:cardCornerRadius="15dp"
+                                    app:cardElevation="10dp">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="15dp"
+                                        android:layout_marginStart="14dp"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal">
+
+                                        <RadioButton
+                                            android:id="@+id/office"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_horizontal"
+                                            android:buttonTint="@color/green"
+                                            android:fontFamily="@font/nunito_sans_semibold"
+                                            android:gravity="center_vertical"
+                                            android:text="Office"
+                                            android:textSize="20sp" />
+
+                                        <ImageView
+                                            android:layout_width="15dp"
+                                            android:layout_height="21dp"
+                                            android:layout_alignParentTop="true"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_marginTop="10dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:clickable="true"
+                                            android:src="@drawable/ic_pencil" />
+
+
+                                        <TextView
+                                            android:id="@+id/phoneOffice"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/office"
+                                            android:layout_marginStart="27dp"
+                                            android:fontFamily="@font/nunito_sans_semibold"
+                                            android:text="ph:991234578"
+                                            android:textSize="19sp" />
+
+
+                                        <TextView
+                                            android:id="@+id/addressOffice"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/phoneOffice"
+                                            android:layout_marginStart="27dp"
+                                            android:fontFamily="@font/nunito_sans_semibold"
+                                            android:text="123, building name, street name,"
+                                            android:textSize="19sp" />
+
+
+                                    </RelativeLayout>
+
+
+                                </androidx.cardview.widget.CardView>
+
+
+                            </RadioGroup>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/nunito_sans_semibold"
+                            android:text="Payment Method"
+                            android:textColor="#373737"
+                            android:textSize="22sp" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp">
+
+
+                            <RadioGroup
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="?actionBarSize"
+                                    android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/creditCard"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="?actionBarSize"
+                                    android:drawableStart="@drawable/ic_group_4619"
+                                    android:drawablePadding="10dp"
+                                    android:fontFamily="@font/nunito_sans_regular"
+                                    android:gravity="center"
+                                    android:text="Credit Card"
+                                    android:textColor="#373737"
+                                    android:textSize="19sp" />
+                                    <RadioButton
+                                        android:id="@+id/rd1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:buttonTint="@color/green"
+                                        android:layout_marginEnd="15dp"
+                                         />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="#EFEFEF" />
+
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="?actionBarSize"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/payPal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="?actionBarSize"
+                                        android:drawableStart="@drawable/ic_group_4616"
+                                        android:drawablePadding="10dp"
+                                        android:fontFamily="@font/nunito_sans_regular"
+                                        android:gravity="center"
+                                        android:text="PayPal"
+                                        android:textColor="#373737"
+                                        android:textSize="19sp" />
+                                    <RadioButton
+                                        android:id="@+id/rd2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:buttonTint="@color/green"
+                                        android:layout_marginEnd="15dp"
+                                        />
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="#EFEFEF" />
+
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="?actionBarSize"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/gPay"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="?actionBarSize"
+                                        android:drawableStart="@drawable/ic_brands_and_logotypes"
+                                        android:drawablePadding="10dp"
+                                        android:fontFamily="@font/nunito_sans_regular"
+                                        android:gravity="center"
+                                        android:text="Google pay"
+                                        android:textColor="#373737"
+                                        android:textSize="19sp" />
+                                    <RadioButton
+                                        android:id="@+id/rd3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:buttonTint="@color/green"
+                                        android:layout_marginEnd="15dp"
+                                        />
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="#EFEFEF" />
+
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="?actionBarSize"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/amazonPay"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="?actionBarSize"
+                                        android:drawableStart="@drawable/ic_group_4620"
+                                        android:drawablePadding="10dp"
+                                        android:fontFamily="@font/nunito_sans_regular"
+                                        android:gravity="center"
+                                        android:text="Amazon Pay"
+                                        android:textColor="#373737"
+                                        android:textSize="19sp" />
+                                    <RadioButton
+                                        android:id="@+id/rd4"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:buttonTint="@color/green"
+                                        android:layout_marginEnd="15dp"
+                                        />
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="#EFEFEF" />
+
+
+                                </RelativeLayout>
+
+
+                            </RadioGroup>
+
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/nunito_sans_semibold"
+                            android:text="Other Payment Method"
+                            android:textColor="#373737"
+                            android:textSize="22sp" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp">
+
+
+                            <RadioGroup
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="?actionBarSize"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/newBanking"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="?actionBarSize"
+                                        android:drawableStart="@drawable/ic_group_4658"
+                                        android:drawablePadding="10dp"
+                                        android:fontFamily="@font/nunito_sans_regular"
+                                        android:gravity="center"
+                                        android:text="Net Banking"
+                                        android:textColor="#373737"
+                                        android:textSize="19sp" />
+                                    <RadioButton
+                                        android:id="@+id/rd5"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:buttonTint="@color/green"
+                                        android:layout_marginEnd="15dp"
+                                        />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="#EFEFEF" />
+
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="?actionBarSize"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/txtWallet"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="?actionBarSize"
+                                        android:drawableStart="@drawable/ic_group_4459"
+                                        android:drawablePadding="10dp"
+                                        android:fontFamily="@font/nunito_sans_regular"
+                                        android:gravity="center"
+                                        android:text="Wallet"
+                                        android:textColor="#373737"
+                                        android:textSize="19sp" />
+                                    <RadioButton
+                                        android:id="@+id/rd6"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:buttonTint="@color/green"
+                                        android:layout_marginEnd="15dp"
+                                        />
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="#EFEFEF" />
+
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="?actionBarSize"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/cod"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="?actionBarSize"
+                                        android:drawableStart="@drawable/ic_group_4664"
+                                        android:drawablePadding="10dp"
+                                        android:fontFamily="@font/nunito_sans_regular"
+                                        android:gravity="center"
+                                        android:text="Cash on Delivery"
+                                        android:textColor="#373737"
+                                        android:textSize="19sp" />
+                                    <RadioButton
+                                        android:id="@+id/rd7"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:buttonTint="@color/green"
+                                        android:layout_marginEnd="15dp"
+                                        />
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="#EFEFEF" />
+
+
+                                </RelativeLayout>
+
+
+
+
+                            </RadioGroup>
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

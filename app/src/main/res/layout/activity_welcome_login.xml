@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".WelcomeLoginActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <FrameLayout
+        android:id="@+id/frameView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:titleTextColor="@color/white"
+            app:subtitleTextColor="@color/white"
+            android:theme="@style/ToolbarColoredBackArrow"
+            android:background="@color/green">
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.miguelcatalan.materialsearchview.MaterialSearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/product_bg_card">
+            
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="14dp"
+                    android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/createAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Create Account."
+
+                    android:buttonTint="@color/green"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/nunito_sans_semibold"
+
+                    android:textSize="22sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:gravity="center"
+                    android:fontFamily="@font/nunito_sans_semibold"
+                    android:textSize="16sp"
+                    android:text="New to Global Grocery?"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="14dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?actionBarSize"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Login ."
+
+                        android:buttonTint="@color/green"
+                        android:gravity="center_vertical"
+                        android:fontFamily="@font/nunito_sans_semibold"
+
+                        android:textSize="22sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="?actionBarSize"
+                        android:gravity="center"
+                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:textSize="16sp"
+                        android:text="Already a Customer?"/>
+
+
+
+                </LinearLayout>
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="14dp">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="47dp"
+                android:layout_marginEnd="15dp"
+                android:hint="Mobile Number"
+                android:inputType="numberDecimal"
+                android:maxLength="10" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/nunito_sans_regular"
+                    android:text="OR"
+                    android:textColor="#888888"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="Login With"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp">
+
+                        <com.facebook.login.widget.LoginButton
+                            android:id="@+id/login_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/imgFacebook"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="onFacebookClick"
+                            android:src="@drawable/ic_path_15456" />
+
+                    </FrameLayout>
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:clickable="true"
+                        android:onClick="onGoogleClick"
+                        android:src="@drawable/ic_brands_and_logotypes" />
+
+                </LinearLayout>
+
+
+            <Button
+                android:id="@+id/loginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginBottom="45dp"
+                android:background="@drawable/custom_button"
+                android:text="Proceed"
+                android:onClick="onLoginClick"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
+</layout>
