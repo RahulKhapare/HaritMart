@@ -40,6 +40,7 @@ public class P {
     public static String parent_id = "parent_id";
     public static String id = "id";
     public static String name = "name";
+    public static String logo = "logo";
     public static String image = "image";
     public static String main_parent_id = "main_parent_id";
     public static String category_id = "category_id";
@@ -58,6 +59,7 @@ public class P {
     public static String new_window = "new_window";
     public static String url = "url";
     public static String image_alt_text = "image_alt_text";
+    public static String list = "list";
 
 
     public static String full_name="full_name";

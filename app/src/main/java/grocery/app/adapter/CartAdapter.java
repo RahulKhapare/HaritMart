@@ -32,6 +32,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private List<CartModel> cartModelList;
     private CartFragment cartFragment;
     private boolean isFragment;
+    private boolean processToPay;
     private String rs = "₹.";
 
 
@@ -45,6 +46,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         this.cartModelList = cartModelList;
         this.cartFragment = cartFragment;
         isFragment = true;
+    }
+
+    public CartAdapter(Context context, List<CartModel> cartModelList, boolean processToPay) {
+        this.context = context;
+        this.cartModelList = cartModelList;
+        this.processToPay = processToPay;
     }
 
     @NonNull
@@ -89,6 +96,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         onClickItem(model,holder,position);
+
+        if (processToPay){
+            holder.binding.lnrUpdate.setVisibility(View.GONE);
+        }
     }
 
     private void onClickItem(CartModel model,ViewHolder holder,int position) {
@@ -99,7 +110,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 int itemCount = cartValue-1;
                 if (isFragment){
                     if (ConnectionUtil.isOnline(context)){
-                        ((CartFragment)cartFragment).updateCart(Integer.parseInt(model.getId()),itemCount,holder.binding.txtItemCount);
+//                        ((CartFragment)cartFragment).updateCart(Integer.parseInt(model.getId()),itemCount,holder.binding.txtItemCount);
                     }else {
                         H.showMessage(context,context.getResources().getString(R.string.internetMessage));
                     }

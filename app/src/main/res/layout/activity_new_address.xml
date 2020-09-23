@@ -1,207 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_board_green"
-    android:orientation="vertical"
     tools:context=".NewAddressActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/green"
-        android:theme="@style/ToolbarColoredBackArrow"
-        app:subtitleTextColor="@color/white"
-        app:titleTextColor="@color/white">
-
-    </androidx.appcompat.widget.Toolbar>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/product_bg_card">
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?actionBarSize"
+            android:background="@color/green"
+            android:theme="@style/ToolbarColoredBackArrow"
+            app:subtitleTextColor="@color/white"
+            app:titleTextColor="@color/white">
 
-            <LinearLayout
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/product_bg_card">
+
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_sans_semibold"
-                    android:text="Personal Details"
-                    android:textColor="#373737"
-                    android:textSize="24sp" />
-
-                <EditText
-                    android:id="@+id/etxName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="Name"
-                    android:inputType="textPersonName"
-                    android:textColorHint="@color/grey2" />
-
-                <EditText
-                    android:id="@+id/etxNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="Contact Number"
-                    android:inputType="numberDecimal"
-                    android:textColorHint="@color/grey2" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/nunito_sans_semibold"
-                    android:text="Address Details"
-                    android:textColor="#373737"
-                    android:textSize="24sp" />
-
-
-                <EditText
-                    android:id="@+id/etxAptName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="Apartment name"
-                    android:inputType="textMultiLine"
-                    android:textColorHint="@color/grey2" />
-
-                <EditText
-                    android:id="@+id/etxStreet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="Street Address"
-                    android:inputType="textMultiLine"
-                    android:textColorHint="@color/grey2" />
-
-                <EditText
-                    android:id="@+id/etxLandMark"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="Landmark"
-                    android:inputType="textMultiLine"
-                    android:textColorHint="@color/grey2" />
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:layout_height="match_parent"
+                    android:layout_margin="0dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:text="Personal Details"
+                        android:textColor="#373737"
+                        android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/etxcity"
-                        android:layout_width="0dp"
+                        android:id="@+id/etxName"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:hint="City"
-                        android:inputType="text"
+                        android:layout_marginTop="20dp"
+                        android:hint="Name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
+                        android:backgroundTint="@color/grey2"
                         android:textColorHint="@color/grey2" />
+
+                    <EditText
+                        android:id="@+id/etxNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:imeOptions="actionNext"
+                        android:hint="Contact Number"
+                        android:backgroundTint="@color/grey2"
+                        android:inputType="numberDecimal"
+                        android:textColorHint="@color/grey2" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:text="Address Details"
+                        android:textColor="#373737"
+                        android:textSize="18sp" />
 
 
                     <EditText
-                        android:id="@+id/etxPincode"
-                        android:layout_width="0dp"
+                        android:id="@+id/etxAptName"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:hint="Pincode"
-                        android:inputType="number"
+                        android:layout_marginTop="20dp"
+                        android:hint="Apartment name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textMultiLine"
+                        android:backgroundTint="@color/grey2"
                         android:textColorHint="@color/grey2" />
 
+                    <EditText
+                        android:id="@+id/etxStreet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:hint="Street Address"
+                        android:imeOptions="actionNext"
+                        android:inputType="textMultiLine"
+                        android:textColorHint="@color/grey2" />
+
+                    <EditText
+                        android:id="@+id/etxLandMark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:hint="Landmark"
+                        android:backgroundTint="@color/grey2"
+                        android:imeOptions="actionNext"
+                        android:inputType="textMultiLine"
+                        android:textColorHint="@color/grey2" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="15dp"
+                        android:weightSum="2">
+
+                        <EditText
+                            android:id="@+id/etxcity"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="City"
+                            android:backgroundTint="@color/grey2"
+                            android:imeOptions="actionNext"
+                            android:layout_marginRight="5dp"
+                            android:inputType="text"
+                            android:textColorHint="@color/grey2" />
+
+
+                        <EditText
+                            android:id="@+id/etxPincode"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Pincode"
+                            android:backgroundTint="@color/grey2"
+                            android:imeOptions="actionNext"
+                            android:layout_marginLeft="5dp"
+                            android:inputType="number"
+                            android:textColorHint="@color/grey2" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_sans_regular"
+                        android:text="Choose name for this address"
+                        android:layout_marginTop="20dp"
+                        android:textColor="@color/grey2"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="4">
+
+                        <TextView
+                            android:id="@+id/txtHomeAddress"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/grey_border2"
+                            android:fontFamily="@font/nunito_sans_regular"
+                            android:padding="5dp"
+                            android:layout_weight="1"
+                            android:text="Home"
+                            android:gravity="center"
+                            android:textColor="#52AC03"
+                            android:textSize="19sp" />
+
+                        <TextView
+                            android:id="@+id/txtOfficeAddress"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/grey_border2"
+                            android:fontFamily="@font/nunito_sans_regular"
+                            android:padding="5dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:text="Office"
+                            android:gravity="center"
+                            android:textColor="#52AC03"
+                            android:textSize="19sp" />
+
+
+                    </LinearLayout>
+
+                    <CheckBox
+                        android:id="@+id/checkBoxDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="-5dp"
+                        android:buttonTint="@color/colorPrimaryDark"
+                        android:text="Set this as my default delivery address"
+                        android:fontFamily="@font/nunito_sans_regular"
+                        android:textSize="16sp"/>
+
+                    <Button
+                        android:id="@+id/btnProcess"
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:layout_gravity="center"
+                        android:background="@drawable/custom_button"
+                        android:text="Add Address"
+                        android:textAllCaps="false"
+                        android:textColor="#ffffff"
+                        android:layout_margin="50dp"
+                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:textSize="19sp"
+                        android:textStyle="normal" />
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_sans_regular"
-                    android:text="Choose name for this address"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/grey2"
-                    android:textSize="16sp" />
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
-                    android:weightSum="4">
-
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/grey_border2"
-                        android:fontFamily="@font/nunito_sans_regular"
-                        android:padding="5dp"
-
-                        android:layout_weight="1"
-                        android:text="Home"
-                        android:gravity="center"
-                        android:textColor="#52AC03"
-                        android:textSize="19sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/grey_border2"
-                        android:fontFamily="@font/nunito_sans_regular"
-                        android:padding="5dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="1"
-                        android:text="Office"
-                        android:gravity="center"
-                        android:textColor="#52AC03"
-                        android:textSize="19sp" />
-
-
-                </LinearLayout>
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:buttonTint="@color/colorPrimaryDark"
-                    android:text="Set this as my default delivery address"
-                    android:fontFamily="@font/nunito_sans_regular"
-                    android:textSize="16sp"/>
-
-                <Button
-                    android:id="@+id/btnProcess"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:layout_gravity="center"
-                    android:background="@drawable/custom_button"
-                    android:text="Add Address"
-                    android:textAllCaps="false"
-                    android:textColor="#ffffff"
-                    android:layout_margin="50dp"
-                    android:fontFamily="@font/nunito_sans_semibold"
-                    android:textSize="19sp"
-                    android:textStyle="normal" />
-
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
-</LinearLayout>
+
+</layout>

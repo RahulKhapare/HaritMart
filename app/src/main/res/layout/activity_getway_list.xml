@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/lnrView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            >
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="@color/green"
+                android:buttonTint="@color/green"
+                android:textColor="#373737"
+                android:textSize="@dimen/textSizeSmall"
+                android:fontFamily="@font/product_sans_regular">
+
+            </RadioButton>
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

@@ -1,6 +1,7 @@
 package grocery.app.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,11 +28,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import grocery.app.MyAddressActivity;
 import grocery.app.R;
 import grocery.app.adapter.CartAdapter;
 import grocery.app.common.P;
 import grocery.app.databinding.FragmentCartBinding;
 import grocery.app.model.CartModel;
+import grocery.app.util.Config;
 
 
 public class CartFragment extends Fragment implements View.OnClickListener, CartAdapter.CartInterface {
@@ -69,6 +72,9 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnProcessToPay:
+                Intent addressIntent = new Intent(context, MyAddressActivity.class);
+                addressIntent.putExtra(Config.FOR_CHECKOUT,true);
+                startActivity(addressIntent);
                 break;
         }
     }
@@ -93,6 +99,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     }
 
     private void hitRemoveCartApi(int item_id, int position, CardView cardView) {
+        showProgress();
         Json j = new Json();
         j.addInt(P.item_id, item_id);
 
@@ -101,6 +108,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                 //.onHeaderRequest(App::getHeaders)
                 .onError(() -> {
                     H.showMessage(context, "On error is called");
+                    hideProgress();
                 })
                 .onSuccess(json ->
                 {
@@ -111,12 +119,13 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                     } else {
                         H.showMessage(context, json.getString(P.msg));
                     }
-
+                    hideProgress();
                 })
                 .run("hitRemoveCartApi");
     }
 
     private void hitUpdateCartApi(int item_id, int item_qty, TextView textView) {
+        showProgress();
         Json j = new Json();
         j.addInt(P.item_id, item_id);
         j.addInt(P.item_qty, item_qty);
@@ -126,6 +135,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                 //.onHeaderRequest(App::getHeaders)
                 .onError(() -> {
                     H.showMessage(context, "On error is called");
+                    hideProgress();
                 })
                 .onSuccess(json ->
                 {
@@ -136,7 +146,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                     } else {
                         H.showMessage(context, json.getString(P.msg));
                     }
-
+                    hideProgress();
                 })
                 .run("hitUpdateCartApi");
     }
@@ -161,6 +171,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                 {
                     if (json.getInt(P.status) == 1) {
                         json = json.getJson(P.data);
+                        Config.CART_JSON = json;
                         JSONArray jsonArray = json.getJsonArray(P.item_list);
                         for (int i = 0; i < jsonArray.length(); i++) {
                             try {
@@ -223,6 +234,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                 {
                     if (json.getInt(P.status) == 1) {
                         json = json.getJson(P.data);
+                        Config.CART_JSON = json;
                         binding.txtSubTotal.setText(rs + json.getString("item_total"));
                         binding.txtTaxName.setText(json.getString("tax_name"));
                         binding.txtTaxCharge.setText(json.getString("tax_amount"));

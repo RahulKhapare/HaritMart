@@ -39,6 +39,7 @@ import java.util.Locale;
 
 import grocery.app.common.P;
 import grocery.app.databinding.ActivitySetLocationBinding;
+import grocery.app.util.Config;
 import grocery.app.util.WindowBarColor;
 
 public class SetLocationActivity extends FragmentActivity implements LocationListener, OnMapReadyCallback {
@@ -55,6 +56,7 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
     private String setLocation = "Set Location";
     public boolean isCurrentLocation;
     public static boolean isCurrentLocationFromSearch;
+    private boolean getCurrentLocationFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,8 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
         mapFragment.getMapAsync(this);
         checkGPS();
 
+        getCurrentLocationFlag = getIntent().getBooleanExtra(Config.GET_CURRENT_LOCATION,false);
+
         binding.btnLocation.setText(checkingAddress);
         binding.btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,9 +79,17 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
                 if (binding.btnLocation.getText().toString().equals(checkingAddress)) {
                     checkGPS();
                 } else {
-                    Intent baseIntent = new Intent(activity, BaseActivity.class);
-                    baseIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(baseIntent);
+                    if (getCurrentLocationFlag){
+                        Intent addressIntent = new Intent(activity, MyAddressActivity.class);
+                        addressIntent.putExtra(Config.ADDRESS_LOCATION,binding.txtAddress.getText().toString().trim());
+                        startActivity(addressIntent);
+                        finish();
+                    }else {
+                        Intent baseIntent = new Intent(activity, BaseActivity.class);
+                        baseIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(baseIntent);
+                    }
+
                 }
             }
         });
@@ -104,6 +116,10 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
                 checkGPS();
             }
         });
+
+        if (getCurrentLocationFlag){
+            binding.txtEdit.setVisibility(View.GONE);
+        }
     }
 
     @Override
