@@ -16,13 +16,15 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".CheckOutActivity"
+        <activity android:name=".TearmAndConditionActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".OrderDetailsActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".NewAddressActivity"
+            android:name=".CheckOutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Checkout"
+            android:name=".NewAddressActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".WelcomeLoginActivity"

@@ -51,6 +51,8 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
             case R.id.txtChange:
                 break;
             case R.id.txtMyOrder:
+                Intent orderDetailIntent = new Intent(activity,OrderDetailsActivity.class);
+                startActivity(orderDetailIntent);
                 break;
             case R.id.txtWallet:
                 break;
@@ -61,6 +63,8 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
             case R.id.txtNotification:
                 break;
             case R.id.txtGiftCard:
+                Intent termIntent = new Intent(activity,TearmAndConditionActivity.class);
+                startActivity(termIntent);
                 break;
             case R.id.txtDelieveryAddress:
                 Intent addressIntent = new Intent(activity,MyAddressActivity.class);
