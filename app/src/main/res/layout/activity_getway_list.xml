@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/lnrView"
@@ -17,6 +18,7 @@
             >
 
             <RadioButton
+                android:layout_weight="1"
                 android:id="@+id/radioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,7 +31,31 @@
 
             </RadioButton>
 
+            <TextView
+                android:id="@+id/txtLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/saffron"
+                android:layout_marginRight="5dp"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/textSizeSmall"
+                android:fontFamily="@font/product_sans_regular"
+                android:layout_gravity="center_vertical"
+                android:text="Link"
+                android:visibility="gone">
+
+            </TextView>
+
         </LinearLayout>
 
-    </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/black">
+
+        </LinearLayout>
+
+    </LinearLayout>
 </layout>

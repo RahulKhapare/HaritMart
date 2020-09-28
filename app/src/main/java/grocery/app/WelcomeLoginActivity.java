@@ -51,6 +51,7 @@ public class WelcomeLoginActivity extends AppCompatActivity implements GoogleApi
     private int googleFlag = 1;
     private int facebookFlag = 2;
     private GoogleSignInOptions gso;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

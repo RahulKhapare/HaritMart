@@ -2,8 +2,6 @@ package grocery.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +15,6 @@ import com.adoisstudio.helper.Session;
 import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityLoginScreenBinding;
-import grocery.app.util.Config;
 import grocery.app.util.WindowBarColor;
 
 public class LoginScreen extends AppCompatActivity {

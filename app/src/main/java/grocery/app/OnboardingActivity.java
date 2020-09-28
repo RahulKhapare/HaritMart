@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Bundle;
-import android.se.omapi.Session;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -25,11 +24,6 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -56,6 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import grocery.app.adapter.OnBoardingAdapter;
 import grocery.app.databinding.ActivityOnboardingBinding;
 
 public class OnboardingActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {

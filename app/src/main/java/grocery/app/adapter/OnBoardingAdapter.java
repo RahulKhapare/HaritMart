@@ -1,4 +1,4 @@
-package grocery.app;
+package grocery.app.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import grocery.app.R;
+import grocery.app.onBoardItem;
 
 public class OnBoardingAdapter extends  RecyclerView.Adapter<OnBoardingAdapter.onBoardViewHolder>{
 

@@ -15,6 +15,7 @@ import java.util.List;
 
 import grocery.app.Fragments.HomeFragment;
 import grocery.app.ProductChildListActivity;
+import grocery.app.ProductDetailsActivity;
 import grocery.app.R;
 import grocery.app.databinding.NewArrivedLayoutBinding;
 import grocery.app.model.ArrivalModel;
@@ -25,6 +26,7 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
     private Context context;
     private List<ArrivalModel> arrivalModelList;
     private HomeFragment fragment;
+    private boolean activityClick;
 
     public interface ClickItem{
         void add(int filterId);
@@ -34,6 +36,13 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
         this.context = context;
         this.arrivalModelList = arrivalModelList;
         this.fragment = fragment;
+        activityClick = false;
+    }
+
+    public NewArrivalAdapter(Context context, List<ArrivalModel> arrivalModelList, boolean activityClick) {
+        this.context = context;
+        this.arrivalModelList = arrivalModelList;
+        this.activityClick = activityClick;
     }
 
     @NonNull
@@ -52,7 +61,11 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
             @Override
             public void onClick(View v) {
                 Click.preventTwoClick(v);
-                ((HomeFragment)fragment).add(Integer.parseInt(model.getFilter_id()));
+                if (activityClick){
+                    ((ProductDetailsActivity)context).add(Integer.parseInt(model.getFilter_id()));
+                }else {
+                    ((HomeFragment)fragment).add(Integer.parseInt(model.getFilter_id()));
+                }
             }
         });
 

@@ -2,7 +2,6 @@ package grocery.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,8 +48,6 @@ public class BaseActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         binding.txtAddress.setText(new Session(activity).getString(P.locationAddress));
         hitCategoryApi();
-
-
     }
 
     public void onClickNotification(View view) {

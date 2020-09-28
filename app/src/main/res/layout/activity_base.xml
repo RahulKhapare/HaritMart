@@ -145,12 +145,11 @@
                             android:animateLayoutChanges="true"
                             android:orientation="horizontal"
                             android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:weightSum="5">
+                            android:paddingBottom="5dp">
 
                             <LinearLayout
                                 android:id="@+id/homeLayout"
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:animateLayoutChanges="true"
@@ -180,7 +179,7 @@
 
                             <LinearLayout
                                 android:id="@+id/searchLayout"
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:animateLayoutChanges="true"
@@ -209,7 +208,7 @@
 
                             <LinearLayout
                                 android:id="@+id/cartLayout"
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:animateLayoutChanges="true"
@@ -238,7 +237,7 @@
 
                             <LinearLayout
                                 android:id="@+id/favouriteLayout"
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:animateLayoutChanges="true"
@@ -267,13 +266,14 @@
 
                             <LinearLayout
                                 android:id="@+id/moreLayout"
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:animateLayoutChanges="true"
                                 android:background="@drawable/clickable_transparent_bg"
                                 android:clickable="true"
                                 android:gravity="center"
+                                android:visibility="gone"
                                 android:onClick="onBottomBarClick"
                                 android:orientation="vertical">
 

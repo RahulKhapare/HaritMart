@@ -2,6 +2,7 @@ package grocery.app.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import grocery.app.CheckOutActivity;
+import grocery.app.MyPaymentActivity;
 import grocery.app.R;
 import grocery.app.databinding.ActivityGetwayListBinding;
 import grocery.app.model.GetwayModel;
@@ -22,15 +24,17 @@ public class GetwayAdapter extends RecyclerView.Adapter<GetwayAdapter.ViewHolder
     private List<GetwayModel> getwayModelList;
     private int lastCheckPosition;
     private boolean flag;
+    private int value;
 
     public interface ClickItem{
-        void selectedGetway(String id);
+        void selectedGetway(String id,String name);
     }
 
-    public GetwayAdapter(Context context, List<GetwayModel> getwayModelList, boolean flag) {
+    public GetwayAdapter(Context context, List<GetwayModel> getwayModelList, boolean flag, int value) {
         this.context = context;
         this.getwayModelList = getwayModelList;
         this.flag = flag;
+        this.value = value;
 
     }
 
@@ -47,15 +51,24 @@ public class GetwayAdapter extends RecyclerView.Adapter<GetwayAdapter.ViewHolder
         GetwayModel model = getwayModelList.get(position);
         holder.binding.radioButton.setText(model.getName());
         holder.binding.radioButton.setChecked(position == lastCheckPosition);
+        if (value==2){
+            holder.binding.txtLink.setVisibility(View.VISIBLE);
+        }
         if (flag){
             flag = false;
-            ((CheckOutActivity)context).selectedGetway(model.getId());
+            if (value==1){
+                ((CheckOutActivity)context).selectedGetway(model.getId(),model.getName());
+            }
         }
         holder.binding.radioButton.setOnClickListener(v -> {
             Click.preventTwoClick(v);
             lastCheckPosition = holder.getAdapterPosition();
             notifyItemRangeChanged(0,getwayModelList.size());
-            ((CheckOutActivity)context).selectedGetway(model.getId());
+            if (value==1){
+                ((CheckOutActivity)context).selectedGetway(model.getId(),model.getName());
+            }else if (value==2){
+                ((MyPaymentActivity)context).selectedGetway(model.getId(),model.getName());
+            }
         });
 
     }

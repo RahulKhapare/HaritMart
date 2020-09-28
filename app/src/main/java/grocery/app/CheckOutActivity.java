@@ -79,7 +79,7 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
         binding.recyclerPayment.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         binding.recyclerPayment.setLayoutManager(linearLayoutManager);
-        adapter = new GetwayAdapter(activity,getwayModelList,true);
+        adapter = new GetwayAdapter(activity,getwayModelList,true,1);
         binding.recyclerPayment.setAdapter(adapter);
 
         hitForPaymentOption();
@@ -144,7 +144,7 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
     }
 
     @Override
-    public void selectedGetway(String id) {
+    public void selectedGetway(String id,String name) {
         paymentID = id;
     }
 
