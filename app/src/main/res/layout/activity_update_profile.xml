@@ -25,13 +25,6 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <com.miguelcatalan.materialsearchview.MaterialSearchView
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-
     </FrameLayout>
 
     <RelativeLayout
@@ -48,33 +41,46 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp"
+            android:layout_margin="20dp"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Personal Details"
+                android:textColor="#373737"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunit_sans_bold"
+                android:textSize="18sp">
+
+            </TextView>
 
             <EditText
                 android:id="@+id/etxName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:hint="Name"
-                android:textSize="16sp"
                 android:imeOptions="actionNext"
                 android:inputType="textCapWords"
+                android:fontFamily="@font/nunito_sans_regular"
                 android:backgroundTint="@color/grey2"
-                android:textColorHint="@color/grey2" />
+                android:textColorHint="@color/grey2"
+                android:textColor="#373737"/>
 
 
             <EditText
                 android:id="@+id/etxNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:imeOptions="actionNext"
                 android:hint="Contact Number"
-                android:backgroundTint="@color/grey2"
+                android:fontFamily="@font/nunito_sans_regular"
                 android:inputType="numberDecimal"
-                android:textColorHint="@color/grey2" />
+                android:backgroundTint="@color/grey2"
+                android:textColorHint="@color/grey2"
+                android:textColor="#373737"/>
 
 
             <EditText
@@ -83,18 +89,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="Email Address"
-                android:textSize="16sp"
+                android:fontFamily="@font/nunito_sans_regular"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:backgroundTint="@color/grey2"
-                android:textColorHint="@color/grey2" />
+                android:textColorHint="@color/grey2"
+                android:textColor="#373737"/>
 
 
             <CheckBox
+                android:id="@+id/checkEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:buttonTint="@color/green"
+                android:textColor="#373737"
+                android:fontFamily="@font/nunito_sans_regular"
                 android:text="Send me emails on promotions, offers and Services "/>
 
 

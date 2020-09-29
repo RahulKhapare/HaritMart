@@ -51,7 +51,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void onClickNotification(View view) {
-
+        Intent notificationIntent = new Intent(activity,NotificationActivity.class);
+        startActivity(notificationIntent);
     }
 
     public void onClickProfile(View view) {

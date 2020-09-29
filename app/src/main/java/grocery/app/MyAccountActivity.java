@@ -1,27 +1,27 @@
 package grocery.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.databinding.DataBindingUtil;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.TextView;
 
-import com.adoisstudio.helper.LoadingDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
+import com.adoisstudio.helper.H;
 
 import grocery.app.databinding.ActivityMyAccountBinding;
-import grocery.app.databinding.ActivityMyAddressBinding;
+import grocery.app.util.Config;
 import grocery.app.util.WindowBarColor;
 
 public class MyAccountActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityMyAccountBinding binding;
     private MyAccountActivity activity = this;
+    private String currentAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,11 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        initView();
+
+    }
+
+    private void initView(){
         binding.txtChange.setOnClickListener(this);
         binding.txtMyOrder.setOnClickListener(this);
         binding.txtWallet.setOnClickListener(this);
@@ -48,12 +53,26 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        currentAddress = getIntent().getStringExtra(Config.ADDRESS_LOCATION);
+        if (!TextUtils.isEmpty(currentAddress)){
+            H.showMessage(activity,currentAddress);
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgEdit:
-
+                Intent updateIntent = new Intent(activity,UpdateProfileActivity.class);
+                startActivity(updateIntent);
                 break;
             case R.id.txtChange:
+                Config.FROM_ADDRESS = false;
+                Intent locationIntent = new Intent(activity,SetLocationActivity.class);
+                locationIntent.putExtra(Config.GET_CURRENT_LOCATION,true);
+                startActivity(locationIntent);
                 break;
             case R.id.txtMyOrder:
                 Intent orderDetailIntent = new Intent(activity,OrderDetailsActivity.class);
@@ -68,10 +87,15 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
                 startActivity(paymentIntent);
                 break;
             case R.id.txtRatingReview:
+                //not using now
                 break;
             case R.id.txtNotification:
+                Intent notificationIntent = new Intent(activity,NotificationActivity.class);
+                startActivity(notificationIntent);
                 break;
             case R.id.txtGiftCard:
+                Intent giftIntent = new Intent(activity,GiftCardActivity.class);
+                startActivity(giftIntent);
                 break;
             case R.id.txtDelieveryAddress:
                 Intent addressIntent = new Intent(activity,MyAddressActivity.class);

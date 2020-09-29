@@ -80,7 +80,12 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
                     checkGPS();
                 } else {
                     if (getCurrentLocationFlag){
-                        Intent addressIntent = new Intent(activity, MyAddressActivity.class);
+                        Intent addressIntent;
+                        if (Config.FROM_ADDRESS){
+                            addressIntent = new Intent(activity, MyAddressActivity.class);
+                        }else {
+                            addressIntent = new Intent(activity, MyAccountActivity.class);
+                        }
                         addressIntent.putExtra(Config.ADDRESS_LOCATION,binding.txtAddress.getText().toString().trim());
                         startActivity(addressIntent);
                         finish();

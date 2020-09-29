@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MyPaymentActivity">
+    tools:context=".NotificationActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,21 +37,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:layout_margin="20dp"
-                        android:textColor="#373737"
-                        android:text="Wallets"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/ic_group_4459"
-                        android:fontFamily="@font/nunito_sans_semibold">
-
-                    </TextView>
-
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerWallet"
+                        android:id="@+id/recyclerNotification"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 

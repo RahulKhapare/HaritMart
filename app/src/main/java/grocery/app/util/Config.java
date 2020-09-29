@@ -25,6 +25,8 @@ public class Config {
     public static String EDIT_ADDRESS = "EDIT_ADDRESS";
     public static String FOR_CHECKOUT = "FOR_CHECKOUT";
 
+    public static boolean FROM_ADDRESS = false;
+
     public static String HOME = "HOME";
     public static String FAVORITE = "FAVORITE";
     public static String SEARCH = "SEARCH";

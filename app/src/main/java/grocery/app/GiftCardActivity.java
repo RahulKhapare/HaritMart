@@ -1,28 +1,30 @@
 package grocery.app;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.CompoundButton;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import grocery.app.databinding.ActivityUpdateProfileBinding;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+
+import com.squareup.picasso.Picasso;
+
+import grocery.app.databinding.ActivityGiftCardBinding;
 import grocery.app.util.WindowBarColor;
 
-public class UpdateProfileActivity extends AppCompatActivity {
+public class GiftCardActivity extends AppCompatActivity {
 
-    private ActivityUpdateProfileBinding binding;
-    private UpdateProfileActivity activity = this;
+    private GiftCardActivity activity = this;
+    private ActivityGiftCardBinding binding;
+    String image = "https://i0.wp.com/www.eatthis.com/wp-content/uploads/2020/07/grocery-shopping-2.jpg?resize=640%2C360&ssl=1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WindowBarColor.setColor(this);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_update_profile);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_gift_card);
 
-        binding.toolbar.setTitle("Update Profile");
+        binding.toolbar.setTitle("Gift Card");
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -32,27 +34,14 @@ public class UpdateProfileActivity extends AppCompatActivity {
     }
 
     private void initView(){
+        Picasso.get().load(image).into(binding.imgGift);
 
-        onCheckEmail();
-
-        binding.btnProcess.setOnClickListener(new View.OnClickListener() {
+        binding.btnRedeem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-    }
-
-
-    private void onCheckEmail(){
-
-        binding.checkEmail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-            }
-        });
-
     }
 
     @Override
@@ -67,6 +56,4 @@ public class UpdateProfileActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
-
-   }
-
+}

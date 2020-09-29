@@ -15,11 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ProductDetailsActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity android:name=".NotificationActivity"></activity>
+        <activity android:name=".GiftCardActivity" />
+        <activity
+            android:name=".UpdateProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProductDetailsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MyPaymentActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MyWalletActivity"
             android:screenOrientation="portrait" />

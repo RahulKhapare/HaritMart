@@ -202,10 +202,10 @@
                             android:textColor="#373737"
                             android:textSize="14sp" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="#EFEFEF" />
+<!--                        <View-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="1dp"-->
+<!--                            android:background="#EFEFEF" />-->
 
                         <TextView
                             android:id="@+id/txtRatingReview"
@@ -215,6 +215,7 @@
                             android:drawableStart="@drawable/ic_group_4461"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
+                            android:visibility="gone"
                             android:text="My Ratings \u0026 Review"
                             android:textColor="#373737"
                             android:textSize="14sp" />

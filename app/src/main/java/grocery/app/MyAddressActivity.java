@@ -100,6 +100,7 @@ public class MyAddressActivity extends AppCompatActivity implements View.OnClick
                 startActivity(addressIntent);
                 break;
             case R.id.cardLocation:
+                Config.FROM_ADDRESS = true;
                 Intent locationIntent = new Intent(activity,SetLocationActivity.class);
                 locationIntent.putExtra(Config.GET_CURRENT_LOCATION,true);
                 startActivity(locationIntent);
