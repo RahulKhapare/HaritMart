@@ -12,6 +12,11 @@ public class ProductModel {
     String filter_id;
     String category_name;
     String product_image;
+    String is_wishlisted;
+    String price;
+    String saleprice;
+    String discount_amount;
+    String discount;
     int position;
     String jsonArrayData;
 
@@ -102,5 +107,45 @@ public class ProductModel {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getIs_wishlisted() {
+        return is_wishlisted;
+    }
+
+    public void setIs_wishlisted(String is_wishlisted) {
+        this.is_wishlisted = is_wishlisted;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getSaleprice() {
+        return saleprice;
+    }
+
+    public void setSaleprice(String saleprice) {
+        this.saleprice = saleprice;
+    }
+
+    public String getDiscount_amount() {
+        return discount_amount;
+    }
+
+    public void setDiscount_amount(String discount_amount) {
+        this.discount_amount = discount_amount;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
     }
 }

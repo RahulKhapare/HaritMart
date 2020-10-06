@@ -2,6 +2,7 @@ package grocery.app.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import grocery.app.ProductChildListActivity;
@@ -27,6 +29,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     private Context context;
     private List<ProductModel> productModelList;
+    private String rs = "₹.";
     public interface Click{
         void add(int filterId);
     }
@@ -46,12 +49,29 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ProductModel model = productModelList.get(position);
-        Picasso.get().load(P.imgBaseUrl + Config.PRODUCT_IMAGE_PATH + model.getProduct_image()).error(R.mipmap.ic_launcher).placeholder(R.drawable.progress_animation).into(holder.binding.imgProduct);
+        Picasso.get().load(model.getProduct_image()).error(R.mipmap.ic_launcher).placeholder(R.drawable.progress_animation).into(holder.binding.imgProduct);
         holder.binding.txtProductName.setText(model.getName());
-        holder.binding.txtProductWeight.setText("1Kg");
-        holder.binding.txtProductOff.setText("₹.27");
-        holder.binding.txtProductPrice.setText("₹.22");
-        holder.binding.txtPercent.setText("20% OFF");
+        holder.binding.txtProductWeight.setText("0Kg");
+        holder.binding.txtProductOff.setText(rs + model.getPrice());
+        holder.binding.txtProductPrice.setText(rs + model.getSaleprice());
+
+        String offValue = "0";
+        if (!TextUtils.isEmpty(model.getPrice()) && !TextUtils.isEmpty(model.getPrice())){
+            int actualValue = Integer.parseInt(model.getPrice());
+            int discountValue = Integer.parseInt(model.getSaleprice());
+            try {
+//                offValue =  ((actualValue - discountValue) / actualValue) * 100;
+//                offValue = actualValue - (actualValue * (discountValue / 100));
+//                offValue = actualValue - (discountValue * actualValue) / 100;
+                DecimalFormat df = new DecimalFormat("0.00");
+                offValue = df.format(discountPercentage(discountValue,actualValue));
+            }catch (Exception e){
+                offValue = "0";
+            }
+        }
+
+
+        holder.binding.txtPercent.setText(offValue + "% OFF");
 
         holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -64,9 +84,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 }else {
                     context.getResources().getString(R.string.internetMessage);
                 }
-
             }
         });
+
+        if (!TextUtils.isEmpty(model.getIs_wishlisted())){
+            if (model.getIs_wishlisted().equals("0")){
+                holder.binding.imgAction.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_add_24));
+            }else if (model.getIs_wishlisted().equals("1")){
+                holder.binding.imgAction.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_remove_24));
+            }
+        }
     }
 
     @Override
@@ -80,5 +107,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    private float discountPercentage(float S, float M)
+    {
+        // Calculating discount
+        float discount = M - S;
+
+        // Calculating discount percentage
+        float disPercent = (discount / M) * 100;
+
+        return disPercent;
     }
 }

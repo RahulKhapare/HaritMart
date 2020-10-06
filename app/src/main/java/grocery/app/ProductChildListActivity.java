@@ -34,6 +34,7 @@ import java.util.List;
 
 import grocery.app.adapter.ProductChildItemAdapter;
 import grocery.app.adapter.ProductListAdapter;
+import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductChildListBinding;
 import grocery.app.model.ProductModel;
@@ -157,7 +158,16 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
                 model.setId(jsonObject.getString(P.id));
                 model.setFilter_id(jsonObject.getString(P.filter_id));
                 model.setName(jsonObject.getString(P.name));
-                model.setProduct_image(jsonObject.getString(P.product_image));
+                model.setIs_wishlisted(jsonObject.getString(P.is_wishlisted));
+                model.setProduct_image(P.imgBaseUrl + App.product_image_path + jsonObject.getString(P.product_image));
+                try {
+//                    JSONObject priceJson =  jsonObject.getJSONObject(P.price);
+                    model.setPrice("0");
+                    model.setSaleprice("0");
+                    model.setDiscount_amount("0");
+                    model.setDiscount("0");
+                }catch (Exception e){
+                }
                 productModelList.add(model);
             }
             productListAdapter.notifyDataSetChanged();
@@ -241,9 +251,16 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
                                     model.setFilter_id(jsonObject.getString(P.filter_id));
                                     model.setName(jsonObject.getString(P.name));
                                     model.setProduct_image(jsonObject.getString(P.product_image));
+                                    try {
+                                        JSONObject priceJson =  jsonObject.getJSONObject(P.price);
+                                        model.setPrice(priceJson.getString(P.price));
+                                        model.setSaleprice(priceJson.getString(P.saleprice));
+                                        model.setDiscount_amount(priceJson.getString(P.discount_amount));
+                                        model.setDiscount(priceJson.getString(P.discount));
+                                    }catch (Exception e){
+                                    }
                                     productModelList.add(model);
                                 }
-
                                 productListAdapter.notifyDataSetChanged();
 
                             } catch (JSONException e) {
@@ -493,6 +510,6 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         json.addInt(P.option1, 0);
         json.addInt(P.option2, 0);
         json.addInt(P.option3, 0);
-        hitAddToCartApi(json);
+//        hitAddToCartApi(json);
     }
 }

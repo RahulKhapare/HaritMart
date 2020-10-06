@@ -75,7 +75,6 @@
                 <data android:scheme="@string/fb_login_app_id_schema" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginMobile" />
         <activity
             android:name=".ProductCategoryActivity"
             android:screenOrientation="portrait" />

@@ -12,8 +12,13 @@ public class P {
     public static String slider_list="slider_list";
 
     public static String latest_product_list="latest_product_list";
+    public static String trending_product_list="trending_product_list";
     public static String slider_image_path="slider_image_path";
     public static String product_image="product_image";
+    public static String price="price";
+    public static String saleprice="saleprice";
+    public static String discount_amount="discount_amount";
+    public static String discount="discount";
 
     public static String msg="msg";
     public static String data="data";
@@ -40,6 +45,7 @@ public class P {
     public static String parent_id = "parent_id";
     public static String id = "id";
     public static String name = "name";
+    public static String is_wishlisted = "is_wishlisted";
     public static String logo = "logo";
     public static String image = "image";
     public static String main_parent_id = "main_parent_id";

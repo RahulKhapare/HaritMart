@@ -42,11 +42,11 @@ public class SplashScreenActivity extends AppCompatActivity {
                     }
                 })
                 .onError(() -> {
-
+                    loadingDialog.hide();
+                    H.showMessage(this, "Something went wrong");
                 })
                 .onSuccess(j -> {
                     if (j.getInt(P.status) == 1) {
-
 
                         new Handler().postDelayed(() -> {
                             Intent intent = new Intent(this, OnboardingActivity.class);
@@ -71,7 +71,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 .setMethod(Api.POST)
                 //.onHeaderRequest(App::getHeaders)
                 .onError(() -> {
-
                 })
                 .onSuccess(json ->
                 {

@@ -70,7 +70,7 @@ public class ProductCategoryActivity extends AppCompatActivity {
                 childModel.setId(jsonChild.getString(P.id));
                 childModel.setParent_id(jsonChild.getString(P.parent_id));
                 childModel.setName(jsonChild.getString(P.name));
-                childModel.setImage(jsonChild.getString(P.image));
+                childModel.setImage(P.imgBaseUrl + App.categoryImageUrl + jsonChild.getString(P.image));
                 childModel.setMain_parent_id(jsonChild.getString(P.main_parent_id));
                 childModel.setPosition(j);
                 childModel.setJsonArrayData(subChildList+"");

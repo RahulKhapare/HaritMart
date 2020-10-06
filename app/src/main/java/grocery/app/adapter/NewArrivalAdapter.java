@@ -1,6 +1,7 @@
 package grocery.app.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,14 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
                 }
             }
         });
+
+        if (!TextUtils.isEmpty(model.getIs_wishlisted())){
+            if (model.getIs_wishlisted().equals("0")){
+                holder.binding.imgAction.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_add_24));
+            }else if (model.getIs_wishlisted().equals("1")){
+                holder.binding.imgAction.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_remove_24));
+            }
+        }
 
     }
 

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.adoisstudio.helper.H;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import grocery.app.Fragments.CartFragment;
@@ -33,7 +34,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private CartFragment cartFragment;
     private boolean isFragment;
     private boolean processToPay;
-    private String rs = "₹.";
+    private String rs = "₹ ";
 
 
     public interface CartInterface{
@@ -71,17 +72,23 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.binding.txtAmount.setText(rs + model.getPrice());
         holder.binding.txtProductOff.setText(rs + model.getCoupon_discount_amount());
 
-        int actualValue = Integer.parseInt(model.getPrice());
-        int discountValue = Integer.parseInt(model.getCoupon_discount_amount());
-        int offValue = 0;
-        try {
-            if(actualValue !=0 && discountValue!=0){
-                offValue = (actualValue-discountValue)/(discountValue)*100;
+        String offValue = "0";
+        if (!TextUtils.isEmpty(model.getPrice()) && !TextUtils.isEmpty(model.getCoupon_discount_amount())){
+            int actualValue = Integer.parseInt(model.getPrice());
+            int discountValue = Integer.parseInt(model.getCoupon_discount_amount());
+            try {
+//                offValue =  ((actualValue - discountValue) / actualValue) * 100;
+//                offValue = actualValue - (actualValue * (discountValue / 100));
+//                offValue = actualValue - (discountValue * actualValue) / 100;
+                DecimalFormat df = new DecimalFormat("0.00");
+                offValue = df.format(discountPercentage(discountValue,actualValue));
+            }catch (Exception e){
+                offValue = "0";
             }
-        }catch (Exception e){
         }
 
         holder.binding.txtPercent.setText(offValue+"% OFF");
+
         if (!TextUtils.isEmpty(model.getName())){
             holder.binding.txtProductName.setText(model.getName());
         }else {
@@ -153,5 +160,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    private float discountPercentage(float S, float M)
+    {
+        // Calculating discount
+        float discount = M - S;
+
+        // Calculating discount percentage
+        float disPercent = (discount / M) * 100;
+
+        return disPercent;
     }
 }

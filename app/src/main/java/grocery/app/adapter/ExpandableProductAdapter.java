@@ -110,12 +110,12 @@ public class ExpandableProductAdapter extends BaseExpandableListAdapter {
         }
         ImageView image =  convertView.findViewById(R.id.image);
         TextView txtTitle = convertView.findViewById(R.id.txtTitle);
-        TextView txtDescription = convertView.findViewById(R.id.txtDescription);
+//        TextView txtDescription = convertView.findViewById(R.id.txtDescription);
         Picasso.get().load(P.imgBaseUrl + App.categoryImageUrl + model.getImage())
                 .placeholder(R.drawable.progress_animation)
                 .error(R.mipmap.ic_launcher).into(image);
         txtTitle.setText(model.getName());
-        txtDescription.setText("Description will here.....");
+//        txtDescription.setText("Description will here.....");
         return convertView;
     }
 

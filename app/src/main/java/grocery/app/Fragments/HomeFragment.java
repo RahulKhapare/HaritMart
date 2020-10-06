@@ -45,10 +45,13 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
     private FragmentHomeBinding binding;
     private List<ProductModel> productModelList;
     private List<ArrivalModel> arrivalModelList;
+    private List<ArrivalModel> trendingModelList;
     private ProductCategoryAdapter adapter;
     private NewArrivalAdapter arrivalAdapter;
+    private NewArrivalAdapter trendingAdapter;
     private List<SliderModel> sliderModelList;
     private JsonList arrivalJSON;
+    private JsonList trendingJSON;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -96,6 +99,17 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
             }
         });
 
+        binding.viewMoreTrending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProductChildListActivity.class);
+                intent.putExtra(Config.TITLE, "Trending Arrived");
+                intent.putExtra(Config.CHILD_POSITION, 0);
+                intent.putExtra(Config.CHILD_JSON, trendingJSON + "");
+                Config.FROM_HOME = true;
+                startActivity(intent);
+            }
+        });
     }
 
     private void initProductView() {
@@ -112,6 +126,12 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         arrivalAdapter = new NewArrivalAdapter(context, arrivalModelList, HomeFragment.this);
         binding.recyclerNewArrival.setAdapter(arrivalAdapter);
 
+        trendingModelList = new ArrayList<>();
+        binding.recyclerTrendingProduct.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        binding.recyclerTrendingProduct.setHasFixedSize(true);
+        trendingAdapter = new NewArrivalAdapter(context, trendingModelList, HomeFragment.this);
+        binding.recyclerTrendingProduct.setAdapter(trendingAdapter);
+
         sliderModelList = new ArrayList<>();
         sliderImageAdapter = new SliderImageAdapter(context, sliderModelList);
         binding.pager.setAdapter(sliderImageAdapter);
@@ -120,7 +140,6 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
 //        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(binding.tL, binding.vP2, (tab, position) -> {
 //        });
 //        tabLayoutMediator.attach();
-
 
     }
 
@@ -133,7 +152,7 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
                 model.setId(json.getString(P.id));
                 model.setName(json.getString(P.name));
                 model.setParent_id(json.getString(P.parent_id));
-                model.setImage(json.getString(P.image));
+                model.setImage(P.imgBaseUrl + App.categoryImageUrl + json.getString(P.image));
                 model.setMain_parent_id(json.getString(P.main_parent_id));
                 productModelList.add(model);
             }
@@ -153,8 +172,10 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
     private void hitHomeApi() {
         showLoader();
         try {
-            Api.newApi(context, P.baseUrl + "home").addJson(new Json())
-                    .setMethod(Api.GET)
+            Json j = new Json();
+            j.addInt(P.user_id, 1);
+            Api.newApi(context, P.baseUrl + "home").addJson(j)
+                    .setMethod(Api.POST)
                     //.onHeaderRequest(App::getHeaders)
                     .onError(() -> {
                         hideLoader();
@@ -165,8 +186,10 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
                             if (((BaseActivity) context).isDestroyed())
                                 return;
                             json = json.getJson(P.data);
-                            setUpNewArrivedList(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));
+                            App.product_image_path = json.getString(P.product_image_path);
                             setUpSliderList(json.getString(P.slider_image_path), json.getJsonList(P.slider_list));
+                            setUpNewArrivedList(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));
+                            setUpTrendingProductList(json.getString(P.product_image_path), json.getJsonList(P.trending_product_list));
                         } else {
                             H.showMessage(getContext(), json.getString(P.msg));
                         }
@@ -220,10 +243,27 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
             model.setFilter_id(json.getString(P.filter_id));
             model.setId(json.getString(P.id));
             model.setName(json.getString(P.name));
+            model.setIs_wishlisted(json.getString(P.is_wishlisted));
             model.setProduct_image(P.imgBaseUrl + string + json.getString(P.product_image));
             arrivalModelList.add(model);
         }
         arrivalAdapter.notifyDataSetChanged();
+    }
+
+    private void setUpTrendingProductList(String string, JsonList jsonList) {
+        trendingJSON = jsonList;
+        trendingModelList.clear();
+        for (Json json : jsonList) {
+            ArrivalModel model = new ArrivalModel();
+            model.setCategory_name(json.getString(P.category_name));
+            model.setFilter_id(json.getString(P.filter_id));
+            model.setId(json.getString(P.id));
+            model.setName(json.getString(P.name));
+            model.setIs_wishlisted(json.getString(P.is_wishlisted));
+            model.setProduct_image(P.imgBaseUrl + string + json.getString(P.product_image));
+            trendingModelList.add(model);
+        }
+        trendingAdapter.notifyDataSetChanged();
     }
 
     private void hitAddToCartApi(Json j) {
@@ -261,6 +301,6 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         json.addInt(P.option1, 0);
         json.addInt(P.option2, 0);
         json.addInt(P.option3, 0);
-        hitAddToCartApi(json);
+//        hitAddToCartApi(json);
     }
 }

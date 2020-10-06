@@ -50,8 +50,8 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ProductModel model = productModelList.get(position);
-        Log.e("TAG", "onBindViewHolderUrl: " + P.imgBaseUrl + App.categoryImageUrl + model.getImage() );
-        Picasso.get().load(P.imgBaseUrl + App.categoryImageUrl + model.getImage())
+        Log.e("TAG", "onBindViewHolderUrl: " + model.getImage() );
+        Picasso.get().load(model.getImage())
                 .error(R.mipmap.ic_launcher)
                 .placeholder(R.drawable.progress_animation).into(holder.binding.image);
         holder.binding.txtName.setText(model.getName());

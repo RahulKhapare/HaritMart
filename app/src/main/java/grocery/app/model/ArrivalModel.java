@@ -7,6 +7,7 @@ public class ArrivalModel {
     String filter_id;
     String name;
     String product_image;
+    String is_wishlisted;
 
     public String getFilter_id() {
         return filter_id;
@@ -46,5 +47,13 @@ public class ArrivalModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIs_wishlisted() {
+        return is_wishlisted;
+    }
+
+    public void setIs_wishlisted(String is_wishlisted) {
+        this.is_wishlisted = is_wishlisted;
     }
 }
