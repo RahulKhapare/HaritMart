@@ -2,13 +2,35 @@ package grocery.app.model;
 
 public class SearchModel {
 
+    String category_name;
     String id;
-    String image;
-    String title;
+    String filter_id;
+    String name;
+    String product_image;
+    String is_wishlisted;
 
-    public SearchModel(String image, String title) {
-        this.image = image;
-        this.title = title;
+    public String getFilter_id() {
+        return filter_id;
+    }
+
+    public void setFilter_id(String filter_id) {
+        this.filter_id = filter_id;
+    }
+
+    public String getProduct_image() {
+        return product_image;
+    }
+
+    public void setProduct_image(String product_image) {
+        this.product_image = product_image;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 
     public String getId() {
@@ -19,19 +41,19 @@ public class SearchModel {
         this.id = id;
     }
 
-    public String getImage() {
-        return image;
+    public String getName() {
+        return name;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTitle() {
-        return title;
+    public String getIs_wishlisted() {
+        return is_wishlisted;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setIs_wishlisted(String is_wishlisted) {
+        this.is_wishlisted = is_wishlisted;
     }
 }

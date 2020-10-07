@@ -25,6 +25,9 @@ public class Config {
     public static String EDIT_ADDRESS = "EDIT_ADDRESS";
     public static String FOR_CHECKOUT = "FOR_CHECKOUT";
 
+    public static String PRODUCT_ID = "PRODUCT_ID";
+    public static String PRODUCT_FILTER_ID = "PRODUCT_FILTER_ID";
+
     public static boolean FROM_ADDRESS = false;
 
     public static String HOME = "HOME";

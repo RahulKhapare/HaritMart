@@ -186,6 +186,7 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
                             if (((BaseActivity) context).isDestroyed())
                                 return;
                             json = json.getJson(P.data);
+                            App.homeJSONDATA = json;
                             App.product_image_path = json.getString(P.product_image_path);
                             setUpSliderList(json.getString(P.slider_image_path), json.getJsonList(P.slider_list));
                             setUpNewArrivedList(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));

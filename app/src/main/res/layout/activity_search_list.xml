@@ -16,8 +16,8 @@
         
         <ImageView
             android:id="@+id/imgProduct"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             >
         </ImageView>
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:textColor="#373737"
             android:layout_gravity="center_vertical"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/nunito_sans_semibold"
@@ -37,8 +37,8 @@
 
         <ImageView
             android:id="@+id/imgRemove"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/ic_baseline_cancel_24"
             android:layout_gravity="center_vertical"
             >

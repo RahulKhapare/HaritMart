@@ -16,14 +16,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.adoisstudio.helper.Json;
+import com.adoisstudio.helper.JsonList;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import grocery.app.R;
-import grocery.app.adapter.ProductListAdapter;
 import grocery.app.adapter.SearchAdapter;
+import grocery.app.common.App;
+import grocery.app.common.P;
 import grocery.app.databinding.FragmentSearchBinding;
-import grocery.app.model.ProductModel;
 import grocery.app.model.SearchModel;
 
 
@@ -53,7 +56,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
         binding.recyclerSearchHistory.setHasFixedSize(true);
         binding.recyclerSearchHistory.setNestedScrollingEnabled(false);
         binding.recyclerSearchHistory.setLayoutManager(new LinearLayoutManager(context));
-        searchAdapter = new SearchAdapter(context, searchModelList, false,SearchFragment.this);
+        searchAdapter = new SearchAdapter(context, searchModelList, true,SearchFragment.this);
         binding.recyclerSearchHistory.setAdapter(searchAdapter);
 
         binding.recyclerTrendingSearches.setHasFixedSize(true);
@@ -62,10 +65,17 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
         trendAdapter = new SearchAdapter(context, trendModelList, true,SearchFragment.this);
         binding.recyclerTrendingSearches.setAdapter(trendAdapter);
 
-        updateSearchData();
-        updateTrendSearchData();
+        loadProductData();
         onSearchView();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (searchModelList!=null && searchModelList.isEmpty()){
+            binding.txtSearch.setVisibility(View.GONE);
+        }
     }
 
     private void onSearchView(){
@@ -78,17 +88,17 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
                 String newText = s.toString();
                 if (!TextUtils.isEmpty(newText)) {
                     List<SearchModel> list = new ArrayList<SearchModel>();
-                    for (SearchModel model : searchModelList) {
-                        if (model.getTitle().toLowerCase().contains(newText.toLowerCase())) {
+                    for (SearchModel model : trendModelList) {
+                        if (model.getName().toLowerCase().contains(newText.toLowerCase())) {
                             list.add(model);
                         }
                     }
-                    searchAdapter = new SearchAdapter(context, list,false,SearchFragment.this);
-                    binding.recyclerSearchHistory.setAdapter(searchAdapter);
+                    trendAdapter = new SearchAdapter(context, list,true,SearchFragment.this);
+                    binding.recyclerTrendingSearches.setAdapter(trendAdapter);
                     searchAdapter.notifyDataSetChanged();
                 } else {
-                    searchAdapter = new SearchAdapter(context, searchModelList,false,SearchFragment.this);
-                    binding.recyclerSearchHistory.setAdapter(searchAdapter);
+                    trendAdapter = new SearchAdapter(context, trendModelList,true,SearchFragment.this);
+                    binding.recyclerTrendingSearches.setAdapter(trendAdapter);
                 }
             }
             @Override
@@ -97,22 +107,23 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
         });
     }
 
-    private void updateSearchData() {
-        searchModelList.clear();
-        searchModelList.add(new SearchModel("http://jjjj", "Tomato"));
-        searchModelList.add(new SearchModel("http://jjjj", "Banana"));
-        searchAdapter.notifyDataSetChanged();
+    private void loadProductData(){
+        Json json = App.homeJSONDATA;
+        setUpTrendingProductList(json.getString(P.product_image_path), json.getJsonList(P.trending_product_list));
     }
 
-    private void updateTrendSearchData() {
+    private void setUpTrendingProductList(String string, JsonList jsonList) {
         trendModelList.clear();
-        trendModelList.add(new SearchModel("http://jjjj", "Tomato"));
-        trendModelList.add(new SearchModel("http://jjjj", "Banana"));
-        trendModelList.add(new SearchModel("http://jjjj", "Painapple"));
-        trendModelList.add(new SearchModel("http://jjjj", "Peru"));
-        trendModelList.add(new SearchModel("http://jjjj", "Orange"));
-        trendModelList.add(new SearchModel("http://jjjj", "Graps"));
-        trendModelList.add(new SearchModel("http://jjjj", "Lemon"));
+        for (Json json : jsonList) {
+            SearchModel model = new SearchModel();
+            model.setCategory_name(json.getString(P.category_name));
+            model.setFilter_id(json.getString(P.filter_id));
+            model.setId(json.getString(P.id));
+            model.setName(json.getString(P.name));
+            model.setIs_wishlisted(json.getString(P.is_wishlisted));
+            model.setProduct_image(P.imgBaseUrl + string + json.getString(P.product_image));
+            trendModelList.add(model);
+        }
         trendAdapter.notifyDataSetChanged();
     }
 
@@ -138,7 +149,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
                 searchModelList.remove(position);
                 searchAdapter.notifyDataSetChanged();
                 if (searchModelList.isEmpty()){
-                    binding.txtSearchHistory.setVisibility(View.GONE);
+                    binding.txtSearch.setVisibility(View.GONE);
                 }
             }
         });

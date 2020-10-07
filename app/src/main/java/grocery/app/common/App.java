@@ -29,6 +29,7 @@ public class App extends Application {
     public static String generatedOtp = "";
     public static String api_key="";
     public static String product_image_path = "";
+    public static Json homeJSONDATA = new Json();
 
     public static void startHomeActivity(Context context) {
         Intent intent = new Intent(context, BaseActivity.class);

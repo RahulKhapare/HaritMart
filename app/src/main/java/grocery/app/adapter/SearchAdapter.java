@@ -1,11 +1,10 @@
 package grocery.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -17,9 +16,11 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import grocery.app.Fragments.SearchFragment;
+import grocery.app.ProductDetailsActivity;
 import grocery.app.R;
 import grocery.app.databinding.ActivitySearchListBinding;
 import grocery.app.model.SearchModel;
+import grocery.app.util.Config;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>{
 
@@ -48,12 +49,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SearchModel model = searchModelList.get(position);
-        Picasso.get().load(model.getImage()).error(R.drawable.tomato).placeholder(R.drawable.progress_animation).into(holder.binding.imgProduct);
-        holder.binding.txtProduct.setText(model.getTitle());
+        Picasso.get().load(model.getProduct_image()).error(R.mipmap.ic_launcher).placeholder(R.drawable.progress_animation).into(holder.binding.imgProduct);
+        holder.binding.txtProduct.setText(model.getName());
         holder.binding.lnrSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                grocery.app.util.Click.preventTwoClick(v);
+                Intent productIntent = new Intent(context, ProductDetailsActivity.class);
+                productIntent.putExtra(Config.PRODUCT_ID,model.getId());
+                productIntent.putExtra(Config.PRODUCT_FILTER_ID,model.getFilter_id());
+                context.startActivity(productIntent);
             }
         });
         holder.binding.imgRemove.setOnClickListener(new View.OnClickListener() {

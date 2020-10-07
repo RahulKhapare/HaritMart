@@ -10,6 +10,7 @@ public class P {
     public static String status = "status";
     public static String product_image_path="product_image_path";
     public static String slider_list="slider_list";
+    public static String all_images="all_images";
 
     public static String latest_product_list="latest_product_list";
     public static String trending_product_list="trending_product_list";
@@ -37,6 +38,8 @@ public class P {
     public static String option1="option1";
     public static String option2="option2";
     public static String option3="option3";
+    public static String description="description";
+    public static String description1="description1";
 
     public static String category_list = "category_list";
     public static String category_image_path = "category_image_path";
@@ -46,6 +49,7 @@ public class P {
     public static String id = "id";
     public static String name = "name";
     public static String is_wishlisted = "is_wishlisted";
+    public static String is_added_in_cart = "is_added_in_cart";
     public static String logo = "logo";
     public static String image = "image";
     public static String main_parent_id = "main_parent_id";

@@ -10,6 +10,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/lnrProduct"
             android:layout_width="136dp"
             android:layout_height="129dp"
             android:background="@drawable/product_bg_two">

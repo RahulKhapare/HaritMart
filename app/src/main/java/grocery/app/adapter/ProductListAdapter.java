@@ -1,6 +1,7 @@
 package grocery.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import grocery.app.ProductChildListActivity;
+import grocery.app.ProductDetailsActivity;
 import grocery.app.R;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductItemListBgBinding;
@@ -74,6 +76,17 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.binding.txtPercent.setText(offValue + "% OFF");
 
         holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+        holder.binding.lnrProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                grocery.app.util.Click.preventTwoClick(v);
+                Intent productIntent = new Intent(context, ProductDetailsActivity.class);
+                productIntent.putExtra(Config.PRODUCT_ID,model.getId());
+                productIntent.putExtra(Config.PRODUCT_FILTER_ID,model.getFilter_id());
+                context.startActivity(productIntent);
+            }
+        });
 
         holder.binding.lnrAdd.setOnClickListener(new View.OnClickListener() {
             @Override

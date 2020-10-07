@@ -86,6 +86,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".BaseActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".OnboardingActivity"
