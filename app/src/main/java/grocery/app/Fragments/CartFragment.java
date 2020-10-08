@@ -157,7 +157,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         cartModelList.clear();
         Json j = new Json();
         j.addString(P.cart_token, new Session(context).getString(P.cart_token));
-        j.addString(P.user_id, "");
+        j.addInt(P.user_id, Config.dummyID);
 
         Api.newApi(context, P.baseUrl + "cart").addJson(j)
                 .setMethod(Api.POST)
@@ -218,7 +218,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     private void hitToUpdateSummery() {
         Json j = new Json();
         j.addString(P.cart_token, new Session(context).getString(P.cart_token));
-        j.addString(P.user_id, "");
+        j.addInt(P.user_id, Config.dummyID);
 
         Api.newApi(context, P.baseUrl + "cart").addJson(j)
                 .setMethod(Api.POST)
@@ -285,14 +285,10 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     }
 
     private void showError(){
-        if (binding.lnrError.getVisibility()==View.GONE){
-            binding.lnrError.setVisibility(View.VISIBLE);
-        }
+        binding.lnrError.setVisibility(View.VISIBLE);
     }
     private void hideError(){
-        if (binding.lnrError.getVisibility()==View.VISIBLE){
-            binding.lnrError.setVisibility(View.GONE);
-        }
+        binding.lnrError.setVisibility(View.GONE);
     }
     private void showSummary() {
         binding.lnrSummary.setVisibility(View.VISIBLE);

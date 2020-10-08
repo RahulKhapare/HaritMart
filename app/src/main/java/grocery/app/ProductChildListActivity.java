@@ -199,7 +199,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         }
         productChildItemAdapter.notifyDataSetChanged();
         if (productCategoryList.isEmpty()) {
-            H.showMessage(activity, "No data found for this category");
+            showError();
         }
     }
 
@@ -229,7 +229,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
                     //.onHeaderRequest(App::getHeaders)
                     .onError(() -> {
                         hideLoader();
-                        H.showMessage(activity, "On error is called");
+                        showError();
                     })
                     .onSuccess(json ->
                     {
@@ -266,15 +266,16 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
+                            hideError();
                         } else {
                             hideLoader();
+                            showError();
                             H.showMessage(activity, json.getString(P.msg));
                         }
 
                         hideLoader();
                         if (productModelList.isEmpty()) {
-                            H.showMessage(activity, "No product found for this category");
+                            showError();
                         }
 
                     })
@@ -511,5 +512,12 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         json.addInt(P.option2, 0);
         json.addInt(P.option3, 0);
 //        hitAddToCartApi(json);
+    }
+
+    private void showError(){
+        binding.lnrError.setVisibility(View.VISIBLE);
+    }
+    private void hideError(){
+        binding.lnrError.setVisibility(View.GONE);
     }
 }

@@ -159,6 +159,11 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         } catch (Exception e) {
         }
 
+        if (productModelList.isEmpty()){
+            binding.lnrExploreCategory.setVisibility(View.GONE);
+        }else {
+            binding.lnrExploreCategory.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -173,7 +178,7 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         showLoader();
         try {
             Json j = new Json();
-            j.addInt(P.user_id, 1);
+            j.addInt(P.user_id, Config.dummyID);
             Api.newApi(context, P.baseUrl + "home").addJson(j)
                     .setMethod(Api.POST)
                     //.onHeaderRequest(App::getHeaders)
@@ -217,6 +222,12 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         }
         sliderImageAdapter.notifyDataSetChanged();
 
+        if (sliderModelList.isEmpty()){
+            binding.lnrSlider.setVisibility(View.GONE);
+        }else {
+            binding.lnrSlider.setVisibility(View.VISIBLE);
+        }
+
         Handler handler = new Handler();
         Runnable runnable = null;
 
@@ -249,6 +260,12 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
             arrivalModelList.add(model);
         }
         arrivalAdapter.notifyDataSetChanged();
+
+        if (jsonList.size()==0){
+            binding.lnrNewArrived.setVisibility(View.GONE);
+        }else {
+            binding.lnrNewArrived.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setUpTrendingProductList(String string, JsonList jsonList) {
@@ -265,6 +282,12 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
             trendingModelList.add(model);
         }
         trendingAdapter.notifyDataSetChanged();
+
+        if (jsonList.size()==0){
+            binding.lnrTrendingArrived.setVisibility(View.GONE);
+        }else {
+            binding.lnrTrendingArrived.setVisibility(View.VISIBLE);
+        }
     }
 
     private void hitAddToCartApi(Json j) {

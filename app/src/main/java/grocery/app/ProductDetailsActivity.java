@@ -5,8 +5,10 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -21,24 +23,25 @@ import com.adoisstudio.helper.Session;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import grocery.app.adapter.NewArrivalAdapter;
-import grocery.app.adapter.QuantityAdapter;
+import grocery.app.adapter.CategoryFilterAdapter;
 import grocery.app.adapter.SliderImageAdapter;
 import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductDetailsBinding;
 import grocery.app.model.ArrivalModel;
-import grocery.app.model.QuantityModel;
+import grocery.app.model.CategoryFilterModel;
 import grocery.app.model.SliderModel;
 import grocery.app.util.Config;
 import grocery.app.util.WindowBarColor;
 
-public class ProductDetailsActivity extends AppCompatActivity implements NewArrivalAdapter.ClickItem, QuantityAdapter.ClickView {
+public class ProductDetailsActivity extends AppCompatActivity implements NewArrivalAdapter.ClickItem, CategoryFilterAdapter.ClickView {
 
     private ProductDetailsActivity activity = this;
     private ActivityProductDetailsBinding binding;
@@ -46,10 +49,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     private List<SliderModel> sliderModelList;
     private NewArrivalAdapter trendingAdapter;
     private NewArrivalAdapter popularAdapter;
-    private QuantityAdapter quantityAdapter;
+    private CategoryFilterAdapter mainCategoryFilterAdapter;
+    private CategoryFilterAdapter subCategoryFilterAdapter;
     private List<ArrivalModel> trendingDataList;
     private List<ArrivalModel> popularDataList;
-    private List<QuantityModel> quantityModelList;
+    private List<CategoryFilterModel> mainCategoryFilterModelList;
+    private List<CategoryFilterModel> subCategoryFilterModelList;
     private String filterId;
     private String producId;
     private Json optionJson = new Json();
@@ -57,6 +62,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     private String rs = "₹ ";
     private JsonList arrivalJSON;
     private JsonList trendingJSON;
+    private boolean firstCategoryCall = false;
+    public static String mainCategoryFilterId = "";
+    public static String subCategoryFilterId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +78,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         loadingDialog = new LoadingDialog(activity);
+        firstCategoryCall = true;
         initView();
 
     }
@@ -81,22 +90,24 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
 
         trendingDataList = new ArrayList<>();
         popularDataList = new ArrayList<>();
-        quantityModelList = new ArrayList<>();
+        mainCategoryFilterModelList = new ArrayList<>();
+        subCategoryFilterModelList = new ArrayList<>();
 
-        quantityModelList.add(new QuantityModel("1Kg"));
-        quantityModelList.add(new QuantityModel("2Kg"));
-        quantityModelList.add(new QuantityModel("3Kg"));
-        quantityModelList.add(new QuantityModel("4Kg"));
 
         sliderModelList = new ArrayList<>();
         sliderImageAdapter = new SliderImageAdapter(activity, sliderModelList);
         binding.pager.setAdapter(sliderImageAdapter);
         binding.tabLayout.setupWithViewPager(binding.pager, true);
 
-        binding.recyclerQuantityView.setHasFixedSize(true);
-        binding.recyclerQuantityView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false));
-        quantityAdapter = new QuantityAdapter(activity,quantityModelList);
-        binding.recyclerQuantityView.setAdapter(quantityAdapter);
+        binding.recyclerMainCategory.setHasFixedSize(true);
+        binding.recyclerMainCategory.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false));
+        mainCategoryFilterAdapter = new CategoryFilterAdapter(activity,mainCategoryFilterModelList,1,filterId,true);
+        binding.recyclerMainCategory.setAdapter(mainCategoryFilterAdapter);
+
+        binding.recyclerSubCategory.setHasFixedSize(true);
+        binding.recyclerSubCategory.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false));
+        subCategoryFilterAdapter = new CategoryFilterAdapter(activity,subCategoryFilterModelList,2,filterId,true);
+        binding.recyclerSubCategory.setAdapter(subCategoryFilterAdapter);
 
         binding.recyclerTrending.setHasFixedSize(true);
         binding.recyclerTrending.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false));
@@ -156,12 +167,20 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     }
 
     @Override
-    public void add(int filterId) {
-
+    public void itemClick(CategoryFilterModel model, int comingValue) {
+        if (comingValue == 1){
+            mainCategoryFilterId = model.getFilter_id();
+            subCategoryFilterId = "";
+            Json json = model.getValue();
+            updateSubFilterData(json);
+        }else if (comingValue == 2){
+            subCategoryFilterId = model.getFilter_id();
+        }
     }
 
+
     @Override
-    public void itemClick(int position, String id) {
+    public void add(int filterId) {
 
     }
 
@@ -188,6 +207,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             popularDataList.add(model);
         }
         popularAdapter.notifyDataSetChanged();
+
+        if (popularDataList.isEmpty()){
+            binding.lnrNewArrived.setVisibility(View.GONE);
+        }else {
+            binding.lnrNewArrived.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setUpTrendingProductList(String string, JsonList jsonList) {
@@ -204,6 +229,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             trendingDataList.add(model);
         }
         trendingAdapter.notifyDataSetChanged();
+
+        if (trendingDataList.isEmpty()){
+            binding.lnrTrendingArrived.setVisibility(View.GONE);
+        }else {
+            binding.lnrTrendingArrived.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -213,7 +244,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         Json j = new Json();
         j.addInt(P.filter_id,Integer.parseInt(filterId));
         j.addInt(P.id, Integer.parseInt(productId));
-        j.addInt(P.user_id, 1);
+        j.addInt(P.user_id, Config.dummyID);
         j.addString(P.cart_token, new Session(this).getString(P.cart_token));
         j.addJSON(P.option, optionJson);
 
@@ -314,7 +345,83 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     }
 
     private void setUpDetailsFilter(Json json){
-        H.showMessage(activity,json + "");
+        mainCategoryFilterModelList.clear();
+        binding.txtMainCategory.setText("");
+        if (json!=null){
+            binding.txtMainCategory.setText(json.getString(P.name));
+            JSONArray  jsonArray = json.getJsonArray(P.value);
+            if (jsonArray!=null && jsonArray.length()!=0){
+                try {
+                    for (int i=0; i<jsonArray.length(); i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        CategoryFilterModel model = new CategoryFilterModel();
+                        model.setId(jsonObject.getString(P.id));
+                        model.setName(jsonObject.getString(P.name));
+                        model.setFilter_id(jsonObject.getString(P.filter_id));
+                        try {
+                            model.setValue(new Json(jsonObject.getString(P.value)));
+                        }catch (Exception e){
+
+                        }
+                        mainCategoryFilterModelList.add(model);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        mainCategoryFilterAdapter.notifyDataSetChanged();
+
+        if (mainCategoryFilterModelList.isEmpty()){
+            binding.lnrMainCategory.setVisibility(View.GONE);
+        }else {
+            binding.lnrMainCategory.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void updateSubFilterData(Json json){
+        subCategoryFilterModelList.clear();
+        binding.txtSubCategory.setText("");
+        if (json!=null){
+            binding.txtSubCategory.setText(json.getString(P.name));
+            JSONArray jsonArray = json.getJsonArray(P.value);
+            if (jsonArray!=null && jsonArray.length()!=0){
+                try {
+                    for (int i=0; i<jsonArray.length(); i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        CategoryFilterModel model = new CategoryFilterModel();
+                        model.setId(jsonObject.getString(P.id));
+                        model.setName(jsonObject.getString(P.name));
+                        model.setFilter_id(jsonObject.getString(P.filter_id));
+                        try {
+                            model.setValue(new Json(jsonObject.getString(P.value)));
+                        }catch (Exception e){
+
+                        }
+                        subCategoryFilterModelList.add(model);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+        if (firstCategoryCall){
+            firstCategoryCall = false;
+            subCategoryFilterAdapter = new CategoryFilterAdapter(activity,subCategoryFilterModelList,2,filterId,true);
+        }else {
+            subCategoryFilterAdapter = new CategoryFilterAdapter(activity,subCategoryFilterModelList,2,"",true);
+        }
+
+        binding.recyclerSubCategory.setAdapter(subCategoryFilterAdapter);
+
+        if (subCategoryFilterModelList.isEmpty()){
+            binding.lnrSubCategory.setVisibility(View.GONE);
+        }else {
+            binding.lnrSubCategory.setVisibility(View.VISIBLE);
+        }
     }
 
 

@@ -260,12 +260,14 @@
                         android:background="@color/black"></LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/lnrMainCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/txtMainCategory"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -275,11 +277,42 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:textColor="#373737"
-                            android:text="Select Quantity"/>
+                            android:text=""/>
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:layout_marginTop="10dp"
-                            android:id="@+id/recyclerQuantityView"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/recyclerMainCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lnrSubCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtSubCategory"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nunit_sans_bold"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:textColor="#373737"
+                            android:text=""/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/recyclerSubCategory"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -322,7 +355,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="15dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -360,6 +393,7 @@
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:id="@+id/lnrNewArrived"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -399,6 +433,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/lnrTrendingArrived"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"

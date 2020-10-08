@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Fragments.SearchFragment">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
@@ -52,6 +52,7 @@
                         android:text="Search History"
                         android:textColor="@color/black"
                         android:textSize="16sp"
+                        android:visibility="gone"
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -63,21 +64,23 @@
                     </androidx.recyclerview.widget.RecyclerView>
 
                     <TextView
+                        android:id="@+id/txtTendingSearch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:fontFamily="@font/nunit_sans_bold"
-                        android:text="Trending Searched"
                         android:gravity="center_vertical"
+                        android:text="Trending Searched"
                         android:textColor="@color/black"
                         android:textSize="16sp"
+                        android:visibility="gone"
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="10dp"
                         android:id="@+id/recyclerTrendingSearches"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
 
                     </androidx.recyclerview.widget.RecyclerView>
 
@@ -86,7 +89,33 @@
 
         </androidx.core.widget.NestedScrollView>
 
+        <LinearLayout
+            android:id="@+id/lnrError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:orientation="vertical">
 
-    </FrameLayout>
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/tomato"
+                android:tint="@color/colorPrimaryDark"></ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:gravity="center_horizontal"
+                android:maxLines="1"
+                android:text="No Trending Product Found"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </layout>

@@ -125,6 +125,14 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
             trendModelList.add(model);
         }
         trendAdapter.notifyDataSetChanged();
+
+        if (trendModelList.isEmpty()){
+            binding.txtTendingSearch.setVisibility(View.GONE);
+            showError();
+        }else {
+            binding.txtTendingSearch.setVisibility(View.VISIBLE);
+            hideError();
+        }
     }
 
     @Override
@@ -159,5 +167,12 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
     public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
         return fragment;
+    }
+
+    private void showError(){
+        binding.lnrError.setVisibility(View.VISIBLE);
+    }
+    private void hideError(){
+        binding.lnrError.setVisibility(View.GONE);
     }
 }

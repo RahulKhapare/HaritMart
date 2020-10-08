@@ -50,23 +50,6 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
 
     private void addWishListData(){
         showProgress();
-        for (int i = 0; i < 5; i++) {
-            WishListModel model = new WishListModel();
-            model.setId("1");
-            model.setTemp_id("1");
-            model.setProduct_id("1");
-            model.setProducts_variants_id("1");
-            model.setQty("0");
-            model.setOption1("");
-            model.setOption2("");
-            model.setOption3("");
-            model.setTotal_price("200");
-            model.setPrice("50");
-            model.setCoupon_discount_amount("20");
-//            model.setCart_image(jsonObject.getString("image"));
-            model.setName("Tomato");
-            wishListModelList.add(model);
-        }
         wishListAdapter.notifyDataSetChanged();
         hideProgress();
         checkError();
@@ -94,14 +77,10 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
     }
 
     private void showError(){
-        if (binding.lnrError.getVisibility()==View.GONE){
-            binding.lnrError.setVisibility(View.VISIBLE);
-        }
+        binding.lnrError.setVisibility(View.VISIBLE);
     }
     private void hideError(){
-        if (binding.lnrError.getVisibility()==View.VISIBLE){
-            binding.lnrError.setVisibility(View.GONE);
-        }
+        binding.lnrError.setVisibility(View.GONE);
     }
 
     public static FavouriteFragment newInstance() {
