@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -29,8 +28,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import grocery.app.adapter.NewArrivalAdapter;
 import grocery.app.adapter.CategoryFilterAdapter;
+import grocery.app.adapter.NewArrivalAdapter;
 import grocery.app.adapter.SliderImageAdapter;
 import grocery.app.common.App;
 import grocery.app.common.P;
@@ -63,8 +62,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     private JsonList arrivalJSON;
     private JsonList trendingJSON;
     private boolean firstCategoryCall = false;
-    public static String mainCategoryFilterId = "";
-    public static String subCategoryFilterId = "";
+    public static int mainCategoryFilterId ;
+    public static int subCategoryFilterId ;
+    private String addToCart = "Add To Cart";
+    private String goToCart = "Go To Cart";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         getSupportActionBar().setHomeButtonEnabled(true);
         loadingDialog = new LoadingDialog(activity);
         firstCategoryCall = true;
+        binding.btnCart.setText(addToCart);
         initView();
 
     }
@@ -164,17 +166,34 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             }
         });
 
+        binding.btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (binding.btnCart.getText().toString().equals(addToCart)){
+                    checkAddCart();
+                }else if (binding.btnCart.getText().toString().equals(goToCart)){
+                    Intent cartIntent = new Intent(activity,BaseActivity.class);
+                    cartIntent.putExtra(Config.CHECK_CART_DATA,true);
+                    startActivity(cartIntent);
+                }
+            }
+        });
+
     }
 
     @Override
     public void itemClick(CategoryFilterModel model, int comingValue) {
         if (comingValue == 1){
-            mainCategoryFilterId = model.getFilter_id();
-            subCategoryFilterId = "";
+            if (!TextUtils.isEmpty(model.getFilter_id())){
+//                mainCategoryFilterId = Integer.parseInt(model.getFilter_id());
+//                subCategoryFilterId = 0;
+            }
             Json json = model.getValue();
             updateSubFilterData(json);
         }else if (comingValue == 2){
-            subCategoryFilterId = model.getFilter_id();
+            if (!TextUtils.isEmpty(model.getFilter_id())){
+//                subCategoryFilterId = Integer.parseInt(model.getFilter_id());
+            }
         }
     }
 
@@ -183,6 +202,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     public void add(int filterId) {
 
     }
+
 
     private void setupProductListData(){
         try {
@@ -313,9 +333,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                         }
 
                         if (cartValue.equals("1")){
-                            binding.btnCart.setText("Go to cart");
+                            binding.btnCart.setText(goToCart);
                         }else {
-                            binding.btnCart.setText("Add to cart");
+                            binding.btnCart.setText(addToCart);
                         }
 
                     } else{
@@ -446,6 +466,52 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         runnable.run();
     }
 
+    private void checkAddCart(){
+
+        if (binding.lnrMainCategory.getVisibility()==View.VISIBLE && mainCategoryFilterId == 0){
+            H.showMessage(activity,"Please Select " + binding.txtMainCategory.getText().toString());
+            return;
+        }
+
+        if (binding.lnrSubCategory.getVisibility()==View.VISIBLE && subCategoryFilterId == 0){
+            H.showMessage(activity,"Please Select " + binding.txtSubCategory.getText().toString());
+            return;
+        }
+
+        Json j = new Json();
+        j.addString(P.cart_token, new Session(this).getString(P.cart_token));
+        j.addInt(P.user_id, Config.dummyID);
+        j.addInt(P.product_filter_id,Integer.parseInt(filterId));
+        j.addInt(P.quantity, 1);
+        j.addInt(P.option1, mainCategoryFilterId);
+        j.addInt(P.option2, subCategoryFilterId);
+        j.addInt(P.option3, 0);
+        hitAddToCartApi(j);
+
+    }
+
+    private void hitAddToCartApi(Json j) {
+        showLoader();
+        Api.newApi(activity, P.baseUrl + "add_to_cart").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    hideLoader();
+                    H.showMessage(activity, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        H.showMessage(activity, json.getString(P.msg));
+                        binding.btnCart.setText(goToCart);
+                    } else{
+                        H.showMessage(activity, json.getString(P.msg));
+                    }
+                    hideLoader();
+                })
+                .run("hitAddToCartApi");
+    }
+
     private float discountPercentage(float S, float M)
     {
         // Calculating discount
@@ -478,4 +544,24 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         super.onBackPressed();
     }
 
+//    { product details
+//        "id":0,
+//            "filter_id":17,
+//            "user_id":1,
+//            "cart_token":"5PXT8OjmYd",
+//            "option":{
+//        "2":5,
+//                "3":10
+//    }
+//    }
+
+//    { add to cart
+//        "cart_token":"73WVTSBeZ7",
+//            "user_id":0,
+//            "product_filter_id":3,
+//            "quantity":1,
+//            "option1":0,
+//            "option2":0,
+//            "option3":0
+//    }
 }

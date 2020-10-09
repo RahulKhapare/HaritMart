@@ -39,6 +39,7 @@ public class BaseActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private ActivityBaseBinding binding;
     private BaseActivity activity = this;
+    private boolean checkCartData = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class BaseActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         fragmentManager = getSupportFragmentManager();
         binding.txtAddress.setText(new Session(activity).getString(P.locationAddress));
+        checkCartData = getIntent().getBooleanExtra(Config.CHECK_CART_DATA,false);
         hitCategoryApi();
     }
 
@@ -74,9 +76,13 @@ public class BaseActivity extends AppCompatActivity {
                             json = json.getJson(P.data);
                             App.categoryImageUrl = json.getString(P.category_image_path);
                             App.categoryJsonList = json.getJsonList(P.category_list);
+                            if (checkCartData){
+                                onBottomBarClick(binding.cartLayout);
+                            }else {
+                                homeFragment = HomeFragment.newInstance();
+                                fragmentLoader(homeFragment, Config.HOME);
+                            }
 
-                            homeFragment = HomeFragment.newInstance();
-                            fragmentLoader(homeFragment, Config.HOME);
                         } else
                             H.showMessage(this, json.getString(P.msg));
                     })
@@ -189,6 +195,12 @@ public class BaseActivity extends AppCompatActivity {
         } else if (tag.equals(Config.MORE)) {
             selectBottomNavigation(binding.moreLayout);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     @Override

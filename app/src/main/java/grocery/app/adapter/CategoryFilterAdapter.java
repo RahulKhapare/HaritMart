@@ -1,13 +1,10 @@
 package grocery.app.adapter;
 
 import android.content.Context;
-import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -67,14 +64,33 @@ public class CategoryFilterAdapter extends RecyclerView.Adapter<CategoryFilterAd
 
         if (!TextUtils.isEmpty(filterId)){
             if (model.getFilter_id().contains(filterId)){
-                filterId = "";
                 lastCheckPosition = position;
                 if (comingValue==1){
-                    ProductDetailsActivity.mainCategoryFilterId = model.getFilter_id();
+                    if (!TextUtils.isEmpty(model.getFilter_id())){
+
+//                        ProductDetailsActivity.mainCategoryFilterId = Integer.parseInt("");
+
+//                        if(model.getFilter_id().contains(",")){
+//                            String data = model.getFilter_id();
+//                            String[] items = data.split(",");
+//                            for (String item : items)
+//                            {
+//                               if (item.equals(filterId)){
+//                                   ProductDetailsActivity.mainCategoryFilterId = Integer.parseInt(item);
+//                               }
+//                            }
+//                        }else {
+//                            ProductDetailsActivity.mainCategoryFilterId = Integer.parseInt(model.getFilter_id());
+//                        }
+
+                    }
                 }else if (comingValue==2){
-                    ProductDetailsActivity.subCategoryFilterId = model.getFilter_id();
+                    if (!TextUtils.isEmpty(model.getFilter_id())){
+//                        ProductDetailsActivity.subCategoryFilterId = Integer.parseInt(model.getFilter_id());
+                    }
                 }
                 ((ProductDetailsActivity)context).itemClick(model,comingValue);
+                filterId = "";
             }
         }
 

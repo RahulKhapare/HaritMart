@@ -27,6 +27,7 @@ public class Config {
 
     public static String PRODUCT_ID = "PRODUCT_ID";
     public static String PRODUCT_FILTER_ID = "PRODUCT_FILTER_ID";
+    public static String CHECK_CART_DATA = "CHECK_CART_DATA";
 
     public static boolean FROM_ADDRESS = false;
 
