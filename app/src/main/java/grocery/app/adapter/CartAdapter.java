@@ -67,15 +67,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         CartModel model = cartModelList.get(position);
 
-        Picasso.get().load(P.imgBaseUrl+model.getCart_image()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgProduct);
+        Picasso.get().load(P.imgBaseUrl+model.getImage()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgProduct);
 
         holder.binding.txtAmount.setText(rs + model.getPrice());
-        holder.binding.txtProductOff.setText(rs + model.getCoupon_discount_amount());
+        holder.binding.txtProductOff.setText(rs + model.getTotal_price());
 
         String offValue = "0";
-        if (!TextUtils.isEmpty(model.getPrice()) && !TextUtils.isEmpty(model.getCoupon_discount_amount())){
-            int actualValue = Integer.parseInt(model.getPrice());
-            int discountValue = Integer.parseInt(model.getCoupon_discount_amount());
+        if (!TextUtils.isEmpty(model.getPrice()) && !TextUtils.isEmpty(model.getTotal_price())){
+            int actualValue = Integer.parseInt(model.getTotal_price());
+            int discountValue = Integer.parseInt(model.getPrice());
             try {
 //                offValue =  ((actualValue - discountValue) / actualValue) * 100;
 //                offValue = actualValue - (actualValue * (discountValue / 100));
@@ -97,7 +97,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         }
 
         holder.binding.txtWeight.setText("0 KG");
-        holder.binding.txtWeight.setPaintFlags(holder.binding.txtWeight.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         holder.binding.txtItemCount.setText(model.getQty());
         holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -117,7 +116,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 int itemCount = cartValue-1;
                 if (isFragment){
                     if (ConnectionUtil.isOnline(context)){
-//                        ((CartFragment)cartFragment).updateCart(Integer.parseInt(model.getId()),itemCount,holder.binding.txtItemCount);
+                        ((CartFragment)cartFragment).updateCart(Integer.parseInt(model.getId()),itemCount,holder.binding.txtItemCount);
                     }else {
                         H.showMessage(context,context.getResources().getString(R.string.internetMessage));
                     }
@@ -137,7 +136,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             }
         });
 
-        holder.binding.cardView.setOnClickListener(v -> {
+        holder.binding.lnrRemove.setOnClickListener(v -> {
             Click.preventTwoClick(v);
             if (isFragment){
                 if (ConnectionUtil.isOnline(context)){

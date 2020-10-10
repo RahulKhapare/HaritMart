@@ -21,9 +21,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="5dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -32,8 +32,8 @@
                     <LinearLayout
                         android:layout_width="87dp"
                         android:layout_height="83dp"
-                        android:gravity="center"
-                        android:background="@drawable/product_bg_two">
+                        android:background="@drawable/product_bg_two"
+                        android:gravity="center">
 
                         <ImageView
                             android:id="@+id/imgProduct"
@@ -47,8 +47,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -60,23 +60,23 @@
                             android:id="@+id/txtAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="#373737"
-                            android:maxLines="1"
-                            android:text="@string/app_name"
-                            android:textStyle="bold"
                             android:fontFamily="@font/nunito_sans_semibold"
-                            android:textSize="16sp"></TextView>
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="#373737"
+                            android:textSize="16sp"
+                            android:textStyle="bold"></TextView>
 
 
                         <TextView
                             android:id="@+id/txtProductOff"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:fontFamily="@font/nunito_sans_semibold"
-                            android:maxLines="1"
-                            android:gravity="center_vertical"
                             android:layout_marginLeft="10dp"
-                            android:text="@string/app_name"
+                            android:fontFamily="@font/nunito_sans_semibold"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text=""
                             android:textColor="@color/grey1"
                             android:textSize="12sp"></TextView>
 
@@ -84,19 +84,19 @@
                             android:id="@+id/txtPercent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/nunito_sans_semibold"
-                            android:maxLines="1"
-                            android:gravity="center_vertical"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/app_name"
+                            android:layout_marginLeft="20dp"
+                            android:background="@drawable/product_bg_child_fill"
+                            android:fontFamily="@font/nunito_sans_semibold"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
                             android:paddingLeft="5dp"
                             android:paddingTop="2dp"
                             android:paddingRight="5dp"
                             android:paddingBottom="2dp"
-                            android:layout_marginLeft="20dp"
-                            android:background="@drawable/product_bg_child_fill"
+                            android:text=""
                             android:textColor="@color/white"
-                            android:textSize="5sp"></TextView>
+                            android:textSize="8sp"></TextView>
 
                     </LinearLayout>
 
@@ -104,26 +104,26 @@
                         android:id="@+id/txtProductName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#373737"
-                        android:maxLines="1"
-                        android:text="@string/app_name"
-                        android:textStyle="bold"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/nunito_sans_semibold"
-                        android:textSize="12sp"></TextView>
+                        android:maxLines="1"
+                        android:text=""
+                        android:textColor="#373737"
+                        android:textSize="12sp"
+                        android:textStyle="bold"></TextView>
 
                     <TextView
                         android:id="@+id/txtWeight"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textColor="#373737"
-                        android:paddingBottom="5dp"
-                        android:gravity="bottom"
-                        android:textStyle="bold"
-                        android:maxLines="1"
-                        android:text="@string/app_name"
                         android:fontFamily="@font/nunito_sans_semibold"
-                        android:textSize="14sp"></TextView>
+                        android:gravity="bottom"
+                        android:maxLines="1"
+                        android:paddingBottom="5dp"
+                        android:text=""
+                        android:textColor="#373737"
+                        android:textSize="14sp"
+                        android:textStyle="bold"></TextView>
 
                 </LinearLayout>
 
@@ -133,7 +133,7 @@
                 android:id="@+id/lnrAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:paddingRight="20dp"
+                android:paddingRight="50dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true">
 
@@ -141,6 +141,7 @@
                     android:id="@+id/lnrUpdate"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -160,7 +161,7 @@
                         android:layout_marginRight="10dp"
                         android:textStyle="bold"
                         android:maxLines="1"
-                        android:text="@string/app_name"
+                        android:text=""
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:textSize="14sp"></TextView>
 
@@ -174,6 +175,27 @@
 
                 </LinearLayout>
 
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lnrRemove"
+                android:layout_width="31dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true">
+
+                <View
+                    android:layout_width="31dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/curve_addition" />
+
+                <ImageView
+                    android:id="@+id/imgAction"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_baseline_delete_24" />
 
             </RelativeLayout>
 

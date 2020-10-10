@@ -144,11 +144,12 @@
                 android:paddingTop="2dp"
                 android:paddingRight="5dp"
                 android:paddingBottom="2dp"
+                android:text=""
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/product_bg_child_fill"
                 android:textColor="@color/white"
-                android:textSize="5sp"></TextView>
+                android:textSize="8sp"></TextView>
 
         </RelativeLayout>
 

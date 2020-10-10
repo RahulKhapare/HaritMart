@@ -506,7 +506,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         Json json = new Json();
         json.addInt(P.product_filter_id,filterId);
         json.addString(P.cart_token, new Session(this).getString(P.cart_token));
-        json.addString(P.user_id, "");
+        json.addInt(P.user_id, Config.dummyID);
         json.addInt(P.quantity, 1);
         json.addInt(P.option1, 0);
         json.addInt(P.option2, 0);

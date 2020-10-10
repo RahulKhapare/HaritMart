@@ -248,6 +248,34 @@
 
                     </FrameLayout>
 
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Coupon Discount"
+                            android:textColor="#373737"
+                            android:textSize="14sp"
+                            app:fontFamily="@font/nunito_sans_semibold" />
+
+                        <TextView
+                            android:id="@+id/txtCouponDiscount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text=""
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="14sp"
+                            app:fontFamily="@font/nunito_sans_semibold" />
+
+                    </FrameLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"

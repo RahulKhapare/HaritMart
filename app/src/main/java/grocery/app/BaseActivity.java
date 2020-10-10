@@ -205,6 +205,10 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        onBackAction();
+        if (homeFragment.isVisible()){
+            super.onBackPressed();
+        }else {
+            onBackAction();
+        }
     }
 }

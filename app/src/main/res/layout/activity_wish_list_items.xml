@@ -96,7 +96,7 @@
                             android:layout_marginLeft="20dp"
                             android:background="@drawable/product_bg_child_fill"
                             android:textColor="@color/white"
-                            android:textSize="5sp"></TextView>
+                            android:textSize="8sp"></TextView>
 
                     </LinearLayout>
 

@@ -66,9 +66,9 @@ public class CategoryFilterAdapter extends RecyclerView.Adapter<CategoryFilterAd
             if (model.getFilter_id().contains(filterId)){
                 lastCheckPosition = position;
                 if (comingValue==1){
-                    if (!TextUtils.isEmpty(model.getFilter_id())){
+                    if (!TextUtils.isEmpty(model.getId())){
 
-//                        ProductDetailsActivity.mainCategoryFilterId = Integer.parseInt("");
+                        ProductDetailsActivity.mainCategoryFilterId = Integer.parseInt(model.getId());
 
 //                        if(model.getFilter_id().contains(",")){
 //                            String data = model.getFilter_id();
@@ -85,8 +85,8 @@ public class CategoryFilterAdapter extends RecyclerView.Adapter<CategoryFilterAd
 
                     }
                 }else if (comingValue==2){
-                    if (!TextUtils.isEmpty(model.getFilter_id())){
-//                        ProductDetailsActivity.subCategoryFilterId = Integer.parseInt(model.getFilter_id());
+                    if (!TextUtils.isEmpty(model.getId())){
+                        ProductDetailsActivity.subCategoryFilterId = Integer.parseInt(model.getId());
                     }
                 }
                 ((ProductDetailsActivity)context).itemClick(model,comingValue);

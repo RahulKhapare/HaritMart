@@ -184,15 +184,15 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     @Override
     public void itemClick(CategoryFilterModel model, int comingValue) {
         if (comingValue == 1){
-            if (!TextUtils.isEmpty(model.getFilter_id())){
-//                mainCategoryFilterId = Integer.parseInt(model.getFilter_id());
-//                subCategoryFilterId = 0;
+            if (!TextUtils.isEmpty(model.getId())){
+                mainCategoryFilterId = Integer.parseInt(model.getId());
+                subCategoryFilterId = 0;
             }
             Json json = model.getValue();
             updateSubFilterData(json);
         }else if (comingValue == 2){
-            if (!TextUtils.isEmpty(model.getFilter_id())){
-//                subCategoryFilterId = Integer.parseInt(model.getFilter_id());
+            if (!TextUtils.isEmpty(model.getId())){
+                subCategoryFilterId = Integer.parseInt(model.getId());
             }
         }
     }
@@ -564,4 +564,5 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
 //            "option2":0,
 //            "option3":0
 //    }
+
 }

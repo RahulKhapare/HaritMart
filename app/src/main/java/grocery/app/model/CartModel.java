@@ -10,11 +10,14 @@ public class CartModel {
     String option1;
     String option2;
     String option3;
+    String name;
+    String sku;
+    String slug;
+    String image;
     String price;
     String total_price;
     String coupon_discount_amount;
-    String cart_image;
-    String name;
+
 
     public CartModel() {
 
@@ -108,12 +111,28 @@ public class CartModel {
         this.coupon_discount_amount = coupon_discount_amount;
     }
 
-    public String getCart_image() {
-        return cart_image;
+    public String getSku() {
+        return sku;
     }
 
-    public void setCart_image(String cart_image) {
-        this.cart_image = cart_image;
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getName() {

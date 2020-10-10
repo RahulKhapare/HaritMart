@@ -34,6 +34,7 @@ import grocery.app.adapter.CartAdapter;
 import grocery.app.common.P;
 import grocery.app.databinding.FragmentCartBinding;
 import grocery.app.model.CartModel;
+import grocery.app.util.AmountFormat;
 import grocery.app.util.Config;
 
 
@@ -43,7 +44,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     private Context context;
     private List<CartModel> cartModelList;
     private CartAdapter cartAdapter;
-    private String rs = "₹.";
+    private String rs = "₹ ";
     private LoadingDialog loadingDialog;
 
     public static CartFragment newInstance() {
@@ -57,6 +58,9 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         loadingDialog = new LoadingDialog(context);
         initView();
         binding.btnProcessToPay.setOnClickListener(this);
+
+        hitCartListApi();
+
         return binding.getRoot();
     }
 
@@ -64,7 +68,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     public void onResume() {
         super.onResume();
         if (getUserVisibleHint()) {
-            hitCartListApi();
+
         }
     }
 
@@ -177,19 +181,23 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                             try {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 CartModel model = new CartModel();
-                                model.setId(jsonObject.getString("id"));
-                                model.setTemp_id(jsonObject.getString("temp_id"));
-                                model.setProduct_id(jsonObject.getString("product_id"));
-                                model.setProducts_variants_id(jsonObject.getString("products_variants_id"));
-                                model.setQty(jsonObject.getString("qty"));
-                                model.setOption1(jsonObject.getString("option1"));
-                                model.setOption2(jsonObject.getString("option2"));
-                                model.setOption3(jsonObject.getString("option3"));
-                                model.setTotal_price(jsonObject.getString("total_price"));
-                                model.setPrice(jsonObject.getString("price"));
-                                model.setCoupon_discount_amount(jsonObject.getString("coupon_discount_amount"));
-//                                model.setCart_image(jsonObject.getString("image"));
-//                                model.setName(jsonObject.getString("name"));
+
+                                model.setId(jsonObject.getString(P.id));
+                                model.setTemp_id(jsonObject.getString(P.temp_id));
+                                model.setProduct_id(jsonObject.getString(P.product_id));
+                                model.setProducts_variants_id(jsonObject.getString(P.products_variants_id));
+                                model.setQty(jsonObject.getString(P.qty));
+                                model.setOption1(jsonObject.getString(P.option1));
+                                model.setOption2(jsonObject.getString(P.option2));
+                                model.setOption3(jsonObject.getString(P.option3));
+                                model.setName(jsonObject.getString(P.name));
+                                model.setSku(jsonObject.getString(P.sku));
+                                model.setSlug(jsonObject.getString(P.slug));
+                                model.setImage(jsonObject.getString(P.image));
+                                model.setTotal_price(jsonObject.getString(P.total_price));
+                                model.setPrice(jsonObject.getString(P.price));
+                                model.setCoupon_discount_amount(jsonObject.getString(P.coupon_discount_amount));
+
                                 cartModelList.add(model);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -198,11 +206,12 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
 
                         }
 
-                        binding.txtSubTotal.setText(rs + json.getString("item_total"));
-                        binding.txtTaxName.setText(json.getString("tax_name"));
-                        binding.txtTaxCharge.setText(rs + json.getString("tax_amount"));
-                        binding.txtDeliverCharge.setText(rs + json.getString("delivery_amount"));
-                        binding.txtTotalAMount.setText(rs + json.getString("grand_total"));
+                        binding.txtSubTotal.setText(rs + AmountFormat.getFormatedAmount(json.getString(P.item_total)));
+                        binding.txtTaxName.setText(json.getString(P.tax_name));
+                        binding.txtTaxCharge.setText(rs + AmountFormat.getFormatedAmount(json.getString(P.tax_amount)));
+                        binding.txtCouponDiscount.setText(rs + AmountFormat.getFormatedAmount(json.getString(P.coupon_discount_amount)));
+                        binding.txtDeliverCharge.setText(rs + AmountFormat.getFormatedAmount(json.getString(P.delivery_amount)));
+                        binding.txtTotalAMount.setText(rs + AmountFormat.getFormatedAmount(json.getString(P.grand_total)));
 
                         hideProgress();
                         showSummary();
@@ -235,11 +244,12 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                     if (json.getInt(P.status) == 1) {
                         json = json.getJson(P.data);
                         Config.CART_JSON = json;
-                        binding.txtSubTotal.setText(rs + json.getString("item_total"));
-                        binding.txtTaxName.setText(json.getString("tax_name"));
-                        binding.txtTaxCharge.setText(json.getString("tax_amount"));
-                        binding.txtDeliverCharge.setText(json.getString("delivery_amount"));
-                        binding.txtTotalAMount.setText(rs + json.getString("grand_total"));
+                        binding.txtSubTotal.setText(rs + AmountFormat.getFormatedAmount(json.getString(P.item_total)));
+                        binding.txtTaxName.setText(json.getString(P.tax_name));
+                        binding.txtTaxCharge.setText(rs + AmountFormat.getFormatedAmount(json.getString(P.tax_amount)));
+                        binding.txtCouponDiscount.setText(rs + AmountFormat.getFormatedAmount(json.getString(P.coupon_discount_amount)));
+                        binding.txtDeliverCharge.setText(rs + AmountFormat.getFormatedAmount(json.getString(P.delivery_amount)));
+                        binding.txtTotalAMount.setText(rs + AmountFormat.getFormatedAmount(json.getString(P.grand_total)));
                     } else {
                         H.showMessage(context, json.getString(P.msg));
                     }
@@ -307,3 +317,4 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     }
 
 }
+

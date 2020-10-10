@@ -20,10 +20,17 @@ public class P {
     public static String saleprice="saleprice";
     public static String discount_amount="discount_amount";
     public static String discount="discount";
+    public static String coupon_discount_amount="coupon_discount_amount";
 
     public static String msg="msg";
     public static String data="data";
     public static String category_name="category_name";
+
+    public static String item_total="item_total";
+    public static String tax_name="tax_name";
+    public static String tax_amount="tax_amount";
+    public static String delivery_amount="delivery_amount";
+    public static String grand_total="grand_total";
 
 
     public static String item_id="item_id";
@@ -47,11 +54,18 @@ public class P {
     public static String category = "category";
     public static String parent_id = "parent_id";
     public static String id = "id";
+    public static String temp_id = "temp_id";
+    public static String product_id = "product_id";
+    public static String products_variants_id = "products_variants_id";
+    public static String qty = "qty";
     public static String name = "name";
+    public static String sku = "sku";
+    public static String slug = "slug";
     public static String is_wishlisted = "is_wishlisted";
     public static String is_added_in_cart = "is_added_in_cart";
     public static String logo = "logo";
     public static String image = "image";
+    public static String total_price = "total_price";
     public static String main_parent_id = "main_parent_id";
     public static String category_id = "category_id";
     public static String search_tag = "search_tag";

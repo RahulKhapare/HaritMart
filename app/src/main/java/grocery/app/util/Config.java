@@ -39,6 +39,6 @@ public class Config {
 
     public static Json CART_JSON;
 
-    public static int dummyID = 1;
+    public static int dummyID = 0;
 
 }

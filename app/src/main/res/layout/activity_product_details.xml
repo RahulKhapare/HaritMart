@@ -120,19 +120,19 @@
                                         android:id="@+id/txtPercent"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:fontFamily="@font/nunito_sans_semibold"
-                                        android:maxLines="1"
-                                        android:gravity="center_vertical"
                                         android:layout_gravity="center_vertical"
-                                        android:text=""
+                                        android:layout_marginLeft="20dp"
+                                        android:background="@drawable/product_bg_child_fill"
+                                        android:fontFamily="@font/nunito_sans_semibold"
+                                        android:gravity="center_vertical"
+                                        android:maxLines="1"
                                         android:paddingLeft="5dp"
                                         android:paddingTop="2dp"
                                         android:paddingRight="5dp"
                                         android:paddingBottom="2dp"
-                                        android:layout_marginLeft="20dp"
-                                        android:background="@drawable/product_bg_child_fill"
+                                        android:text=""
                                         android:textColor="@color/white"
-                                        android:textSize="5sp"></TextView>
+                                        android:textSize="8sp"></TextView>
 
                                 </LinearLayout>
 
