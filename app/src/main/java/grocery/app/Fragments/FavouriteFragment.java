@@ -39,6 +39,7 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
     }
 
     private void initView(){
+        //
         wishListModelList = new ArrayList<>();
         binding.receyclerWishList.setHasFixedSize(true);
         binding.receyclerWishList.setLayoutManager(new LinearLayoutManager(context));
