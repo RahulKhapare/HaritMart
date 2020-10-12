@@ -5,20 +5,32 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
+import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.adoisstudio.helper.Api;
+import com.adoisstudio.helper.H;
+import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.LoadingDialog;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import grocery.app.R;
 import grocery.app.adapter.WishListAdapter;
+import grocery.app.common.P;
 import grocery.app.databinding.FragmentFavouriteBinding;
 import grocery.app.model.WishListModel;
+import grocery.app.util.Config;
 
 public class FavouriteFragment extends Fragment implements WishListAdapter.Click{
 
@@ -39,26 +51,21 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
     }
 
     private void initView(){
-        //
         wishListModelList = new ArrayList<>();
         binding.receyclerWishList.setHasFixedSize(true);
         binding.receyclerWishList.setLayoutManager(new LinearLayoutManager(context));
         wishListAdapter = new WishListAdapter(context,wishListModelList,FavouriteFragment.this);
         binding.receyclerWishList.setAdapter(wishListAdapter);
-        addWishListData();
+        hitForWishList();
     }
 
-
-    private void addWishListData(){
-        showProgress();
-        wishListAdapter.notifyDataSetChanged();
-        hideProgress();
-        checkError();
-    }
 
     @Override
-    public void addFavorite() {
-
+    public void removeFavorite(int filterId, CardView cardView,int position) {
+        Json json = new Json();
+        json.addInt(P.user_id, Config.dummyID_1);
+        json.addInt(P.wishlist_id, filterId);
+        hitRemoveToWishList(json,cardView,position);
     }
 
     private void checkError(){
@@ -67,6 +74,74 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
         }else {
             hideError();
         }
+    }
+
+    private void hitForWishList() {
+        showProgress();
+        Json j = new Json();
+        j.addInt(P.user_id, 1);
+        Api.newApi(context, P.baseUrl + "wishlist").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    hideProgress();
+                    checkError();
+                    H.showMessage(context, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        json = json.getJson(P.data);
+                        String imagePath = json.getString(P.product_image_path);
+                        JSONArray jsonArray = json.getJsonArray(P.list);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                WishListModel model = new WishListModel();
+
+                                model.setProduct_image_path(imagePath);
+                                model.setWishlist_id(jsonObject.getString(P.wishlist_id));
+                                model.setCategory_name(jsonObject.getString(P.category_name));
+                                model.setId(jsonObject.getString(P.id));
+                                model.setFilter_id(jsonObject.getString(P.filter_id));
+                                model.setName(jsonObject.getString(P.name));
+                                model.setProduct_image(jsonObject.getString(P.product_image));
+
+                                wishListModelList.add(model);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        wishListAdapter.notifyDataSetChanged();
+                    } else{
+                        H.showMessage(context, json.getString(P.msg));
+                    }
+                    hideProgress();
+                    checkError();
+                })
+                .run("hitForWishList");
+    }
+
+    private void hitRemoveToWishList(Json j, CardView cardView,int position) {
+        showProgress();
+        Api.newApi(context, P.baseUrl + "remove_from_wishlist").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    hideProgress();
+                    H.showMessage(context, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        H.showMessage(context, "Item removed from favorite");
+                        cardView.startAnimation(removeItem(position));
+                    } else{
+                        H.showMessage(context, json.getString(P.msg));
+                    }
+                    hideProgress();
+                })
+                .run("hitRemoveToWishList");
     }
 
     private void showProgress() {
@@ -82,6 +157,27 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
     }
     private void hideError(){
         binding.lnrError.setVisibility(View.GONE);
+    }
+
+    private Animation removeItem(int position) {
+        Animation animation = AnimationUtils.loadAnimation(context,
+                R.anim.slide_out);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                wishListModelList.remove(position);
+                wishListAdapter.notifyDataSetChanged();
+            }
+        });
+        return animation;
     }
 
     public static FavouriteFragment newInstance() {

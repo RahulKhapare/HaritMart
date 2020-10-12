@@ -142,10 +142,10 @@
                     android:background="@drawable/curve_addition" />
 
                 <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_plus" />
+                    android:src="@drawable/ic_baseline_remove_24" />
 
             </RelativeLayout>
 

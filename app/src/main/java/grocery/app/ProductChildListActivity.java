@@ -448,21 +448,21 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         }
     }
 
-    private void hitAddToCartApi(Json j) {
-        Api.newApi(this, P.baseUrl + "add_to_cart").addJson(j)
+    private void hitAddToWishList(Json j) {
+        Api.newApi(activity, P.baseUrl + "add_to_wishlist").addJson(j)
                 .setMethod(Api.POST)
                 //.onHeaderRequest(App::getHeaders)
                 .onError(() -> {
-                    H.showMessage(this, "On error is called");
+                    H.showMessage(activity, "On error is called");
                 })
                 .onSuccess(json ->
                 {
                     if (json.getInt(P.status) == 1) {
-                        H.showMessage(this, json.getString(P.msg));
+                        H.showMessage(activity, json.getString(P.msg));
                     } else
-                        H.showMessage(this, json.getString(P.msg));
+                        H.showMessage(activity, json.getString(P.msg));
                 })
-                .run("hitAddToCartApi");
+                .run("hitAddToWishList");
     }
 
     @Override
@@ -504,14 +504,9 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
     @Override
     public void add(int filterId) {
         Json json = new Json();
-        json.addInt(P.product_filter_id,filterId);
-        json.addString(P.cart_token, new Session(this).getString(P.cart_token));
-        json.addInt(P.user_id, Config.dummyID);
-        json.addInt(P.quantity, 1);
-        json.addInt(P.option1, 0);
-        json.addInt(P.option2, 0);
-        json.addInt(P.option3, 0);
-//        hitAddToCartApi(json);
+        json.addInt(P.user_id, Config.dummyID_1);
+        json.addInt(P.product_filter_id, filterId);
+        hitAddToWishList(json);
     }
 
     private void showError(){

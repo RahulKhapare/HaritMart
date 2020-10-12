@@ -16,8 +16,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.adoisstudio.helper.Api;
+import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.JsonList;
+import com.adoisstudio.helper.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.FragmentSearchBinding;
 import grocery.app.model.SearchModel;
+import grocery.app.util.Config;
 
 
 public class SearchFragment extends Fragment implements SearchAdapter.Click{
@@ -38,6 +42,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
     private SearchAdapter trendAdapter;
     private List<SearchModel> searchModelList;
     private List<SearchModel> trendModelList;
+    private LoadingDialog loadingDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +50,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false);
         context = inflater.getContext();
+        loadingDialog = new LoadingDialog(context);
         initView();
         return binding.getRoot();
     }
@@ -65,8 +71,8 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
         trendAdapter = new SearchAdapter(context, trendModelList, true,SearchFragment.this);
         binding.recyclerTrendingSearches.setAdapter(trendAdapter);
 
-        loadProductData();
         onSearchView();
+        hitHomeApi();
 
     }
 
@@ -76,6 +82,14 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
         if (searchModelList!=null && searchModelList.isEmpty()){
             binding.txtSearch.setVisibility(View.GONE);
         }
+    }
+
+    private void showLoader() {
+        loadingDialog.show("Please wait...");
+    }
+
+    private void hideLoader() {
+        loadingDialog.hide();
     }
 
     private void onSearchView(){
@@ -107,9 +121,35 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
         });
     }
 
-    private void loadProductData(){
-        Json json = App.homeJSONDATA;
-        setUpTrendingProductList(json.getString(P.product_image_path), json.getJsonList(P.trending_product_list));
+    private void hitHomeApi() {
+        showLoader();
+        try {
+            Json j = new Json();
+            j.addInt(P.user_id, Config.dummyID_1);
+            Api.newApi(context, P.baseUrl + "home").addJson(j)
+                    .setMethod(Api.POST)
+                    //.onHeaderRequest(App::getHeaders)
+                    .onError(() -> {
+                        hideLoader();
+                        showError();
+                        H.showMessage(context, "On error is called");
+                    })
+                    .onSuccess(json -> {
+                        if (json.getInt(P.status) == 1) {
+                            json = json.getJson(P.data);
+                            App.homeJSONDATA = json;
+                            App.product_image_path = json.getString(P.product_image_path);
+                            setUpTrendingProductList(json.getString(P.product_image_path), json.getJsonList(P.trending_product_list));
+                        } else {
+                            showError();
+                        }
+                        hideLoader();
+                    })
+                    .run("hitHomeApi");
+        } catch (Exception e) {
+            hideLoader();
+        }
+
     }
 
     private void setUpTrendingProductList(String string, JsonList jsonList) {

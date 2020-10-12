@@ -202,10 +202,9 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            cartAdapter.notifyDataSetChanged();
-
                         }
 
+                        cartAdapter.notifyDataSetChanged();
                         binding.txtSubTotal.setText(rs + AmountFormat.getFormatedAmount(json.getString(P.item_total)));
                         binding.txtTaxName.setText(json.getString(P.tax_name));
                         binding.txtTaxCharge.setText(rs + AmountFormat.getFormatedAmount(json.getString(P.tax_amount)));
@@ -217,7 +216,6 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                         showSummary();
                     } else {
                         hideProgress();
-//                        H.showMessage(context, json.getString(P.msg));
                     }
                     checkError();
                 })

@@ -1,6 +1,7 @@
 package grocery.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,11 +21,13 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import grocery.app.Fragments.CartFragment;
+import grocery.app.ProductDetailsActivity;
 import grocery.app.R;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityCartListBinding;
 import grocery.app.model.CartModel;
 import grocery.app.util.Click;
+import grocery.app.util.Config;
 import grocery.app.util.ConnectionUtil;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
@@ -145,6 +148,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     H.showMessage(context,context.getResources().getString(R.string.internetMessage));
                 }
             }
+        });
+
+        holder.binding.cardView.setOnClickListener(v -> {
+            Click.preventTwoClick(v);
+//            Intent productIntent = new Intent(context, ProductDetailsActivity.class);
+//            productIntent.putExtra(Config.PRODUCT_ID,model.getId());
+//            productIntent.putExtra(Config.PRODUCT_FILTER_ID,model.getFilter_id());
+//            context.startActivity(productIntent);
         });
     }
 

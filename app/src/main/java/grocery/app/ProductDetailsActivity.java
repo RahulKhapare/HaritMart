@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -37,6 +38,7 @@ import grocery.app.databinding.ActivityProductDetailsBinding;
 import grocery.app.model.ArrivalModel;
 import grocery.app.model.CategoryFilterModel;
 import grocery.app.model.SliderModel;
+import grocery.app.util.Click;
 import grocery.app.util.Config;
 import grocery.app.util.WindowBarColor;
 
@@ -66,6 +68,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     public static int subCategoryFilterId ;
     private String addToCart = "Add To Cart";
     private String goToCart = "Go To Cart";
+    private String wishListValue = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,15 +125,15 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         binding.recyclerPopular.setAdapter(popularAdapter);
 
         onClick();
-        setupProductListData();
         hitProductDetailsApi(filterId,producId);
-
+        hitHomeApi();
     }
 
     private void onClick(){
         binding.viewMoreTrending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Click.preventTwoClick(v);
                 Intent intent = new Intent(activity, ProductChildListActivity.class);
                 intent.putExtra(Config.TITLE, "Trending Arrived");
                 intent.putExtra(Config.CHILD_POSITION, 0);
@@ -143,6 +146,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         binding.viewMorePopular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Click.preventTwoClick(v);
                 Intent intent = new Intent(activity, ProductChildListActivity.class);
                 intent.putExtra(Config.TITLE, "New Arrived");
                 intent.putExtra(Config.CHILD_POSITION, 0);
@@ -155,6 +159,18 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         binding.imgLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Click.preventTwoClick(v);
+                if (!TextUtils.isEmpty(wishListValue) && wishListValue.equals("1")){
+                    Json json = new Json();
+                    json.addInt(P.user_id, Config.dummyID_1);
+                    json.addInt(P.wishlist_id, Integer.parseInt(filterId));
+                    hitRemoveToWishList(json,binding.imgLike,true);
+                }else if (!TextUtils.isEmpty(wishListValue) && wishListValue.equals("0")){
+                    Json json = new Json();
+                    json.addInt(P.user_id, Config.dummyID_1);
+                    json.addInt(P.product_filter_id, Integer.parseInt(filterId));
+                    hitAddToWishList(json,binding.imgLike,true);
+                }
 
             }
         });
@@ -162,13 +178,14 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         binding.imgShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Click.preventTwoClick(v);
             }
         });
 
         binding.btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Click.preventTwoClick(v);
                 if (binding.btnCart.getText().toString().equals(addToCart)){
                     checkAddCart();
                 }else if (binding.btnCart.getText().toString().equals(goToCart)){
@@ -199,19 +216,54 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
 
 
     @Override
-    public void add(int filterId) {
+    public void add(int filterId, ImageView imgAction) {
+        Json json = new Json();
+        json.addInt(P.user_id, Config.dummyID_1);
+        json.addInt(P.product_filter_id, filterId);
+        hitAddToWishList(json,imgAction,false);
+    }
 
+    @Override
+    public void remove(int filterId, ImageView imgAction) {
+        Json json = new Json();
+        json.addInt(P.user_id, Config.dummyID_1);
+        json.addInt(P.wishlist_id, filterId);
+        hitRemoveToWishList(json,imgAction,false);
     }
 
 
-    private void setupProductListData(){
+    private void hitHomeApi() {
+        showLoader();
         try {
-            Json json = App.homeJSONDATA;
-            setUpNewArrivedList(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));
-            setUpTrendingProductList(json.getString(P.product_image_path), json.getJsonList(P.trending_product_list));
-        }catch (Exception e){
+            Json j = new Json();
+            j.addInt(P.user_id, Config.dummyID_1);
+            Api.newApi(activity, P.baseUrl + "home").addJson(j)
+                    .setMethod(Api.POST)
+                    //.onHeaderRequest(App::getHeaders)
+                    .onError(() -> {
+                        hideLoader();
+                        H.showMessage(activity, "On error is called");
+                    })
+                    .onSuccess(json -> {
+                        if (json.getInt(P.status) == 1) {
+                            json = json.getJson(P.data);
+                            App.homeJSONDATA = json;
+                            App.product_image_path = json.getString(P.product_image_path);
+                            setUpNewArrivedList(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));
+                            setUpTrendingProductList(json.getString(P.product_image_path), json.getJsonList(P.trending_product_list));
+                        } else {
+                            H.showMessage(activity, json.getString(P.msg));
+                        }
+                        hideLoader();
+
+                    })
+                    .run("hitHomeApi");
+        } catch (Exception e) {
+            hideLoader();
         }
+
     }
+
 
     private void setUpNewArrivedList(String string, JsonList jsonList) {
         arrivalJSON = jsonList;
@@ -264,7 +316,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         Json j = new Json();
         j.addInt(P.filter_id,Integer.parseInt(filterId));
         j.addInt(P.id, Integer.parseInt(productId));
-        j.addInt(P.user_id, Config.dummyID);
+        j.addInt(P.user_id, Config.dummyID_1);
         j.addString(P.cart_token, new Session(this).getString(P.cart_token));
         j.addJSON(P.option, optionJson);
 
@@ -324,7 +376,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                         }
 
                         String cartValue = json.getString(P.is_added_in_cart);
-                        String wishListValue = json.getString(P.is_wishlisted);
+                        wishListValue = json.getString(P.is_wishlisted);
 
                         if (wishListValue.equals("1")){
                             binding.imgLike.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_favorite_2));
@@ -480,7 +532,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
 
         Json j = new Json();
         j.addString(P.cart_token, new Session(this).getString(P.cart_token));
-        j.addInt(P.user_id, Config.dummyID);
+        j.addInt(P.user_id, Config.dummyID_1);
         j.addInt(P.product_filter_id,Integer.parseInt(filterId));
         j.addInt(P.quantity, 1);
         j.addInt(P.option1, mainCategoryFilterId);
@@ -502,7 +554,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                 .onSuccess(json ->
                 {
                     if (json.getInt(P.status) == 1) {
-                        H.showMessage(activity, json.getString(P.msg));
+                        H.showMessage(activity, "Item added into favorite");
                         binding.btnCart.setText(goToCart);
                     } else{
                         H.showMessage(activity, json.getString(P.msg));
@@ -510,6 +562,65 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                     hideLoader();
                 })
                 .run("hitAddToCartApi");
+    }
+
+    private void hitAddToWishList(Json j,ImageView imgAction,boolean fivenFlag) {
+        showLoader();
+        Api.newApi(activity, P.baseUrl + "add_to_wishlist").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    hideLoader();
+                    H.showMessage(activity, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        H.showMessage(activity, "Item added into favorite");
+                        if (fivenFlag){
+                            imgAction.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_baseline_favorite_2));
+                            wishListValue = "1";
+                            hitHomeApi();
+                        }else {
+                            imgAction.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_baseline_remove_24));
+                        }
+
+                    } else{
+                        H.showMessage(activity, json.getString(P.msg));
+                    }
+                    hideLoader();
+                })
+                .run("hitAddToWishList");
+    }
+
+    private void hitRemoveToWishList(Json j,ImageView imgAction, boolean fivenFlag) {
+        showLoader();
+        Api.newApi(activity, P.baseUrl + "remove_from_wishlist").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    hideLoader();
+                    H.showMessage(activity, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        H.showMessage(activity, "Item removed from favorite");
+                        if (fivenFlag){
+                            imgAction.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_baseline_favorite_1));
+                            wishListValue = "0";
+                            hitHomeApi();
+                        }else {
+                            imgAction.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_baseline_add_24));
+                        }
+
+                    } else{
+                        H.showMessage(activity, json.getString(P.msg));
+                    }
+                    hideLoader();
+
+                })
+                .run("hitRemoveToWishList");
     }
 
     private float discountPercentage(float S, float M)
@@ -543,26 +654,5 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     public void onBackPressed() {
         super.onBackPressed();
     }
-
-//    { product details
-//        "id":0,
-//            "filter_id":17,
-//            "user_id":1,
-//            "cart_token":"5PXT8OjmYd",
-//            "option":{
-//        "2":5,
-//                "3":10
-//    }
-//    }
-
-//    { add to cart
-//        "cart_token":"73WVTSBeZ7",
-//            "user_id":0,
-//            "product_filter_id":3,
-//            "quantity":1,
-//            "option1":0,
-//            "option2":0,
-//            "option3":0
-//    }
 
 }

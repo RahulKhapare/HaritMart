@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -17,7 +18,6 @@ import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.JsonList;
 import com.adoisstudio.helper.LoadingDialog;
-import com.adoisstudio.helper.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,8 +68,8 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
             context = getContext();
             loadingDialog = new LoadingDialog(context);
             initProductView();
+            hitCategoryApi();
             hitHomeApi();
-            loadCategoryProductItem();
             onClickItemView();
         }
 
@@ -143,6 +143,31 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
 
     }
 
+    private void hitCategoryApi() {
+        showLoader();
+        Api.newApi(context, P.baseUrl + "categories").addJson(new Json())
+                .setMethod(Api.GET)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    hideLoader();
+                    H.showMessage(context, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        json = json.getJson(P.data);
+                        App.categoryImageUrl = json.getString(P.category_image_path);
+                        App.categoryJsonList = json.getJsonList(P.category_list);
+                        loadCategoryProductItem();
+                    } else{
+                        H.showMessage(context, json.getString(P.msg));
+                    }
+                    hideLoader();
+                })
+                .run("hitCategoryApi");
+
+    }
+
     private void loadCategoryProductItem() {
         productModelList.clear();
         try {
@@ -178,7 +203,7 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         showLoader();
         try {
             Json j = new Json();
-            j.addInt(P.user_id, 1);
+            j.addInt(P.user_id, Config.dummyID_1);
             Api.newApi(context, P.baseUrl + "home").addJson(j)
                     .setMethod(Api.POST)
                     //.onHeaderRequest(App::getHeaders)
@@ -290,21 +315,48 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         }
     }
 
-    private void hitAddToCartApi(Json j) {
-        Api.newApi(context, P.baseUrl + "add_to_cart").addJson(j)
+    private void hitAddToWishList(Json j,ImageView imgAction) {
+        showLoader();
+        Api.newApi(context, P.baseUrl + "add_to_wishlist").addJson(j)
                 .setMethod(Api.POST)
                 //.onHeaderRequest(App::getHeaders)
                 .onError(() -> {
+                    hideLoader();
                     H.showMessage(context, "On error is called");
                 })
                 .onSuccess(json ->
                 {
                     if (json.getInt(P.status) == 1) {
+                        H.showMessage(context, "Item added into favorite");
+                        imgAction.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_remove_24));
+                    } else{
                         H.showMessage(context, json.getString(P.msg));
-                    } else
-                        H.showMessage(context, json.getString(P.msg));
+                    }
+                       hideLoader();
                 })
-                .run("hitAddToCartApi");
+                .run("hitAddToWishList");
+    }
+
+    private void hitRemoveToWishList(Json j,ImageView imgAction) {
+        showLoader();
+        Api.newApi(context, P.baseUrl + "remove_from_wishlist").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    hideLoader();
+                    H.showMessage(context, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        H.showMessage(context, "Item removed from favorite");
+                        imgAction.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_add_24));
+                    } else{
+                        H.showMessage(context, json.getString(P.msg));
+                    }
+                       hideLoader();
+                })
+                .run("hitRemoveToWishList");
     }
 
     private void showLoader() {
@@ -316,15 +368,19 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
     }
 
     @Override
-    public void add(int filterId) {
+    public void add(int filterId, ImageView imgAction) {
         Json json = new Json();
+        json.addInt(P.user_id, Config.dummyID_1);
         json.addInt(P.product_filter_id, filterId);
-        json.addString(P.cart_token, new Session(context).getString(P.cart_token));
-        json.addInt(P.user_id, Config.dummyID);
-        json.addInt(P.quantity, 1);
-        json.addInt(P.option1, 0);
-        json.addInt(P.option2, 0);
-        json.addInt(P.option3, 0);
-//        hitAddToCartApi(json);
+        hitAddToWishList(json,imgAction);
     }
+
+    @Override
+    public void remove(int filterId, ImageView imgAction) {
+        Json json = new Json();
+        json.addInt(P.user_id, Config.dummyID_1);
+        json.addInt(P.wishlist_id, filterId);
+        hitRemoveToWishList(json,imgAction);
+    }
+
 }

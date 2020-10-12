@@ -41,6 +41,7 @@ public class P {
     public static String item_list="item_list";
     public static String cart_count="cart_count";
     public static String product_filter_id="product_filter_id";
+    public static String wishlist_id="wishlist_id";
     public static String quantity="quantity";
     public static String option1="option1";
     public static String option2="option2";

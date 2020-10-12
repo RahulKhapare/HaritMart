@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -32,7 +33,8 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
     private boolean activityClick;
 
     public interface ClickItem{
-        void add(int filterId);
+        void add(int filterId, ImageView imgAction);
+        void remove(int filterId, ImageView imgAction);
     }
 
     public NewArrivalAdapter(Context context, List<ArrivalModel> arrivalModelList,HomeFragment fragment) {
@@ -77,9 +79,17 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
             public void onClick(View v) {
                 Click.preventTwoClick(v);
                 if (activityClick){
-                    ((ProductDetailsActivity)context).add(Integer.parseInt(model.getFilter_id()));
+                    if(holder.binding.imgAction.getDrawable().getConstantState() == context.getResources().getDrawable(R.drawable.ic_baseline_add_24).getConstantState()){
+                        ((ProductDetailsActivity)context).add(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
+                    }else if (holder.binding.imgAction.getDrawable().getConstantState() == context.getResources().getDrawable(R.drawable.ic_baseline_remove_24).getConstantState()){
+                        ((ProductDetailsActivity)context).remove(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
+                    }
                 }else {
-                    ((HomeFragment)fragment).add(Integer.parseInt(model.getFilter_id()));
+                    if(holder.binding.imgAction.getDrawable().getConstantState() == context.getResources().getDrawable(R.drawable.ic_baseline_add_24).getConstantState()){
+                        ((HomeFragment)fragment).add(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
+                    }else if (holder.binding.imgAction.getDrawable().getConstantState() == context.getResources().getDrawable(R.drawable.ic_baseline_remove_24).getConstantState()){
+                        ((HomeFragment)fragment).remove(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
+                    }
                 }
             }
         });

@@ -12,9 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.adoisstudio.helper.Api;
 import com.adoisstudio.helper.H;
-import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.Session;
 
 import grocery.app.Fragments.CartFragment;
@@ -22,7 +20,6 @@ import grocery.app.Fragments.FavouriteFragment;
 import grocery.app.Fragments.HomeFragment;
 import grocery.app.Fragments.MoreFragment;
 import grocery.app.Fragments.SearchFragment;
-import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityBaseBinding;
 import grocery.app.util.Click;
@@ -40,6 +37,8 @@ public class BaseActivity extends AppCompatActivity {
     private ActivityBaseBinding binding;
     private BaseActivity activity = this;
     private boolean checkCartData = false;
+    private final int TIME_DELAY = 2000;
+    private long back_pressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,14 @@ public class BaseActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         binding.txtAddress.setText(new Session(activity).getString(P.locationAddress));
         checkCartData = getIntent().getBooleanExtra(Config.CHECK_CART_DATA,false);
-        hitCategoryApi();
+
+        if (checkCartData){
+            onBottomBarClick(binding.cartLayout);
+        }else {
+            homeFragment = HomeFragment.newInstance();
+            fragmentLoader(homeFragment, Config.HOME);
+        }
+
     }
 
     public void onClickNotification(View view) {
@@ -62,36 +68,6 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(accountIntent);
     }
 
-    private void hitCategoryApi() {
-        try {
-            Api.newApi(this, P.baseUrl + "categories").addJson(new Json())
-                    .setMethod(Api.GET)
-                    //.onHeaderRequest(App::getHeaders)
-                    .onError(() -> {
-                        H.showMessage(this, "On error is called");
-                    })
-                    .onSuccess(json ->
-                    {
-                        if (json.getInt(P.status) == 1) {
-                            json = json.getJson(P.data);
-                            App.categoryImageUrl = json.getString(P.category_image_path);
-                            App.categoryJsonList = json.getJsonList(P.category_list);
-                            if (checkCartData){
-                                onBottomBarClick(binding.cartLayout);
-                            }else {
-                                homeFragment = HomeFragment.newInstance();
-                                fragmentLoader(homeFragment, Config.HOME);
-                            }
-
-                        } else
-                            H.showMessage(this, json.getString(P.msg));
-                    })
-                    .run("hitCategoryApi");
-        } catch (Exception e) {
-
-        }
-
-    }
 
     public void fragmentLoader(Fragment fragment, String tag) {
         fragmentManager.beginTransaction()
@@ -176,10 +152,10 @@ public class BaseActivity extends AppCompatActivity {
                 getSupportFragmentManager().popBackStack();
                 updateBottomIcon(title);
             }else {
-                finish();
+                finishAction();
             }
         } else {
-            finish();
+            finishAction();
         }
     }
 
@@ -200,15 +176,20 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     @Override
     public void onBackPressed() {
-        if (homeFragment.isVisible()){
-            super.onBackPressed();
-        }else {
-            onBackAction();
-        }
+        onBackAction();
     }
+
+    private void finishAction(){
+        if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+            finish();
+        } else {
+            H.showMessage(activity,"Press once again to exit!");
+        }
+        back_pressed = System.currentTimeMillis();
+    }
+
 }
