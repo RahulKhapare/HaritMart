@@ -172,7 +172,9 @@ public class BaseActivity extends AppCompatActivity {
             selectBottomNavigation(binding.moreLayout);
         }
     }
+///he
 
+    
     @Override
     protected void onResume() {
         super.onResume();
