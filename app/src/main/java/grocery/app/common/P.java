@@ -81,16 +81,33 @@ public class P {
     public static String lable_values = "lable_values";
     public static String value = "value";
 
+    public static String googleAddress = "googleAddress";
+    public static String googleCity = "googleCity";
+    public static String googleState = "googleState";
+    public static String googleCountry = "googleCountry";
+    public static String googleCode = "googleCode";
+    public static String googleKnownName = "googleKnownName";
+
     public static String new_window = "new_window";
     public static String url = "url";
     public static String image_alt_text = "image_alt_text";
     public static String list = "list";
+
+    public static String old_password = "old_password";
+    public static String new_password = "new_password";
+    public static String cofirm_new_password = "cofirm_new_password";
+
+    public static String user_name = "user_name";
+    public static String user_email = "user_email";
+    public static String user_number = "user_number";
+    public static String user_image = "user_image";
 
 
     public static String full_name="full_name";
     public static String email_id="email_id";
     public static String locationAddress="locationAddress";
 
+    public static String email="email";
     public static String phone="phone";
     public static String otp="otp";
     public static String json="json";

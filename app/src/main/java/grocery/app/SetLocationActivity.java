@@ -57,6 +57,13 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
     public boolean isCurrentLocation;
     public static boolean isCurrentLocationFromSearch;
     private boolean getCurrentLocationFlag;
+    private String address;
+    private String city;
+    private String state;
+    private String country;
+    private String postalCode;
+    private String knownName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,12 +91,14 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
                         if (Config.FROM_ADDRESS){
                             addressIntent = new Intent(activity, MyAddressActivity.class);
                         }else {
+                            setUserAddress();
                             addressIntent = new Intent(activity, MyAccountActivity.class);
                         }
                         addressIntent.putExtra(Config.ADDRESS_LOCATION,binding.txtAddress.getText().toString().trim());
                         startActivity(addressIntent);
                         finish();
                     }else {
+                        setUserAddress();
                         Intent baseIntent = new Intent(activity, BaseActivity.class);
                         baseIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(baseIntent);
@@ -127,6 +136,15 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
         }
     }
 
+    private void setUserAddress(){
+        Session session = new Session(activity);
+        session.addString(P.googleAddress,address);
+        session.addString(P.googleCity,city);
+        session.addString(P.googleState,state);
+        session.addString(P.googleCountry,country);
+        session.addString(P.googleCode,postalCode);
+        session.addString(P.googleKnownName,knownName);
+    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -253,12 +271,12 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
         try {
             addresses = geocoder.getFromLocation(currentLat, currentLong, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
-            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-            String city = addresses.get(0).getLocality();
-            String state = addresses.get(0).getAdminArea();
-            String country = addresses.get(0).getCountryName();
-            String postalCode = addresses.get(0).getPostalCode();
-            String knownName = addresses.get(0).getFeatureName();
+            address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            city = addresses.get(0).getLocality();
+            state = addresses.get(0).getAdminArea();
+            country = addresses.get(0).getCountryName();
+            postalCode = addresses.get(0).getPostalCode();
+            knownName = addresses.get(0).getFeatureName();
 
             if (!TextUtils.isEmpty(address)) {
                 addressData = address + "";
