@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.adoisstudio.helper.H;
+import com.adoisstudio.helper.Session;
 
+import grocery.app.common.P;
 import grocery.app.databinding.ActivityNewAddressBinding;
 import grocery.app.model.AddressModel;
 import grocery.app.util.Config;
@@ -25,6 +27,7 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
     private boolean ediAddress;
     private String home = "Home";
     private String office = "Office";
+    private boolean GOOGLE_ADDRESS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,10 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
 
     private void initView(){
 
+
         setDeliveryAddress = false;
         ediAddress = getIntent().getBooleanExtra(Config.EDIT_ADDRESS,false);
+        GOOGLE_ADDRESS = getIntent().getBooleanExtra(Config.GOOGLE_ADDRESS,false);
 
         binding.btnProcess.setOnClickListener(this);
         binding.txtHomeAddress.setOnClickListener(this);
@@ -115,7 +120,7 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
         }else if (TextUtils.isEmpty(binding.etxPincode.getText().toString().trim())){
             H.showMessage(activity,"Enter Pincode");
             value = false;
-        }else if (binding.etxPincode.getText().toString().trim().length()<6){
+        }else if (binding.etxPincode.getText().toString().trim().length()<6 || binding.etxPincode.getText().toString().trim().length()>6){
             H.showMessage(activity,"Enter 6 Digit Pincode");
             value = false;
         } else if (TextUtils.isEmpty(addressName)){
@@ -166,6 +171,18 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
         binding.txtHomeAddress.setBackground(getResources().getDrawable(R.drawable.grey_border2));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (GOOGLE_ADDRESS){
+            Session session = new Session(activity);
+            binding.etxAptName.setText("");
+            binding.etxStreet.setText(session.getString(P.googleAddress));
+            binding.etxLandMark.setText("");
+            binding.etxcity.setText(session.getString(P.googleCity));
+            binding.etxPincode.setText(session.getString(P.googleCode));
+        }
+    }
 
     @Override
     public void onClick(View v) {

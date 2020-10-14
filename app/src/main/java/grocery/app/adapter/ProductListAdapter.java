@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -33,7 +34,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     private List<ProductModel> productModelList;
     private String rs = "₹.";
     public interface Click{
-        void add(int filterId);
+        void add(int filterId, ImageView imageView);
     }
 
     public ProductListAdapter(Context context, List<ProductModel> productModelList) {
@@ -93,7 +94,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             public void onClick(View v) {
                 grocery.app.util.Click.preventTwoClick(v);
                 if (ConnectionUtil.isOnline(context)){
-                    ((ProductChildListActivity)context).add(Integer.parseInt(model.getFilter_id()));
+                    ((ProductChildListActivity)context).add(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
                 }else {
                     context.getResources().getString(R.string.internetMessage);
                 }

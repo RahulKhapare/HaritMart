@@ -1,18 +1,27 @@
 package grocery.app;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.os.Bundle;
-import android.view.MenuItem;
+import com.adoisstudio.helper.Api;
+import com.adoisstudio.helper.H;
+import com.adoisstudio.helper.Json;
+import com.adoisstudio.helper.LoadingDialog;
+import com.adoisstudio.helper.Session;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import grocery.app.adapter.NotificationAdapter;
+import grocery.app.common.P;
 import grocery.app.databinding.ActivityNotificationBinding;
 import grocery.app.model.NotificationModel;
+import grocery.app.util.Config;
 import grocery.app.util.WindowBarColor;
 
 public class NotificationActivity extends AppCompatActivity {
@@ -21,8 +30,7 @@ public class NotificationActivity extends AppCompatActivity {
     private ActivityNotificationBinding binding;
     private List<NotificationModel> notificationModelList;
     private NotificationAdapter adapter;
-    String image = "https://i0.wp.com/www.eatthis.com/wp-content/uploads/2020/07/grocery-shopping-2.jpg?resize=640%2C360&ssl=1";
-
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,34 +48,76 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void initView(){
-
+        loadingDialog = new LoadingDialog(activity);
         notificationModelList = new ArrayList<>();
-
-        NotificationModel model = new NotificationModel();
-        model.setTitle("Notification Title");
-        model.setDescription("Notification Description");
-        model.setImage(image);
-
-        notificationModelList.add(model);
-        notificationModelList.add(model);
-        notificationModelList.add(model);
-        notificationModelList.add(model);
-        notificationModelList.add(model);
-        notificationModelList.add(model);
-        notificationModelList.add(model);
-        notificationModelList.add(model);
-        notificationModelList.add(model);
-        notificationModelList.add(model);
-        notificationModelList.add(model);
 
         binding.recyclerNotification.setLayoutManager(new LinearLayoutManager(activity));
         binding.recyclerNotification.setHasFixedSize(true);
         binding.recyclerNotification.setNestedScrollingEnabled(false);
         adapter = new NotificationAdapter(activity,notificationModelList);
         binding.recyclerNotification.setAdapter(adapter);
-
+        hitNotificationList();
     }
 
+    private void hitNotificationList() {
+        showProgress();
+        Json j = new Json();
+        j.addInt(P.user_id, Config.dummyID_1);
+        j.addString(P.cart_token, new Session(activity).getString(P.cart_token));
+        Api.newApi(activity, P.baseUrl + "notification").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    hideProgress();
+                    checkError();
+                    H.showMessage(activity, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        json = json.getJson(P.data);
+//                        JSONArray jsonArray = json.getJsonArray(P.list);
+//                        for (int i = 0; i < jsonArray.length(); i++) {
+//                            try {
+//                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                                NotificationModel model = new NotificationModel();
+//
+//                                notificationModelList.add(model);
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                    hideProgress();
+                    checkError();
+                })
+                .run("hitNotificationList");
+    }
+
+    private void checkError(){
+        if (notificationModelList.isEmpty()){
+            showError();
+        }else {
+            hideError();
+        }
+    }
+
+    private void showProgress() {
+        loadingDialog.show("Please wait..");
+    }
+
+    private void hideProgress() {
+        loadingDialog.hide();
+    }
+
+    private void showError(){
+        binding.lnrError.setVisibility(View.VISIBLE);
+    }
+
+    private void hideError(){
+        binding.lnrError.setVisibility(View.GONE);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -81,4 +131,12 @@ public class NotificationActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+//    apply_coupon_code
+//    {
+//        "coupon_code":"ORDER30",
+//            "user_id":1,
+//            "cart_token":"abdghdghdgh"
+//    }
+
 }

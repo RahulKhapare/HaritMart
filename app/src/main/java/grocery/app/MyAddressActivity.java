@@ -71,6 +71,14 @@ public class MyAddressActivity extends AppCompatActivity implements View.OnClick
             binding.cardLocation.setVisibility(View.GONE);
 //            binding.lnrAddress.setVisibility(View.GONE);
         }
+
+        currentAddress = getIntent().getStringExtra(Config.ADDRESS_LOCATION);
+        if (!TextUtils.isEmpty(currentAddress)){
+            Intent addIntent = new Intent(activity,NewAddressActivity.class);
+            addIntent.putExtra(Config.GOOGLE_ADDRESS,true);
+            startActivity(addIntent);
+        }
+
     }
 
     private void hitAddressData(){
@@ -80,11 +88,6 @@ public class MyAddressActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
-        currentAddress = getIntent().getStringExtra(Config.ADDRESS_LOCATION);
-        if (!TextUtils.isEmpty(currentAddress)){
-            H.showMessage(activity,currentAddress);
-        }
-
         if (checkAddress){
             checkAddress = false;
             hitAddressData();

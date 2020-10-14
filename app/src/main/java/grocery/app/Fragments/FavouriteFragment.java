@@ -76,10 +76,20 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(Config.Update_Favorite_Wish){
+            Config.Update_Favorite_Wish = false;
+            hitForWishList();
+        }
+    }
+
     private void hitForWishList() {
+        wishListModelList.clear();
         showProgress();
         Json j = new Json();
-        j.addInt(P.user_id, 1);
+        j.addInt(P.user_id, Config.dummyID_1);
         Api.newApi(context, P.baseUrl + "wishlist").addJson(j)
                 .setMethod(Api.POST)
                 //.onHeaderRequest(App::getHeaders)
@@ -114,7 +124,7 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
                         }
                         wishListAdapter.notifyDataSetChanged();
                     } else{
-                        H.showMessage(context, json.getString(P.msg));
+
                     }
                     hideProgress();
                     checkError();
@@ -175,6 +185,9 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
             public void onAnimationEnd(Animation animation) {
                 wishListModelList.remove(position);
                 wishListAdapter.notifyDataSetChanged();
+                if (wishListModelList.isEmpty()){
+                    showError();
+                }
             }
         });
         return animation;

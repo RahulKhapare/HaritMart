@@ -35,7 +35,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private Context context;
     private List<CartModel> cartModelList;
     private CartFragment cartFragment;
-    private boolean isFragment;
+    private boolean isFragment = false;
     private boolean processToPay;
     private String rs = "₹ ";
 
@@ -56,6 +56,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         this.context = context;
         this.cartModelList = cartModelList;
         this.processToPay = processToPay;
+        isFragment = false;
     }
 
     @NonNull
@@ -108,6 +109,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         if (processToPay){
             holder.binding.lnrUpdate.setVisibility(View.GONE);
+        }
+
+        if (!isFragment){
+            holder.binding.lnrRemove.setVisibility(View.GONE);
         }
     }
 

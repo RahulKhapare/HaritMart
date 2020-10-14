@@ -60,6 +60,7 @@ public class P {
     public static String products_variants_id = "products_variants_id";
     public static String qty = "qty";
     public static String name = "name";
+    public static String variants_name = "variants_name";
     public static String sku = "sku";
     public static String slug = "slug";
     public static String is_wishlisted = "is_wishlisted";

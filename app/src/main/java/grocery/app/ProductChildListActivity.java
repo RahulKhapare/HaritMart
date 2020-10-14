@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ import grocery.app.adapter.ProductListAdapter;
 import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductChildListBinding;
+import grocery.app.model.ArrivalModel;
 import grocery.app.model.ProductModel;
 import grocery.app.util.Config;
 import grocery.app.util.WindowBarColor;
@@ -59,6 +61,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
     private boolean clearAll;
     private String jsnData;
     private JsonList checkListJson;
+    private int clickedProductId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,24 +145,69 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         if(!Config.FROM_HOME){
             getProductCategoryData();
         }else {
-            getNewArrivalProduct();
+            hitHomeApi();
         }
 
     }
 
-    private void getNewArrivalProduct(){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Config.Update_Favorite_List){
+            Config.Update_Favorite_List = false;
+            if(!TextUtils.isEmpty(title) && title.equals(Config.NewArrived) || title.equals(Config.TrendingArrived)){
+                hitHomeApi();
+            }else {
+                hitProductListApi(clickedProductId);
+            }
+        }
+    }
+
+    private void hitHomeApi() {
+        showLoader();
+        try {
+            Json j = new Json();
+            j.addInt(P.user_id, Config.dummyID_1);
+            Api.newApi(activity, P.baseUrl + "home").addJson(j)
+                    .setMethod(Api.POST)
+                    //.onHeaderRequest(App::getHeaders)
+                    .onError(() -> {
+                        hideLoader();
+                        showError();
+                        H.showMessage(activity, "On error is called");
+                    })
+                    .onSuccess(json -> {
+                        if (json.getInt(P.status) == 1) {
+                            json = json.getJson(P.data);
+                            App.homeJSONDATA = json;
+                            App.product_image_path = json.getString(P.product_image_path);
+                            if (title.equals(Config.NewArrived)) {
+                                loadProductListData(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));
+                            } else if (title.equals(Config.TrendingArrived)){
+                                loadProductListData(json.getString(P.product_image_path), json.getJsonList(P.trending_product_list));
+                            }
+                        } else {
+                            showError();
+                        }
+                        hideLoader();
+                    })
+                    .run("hitHomeApi");
+        } catch (Exception e) {
+            hideLoader();
+        }
+    }
+
+    private void loadProductListData(String string, JsonList jsonList){
         productModelList.clear();
         try {
-            JSONArray jsonArray = new JSONArray(jsnData);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
+            for (Json json : jsonList) {
                 ProductModel model = new ProductModel();
-                model.setCategory_name(jsonObject.getString(P.category_name));
-                model.setId(jsonObject.getString(P.id));
-                model.setFilter_id(jsonObject.getString(P.filter_id));
-                model.setName(jsonObject.getString(P.name));
-                model.setIs_wishlisted(jsonObject.getString(P.is_wishlisted));
-                model.setProduct_image(P.imgBaseUrl + App.product_image_path + jsonObject.getString(P.product_image));
+                model.setCategory_name(json.getString(P.category_name));
+                model.setId(json.getString(P.id));
+                model.setFilter_id(json.getString(P.filter_id));
+                model.setName(json.getString(P.name));
+                model.setIs_wishlisted(json.getString(P.is_wishlisted));
+                model.setProduct_image(P.imgBaseUrl + string + json.getString(P.product_image));
                 try {
 //                    JSONObject priceJson =  jsonObject.getJSONObject(P.price);
                     model.setPrice("0");
@@ -167,14 +215,15 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
                     model.setDiscount_amount("0");
                     model.setDiscount("0");
                 }catch (Exception e){
+
                 }
                 productModelList.add(model);
             }
             productListAdapter.notifyDataSetChanged();
             if (productModelList.isEmpty()){
-                H.showMessage(activity,"No arrived product data found");
+                showError();
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -250,6 +299,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
                                     model.setId(jsonObject.getString(P.id));
                                     model.setFilter_id(jsonObject.getString(P.filter_id));
                                     model.setName(jsonObject.getString(P.name));
+                                    model.setVariants_name(jsonObject.getString(P.variants_name));
                                     model.setProduct_image(jsonObject.getString(P.product_image));
                                     try {
                                         JSONObject priceJson =  jsonObject.getJSONObject(P.price);
@@ -448,19 +498,35 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         }
     }
 
-    private void hitAddToWishList(Json j) {
+    private void hitAddToWishList(Json j,ImageView imgAction) {
+        showLoader();
         Api.newApi(activity, P.baseUrl + "add_to_wishlist").addJson(j)
                 .setMethod(Api.POST)
                 //.onHeaderRequest(App::getHeaders)
                 .onError(() -> {
+                    hideLoader();
                     H.showMessage(activity, "On error is called");
                 })
                 .onSuccess(json ->
                 {
                     if (json.getInt(P.status) == 1) {
+
+                        if (json.getString(P.msg).equals("wishlisted")){
+                            H.showMessage(activity, "Item added into favorite");
+                            imgAction.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_baseline_remove_24));
+                        }else if (json.getString(P.msg).equals("notwishlisted")){
+                            H.showMessage(activity, "Item removed from favorite");
+                            imgAction.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_baseline_add_24));
+                        }
+
+                        if(!TextUtils.isEmpty(title) && title.equals(Config.NewArrived) || title.equals(Config.TrendingArrived)){
+                            Config.Update_Favorite_Home = true;
+                        }
+
+                    } else{
                         H.showMessage(activity, json.getString(P.msg));
-                    } else
-                        H.showMessage(activity, json.getString(P.msg));
+                    }
+                    hideLoader();
                 })
                 .run("hitAddToWishList");
     }
@@ -498,15 +564,16 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
 
     @Override
     public void itemClick(int position, int id) {
+        clickedProductId = id;
         updateProductList(id);
     }
 
     @Override
-    public void add(int filterId) {
+    public void add(int filterId, ImageView imgAction) {
         Json json = new Json();
         json.addInt(P.user_id, Config.dummyID_1);
         json.addInt(P.product_filter_id, filterId);
-        hitAddToWishList(json);
+        hitAddToWishList(json,imgAction);
     }
 
     private void showError(){

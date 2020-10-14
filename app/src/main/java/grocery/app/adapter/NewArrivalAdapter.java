@@ -24,6 +24,7 @@ import grocery.app.databinding.NewArrivedLayoutBinding;
 import grocery.app.model.ArrivalModel;
 import grocery.app.util.Click;
 import grocery.app.util.Config;
+import grocery.app.util.ConnectionUtil;
 
 public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.ViewHolder> {
 
@@ -34,7 +35,6 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
 
     public interface ClickItem{
         void add(int filterId, ImageView imgAction);
-        void remove(int filterId, ImageView imgAction);
     }
 
     public NewArrivalAdapter(Context context, List<ArrivalModel> arrivalModelList,HomeFragment fragment) {
@@ -67,6 +67,7 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
             @Override
             public void onClick(View v) {
                 Click.preventTwoClick(v);
+                Config.Update_Direct_Home = true;
                 Intent productIntent = new Intent(context,ProductDetailsActivity.class);
                 productIntent.putExtra(Config.PRODUCT_ID,model.getId());
                 productIntent.putExtra(Config.PRODUCT_FILTER_ID,model.getFilter_id());
@@ -78,18 +79,14 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
             @Override
             public void onClick(View v) {
                 Click.preventTwoClick(v);
-                if (activityClick){
-                    if(holder.binding.imgAction.getDrawable().getConstantState() == context.getResources().getDrawable(R.drawable.ic_baseline_add_24).getConstantState()){
+                if (ConnectionUtil.isOnline(context)){
+                    if (activityClick){
                         ((ProductDetailsActivity)context).add(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
-                    }else if (holder.binding.imgAction.getDrawable().getConstantState() == context.getResources().getDrawable(R.drawable.ic_baseline_remove_24).getConstantState()){
-                        ((ProductDetailsActivity)context).remove(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
+                    }else {
+                        ((HomeFragment)fragment).add(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
                     }
                 }else {
-                    if(holder.binding.imgAction.getDrawable().getConstantState() == context.getResources().getDrawable(R.drawable.ic_baseline_add_24).getConstantState()){
-                        ((HomeFragment)fragment).add(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
-                    }else if (holder.binding.imgAction.getDrawable().getConstantState() == context.getResources().getDrawable(R.drawable.ic_baseline_remove_24).getConstantState()){
-                        ((HomeFragment)fragment).remove(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
-                    }
+                    context.getResources().getString(R.string.internetMessage);
                 }
             }
         });

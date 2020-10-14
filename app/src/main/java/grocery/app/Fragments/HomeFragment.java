@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductChildListActivity.class);
-                intent.putExtra(Config.TITLE, "New Arrived");
+                intent.putExtra(Config.TITLE, Config.NewArrived);
                 intent.putExtra(Config.CHILD_POSITION, 0);
                 intent.putExtra(Config.CHILD_JSON, arrivalJSON + "");
                 Config.FROM_HOME = true;
@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductChildListActivity.class);
-                intent.putExtra(Config.TITLE, "Trending Arrived");
+                intent.putExtra(Config.TITLE, Config.TrendingArrived);
                 intent.putExtra(Config.CHILD_POSITION, 0);
                 intent.putExtra(Config.CHILD_JSON, trendingJSON + "");
                 Config.FROM_HOME = true;
@@ -197,6 +197,15 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         categoryIntent.putExtra(Config.PARENT_POSITION, position);
         categoryIntent.putExtra(Config.FROM_POSITION, true);
         startActivity(categoryIntent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Config.Update_Favorite_Home){
+            Config.Update_Favorite_Home = false;
+            hitHomeApi();
+        }
     }
 
     private void hitHomeApi() {
@@ -327,36 +336,21 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
                 .onSuccess(json ->
                 {
                     if (json.getInt(P.status) == 1) {
-                        H.showMessage(context, "Item added into favorite");
-                        imgAction.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_remove_24));
+
+                        if (json.getString(P.msg).equals("wishlisted")){
+                            H.showMessage(context, "Item added into favorite");
+                            imgAction.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_remove_24));
+                        }else if (json.getString(P.msg).equals("notwishlisted")){
+                            H.showMessage(context, "Item removed from favorite");
+                            imgAction.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_add_24));
+                        }
+
                     } else{
                         H.showMessage(context, json.getString(P.msg));
                     }
                        hideLoader();
                 })
                 .run("hitAddToWishList");
-    }
-
-    private void hitRemoveToWishList(Json j,ImageView imgAction) {
-        showLoader();
-        Api.newApi(context, P.baseUrl + "remove_from_wishlist").addJson(j)
-                .setMethod(Api.POST)
-                //.onHeaderRequest(App::getHeaders)
-                .onError(() -> {
-                    hideLoader();
-                    H.showMessage(context, "On error is called");
-                })
-                .onSuccess(json ->
-                {
-                    if (json.getInt(P.status) == 1) {
-                        H.showMessage(context, "Item removed from favorite");
-                        imgAction.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_add_24));
-                    } else{
-                        H.showMessage(context, json.getString(P.msg));
-                    }
-                       hideLoader();
-                })
-                .run("hitRemoveToWishList");
     }
 
     private void showLoader() {
@@ -373,14 +367,6 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         json.addInt(P.user_id, Config.dummyID_1);
         json.addInt(P.product_filter_id, filterId);
         hitAddToWishList(json,imgAction);
-    }
-
-    @Override
-    public void remove(int filterId, ImageView imgAction) {
-        Json json = new Json();
-        json.addInt(P.user_id, Config.dummyID_1);
-        json.addInt(P.wishlist_id, filterId);
-        hitRemoveToWishList(json,imgAction);
     }
 
 }

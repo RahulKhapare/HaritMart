@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
@@ -100,9 +101,15 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
 
     private void setProfileData(){
         Session session = new Session(activity);
-        binding.txtName.setText(session.getString(P.user_name));
-        binding.txtEmail.setText(session.getString(P.user_email));
-        binding.txtNumber.setText(session.getString(P.user_number));
+        if(!TextUtils.isEmpty(session.getString(P.user_name))){
+            binding.txtName.setText(session.getString(P.user_name));
+        }
+        if (!TextUtils.isEmpty(session.getString(P.user_email))){
+            binding.txtEmail.setText(session.getString(P.user_email));
+        }
+        if (!TextUtils.isEmpty(session.getString(P.user_number))){
+            binding.txtNumber.setText(session.getString(P.user_number));
+        }
     }
 
     @Override

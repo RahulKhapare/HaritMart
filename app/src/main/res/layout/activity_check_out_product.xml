@@ -33,116 +33,124 @@
 
             </FrameLayout>
 
-            <androidx.core.widget.NestedScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:fillViewport="true"
+                android:background="@drawable/product_bg_card"
                 android:layout_above="@+id/lnrSummary"
                 android:layout_below="@+id/frameView">
 
-                <LinearLayout
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@drawable/product_bg_card">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="20dp"
-                        android:id="@+id/recyclerCartDetail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    </androidx.recyclerview.widget.RecyclerView>
+                    android:layout_marginTop="20dp"
+                    android:fillViewport="true"
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="20dp"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
+                        <androidx.recyclerview.widget.RecyclerView
                             android:layout_marginTop="0dp"
-                            android:fontFamily="@font/nunito_sans_semibold"
-                            android:textColor="#373737"
-                            android:text="Shipping To"></TextView>
+                            android:id="@+id/recyclerCartDetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </androidx.recyclerview.widget.RecyclerView>
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginTop="20dp"
-                            android:layout_gravity="center_vertical">
+                            android:layout_height="match_parent"
+                            android:padding="20dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:layout_marginTop="0dp"
+                                android:fontFamily="@font/nunito_sans_semibold"
+                                android:textColor="#373737"
+                                android:text="Shipping To"></TextView>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:orientation="vertical"
+                                android:layout_marginTop="20dp"
+                                android:layout_gravity="center_vertical">
 
-                                <RadioButton
-                                    android:id="@+id/radioButton"
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:backgroundTint="@color/green"
-                                    android:checked="true"
-                                    android:buttonTint="@color/green">
-                                </RadioButton>
+                                    android:orientation="horizontal">
+
+                                    <RadioButton
+                                        android:id="@+id/radioButton"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:backgroundTint="@color/green"
+                                        android:checked="true"
+                                        android:buttonTint="@color/green">
+                                    </RadioButton>
+
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:id="@+id/txtTitle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/nunito_sans_semibold"
+                                        android:textSize="16sp"
+                                        android:paddingRight="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center_vertical"
+                                        android:textStyle="bold"
+                                        android:text=""
+                                        android:textColor="#373737"></TextView>
+
+                                </LinearLayout>
 
                                 <TextView
-                                    android:layout_weight="1"
-                                    android:id="@+id/txtTitle"
+                                    android:id="@+id/txtAddress"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/nunito_sans_semibold"
-                                    android:textSize="16sp"
-                                    android:paddingRight="10dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:gravity="center_vertical"
-                                    android:textStyle="bold"
+                                    android:textSize="14sp"
                                     android:text=""
+                                    android:paddingLeft="33dp"
                                     android:textColor="#373737"></TextView>
 
                             </LinearLayout>
 
                             <TextView
-                                android:id="@+id/txtAddress"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:layout_marginTop="20dp"
                                 android:fontFamily="@font/nunito_sans_semibold"
-                                android:textSize="14sp"
-                                android:text=""
-                                android:paddingLeft="33dp"
-                                android:textColor="#373737"></TextView>
+                                android:textColor="#373737"
+                                android:text="Payment Method"></TextView>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_marginTop="10dp"
+                                android:id="@+id/recyclerPayment"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </androidx.recyclerview.widget.RecyclerView>
 
                         </LinearLayout>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:layout_marginTop="20dp"
-                            android:fontFamily="@font/nunito_sans_semibold"
-                            android:textColor="#373737"
-                            android:text="Payment Method"></TextView>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:layout_marginTop="10dp"
-                            android:id="@+id/recyclerPayment"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                        </androidx.recyclerview.widget.RecyclerView>
-
                     </LinearLayout>
 
-                </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
 
-            </androidx.core.widget.NestedScrollView>
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/lnrSummary"
@@ -154,8 +162,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/product_bg_card_semi"
                     android:orientation="vertical"
+                    android:background="@drawable/product_bg_card_semi"
                     android:paddingBottom="20dp"
                     android:paddingRight="20dp"
                     android:paddingLeft="20dp"

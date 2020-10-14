@@ -17,6 +17,7 @@ public class ProductModel {
     String saleprice;
     String discount_amount;
     String discount;
+    String variants_name;
     int position;
     String jsonArrayData;
 
@@ -91,6 +92,14 @@ public class ProductModel {
 
     public ProductModel() {
 
+    }
+
+    public String getVariants_name() {
+        return variants_name;
+    }
+
+    public void setVariants_name(String variants_name) {
+        this.variants_name = variants_name;
     }
 
     public String getName() {

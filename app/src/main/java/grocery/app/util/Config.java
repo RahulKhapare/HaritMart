@@ -36,6 +36,15 @@ public class Config {
     public static String SEARCH = "SEARCH";
     public static String CART = "CART";
     public static String MORE = "MORE";
+    public static boolean Update_Favorite_Home = false;
+    public static boolean Update_Favorite_List = false;
+    public static boolean Update_Favorite_Wish = false;
+    public static boolean Update_Direct_Home = false;
+    public static String currentFlag = "";
+
+    public static String NewArrived = "New Arrived";
+    public static String TrendingArrived = "Trending Arrived";
+    public static String GOOGLE_ADDRESS = "GOOGLE_ADDRESS";
 
     public static Json CART_JSON;
 

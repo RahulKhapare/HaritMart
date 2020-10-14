@@ -2,6 +2,7 @@ package grocery.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,7 +47,6 @@ public class BaseActivity extends AppCompatActivity {
         WindowBarColor.setColor(activity);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         fragmentManager = getSupportFragmentManager();
-        binding.txtAddress.setText(new Session(activity).getString(P.locationAddress));
         checkCartData = getIntent().getBooleanExtra(Config.CHECK_CART_DATA,false);
 
         if (checkCartData){
@@ -70,6 +70,7 @@ public class BaseActivity extends AppCompatActivity {
 
 
     public void fragmentLoader(Fragment fragment, String tag) {
+        Config.currentFlag = tag;
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_enter, R.anim.anim_exit)
                 .replace(R.id.frameLayoutChild, fragment, tag)
@@ -81,30 +82,41 @@ public class BaseActivity extends AppCompatActivity {
         int i = view.getId();
         selectBottomNavigation(view);
         Click.preventTwoClick(view);
+        String currentFlag = Config.currentFlag;
         switch (i) {
             case R.id.homeLayout: {
-                homeFragment = HomeFragment.newInstance();
-                fragmentLoader(homeFragment, Config.HOME);
+                if (!TextUtils.isEmpty(currentFlag) && !currentFlag.equals(Config.HOME)){
+                    homeFragment = HomeFragment.newInstance();
+                    fragmentLoader(homeFragment, Config.HOME);
+                }
                 break;
             }
             case R.id.favouriteLayout: {
-                favouriteFragment = FavouriteFragment.newInstance();
-                fragmentLoader(favouriteFragment, Config.FAVORITE);
+                if (!TextUtils.isEmpty(currentFlag) && !currentFlag.equals(Config.FAVORITE)){
+                    favouriteFragment = FavouriteFragment.newInstance();
+                    fragmentLoader(favouriteFragment, Config.FAVORITE);
+                }
                 break;
             }
             case R.id.searchLayout: {
-                searchFragment = SearchFragment.newInstance();
-                fragmentLoader(searchFragment, Config.SEARCH);
+                if (!TextUtils.isEmpty(currentFlag) && !currentFlag.equals(Config.SEARCH)){
+                    searchFragment = SearchFragment.newInstance();
+                    fragmentLoader(searchFragment, Config.SEARCH);
+                }
                 break;
             }
             case R.id.cartLayout: {
-                cartFragment = cartFragment.newInstance();
-                fragmentLoader(cartFragment, Config.CART);
+                if (!TextUtils.isEmpty(currentFlag) && !currentFlag.equals(Config.CART)){
+                    cartFragment = CartFragment.newInstance();
+                    fragmentLoader(cartFragment, Config.CART);
+                }
                 break;
             }
             case R.id.moreLayout: {
-                moreFragment = MoreFragment.newInstance();
-                fragmentLoader(moreFragment, Config.MORE);
+                if (!TextUtils.isEmpty(currentFlag) && !currentFlag.equals(Config.MORE)){
+                    moreFragment = MoreFragment.newInstance();
+                    fragmentLoader(moreFragment, Config.MORE);
+                }
                 break;
             }
         }
@@ -145,21 +157,49 @@ public class BaseActivity extends AppCompatActivity {
 
 
     public void onBackAction(){
-        int count = getSupportFragmentManager().getBackStackEntryCount();
-        if (count >0) {
-            if (count>1){
-                String title = getSupportFragmentManager().getBackStackEntryAt(count - 2).getName();
-                getSupportFragmentManager().popBackStack();
-                updateBottomIcon(title);
-            }else {
+
+//        int count = getSupportFragmentManager().getBackStackEntryCount();
+//        if (count > 0) {
+//            if (count > 1){
+//                String title = getSupportFragmentManager().getBackStackEntryAt(count - 2).getName();
+//                getSupportFragmentManager().popBackStack();
+//                updateBottomIcon(title);
+//            }else {
+//                finishAction();
+//            }
+//        } else {
+//            finishAction();
+//        }
+
+        try {
+            HomeFragment homeFragment = (HomeFragment)getSupportFragmentManager().findFragmentByTag(Config.HOME);
+            if (homeFragment != null && homeFragment.isVisible()) {
                 finishAction();
+            }else {
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    if (!(getSupportFragmentManager().getBackStackEntryCount() == 1)) {
+                        getSupportFragmentManager().popBackStack() ;
+                        String title = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 2).getName();
+                        updateBottomIcon(title);
+                    }else {
+                        if(checkCartData){
+                            onBottomBarClick(binding.homeLayout);
+                        }else {
+                            finishAction();
+                        }
+                    }
+                }else {
+                    finishAction();
+                }
             }
-        } else {
-            finishAction();
+        }catch (Exception e){
+
         }
+
     }
 
     private void updateBottomIcon(String tag) {
+        Config.currentFlag = tag;
         if (tag.equals(Config.HOME)) {
             selectBottomNavigation(binding.homeLayout);
         } else if (tag.equals(Config.FAVORITE)) {
@@ -176,6 +216,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        binding.txtAddress.setText(new Session(activity).getString(P.googleAddress));
     }
 
     @Override
@@ -185,6 +226,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private void finishAction(){
         if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+            finishAffinity();
             finish();
         } else {
             H.showMessage(activity,"Press once again to exit!");

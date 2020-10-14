@@ -423,6 +423,9 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        if (getCurrentLocationFlag){
+        }else {
+        }
     }
 
 
