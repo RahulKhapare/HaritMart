@@ -3,6 +3,7 @@ package grocery.app.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,8 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     private CartAdapter cartAdapter;
     private String rs = "₹ ";
     private LoadingDialog loadingDialog;
+    public String applyCoupon = "Apply";
+    public String removeCoupon = "Remove";
 
     public static CartFragment newInstance() {
         return new CartFragment();
@@ -58,9 +61,8 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         loadingDialog = new LoadingDialog(context);
         initView();
         binding.btnProcessToPay.setOnClickListener(this);
-
-        hitCartListApi();
-
+        binding.txtApplyCoupon.setOnClickListener(this);
+        hitCartListApi("");
         return binding.getRoot();
     }
 
@@ -80,6 +82,73 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                 addressIntent.putExtra(Config.FOR_CHECKOUT,true);
                 startActivity(addressIntent);
                 break;
+            case R.id.txtApplyCoupon:
+                onCouponClick();
+                break;
+        }
+    }
+
+    private void onCouponClick(){
+        if (binding.txtApplyCoupon.getText().toString().trim().equals(applyCoupon)){
+            if (TextUtils.isEmpty(binding.etxCoupon.getText().toString().trim())){
+                H.showMessage(context,"Please enter coupon code");
+            }else {
+                hitToGetCouponCode(binding.etxCoupon.getText().toString().trim());
+            }
+        }else if (binding.txtApplyCoupon.getText().toString().trim().equals(removeCoupon)){
+            removeCouponData(true);
+            hitCartListApi("");
+        }
+    }
+
+    private void hideCouponView(){
+        binding.lnrCoupon.setVisibility(View.GONE);
+        removeCouponData(true);
+    }
+
+    private void showCouponView(){
+        binding.lnrCoupon.setVisibility(View.VISIBLE);
+        removeCouponData(true);
+    }
+
+    private void hitToGetCouponCode(String couponCode) {
+        showProgress();
+        Json j = new Json();
+        j.addString(P.cart_token, new Session(context).getString(P.cart_token));
+        j.addString(P.coupon_code, couponCode);
+        j.addInt(P.user_id, Config.dummyID_1);
+        Api.newApi(context, P.baseUrl + "apply_coupon_code").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    hideProgress();
+                    binding.etxCoupon.setText("");
+                    H.showMessage(context, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        json = json.getJson(P.data);
+                        binding.etxCoupon.setText(couponCode);
+                        binding.etxCoupon.setEnabled(false);
+                        binding.txtApplyCoupon.setText(removeCoupon);
+                        hitCartListApi(couponCode);
+                    } else {
+                        H.showMessage(context, json.getString(P.msg));
+                        binding.etxCoupon.setText("");
+                    }
+                    hideProgress();
+                })
+                .run("hitToGetCouponCode");
+    }
+
+
+    private void removeCouponData(boolean removeCoupon){
+        if (removeCoupon){
+            binding.etxCoupon.setEnabled(true);
+            binding.etxCoupon.setText("");
+            binding.etxCoupon.setHint("Enter coupon code");
+            binding.txtApplyCoupon.setText(applyCoupon);
         }
     }
 
@@ -119,7 +188,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                     if (json.getInt(P.status) == 1) {
                         cardView.startAnimation(removeItem(position));
                         H.showMessage(context, json.getString(P.msg));
-                        hitToUpdateSummery();
+                        hitToUpdateSummery(binding.etxCoupon.getText().toString().trim());
                     } else {
                         H.showMessage(context, json.getString(P.msg));
                     }
@@ -146,7 +215,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                     if (json.getInt(P.status) == 1) {
                         textView.setText(item_qty + "");
                         H.showMessage(context, json.getString(P.msg));
-                        hitToUpdateSummery();
+                        hitToUpdateSummery(binding.etxCoupon.getText().toString().trim());
                     } else {
                         H.showMessage(context, json.getString(P.msg));
                     }
@@ -155,20 +224,21 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                 .run("hitUpdateCartApi");
     }
 
-    private void hitCartListApi() {
+    private void hitCartListApi(String couponCode) {
         showProgress();
         hideSummary();
         cartModelList.clear();
         Json j = new Json();
         j.addString(P.cart_token, new Session(context).getString(P.cart_token));
         j.addInt(P.user_id, Config.dummyID);
-
+        j.addString(P.coupon_code, couponCode);
         Api.newApi(context, P.baseUrl + "cart").addJson(j)
                 .setMethod(Api.POST)
                 //.onHeaderRequest(App::getHeaders)
                 .onError(() -> {
                     hideProgress();
                     checkError();
+                    hideCouponView();
                     H.showMessage(context, "On error is called");
                 })
                 .onSuccess(json ->
@@ -214,18 +284,28 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
 
                         hideProgress();
                         showSummary();
+
                     } else {
                         hideProgress();
                     }
                     checkError();
+
+                    if (TextUtils.isEmpty(couponCode)){
+                        if (cartModelList.isEmpty()){
+                            hideCouponView();
+                        }else {
+                            showCouponView();
+                        }
+                    }
                 })
                 .run("hitCartListApi");
     }
 
-    private void hitToUpdateSummery() {
+    private void hitToUpdateSummery(String couponCode) {
         Json j = new Json();
         j.addString(P.cart_token, new Session(context).getString(P.cart_token));
         j.addInt(P.user_id, Config.dummyID);
+        j.addString(P.coupon_code, couponCode);
 
         Api.newApi(context, P.baseUrl + "cart").addJson(j)
                 .setMethod(Api.POST)
@@ -235,6 +315,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                     if (cartModelList.isEmpty()) {
                         hideSummary();
                     }
+                    hideCouponView();
                     H.showMessage(context, "On error is called");
                 })
                 .onSuccess(json ->
@@ -255,6 +336,12 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                         hideSummary();
                     }
                     checkError();
+
+                    if (cartModelList.isEmpty()){
+                        hideCouponView();
+                    }else {
+                        showCouponView();
+                    }
                 })
                 .run("hitToUpdateSummery");
     }

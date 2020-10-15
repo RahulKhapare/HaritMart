@@ -50,5 +50,6 @@ public class Config {
 
     public static int dummyID = 0;
     public static int dummyID_1 = 1;
-
+    public static int OPEN = 1;
+    public static int SHARE = 2;
 }

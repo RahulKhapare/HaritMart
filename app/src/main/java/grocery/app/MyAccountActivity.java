@@ -75,18 +75,20 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
 
         loadingDialog = new LoadingDialog(activity);
 
+        binding.txtTermAndCondition.setText("Term & Conditions");
         binding.txtChange.setOnClickListener(this);
-        binding.txtMyOrder.setOnClickListener(this);
-        binding.txtWallet.setOnClickListener(this);
-        binding.txtMyPayment.setOnClickListener(this);
+        binding.lnrMyOrder.setOnClickListener(this);
+        binding.lnrWallet.setOnClickListener(this);
+        binding.lnrMyPayment.setOnClickListener(this);
         binding.txtRatingReview.setOnClickListener(this);
-        binding.txtNotification.setOnClickListener(this);
-        binding.txtGiftCard.setOnClickListener(this);
-        binding.txtDelieveryAddress.setOnClickListener(this);
-        binding.txtLogOut.setOnClickListener(this);
+        binding.lnrNotifications.setOnClickListener(this);
+        binding.lnrGiftCard.setOnClickListener(this);
+        binding.lnrMyAddress.setOnClickListener(this);
+        binding.lnrLogOut.setOnClickListener(this);
         binding.imgEdit.setOnClickListener(this);
         binding.lnrImage.setOnClickListener(this);
-        binding.txtChangePassword.setOnClickListener(this);
+        binding.lnrChangePass.setOnClickListener(this);
+        binding.lnrTermCondition.setOnClickListener(this);
 
         binding.txtLocation.setText(new Session(activity).getString(P.googleAddress));
 
@@ -130,38 +132,42 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
                 startActivity(locationIntent);
                 finish();
                 break;
-            case R.id.txtMyOrder:
-                Intent orderDetailIntent = new Intent(activity,OrderDetailsActivity.class);
+            case R.id.lnrMyOrder:
+                Intent orderDetailIntent = new Intent(activity,OrderDetailListActivity.class);
                 startActivity(orderDetailIntent);
                 break;
-            case R.id.txtWallet:
+            case R.id.lnrWallet:
                 Intent walletIntent = new Intent(activity,MyWalletActivity.class);
                 startActivity(walletIntent);
                 break;
-            case R.id.txtMyPayment:
+            case R.id.lnrMyPayment:
                 Intent paymentIntent = new Intent(activity,MyPaymentActivity.class);
                 startActivity(paymentIntent);
                 break;
             case R.id.txtRatingReview:
                 //not using now
                 break;
-            case R.id.txtNotification:
+            case R.id.lnrNotifications:
                 Intent notificationIntent = new Intent(activity,NotificationActivity.class);
                 startActivity(notificationIntent);
                 break;
-            case R.id.txtGiftCard:
+            case R.id.lnrGiftCard:
                 Intent giftIntent = new Intent(activity,GiftCardActivity.class);
                 startActivity(giftIntent);
                 break;
-            case R.id.txtDelieveryAddress:
+            case R.id.lnrMyAddress:
                 Intent addressIntent = new Intent(activity,MyAddressActivity.class);
                 startActivity(addressIntent);
                 break;
-            case R.id.txtChangePassword:
+            case R.id.lnrChangePass:
                 Intent changePassIntent = new Intent(activity,ChangePasswordActivity.class);
                 startActivity(changePassIntent);
                 break;
-            case R.id.txtLogOut:
+            case R.id.lnrTermCondition:
+                Intent termIntent = new Intent(activity,TearmAndConditionActivity.class);
+                startActivity(termIntent);
+                break;
+            case R.id.lnrLogOut:
                 onLogOutClick();
                 break;
         }

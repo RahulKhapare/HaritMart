@@ -48,6 +48,10 @@ public class P {
     public static String option3="option3";
     public static String description="description";
     public static String description1="description1";
+    public static String order_number="order_number";
+    public static String order_status="order_status";
+    public static String order_status_comment="order_status_comment";
+    public static String coupon_code="coupon_code";
 
     public static String category_list = "category_list";
     public static String category_image_path = "category_image_path";
@@ -81,6 +85,7 @@ public class P {
     public static String title = "title";
     public static String lable_values = "lable_values";
     public static String value = "value";
+    public static String key = "key";
 
     public static String googleAddress = "googleAddress";
     public static String googleCity = "googleCity";

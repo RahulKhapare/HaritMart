@@ -14,12 +14,68 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/lnrSummary">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewCard"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <LinearLayout
+                    android:id="@+id/lnrCoupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:visibility="gone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edit_corner_bg"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etxCoupon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+                        android:hint="Enter coupon code"
+                        android:textColorHint="@color/textColor2"
+                        android:textColor="@color/textColor2"
+                        android:textSize="@dimen/textSizeVerySmall"
+                        android:maxLines="1"
+                        android:background="@null"
+                        android:layout_gravity="center_vertical"
+                        app:fontFamily="@font/nunito_sans_semibold" />
+
+                    <TextView
+                        android:id="@+id/txtApplyCoupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="Apply"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        app:fontFamily="@font/product_sans_regular" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
         </androidx.core.widget.NestedScrollView>
 
         <LinearLayout

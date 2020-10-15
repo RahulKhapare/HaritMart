@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancel Order"
+            android:textColor="#373737"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:textSize="20sp"
+            ></TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Please enter comment regarding cancel order"
+            android:textColor="#373737"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:textSize="@dimen/textSize"
+            ></TextView>
+
+        <EditText
+            android:id="@+id/etxComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:hint="Enter Comment"
+            android:backgroundTint="@color/grey2"
+            android:imeOptions="actionNext"
+            android:inputType="textMultiLine"
+            android:textColorHint="@color/grey2" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="right">
+
+            <TextView
+                android:id="@+id/txtCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:layout_marginRight="30dp"
+                android:text="CANCEL"></TextView>
+
+            <TextView
+                android:id="@+id/txtSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:text="SUBMIT"></TextView>
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
