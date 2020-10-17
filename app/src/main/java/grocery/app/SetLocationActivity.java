@@ -99,6 +99,7 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
                         finish();
                     }else {
                         setUserAddress();
+                        new Session(activity).addBool(P.isUserAddress,true);
                         Intent baseIntent = new Intent(activity, BaseActivity.class);
                         baseIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(baseIntent);

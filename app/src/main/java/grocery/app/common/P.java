@@ -12,6 +12,14 @@ public class P {
     public static String slider_list="slider_list";
     public static String all_images="all_images";
 
+    public static String login_token="login_token";
+    public static String user_data="user_data";
+    public static String user_id="user_id";
+    public static String app_type="app_type";
+    public static String wallet="wallet";
+    public static String referral_code="referral_code";
+    public static String profile_image="profile_image";
+
     public static String latest_product_list="latest_product_list";
     public static String trending_product_list="trending_product_list";
     public static String slider_image_path="slider_image_path";
@@ -37,7 +45,6 @@ public class P {
     public static String item_qty="item_qty";
     public static String cart_token="cart_token";
     public static String option="option";
-    public static String user_id="user_id";
     public static String item_list="item_list";
     public static String cart_count="cart_count";
     public static String product_filter_id="product_filter_id";
@@ -52,6 +59,8 @@ public class P {
     public static String order_status="order_status";
     public static String order_status_comment="order_status_comment";
     public static String coupon_code="coupon_code";
+    public static String image_for="image_for";
+    public static String extension="extension";
 
     public static String category_list = "category_list";
     public static String category_image_path = "category_image_path";
@@ -86,6 +95,7 @@ public class P {
     public static String lable_values = "lable_values";
     public static String value = "value";
     public static String key = "key";
+    public static String image_url = "image_url";
 
     public static String googleAddress = "googleAddress";
     public static String googleCity = "googleCity";
@@ -93,6 +103,8 @@ public class P {
     public static String googleCountry = "googleCountry";
     public static String googleCode = "googleCode";
     public static String googleKnownName = "googleKnownName";
+    public static String isUserLogin = "isUserLogin";
+    public static String isUserAddress = "isUserAddress";
 
     public static String new_window = "new_window";
     public static String url = "url";
@@ -112,9 +124,11 @@ public class P {
     public static String full_name="full_name";
     public static String email_id="email_id";
     public static String locationAddress="locationAddress";
+    public static String app_id="app_id";
 
     public static String email="email";
     public static String phone="phone";
+    public static String password="password";
     public static String otp="otp";
     public static String json="json";
 }//class

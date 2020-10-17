@@ -76,14 +76,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunit_sans_bold"
-                        android:text="Create your Account"
+                        android:text="Login With Mobile"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Please enter your registered phone number"
+                        android:text="Please enter your mobile number"
                         android:textColor="@color/grey1"
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:textSize="14dp"
@@ -114,7 +114,7 @@
                         android:layout_height="?actionBarSize"
                         android:layout_gravity="center"
                         android:background="@drawable/custom_button"
-                        android:text="Proceed"
+                        android:text="Login"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="20dp"
                         android:layout_marginRight="50dp"

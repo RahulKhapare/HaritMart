@@ -20,6 +20,7 @@ public class Config {
     public static String TITLE = "TITLE";
     public static String CHILD_JSON = "CHILD_JSON";
     public static String LOGIN_NUMBER = "LOGIN_NUMBER";
+    public static String LOGIN_OTP = "LOGIN_OTP";
     public static String GET_CURRENT_LOCATION = "GET_CURRENT_LOCATION";
     public static String ADDRESS_LOCATION = "ADDRESS_LOCATION";
     public static String EDIT_ADDRESS = "EDIT_ADDRESS";

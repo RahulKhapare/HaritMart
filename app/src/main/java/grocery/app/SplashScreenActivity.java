@@ -48,13 +48,30 @@ public class SplashScreenActivity extends AppCompatActivity {
                 .onSuccess(j -> {
                     if (j.getInt(P.status) == 1) {
 
-                        new Handler().postDelayed(() -> {
-                            Intent intent = new Intent(this, OnboardingActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            finish();
-                        }, 1230);
-
+                        if (new Session(this).getBool(P.isUserLogin)){
+                            if (!new Session(this).getBool(P.isUserAddress)){
+                                new Handler().postDelayed(() -> {
+                                    Intent intent = new Intent(this, SetLocationActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    finish();
+                                }, 1230);
+                            }else {
+                                new Handler().postDelayed(() -> {
+                                    Intent intent = new Intent(this, BaseActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    finish();
+                                }, 1230);
+                            }
+                        }else {
+                            new Handler().postDelayed(() -> {
+                                Intent intent = new Intent(this, OnboardingActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
+                            }, 1230);
+                        }
                     } else {
                         H.showMessage(this, "Something went wrong");
                     }

@@ -50,19 +50,13 @@
                                 android:layout_height="80dp"
                                 android:layout_gravity="center_vertical"
                                 android:tint="@color/grey1"
+                                app:civ_border_width="1dp"
+                                app:civ_border_color="@color/black"
+                                android:cropToPadding="true"
+                                app:civ_circle_background_color="@color/white"
                                 android:src="@drawable/ic_baseline_account_circle_24">
 
                             </de.hdodenhof.circleimageview.CircleImageView>
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_margin="0dp"
-                                android:tint="@color/grey1"
-                                android:layout_alignParentBottom="true"
-                                android:layout_alignParentRight="true"
-                                android:src="@drawable/ic_baseline_camera_alt_24"
-                                ></ImageView>
 
                         </RelativeLayout>
 
@@ -361,15 +355,16 @@
 
                         </LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="#EFEFEF" />
+<!--                        <View-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="1dp"-->
+<!--                            android:background="#EFEFEF" />-->
 
                         <LinearLayout
                             android:id="@+id/lnrChangePass"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:orientation="horizontal">
 
                             <ImageView

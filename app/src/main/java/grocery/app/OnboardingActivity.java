@@ -19,7 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.adoisstudio.helper.Api;
 import com.adoisstudio.helper.H;
+import com.adoisstudio.helper.Json;
+import com.adoisstudio.helper.LoadingDialog;
+import com.adoisstudio.helper.Session;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -51,7 +55,9 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import grocery.app.adapter.OnBoardingAdapter;
+import grocery.app.common.P;
 import grocery.app.databinding.ActivityOnboardingBinding;
+import grocery.app.util.Click;
 
 public class OnboardingActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -69,11 +75,13 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
 
     private int googleFlag = 1;
     private int facebookFlag = 2;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(activity,R.layout.activity_onboarding);
+        loadingDialog = new LoadingDialog(this);
         setupOnBoardingItems();
         initFacebookLogin();
         onInitGoogle();
@@ -82,16 +90,21 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
 
         });
         tabLayoutMediator.attach();
-        binding.loginBtn.setOnClickListener(view -> {
+        binding.loginBtn.setOnClickListener(v -> {
+            Click.preventTwoClick(v);
             Intent intent = new Intent(OnboardingActivity.this, LoginScreen.class);
             startActivity(intent);
         });
-        binding.txtSkip.setOnClickListener(view -> {
-            Intent intent = new Intent(OnboardingActivity.this, SetLocationActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+        binding.txtSkip.setOnClickListener(v -> {
+            Click.preventTwoClick(v);
+//            Intent intent = new Intent(OnboardingActivity.this, SetLocationActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(intent);
         });
+
         printHashKey(activity);
+        hitCartTokenApi();
+
     }
 
     public static void printHashKey(Context pContext) {
@@ -122,6 +135,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
 
     //    Google Integration
     public void onGoogleClick(View v) {
+        Click.preventTwoClick(v);
         requestGoogleLogin();
     }
 
@@ -168,7 +182,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
     private void handleUserData(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
-            successDialog(googleFlag,account.getDisplayName(),account.getEmail(),account.getPhotoUrl());
+            successDialog(googleFlag,account.getDisplayName(),account.getEmail(),account.getPhotoUrl(),account.getId());
         } else {
             H.showMessage(activity, "User data not found");
         }
@@ -195,7 +209,8 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
 
 
     // Facebook integration
-    public void onFacebookClick(View view) {
+    public void onFacebookClick(View v) {
+        Click.preventTwoClick(v);
         checkForFacebookLogin();
     }
 
@@ -204,7 +219,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         if (currentUser==null){
             binding.loginButton.performClick();
         }else {
-            successDialog(facebookFlag,currentUser.getDisplayName(),currentUser.getEmail(),currentUser.getPhotoUrl());
+            successDialog(facebookFlag,currentUser.getDisplayName(),currentUser.getEmail(),currentUser.getPhotoUrl(),currentUser.getUid());
         }
     }
 
@@ -240,7 +255,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser currentUser = mAuth.getCurrentUser();
-                            successDialog(facebookFlag,currentUser.getDisplayName(),currentUser.getEmail(),currentUser.getPhotoUrl());
+                            successDialog(facebookFlag,currentUser.getDisplayName(),currentUser.getEmail(),currentUser.getPhotoUrl(),currentUser.getUid());
                         } else {
                             H.showMessage(activity,"Authentication failed.");
                         }
@@ -252,7 +267,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
 //        LoginManager.getInstance().logOut();
     }
 
-    private void successDialog(int flag,String name, String email, Uri image) {
+    private void successDialog(int flag,String name, String email, Uri image,String appId) {
         Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        dialog.setTitle("");
@@ -263,6 +278,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         TextView txtUserEmail = dialog.findViewById(R.id.txtUserEmail);
         TextView txtChangeAccount = dialog.findViewById(R.id.txtChangeAccount);
         Picasso.get().load(image).error(R.mipmap.ic_launcher).into(imgUser);
+
         if (flag==facebookFlag){
             txtTitle.setText("Facebook Login");
             txtChangeAccount.setText("Cancel");
@@ -286,15 +302,96 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
             @Override
             public void onClick(View v) {
                 dialog.cancel();
-                Intent intent = new Intent(OnboardingActivity.this, SetLocationActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                if (flag==facebookFlag){
+                    hitLoginSocial(name,image+"",email,appId,"1");
+                }else if (flag==googleFlag){
+                    hitLoginSocial(name,image+"",email,appId,"2");
+                }
+
             }
         });
         dialog.setCancelable(true);
         dialog.show();
         Window window = dialog.getWindow();
         window.setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+    }
+
+
+    private void hitLoginSocial(String name,String profile_image,String email,String app_id,String app_type) {
+        showProgress();
+
+        Json j = new Json();
+        j.addString(P.name, name);
+        j.addString(P.profile_image, profile_image);
+        j.addString(P.email, email);
+        j.addString(P.app_id, app_id);
+        j.addString(P.app_type, app_type);
+        j.addString(P.phone, "");
+        j.addString(P.cart_token, new Session(activity).getString(P.cart_token));
+
+        Api.newApi(activity, P.baseUrl + "social_login").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    H.showMessage(activity, "On error is called");
+                    hideProgress();
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        json = json.getJson(P.data);
+
+                        Json userJson = json.getJson(P.user_data);
+                        Session session = new Session(activity);
+                        session.addString(P.login_token,json.getString(P.login_token));
+                        session.addString(P.user_id,userJson.getString(P.id));
+                        session.addString(P.app_type,userJson.getString(P.app_type));
+                        session.addString(P.user_name,userJson.getString(P.name));
+                        session.addString(P.user_email,userJson.getString(P.email));
+                        session.addString(P.user_number,userJson.getString(P.phone));
+                        session.addString(P.wallet,userJson.getString(P.wallet));
+                        session.addString(P.referral_code,userJson.getString(P.referral_code));
+                        session.addString(P.profile_image,userJson.getString(P.profile_image));
+
+                        new Session(activity).addBool(P.isUserLogin,true);
+                        Intent intent = new Intent(activity, SetLocationActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+
+                    } else {
+                        H.showMessage(activity, json.getString(P.msg));
+                    }
+                    hideProgress();
+                })
+                .run("hitLoginSocial");
+    }
+
+    private void hitCartTokenApi() {
+        Session session = new Session(this);
+        Json j = new Json();
+        j.addString(P.cart_token, session.getString(P.cart_token));
+        j.addJSON(P.option, new Json());
+        Api.newApi(this, P.baseUrl + "cart_token").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        json = json.getJson(P.data);
+                        session.addString(P.cart_token, json.getString(P.cart_token));
+                    }
+                })
+                .run("hitCartTokenApi");
+    }
+
+    private void showProgress() {
+        loadingDialog.show("Please wait..");
+    }
+
+    private void hideProgress() {
+        loadingDialog.hide();
     }
 
     private void setupOnBoardingItems() {

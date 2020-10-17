@@ -104,7 +104,7 @@
                         android:padding="10dp"
                         android:cursorVisible="false"
                         android:digits="1234567890"
-                        android:maxLength="4"
+                        android:maxLength="6"
                         android:textIsSelectable="false"
                         android:textColorHint="@color/grey1"
                         android:layout_margin="20dp"
@@ -116,7 +116,7 @@
                         android:layout_height="?actionBarSize"
                         android:layout_gravity="center"
                         android:background="@drawable/custom_button"
-                        android:text="Proceed"
+                        android:text="Verify OTP"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="20dp"
                         android:layout_marginRight="50dp"
@@ -128,11 +128,12 @@
                         android:textStyle="normal" />
 
                     <TextView
-                        android:id="@+id/txtResent"
+                        android:id="@+id/txtTimer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/saffron"
-                        android:text="Resent OTP"
+                        android:text="Resend OTP"
+                        android:padding="@dimen/padding10"
                         android:gravity="center_horizontal"
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:textSize="14dp"
