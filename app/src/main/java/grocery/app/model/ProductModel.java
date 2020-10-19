@@ -1,5 +1,7 @@
 package grocery.app.model;
 
+import com.adoisstudio.helper.JsonList;
+
 import org.json.JSONArray;
 
 public class ProductModel {
@@ -15,11 +17,43 @@ public class ProductModel {
     String is_wishlisted;
     String price;
     String saleprice;
+    String slug;
     String discount_amount;
     String discount;
     String variants_name;
+    String externalFilterId;
+    String externalFilterName;
     int position;
     String jsonArrayData;
+    JsonList filter_option;
+
+    public ProductModel() {
+
+    }
+
+    public String getExternalFilterName() {
+        return externalFilterName;
+    }
+
+    public void setExternalFilterName(String externalFilterName) {
+        this.externalFilterName = externalFilterName;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public JsonList getFilter_option() {
+        return filter_option;
+    }
+
+    public void setFilter_option(JsonList filter_option) {
+        this.filter_option = filter_option;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
 
     public String getJsonArrayData() {
         return jsonArrayData;
@@ -90,8 +124,12 @@ public class ProductModel {
         this.name = name;
     }
 
-    public ProductModel() {
+    public String getExternalFilterId() {
+        return externalFilterId;
+    }
 
+    public void setExternalFilterId(String externalFilterId) {
+        this.externalFilterId = externalFilterId;
     }
 
     public String getVariants_name() {

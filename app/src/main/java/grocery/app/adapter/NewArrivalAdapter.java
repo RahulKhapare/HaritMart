@@ -61,7 +61,7 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ArrivalModel model = arrivalModelList.get(position);
         Picasso.get().load(model.getProduct_image()).placeholder(R.drawable.progress_animation).error(R.mipmap.ic_launcher).into(holder.binding.imgVeg);
-        holder.binding.txtName.setText(model.getCategory_name());
+        holder.binding.txtName.setText(model.getName());
 
         holder.binding.lnrProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,14 +90,6 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
                 }
             }
         });
-
-        if (!TextUtils.isEmpty(model.getIs_wishlisted())){
-            if (model.getIs_wishlisted().equals("0")){
-                holder.binding.imgAction.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_add_24));
-            }else if (model.getIs_wishlisted().equals("1")){
-                holder.binding.imgAction.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_remove_24));
-            }
-        }
 
     }
 

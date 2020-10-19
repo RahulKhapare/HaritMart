@@ -73,13 +73,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         Picasso.get().load(P.imgBaseUrl+model.getImage()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgProduct);
 
-        holder.binding.txtAmount.setText(rs + model.getPrice());
-        holder.binding.txtProductOff.setText(rs + model.getTotal_price());
+        holder.binding.txtAmount.setText(rs + model.getSaleprice());
+        holder.binding.txtProductOff.setText(rs + model.getPrice());
 
         String offValue = "0";
-        if (!TextUtils.isEmpty(model.getPrice()) && !TextUtils.isEmpty(model.getTotal_price())){
-            int actualValue = Integer.parseInt(model.getTotal_price());
-            int discountValue = Integer.parseInt(model.getPrice());
+        if (!TextUtils.isEmpty(model.getPrice()) && !TextUtils.isEmpty(model.getSaleprice())){
+            int actualValue = Integer.parseInt(model.getPrice());
+            int discountValue = Integer.parseInt(model.getSaleprice());
             try {
 //                offValue =  ((actualValue - discountValue) / actualValue) * 100;
 //                offValue = actualValue - (actualValue * (discountValue / 100));
@@ -100,7 +100,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             holder.binding.txtProductName.setPaintFlags(holder.binding.txtProductName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
-        holder.binding.txtWeight.setText("0 KG");
+        holder.binding.txtWeight.setText(getProductDerails(model));
 
         holder.binding.txtItemCount.setText(model.getQty());
         holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -175,6 +175,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    private String getProductDerails(CartModel model){
+        String details = "";
+
+        if (!TextUtils.isEmpty(model.getLabel1()) && !TextUtils.isEmpty(model.getValue1())){
+            details = model.getLabel1() + " : " + model.getValue1();
+        }
+
+        if (!TextUtils.isEmpty(model.getLabel2()) && !TextUtils.isEmpty(model.getValue2())){
+            details = details + "\n" + model.getLabel2() + " : " + model.getValue2();
+        }
+        return details;
     }
 
     private float discountPercentage(float S, float M)

@@ -17,6 +17,7 @@ import com.adoisstudio.helper.Api;
 import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.LoadingDialog;
+import com.adoisstudio.helper.Session;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +40,7 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
     private WishListAdapter wishListAdapter;
     private List<WishListModel> wishListModelList;
     private LoadingDialog loadingDialog;
+    private Session session;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +48,7 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favourite, container, false);
         context = inflater.getContext();
         loadingDialog = new LoadingDialog(context);
+        session = new Session(context);
         initView();
         return binding.getRoot();
     }
@@ -63,7 +66,9 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
     @Override
     public void removeFavorite(int filterId, CardView cardView,int position) {
         Json json = new Json();
-        json.addInt(P.user_id, Config.dummyID_1);
+        if (session.getBool(P.isUserLogin)){
+            json.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }
         json.addInt(P.wishlist_id, filterId);
         hitRemoveToWishList(json,cardView,position);
     }
@@ -89,7 +94,9 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
         wishListModelList.clear();
         showProgress();
         Json j = new Json();
-        j.addInt(P.user_id, Config.dummyID_1);
+        if (session.getBool(P.isUserLogin)){
+            j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }
         Api.newApi(context, P.baseUrl + "wishlist").addJson(j)
                 .setMethod(Api.POST)
                 //.onHeaderRequest(App::getHeaders)
@@ -100,6 +107,7 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
                 })
                 .onSuccess(json ->
                 {
+                    wishListModelList.clear();
                     if (json.getInt(P.status) == 1) {
                         json = json.getJson(P.data);
                         String imagePath = json.getString(P.product_image_path);
@@ -115,6 +123,7 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
                                 model.setId(jsonObject.getString(P.id));
                                 model.setFilter_id(jsonObject.getString(P.filter_id));
                                 model.setName(jsonObject.getString(P.name));
+                                model.setVariants_name(jsonObject.getString(P.variants_name));
                                 model.setProduct_image(jsonObject.getString(P.product_image));
 
                                 wishListModelList.add(model);

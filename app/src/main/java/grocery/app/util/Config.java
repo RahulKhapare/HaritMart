@@ -43,14 +43,16 @@ public class Config {
     public static boolean Update_Direct_Home = false;
     public static String currentFlag = "";
 
-    public static String NewArrived = "New Arrived";
-    public static String TrendingArrived = "Trending Arrived";
+    public static String SpecialProductArrived = "Special Product";
+    public static String NewProductArrived = "New Product";
+    public static String TrendingProductArrived = "Trending Product";
+
     public static String GOOGLE_ADDRESS = "GOOGLE_ADDRESS";
 
     public static Json CART_JSON;
 
-    public static int dummyID = 0;
     public static int dummyID_1 = 1;
+    public static int commonUserID = 0;
     public static int OPEN = 1;
     public static int SHARE = 2;
 }

@@ -83,6 +83,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         binding = DataBindingUtil.setContentView(activity,R.layout.activity_onboarding);
         loadingDialog = new LoadingDialog(this);
         setupOnBoardingItems();
+        hitCartTokenApi();
         initFacebookLogin();
         onInitGoogle();
         binding.onBoardViewPager.setAdapter(onBoardingAdapter);
@@ -103,7 +104,6 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         });
 
         printHashKey(activity);
-        hitCartTokenApi();
 
     }
 

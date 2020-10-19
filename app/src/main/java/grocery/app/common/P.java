@@ -20,6 +20,9 @@ public class P {
     public static String referral_code="referral_code";
     public static String profile_image="profile_image";
 
+    public static String new_product="new_product";
+    public static String under_50_product="under_50_product";
+    public static String special_offer_product="special_offer_product";
     public static String latest_product_list="latest_product_list";
     public static String trending_product_list="trending_product_list";
     public static String slider_image_path="slider_image_path";
@@ -29,6 +32,7 @@ public class P {
     public static String discount_amount="discount_amount";
     public static String discount="discount";
     public static String coupon_discount_amount="coupon_discount_amount";
+    public static String filter_option="filter_option";
 
     public static String msg="msg";
     public static String data="data";
@@ -96,6 +100,7 @@ public class P {
     public static String value = "value";
     public static String key = "key";
     public static String image_url = "image_url";
+    public static String lable = "lable";
 
     public static String googleAddress = "googleAddress";
     public static String googleCity = "googleCity";

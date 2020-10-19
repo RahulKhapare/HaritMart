@@ -5,7 +5,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="97dp"
+        android:layout_height="100dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         android:layout_marginBottom="5dp"
@@ -117,12 +117,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/nunito_sans_semibold"
-                        android:gravity="bottom"
-                        android:maxLines="1"
                         android:paddingBottom="5dp"
                         android:text=""
                         android:textColor="#373737"
-                        android:textSize="14sp"
+                        android:textSize="10sp"
                         android:textStyle="bold"></TextView>
 
                 </LinearLayout>
@@ -170,7 +168,6 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@drawable/ic_baseline_add_box_24"></ImageView>
-
 
 
                 </LinearLayout>

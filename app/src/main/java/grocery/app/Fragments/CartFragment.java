@@ -49,6 +49,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     private LoadingDialog loadingDialog;
     public String applyCoupon = "Apply";
     public String removeCoupon = "Remove";
+    private Session session;
 
     public static CartFragment newInstance() {
         return new CartFragment();
@@ -59,6 +60,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false);
         context = inflater.getContext();
         loadingDialog = new LoadingDialog(context);
+        session = new Session(context);
         initView();
         binding.btnProcessToPay.setOnClickListener(this);
         binding.txtApplyCoupon.setOnClickListener(this);
@@ -116,7 +118,9 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         Json j = new Json();
         j.addString(P.cart_token, new Session(context).getString(P.cart_token));
         j.addString(P.coupon_code, couponCode);
-        j.addInt(P.user_id, Config.dummyID_1);
+        if (session.getBool(P.isUserLogin)){
+            j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }
         Api.newApi(context, P.baseUrl + "apply_coupon_code").addJson(j)
                 .setMethod(Api.POST)
                 //.onHeaderRequest(App::getHeaders)
@@ -230,7 +234,9 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         cartModelList.clear();
         Json j = new Json();
         j.addString(P.cart_token, new Session(context).getString(P.cart_token));
-        j.addInt(P.user_id, Config.dummyID);
+        if (session.getBool(P.isUserLogin)){
+            j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }
         j.addString(P.coupon_code, couponCode);
         Api.newApi(context, P.baseUrl + "cart").addJson(j)
                 .setMethod(Api.POST)
@@ -257,16 +263,41 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                                 model.setProduct_id(jsonObject.getString(P.product_id));
                                 model.setProducts_variants_id(jsonObject.getString(P.products_variants_id));
                                 model.setQty(jsonObject.getString(P.qty));
-                                model.setOption1(jsonObject.getString(P.option1));
-                                model.setOption2(jsonObject.getString(P.option2));
-                                model.setOption3(jsonObject.getString(P.option3));
                                 model.setName(jsonObject.getString(P.name));
                                 model.setSku(jsonObject.getString(P.sku));
                                 model.setSlug(jsonObject.getString(P.slug));
                                 model.setImage(jsonObject.getString(P.image));
                                 model.setTotal_price(jsonObject.getString(P.total_price));
-                                model.setPrice(jsonObject.getString(P.price));
                                 model.setCoupon_discount_amount(jsonObject.getString(P.coupon_discount_amount));
+                                try {
+                                    JSONObject priceJson = jsonObject.getJSONObject(P.price);
+                                    model.setPrice(priceJson.getString(P.price));
+                                    model.setSaleprice(priceJson.getString(P.saleprice));
+                                    model.setDiscount_amount(priceJson.getString(P.discount_amount));
+                                    model.setDiscount(priceJson.getString(P.discount));
+                                }catch (Exception e){
+
+                                }
+
+                                try {
+                                    if(!TextUtils.isEmpty(jsonObject.getString(P.option1)) && !jsonObject.getString(P.option1).equals("0")){
+                                        JSONObject jsonOption1 = jsonObject.getJSONObject(P.option1);
+                                        model.setLabel1(jsonOption1.getString(P.lable));
+                                        model.setValue1(jsonOption1.getString(P.value));
+                                    }
+                                }catch (Exception e){
+
+                                }
+
+                                try {
+                                    if(!TextUtils.isEmpty(jsonObject.getString(P.option2)) && !jsonObject.getString(P.option2).equals("0")){
+                                        JSONObject jsonOption2 = jsonObject.getJSONObject(P.option2);
+                                        model.setLabel2(jsonOption2.getString(P.lable));
+                                        model.setValue2(jsonOption2.getString(P.value));
+                                    }
+                                }catch (Exception e){
+
+                                }
 
                                 cartModelList.add(model);
                             } catch (JSONException e) {
@@ -304,7 +335,9 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     private void hitToUpdateSummery(String couponCode) {
         Json j = new Json();
         j.addString(P.cart_token, new Session(context).getString(P.cart_token));
-        j.addInt(P.user_id, Config.dummyID);
+        if (session.getBool(P.isUserLogin)){
+            j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }
         j.addString(P.coupon_code, couponCode);
 
         Api.newApi(context, P.baseUrl + "cart").addJson(j)

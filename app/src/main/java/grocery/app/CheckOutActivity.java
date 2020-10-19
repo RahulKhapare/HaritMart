@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -114,16 +115,42 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
                 model.setProduct_id(jsonObject.getString(P.product_id));
                 model.setProducts_variants_id(jsonObject.getString(P.products_variants_id));
                 model.setQty(jsonObject.getString(P.qty));
-                model.setOption1(jsonObject.getString(P.option1));
-                model.setOption2(jsonObject.getString(P.option2));
-                model.setOption3(jsonObject.getString(P.option3));
                 model.setName(jsonObject.getString(P.name));
                 model.setSku(jsonObject.getString(P.sku));
                 model.setSlug(jsonObject.getString(P.slug));
                 model.setImage(jsonObject.getString(P.image));
                 model.setTotal_price(jsonObject.getString(P.total_price));
-                model.setPrice(jsonObject.getString(P.price));
                 model.setCoupon_discount_amount(jsonObject.getString(P.coupon_discount_amount));
+
+                try {
+                    JSONObject priceJson = jsonObject.getJSONObject(P.price);
+                    model.setPrice(priceJson.getString(P.price));
+                    model.setSaleprice(priceJson.getString(P.saleprice));
+                    model.setDiscount_amount(priceJson.getString(P.discount_amount));
+                    model.setDiscount(priceJson.getString(P.discount));
+                }catch (Exception e){
+
+                }
+
+                try {
+                    if(!TextUtils.isEmpty(jsonObject.getString(P.option1)) && !jsonObject.getString(P.option1).equals("0")){
+                        JSONObject jsonOption1 = jsonObject.getJSONObject(P.option1);
+                        model.setLabel1(jsonOption1.getString(P.lable));
+                        model.setValue1(jsonOption1.getString(P.value));
+                    }
+                }catch (Exception e){
+
+                }
+
+                try {
+                    if(!TextUtils.isEmpty(jsonObject.getString(P.option2)) && !jsonObject.getString(P.option2).equals("0")){
+                        JSONObject jsonOption2 = jsonObject.getJSONObject(P.option2);
+                        model.setLabel2(jsonOption2.getString(P.lable));
+                        model.setValue2(jsonOption2.getString(P.value));
+                    }
+                }catch (Exception e){
+
+                }
 
                 cartModelList.add(model);
             } catch (JSONException e) {

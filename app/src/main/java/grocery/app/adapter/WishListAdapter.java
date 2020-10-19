@@ -2,7 +2,6 @@ package grocery.app.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +10,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 import grocery.app.Fragments.FavouriteFragment;
@@ -25,7 +22,6 @@ import grocery.app.R;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityWishListItemsBinding;
 import grocery.app.model.WishListModel;
-import grocery.app.util.Click;
 import grocery.app.util.Config;
 
 public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHolder> {
@@ -56,34 +52,9 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
         WishListModel model = wishListModelList.get(position);
         Picasso.get().load(P.imgBaseUrl+model.getProduct_image_path()+model.getProduct_image()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgProduct);
 
-        holder.binding.txtAmount.setText(rs + "00");
-        holder.binding.txtProductOff.setText(rs + "00");
-
-        String offValue = "0";
-        if (!TextUtils.isEmpty("00") && !TextUtils.isEmpty("00")){
-            int actualValue = Integer.parseInt("00");
-            int discountValue = Integer.parseInt("00");
-            try {
-//                offValue =  ((actualValue - discountValue) / actualValue) * 100;
-//                offValue = actualValue - (actualValue * (discountValue / 100));
-//                offValue = actualValue - (discountValue * actualValue) / 100;
-                DecimalFormat df = new DecimalFormat("0.00");
-                offValue = df.format(discountPercentage(discountValue,actualValue));
-            }catch (Exception e){
-                offValue = "0";
-            }
-        }
-
-        holder.binding.txtPercent.setText(offValue+"% OFF");
-        if (!TextUtils.isEmpty(model.getName())){
-            holder.binding.txtProductName.setText(model.getName());
-        }else {
-            holder.binding.txtProductName.setText("Product Name");
-            holder.binding.txtProductName.setPaintFlags(holder.binding.txtProductName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        }
-
-        holder.binding.txtWeight.setText("0 KG");
-        holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.binding.txtProductName.setText(model.getName());
+        holder.binding.txtCategory.setText("Category : "+model.getCategory_name());
+        holder.binding.txtProductVariant.setText("Variant : "+model.getVariants_name());
 
         holder.binding.lnrAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,16 +90,5 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
             super(binding.getRoot());
             this.binding = binding;
         }
-    }
-
-    private float discountPercentage(float S, float M)
-    {
-        // Calculating discount
-        float discount = M - S;
-
-        // Calculating discount percentage
-        float disPercent = (discount / M) * 100;
-
-        return disPercent;
     }
 }

@@ -345,7 +345,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/nunito_sans_semibold"
-                            android:maxLines="1"
                             android:gravity="center_vertical"
                             android:text=""
                             android:textColor="@color/grey1"
@@ -377,7 +376,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/nunito_sans_semibold"
-                            android:maxLines="1"
                             android:gravity="center_vertical"
                             android:text=""
                             android:textColor="@color/grey1"
@@ -391,11 +389,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
-                        android:layout_marginBottom="20dp"
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:id="@+id/lnrNewArrived"
+                            android:id="@+id/lnrSpecialProduct"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -404,14 +401,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/nunit_sans_bold"
-                                android:text="New Arrived"
+                                android:text="Special Product Arrived"
                                 android:gravity="center_vertical"
                                 android:textColor="#373737"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/viewMorePopular"
+                                android:id="@+id/txtSpecialNew"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
@@ -427,7 +424,8 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:layout_marginTop="10dp"
-                            android:id="@+id/recyclerPopular"
+                            android:layout_marginLeft="-10dp"
+                            android:id="@+id/recyclerSpecialProduct"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -435,10 +433,10 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/lnrTrendingArrived"
+                        android:id="@+id/lnrNewProduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -450,14 +448,61 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/nunit_sans_bold"
-                                android:text="Trending Arrived"
+                                android:text="New Product Arrived"
                                 android:gravity="center_vertical"
                                 android:textColor="#373737"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/viewMoreTrending"
+                                android:id="@+id/txtViewNew"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginEnd="15dp"
+                                android:fontFamily="@font/nunito_sans_regular"
+                                android:gravity="end|center_vertical"
+                                android:text="View More"
+                                android:textColor="#FC8F00"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="-10dp"
+                            android:id="@+id/recyclerNewProduct"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lnrTrendingProduct"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/nunit_sans_bold"
+                                android:text="Trending Product Arrived"
+                                android:gravity="center_vertical"
+                                android:textColor="#373737"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txtViewTrending"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
@@ -473,7 +518,8 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:layout_marginTop="10dp"
-                            android:id="@+id/recyclerTrending"
+                            android:layout_marginLeft="-10dp"
+                            android:id="@+id/recyclerTrendingProduct"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 

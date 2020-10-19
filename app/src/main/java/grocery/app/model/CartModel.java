@@ -17,10 +17,73 @@ public class CartModel {
     String price;
     String total_price;
     String coupon_discount_amount;
+    String saleprice;
+    String discount_amount;
+    String discount;
+    String label1;
+    String label2;
+    String value1;
+    String value2;
 
 
     public CartModel() {
 
+    }
+
+    public String getLabel1() {
+        return label1;
+    }
+
+    public void setLabel1(String label1) {
+        this.label1 = label1;
+    }
+
+    public String getLabel2() {
+        return label2;
+    }
+
+    public void setLabel2(String label2) {
+        this.label2 = label2;
+    }
+
+    public String getValue1() {
+        return value1;
+    }
+
+    public void setValue1(String value1) {
+        this.value1 = value1;
+    }
+
+    public String getValue2() {
+        return value2;
+    }
+
+    public void setValue2(String value2) {
+        this.value2 = value2;
+    }
+
+    public String getSaleprice() {
+        return saleprice;
+    }
+
+    public void setSaleprice(String saleprice) {
+        this.saleprice = saleprice;
+    }
+
+    public String getDiscount_amount() {
+        return discount_amount;
+    }
+
+    public void setDiscount_amount(String discount_amount) {
+        this.discount_amount = discount_amount;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
     }
 
     public String getId() {

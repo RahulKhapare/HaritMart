@@ -37,6 +37,7 @@ import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductDetailsBinding;
 import grocery.app.model.ArrivalModel;
 import grocery.app.model.CategoryFilterModel;
+import grocery.app.model.ProductModel;
 import grocery.app.model.SliderModel;
 import grocery.app.util.Click;
 import grocery.app.util.Config;
@@ -49,12 +50,14 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     private ActivityProductDetailsBinding binding;
     private SliderImageAdapter sliderImageAdapter;
     private List<SliderModel> sliderModelList;
-    private NewArrivalAdapter trendingAdapter;
-    private NewArrivalAdapter popularAdapter;
+    private NewArrivalAdapter specialOfferAdapter;
+    private NewArrivalAdapter newProductAdapter;
+    private NewArrivalAdapter trendingProductAdapter;
     private CategoryFilterAdapter mainCategoryFilterAdapter;
     private CategoryFilterAdapter subCategoryFilterAdapter;
-    private List<ArrivalModel> trendingDataList;
-    private List<ArrivalModel> popularDataList;
+    private List<ArrivalModel> specialOfferProductList;
+    private List<ArrivalModel> newProductList;
+    private List<ArrivalModel> trendingProductList;
     private List<CategoryFilterModel> mainCategoryFilterModelList;
     private List<CategoryFilterModel> subCategoryFilterModelList;
     private String filterId;
@@ -62,14 +65,16 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     private Json optionJson = new Json();
     private LoadingDialog loadingDialog;
     private String rs = "₹ ";
-    private JsonList arrivalJSON;
-    private JsonList trendingJSON;
+    private JsonList specialProductJSON;
+    private JsonList newProductJSON;
+    private JsonList trendingProductJSON;
     private boolean firstCategoryCall = false;
     public static int mainCategoryFilterId ;
     public static int subCategoryFilterId ;
     private String addToCart = "Add To Cart";
     private String goToCart = "Go To Cart";
     private String wishListValue = "";
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         loadingDialog = new LoadingDialog(activity);
+        session = new Session(activity);
         firstCategoryCall = true;
         binding.btnCart.setText(addToCart);
         initView();
@@ -94,8 +100,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         producId = getIntent().getStringExtra(Config.PRODUCT_ID);
         filterId = getIntent().getStringExtra(Config.PRODUCT_FILTER_ID);
 
-        trendingDataList = new ArrayList<>();
-        popularDataList = new ArrayList<>();
+        specialOfferProductList = new ArrayList<>();
+        newProductList = new ArrayList<>();
+        trendingProductList = new ArrayList<>();
         mainCategoryFilterModelList = new ArrayList<>();
         subCategoryFilterModelList = new ArrayList<>();
 
@@ -115,15 +122,20 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         subCategoryFilterAdapter = new CategoryFilterAdapter(activity,subCategoryFilterModelList,2,filterId,true);
         binding.recyclerSubCategory.setAdapter(subCategoryFilterAdapter);
 
-        binding.recyclerTrending.setHasFixedSize(true);
-        binding.recyclerTrending.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false));
-        trendingAdapter = new NewArrivalAdapter(activity,trendingDataList,true);
-        binding.recyclerTrending.setAdapter(trendingAdapter);
+        binding.recyclerSpecialProduct.setHasFixedSize(true);
+        binding.recyclerSpecialProduct.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false));
+        specialOfferAdapter = new NewArrivalAdapter(activity,specialOfferProductList,true);
+        binding.recyclerSpecialProduct.setAdapter(specialOfferAdapter);
 
-        binding.recyclerPopular.setHasFixedSize(true);
-        binding.recyclerPopular.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false));
-        popularAdapter = new NewArrivalAdapter(activity,popularDataList,true);
-        binding.recyclerPopular.setAdapter(popularAdapter);
+        binding.recyclerNewProduct.setHasFixedSize(true);
+        binding.recyclerNewProduct.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false));
+        newProductAdapter = new NewArrivalAdapter(activity,newProductList,true);
+        binding.recyclerNewProduct.setAdapter(newProductAdapter);
+
+        binding.recyclerTrendingProduct.setHasFixedSize(true);
+        binding.recyclerTrendingProduct.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false));
+        trendingProductAdapter = new NewArrivalAdapter(activity,trendingProductList,true);
+        binding.recyclerTrendingProduct.setAdapter(trendingProductAdapter);
 
         onClick();
         hitProductDetailsApi(filterId,producId);
@@ -134,32 +146,45 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     protected void onResume() {
         super.onResume();
         if (Config.Update_Favorite_Home){
-            hitHomeApi();
+//            hitHomeApi();
         }
     }
 
     private void onClick(){
-        binding.viewMoreTrending.setOnClickListener(new View.OnClickListener() {
+        binding.txtSpecialNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Click.preventTwoClick(v);
                 Intent intent = new Intent(activity, ProductChildListActivity.class);
-                intent.putExtra(Config.TITLE, "Trending Arrived");
+                intent.putExtra(Config.TITLE, Config.SpecialProductArrived);
                 intent.putExtra(Config.CHILD_POSITION, 0);
-                intent.putExtra(Config.CHILD_JSON, trendingJSON + "");
+                intent.putExtra(Config.CHILD_JSON, specialProductJSON + "");
                 Config.FROM_HOME = true;
                 startActivity(intent);
             }
         });
 
-        binding.viewMorePopular.setOnClickListener(new View.OnClickListener() {
+        binding.txtViewNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Click.preventTwoClick(v);
                 Intent intent = new Intent(activity, ProductChildListActivity.class);
-                intent.putExtra(Config.TITLE, "New Arrived");
+                intent.putExtra(Config.TITLE, Config.NewProductArrived);
                 intent.putExtra(Config.CHILD_POSITION, 0);
-                intent.putExtra(Config.CHILD_JSON, arrivalJSON + "");
+                intent.putExtra(Config.CHILD_JSON, newProductJSON + "");
+                Config.FROM_HOME = true;
+                startActivity(intent);
+            }
+        });
+
+        binding.txtViewTrending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Click.preventTwoClick(v);
+                Intent intent = new Intent(activity, ProductChildListActivity.class);
+                intent.putExtra(Config.TITLE, Config.TrendingProductArrived);
+                intent.putExtra(Config.CHILD_POSITION, 0);
+                intent.putExtra(Config.CHILD_JSON, trendingProductJSON + "");
                 Config.FROM_HOME = true;
                 startActivity(intent);
             }
@@ -171,7 +196,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                 Click.preventTwoClick(v);
                 if (ConnectionUtil.isOnline(activity)){
                     Json json = new Json();
-                    json.addInt(P.user_id, Config.dummyID_1);
+                    if (session.getBool(P.isUserLogin)){
+                        json.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+                    }
                     json.addInt(P.product_filter_id, Integer.parseInt(filterId));
                     hitAddToWishList(json,binding.imgLike,true);
                 }else {
@@ -223,7 +250,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     @Override
     public void add(int filterId, ImageView imgAction) {
         Json json = new Json();
-        json.addInt(P.user_id, Config.dummyID_1);
+        if (session.getBool(P.isUserLogin)){
+            json.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }
         json.addInt(P.product_filter_id, filterId);
         hitAddToWishList(json,imgAction,false);
     }
@@ -233,7 +262,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         showLoader();
         try {
             Json j = new Json();
-            j.addInt(P.user_id, Config.dummyID_1);
+            if (session.getBool(P.isUserLogin)){
+                j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+            }
             Api.newApi(activity, P.baseUrl + "home").addJson(j)
                     .setMethod(Api.POST)
                     //.onHeaderRequest(App::getHeaders)
@@ -246,8 +277,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                             json = json.getJson(P.data);
                             App.homeJSONDATA = json;
                             App.product_image_path = json.getString(P.product_image_path);
-                            setUpNewArrivedList(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));
-                            setUpTrendingProductList(json.getString(P.product_image_path), json.getJsonList(P.trending_product_list));
+                            setSpecialOfferProductList(json.getJsonList(P.special_offer_product));
+                            setNewOfferProductList(json.getJsonList(P.new_product));
+                            setTrendingOfferProductList(json.getJsonList(P.under_50_product));
                         } else {
                             H.showMessage(activity, json.getString(P.msg));
                         }
@@ -262,50 +294,98 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     }
 
 
-    private void setUpNewArrivedList(String string, JsonList jsonList) {
-        arrivalJSON = jsonList;
-        popularDataList.clear();
+    private void setSpecialOfferProductList(JsonList jsonList) {
+        specialProductJSON = jsonList;
+        specialOfferProductList.clear();
         for (Json json : jsonList) {
             ArrivalModel model = new ArrivalModel();
-            model.setCategory_name(json.getString(P.category_name));
-            model.setFilter_id(json.getString(P.filter_id));
             model.setId(json.getString(P.id));
+            model.setFilter_id(json.getString(P.filter_id));
             model.setName(json.getString(P.name));
-            model.setIs_wishlisted(json.getString(P.is_wishlisted));
-            model.setProduct_image(P.imgBaseUrl + string + json.getString(P.product_image));
-            popularDataList.add(model);
-        }
-        popularAdapter.notifyDataSetChanged();
+            model.setSlug(json.getString(P.slug));
+            model.setVariants_name(json.getString(P.variants_name));
+            model.setProduct_image(json.getString(P.product_image));
+            try {
+                Json priceJson = json.getJson(P.price);
+                model.setPrice(priceJson.getString(P.price));
+                model.setSaleprice(priceJson.getString(P.saleprice));
+                model.setDiscount_amount(priceJson.getString(P.discount_amount));
+                model.setDiscount(priceJson.getString(P.discount));
+            }catch (Exception e){
 
-        if (popularDataList.isEmpty()){
-            binding.lnrNewArrived.setVisibility(View.GONE);
+            }
+            specialOfferProductList.add(model);
+        }
+        specialOfferAdapter.notifyDataSetChanged();
+
+        if (jsonList.size()==0){
+            binding.lnrSpecialProduct.setVisibility(View.GONE);
         }else {
-            binding.lnrNewArrived.setVisibility(View.VISIBLE);
+            binding.lnrSpecialProduct.setVisibility(View.VISIBLE);
         }
     }
 
-    private void setUpTrendingProductList(String string, JsonList jsonList) {
-        trendingJSON = jsonList;
-        trendingDataList.clear();
+    private void setNewOfferProductList(JsonList jsonList) {
+        newProductJSON = jsonList;
+        newProductList.clear();
         for (Json json : jsonList) {
             ArrivalModel model = new ArrivalModel();
-            model.setCategory_name(json.getString(P.category_name));
-            model.setFilter_id(json.getString(P.filter_id));
             model.setId(json.getString(P.id));
+            model.setFilter_id(json.getString(P.filter_id));
             model.setName(json.getString(P.name));
-            model.setIs_wishlisted(json.getString(P.is_wishlisted));
-            model.setProduct_image(P.imgBaseUrl + string + json.getString(P.product_image));
-            trendingDataList.add(model);
-        }
-        trendingAdapter.notifyDataSetChanged();
+            model.setSlug(json.getString(P.slug));
+            model.setVariants_name(json.getString(P.variants_name));
+            model.setProduct_image(json.getString(P.product_image));
+            try {
+                Json priceJson = json.getJson(P.price);
+                model.setPrice(priceJson.getString(P.price));
+                model.setSaleprice(priceJson.getString(P.saleprice));
+                model.setDiscount_amount(priceJson.getString(P.discount_amount));
+                model.setDiscount(priceJson.getString(P.discount));
+            }catch (Exception e){
 
-        if (trendingDataList.isEmpty()){
-            binding.lnrTrendingArrived.setVisibility(View.GONE);
+            }
+            newProductList.add(model);
+        }
+        newProductAdapter.notifyDataSetChanged();
+
+        if (jsonList.size()==0){
+            binding.lnrNewProduct.setVisibility(View.GONE);
         }else {
-            binding.lnrTrendingArrived.setVisibility(View.VISIBLE);
+            binding.lnrNewProduct.setVisibility(View.VISIBLE);
         }
     }
 
+    private void setTrendingOfferProductList(JsonList jsonList) {
+        trendingProductJSON = jsonList;
+        trendingProductList.clear();
+        for (Json json : jsonList) {
+            ArrivalModel model = new ArrivalModel();
+            model.setId(json.getString(P.id));
+            model.setFilter_id(json.getString(P.filter_id));
+            model.setName(json.getString(P.name));
+            model.setSlug(json.getString(P.slug));
+            model.setVariants_name(json.getString(P.variants_name));
+            model.setProduct_image(json.getString(P.product_image));
+            try {
+                Json priceJson = json.getJson(P.price);
+                model.setPrice(priceJson.getString(P.price));
+                model.setSaleprice(priceJson.getString(P.saleprice));
+                model.setDiscount_amount(priceJson.getString(P.discount_amount));
+                model.setDiscount(priceJson.getString(P.discount));
+            }catch (Exception e){
+
+            }
+            trendingProductList.add(model);
+        }
+        trendingProductAdapter.notifyDataSetChanged();
+
+        if (jsonList.size()==0){
+            binding.lnrTrendingProduct.setVisibility(View.GONE);
+        }else {
+            binding.lnrTrendingProduct.setVisibility(View.VISIBLE);
+        }
+    }
 
     private void hitProductDetailsApi(String filterId,String productId) {
 
@@ -313,7 +393,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         Json j = new Json();
         j.addInt(P.filter_id,Integer.parseInt(filterId));
         j.addInt(P.id, Integer.parseInt(productId));
-        j.addInt(P.user_id, Config.dummyID_1);
+        if (session.getBool(P.isUserLogin)){
+            j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }
         j.addString(P.cart_token, new Session(this).getString(P.cart_token));
         j.addJSON(P.option, optionJson);
 
@@ -529,7 +611,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
 
         Json j = new Json();
         j.addString(P.cart_token, new Session(this).getString(P.cart_token));
-        j.addInt(P.user_id, Config.dummyID_1);
+        if (session.getBool(P.isUserLogin)){
+            j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }
         j.addInt(P.product_filter_id,Integer.parseInt(filterId));
         j.addInt(P.quantity, 1);
         j.addInt(P.option1, mainCategoryFilterId);
@@ -582,7 +666,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                                 imgAction.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_baseline_favorite_1));
                             }
                             Config.Update_Favorite_List = true;
-                            hitHomeApi();
+//                            hitHomeApi();
                         }else {
                             if (json.getString(P.msg).equals("wishlisted")){
                                 H.showMessage(activity, "Item added into favorite");

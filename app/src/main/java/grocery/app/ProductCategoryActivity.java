@@ -86,10 +86,13 @@ public class ProductCategoryActivity extends AppCompatActivity {
         ExpandableProductAdapter adapter = new ExpandableProductAdapter(activity,expandableListTitle,expandableListDetail);
         binding.productExpandList.setAdapter(adapter);
 
-        if (fromPosition){
-            binding.productExpandList.setVerticalScrollbarPosition(position);
-            binding.productExpandList.expandGroup(position);
-        }
+//        if (fromPosition){
+//            binding.productExpandList.setVerticalScrollbarPosition(position);
+//            binding.productExpandList.expandGroup(position);
+//        }
+
+        binding.productExpandList.setVerticalScrollbarPosition(position);
+        binding.productExpandList.expandGroup(position);
 
         binding.productExpandList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousItem = -1;

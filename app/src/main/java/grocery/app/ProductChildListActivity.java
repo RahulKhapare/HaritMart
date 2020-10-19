@@ -2,7 +2,6 @@ package grocery.app;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -38,7 +37,6 @@ import grocery.app.adapter.ProductListAdapter;
 import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductChildListBinding;
-import grocery.app.model.ArrivalModel;
 import grocery.app.model.ProductModel;
 import grocery.app.util.Config;
 import grocery.app.util.WindowBarColor;
@@ -62,6 +60,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
     private String jsnData;
     private JsonList checkListJson;
     private int clickedProductId;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +77,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         loadingDialog = new LoadingDialog(activity);
+        session = new Session(activity);
 
         initData();
         onActionClick();
@@ -155,11 +155,11 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         super.onResume();
         if (Config.Update_Favorite_List){
             Config.Update_Favorite_List = false;
-            if(!TextUtils.isEmpty(title) && title.equals(Config.NewArrived) || title.equals(Config.TrendingArrived)){
-                hitHomeApi();
-            }else {
-                hitProductListApi(clickedProductId);
-            }
+//            if(!TextUtils.isEmpty(title) && title.equals(Config.SpecialProductArrived) || title.equals(Config.NewProductArrived) || title.equals(Config.TrendingProductArrived)){
+//                hitHomeApi();
+//            }else {
+//                hitProductListApi(clickedProductId);
+//            }
         }
     }
 
@@ -167,7 +167,9 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         showLoader();
         try {
             Json j = new Json();
-            j.addInt(P.user_id, Config.dummyID_1);
+            if (session.getBool(P.isUserLogin)){
+                j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+            }
             Api.newApi(activity, P.baseUrl + "home").addJson(j)
                     .setMethod(Api.POST)
                     //.onHeaderRequest(App::getHeaders)
@@ -181,10 +183,12 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
                             json = json.getJson(P.data);
                             App.homeJSONDATA = json;
                             App.product_image_path = json.getString(P.product_image_path);
-                            if (title.equals(Config.NewArrived)) {
-                                loadProductListData(json.getString(P.product_image_path), json.getJsonList(P.latest_product_list));
-                            } else if (title.equals(Config.TrendingArrived)){
-                                loadProductListData(json.getString(P.product_image_path), json.getJsonList(P.trending_product_list));
+                            if (title.equals(Config.SpecialProductArrived)) {
+                                loadProductListData(json.getJsonList(P.special_offer_product));
+                            } else if (title.equals(Config.NewProductArrived)){
+                                loadProductListData(json.getJsonList(P.new_product));
+                            }else if (title.equals(Config.TrendingProductArrived)){
+                                loadProductListData(json.getJsonList(P.under_50_product));
                             }
                         } else {
                             showError();
@@ -197,23 +201,24 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
         }
     }
 
-    private void loadProductListData(String string, JsonList jsonList){
+    private void loadProductListData(JsonList jsonList){
         productModelList.clear();
         try {
             for (Json json : jsonList) {
                 ProductModel model = new ProductModel();
-                model.setCategory_name(json.getString(P.category_name));
                 model.setId(json.getString(P.id));
                 model.setFilter_id(json.getString(P.filter_id));
                 model.setName(json.getString(P.name));
-                model.setIs_wishlisted(json.getString(P.is_wishlisted));
-                model.setProduct_image(P.imgBaseUrl + string + json.getString(P.product_image));
+                model.setSlug(json.getString(P.slug));
+                model.setVariants_name(json.getString(P.variants_name));
+                model.setProduct_image(json.getString(P.product_image));
+                model.setFilter_option(json.getJsonList(P.filter_option));
                 try {
-//                    JSONObject priceJson =  jsonObject.getJSONObject(P.price);
-                    model.setPrice("0");
-                    model.setSaleprice("0");
-                    model.setDiscount_amount("0");
-                    model.setDiscount("0");
+                    Json priceJson = json.getJson(P.price);
+                    model.setPrice(priceJson.getString(P.price));
+                    model.setSaleprice(priceJson.getString(P.saleprice));
+                    model.setDiscount_amount(priceJson.getString(P.discount_amount));
+                    model.setDiscount(priceJson.getString(P.discount));
                 }catch (Exception e){
 
                 }
@@ -301,6 +306,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
                                     model.setName(jsonObject.getString(P.name));
                                     model.setVariants_name(jsonObject.getString(P.variants_name));
                                     model.setProduct_image(jsonObject.getString(P.product_image));
+                                    model.setFilter_option(json.getJsonList(P.filter_option));
                                     try {
                                         JSONObject priceJson =  jsonObject.getJSONObject(P.price);
                                         model.setPrice(priceJson.getString(P.price));
@@ -519,7 +525,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
                             imgAction.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_baseline_add_24));
                         }
 
-                        if(!TextUtils.isEmpty(title) && title.equals(Config.NewArrived) || title.equals(Config.TrendingArrived)){
+                        if(!TextUtils.isEmpty(title) && title.equals(Config.SpecialProductArrived) || title.equals(Config.NewProductArrived) || title.equals(Config.TrendingProductArrived)){
                             Config.Update_Favorite_Home = true;
                         }
 
@@ -571,7 +577,9 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
     @Override
     public void add(int filterId, ImageView imgAction) {
         Json json = new Json();
-        json.addInt(P.user_id, Config.dummyID_1);
+        if (session.getBool(P.isUserLogin)){
+            json.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }
         json.addInt(P.product_filter_id, filterId);
         hitAddToWishList(json,imgAction);
     }

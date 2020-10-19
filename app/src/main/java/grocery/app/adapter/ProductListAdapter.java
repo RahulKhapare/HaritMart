@@ -4,18 +4,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.adoisstudio.helper.H;
+import com.adoisstudio.helper.Json;
+import com.adoisstudio.helper.JsonList;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import grocery.app.ProductChildListActivity;
@@ -23,6 +31,7 @@ import grocery.app.ProductDetailsActivity;
 import grocery.app.R;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductItemListBgBinding;
+import grocery.app.model.FilterProductModel;
 import grocery.app.model.ProductModel;
 import grocery.app.util.Click;
 import grocery.app.util.Config;
@@ -54,12 +63,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         ProductModel model = productModelList.get(position);
         Picasso.get().load(model.getProduct_image()).error(R.mipmap.ic_launcher).placeholder(R.drawable.progress_animation).into(holder.binding.imgProduct);
         holder.binding.txtProductName.setText(model.getName());
-        holder.binding.txtProductWeight.setText("0Kg");
+        holder.binding.txtProductWeight.setText(model.getVariants_name());
         holder.binding.txtProductOff.setText(rs + model.getPrice());
         holder.binding.txtProductPrice.setText(rs + model.getSaleprice());
 
+        setFilterData(model,holder.binding.spinnerFilter,holder.binding.lnrFilter);
+
         String offValue = "0";
-        if (!TextUtils.isEmpty(model.getPrice()) && !TextUtils.isEmpty(model.getPrice())){
+        if (!TextUtils.isEmpty(model.getPrice()) && !TextUtils.isEmpty(model.getSaleprice())){
             int actualValue = Integer.parseInt(model.getPrice());
             int discountValue = Integer.parseInt(model.getSaleprice());
             try {
@@ -73,7 +84,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             }
         }
 
-
         holder.binding.txtPercent.setText(offValue + "% OFF");
 
         holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -84,7 +94,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 grocery.app.util.Click.preventTwoClick(v);
                 Intent productIntent = new Intent(context, ProductDetailsActivity.class);
                 productIntent.putExtra(Config.PRODUCT_ID,model.getId());
-                productIntent.putExtra(Config.PRODUCT_FILTER_ID,model.getFilter_id());
+                if (model.getExternalFilterId()==null){
+                    productIntent.putExtra(Config.PRODUCT_FILTER_ID,model.getFilter_id());
+                }else {
+                    productIntent.putExtra(Config.PRODUCT_FILTER_ID,model.getExternalFilterId());
+                }
                 context.startActivity(productIntent);
             }
         });
@@ -133,4 +147,63 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         return disPercent;
     }
+
+    private void setFilterData(ProductModel productModel, Spinner spinner, RelativeLayout lnrFilter){
+
+        boolean firstValue = false;
+
+        String filterString = productModel.getFilter_option()+"";
+
+        if (filterString.equals("[]")){
+            hideView(lnrFilter);
+        }else if(productModel.getFilter_option()!=null){
+            try {
+                List<FilterProductModel> filterProductModelList = new ArrayList<>();
+                for (int i=0; i<productModel.getFilter_option().size(); i++){
+                    Json json = productModel.getFilter_option().get(i);
+                    FilterProductModel filterModel = new FilterProductModel();
+                    filterModel.setFilter_id(json.getString(P.filter_id).trim());
+                    filterModel.setVariants_name(json.getString(P.variants_name).trim());
+                    filterProductModelList.add(filterModel);
+                    if (!firstValue){
+                        firstValue = true;
+                        productModel.setExternalFilterId(json.getString(P.filter_id).trim());
+                        productModel.setExternalFilterName(json.getString(P.variants_name).trim());
+                    }
+                }
+
+                FilterSpinnerAdapter adapter = new FilterSpinnerAdapter(context,filterProductModelList);
+                spinner.setAdapter(adapter);
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        FilterProductModel model = filterProductModelList.get(position);
+                        productModel.setExternalFilterId(model.getFilter_id());
+                        productModel.setExternalFilterName(model.getVariants_name().trim());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+                if (filterProductModelList.size()==1 || filterProductModelList.size()==0){
+                    hideView(lnrFilter);
+                }
+
+            }catch (Exception e){
+                hideView(lnrFilter);
+            }
+        }else {
+            hideView(lnrFilter);
+        }
+    }
+
+
+    private void hideView(RelativeLayout lnrFilter){
+        lnrFilter.setVisibility(View.GONE);
+    }
+
 }

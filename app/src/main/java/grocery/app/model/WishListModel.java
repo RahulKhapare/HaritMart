@@ -9,6 +9,15 @@ public class WishListModel {
     String filter_id;
     String name;
     String product_image;
+    String variants_name;
+
+    public String getVariants_name() {
+        return variants_name;
+    }
+
+    public void setVariants_name(String variants_name) {
+        this.variants_name = variants_name;
+    }
 
     public String getProduct_image_path() {
         return product_image_path;

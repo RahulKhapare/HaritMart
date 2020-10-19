@@ -21,6 +21,7 @@ import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.JsonList;
 import com.adoisstudio.helper.LoadingDialog;
+import com.adoisstudio.helper.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
     private List<SearchModel> searchModelList;
     private List<SearchModel> trendModelList;
     private LoadingDialog loadingDialog;
+    private Session session;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +53,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false);
         context = inflater.getContext();
         loadingDialog = new LoadingDialog(context);
+        session = new Session(context);
         initView();
         return binding.getRoot();
     }
@@ -125,7 +128,9 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
         showLoader();
         try {
             Json j = new Json();
-            j.addInt(P.user_id, Config.dummyID_1);
+            if (session.getBool(P.isUserLogin)){
+                j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+            }
             Api.newApi(context, P.baseUrl + "home").addJson(j)
                     .setMethod(Api.POST)
                     //.onHeaderRequest(App::getHeaders)
@@ -139,7 +144,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
                             json = json.getJson(P.data);
                             App.homeJSONDATA = json;
                             App.product_image_path = json.getString(P.product_image_path);
-                            setUpTrendingProductList(json.getString(P.product_image_path), json.getJsonList(P.trending_product_list));
+                            setUpTrendingProductList(json.getJsonList(P.under_50_product));
                         } else {
                             showError();
                         }
@@ -152,16 +157,25 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
 
     }
 
-    private void setUpTrendingProductList(String string, JsonList jsonList) {
+    private void setUpTrendingProductList(JsonList jsonList) {
         trendModelList.clear();
         for (Json json : jsonList) {
             SearchModel model = new SearchModel();
-            model.setCategory_name(json.getString(P.category_name));
-            model.setFilter_id(json.getString(P.filter_id));
             model.setId(json.getString(P.id));
+            model.setFilter_id(json.getString(P.filter_id));
             model.setName(json.getString(P.name));
-            model.setIs_wishlisted(json.getString(P.is_wishlisted));
-            model.setProduct_image(P.imgBaseUrl + string + json.getString(P.product_image));
+            model.setSlug(json.getString(P.slug));
+            model.setVariants_name(json.getString(P.variants_name));
+            model.setProduct_image(json.getString(P.product_image));
+            try {
+                Json priceJson = json.getJson(P.price);
+                model.setPrice(priceJson.getString(P.price));
+                model.setSaleprice(priceJson.getString(P.saleprice));
+                model.setDiscount_amount(priceJson.getString(P.discount_amount));
+                model.setDiscount(priceJson.getString(P.discount));
+            }catch (Exception e){
+
+            }
             trendModelList.add(model);
         }
         trendAdapter.notifyDataSetChanged();
