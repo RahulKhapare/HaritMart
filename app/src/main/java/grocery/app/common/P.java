@@ -11,6 +11,7 @@ public class P {
     public static String product_image_path="product_image_path";
     public static String slider_list="slider_list";
     public static String all_images="all_images";
+    public static String fcmToken="fcmToken";
 
     public static String login_token="login_token";
     public static String user_data="user_data";
@@ -110,6 +111,7 @@ public class P {
     public static String googleKnownName = "googleKnownName";
     public static String isUserLogin = "isUserLogin";
     public static String isUserAddress = "isUserAddress";
+    public static String isSkipUser = "isSkipUser";
 
     public static String new_window = "new_window";
     public static String url = "url";

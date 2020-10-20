@@ -31,6 +31,7 @@ public class NotificationActivity extends AppCompatActivity {
     private List<NotificationModel> notificationModelList;
     private NotificationAdapter adapter;
     private LoadingDialog loadingDialog;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void initView(){
+        session = new Session(activity);
         loadingDialog = new LoadingDialog(activity);
         notificationModelList = new ArrayList<>();
 
@@ -62,7 +64,11 @@ public class NotificationActivity extends AppCompatActivity {
     private void hitNotificationList() {
         showProgress();
         Json j = new Json();
-        j.addInt(P.user_id, Config.dummyID_1);
+        if (session.getBool(P.isUserLogin)){
+            j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }else {
+            j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }
         j.addString(P.cart_token, new Session(activity).getString(P.cart_token));
         Api.newApi(activity, P.baseUrl + "notification").addJson(j)
                 .setMethod(Api.POST)

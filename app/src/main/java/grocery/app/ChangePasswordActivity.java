@@ -25,6 +25,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private ChangePasswordActivity activity = this;
     private ActivityChangePasswordBinding binding;
     private LoadingDialog loadingDialog;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     private void initView(){
+
+        session = new Session(activity);
+
         loadingDialog = new LoadingDialog(activity);
 
         binding.btnChangePass.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +87,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private void hitUpdatePasswordApi() {
         showProgress();
         Json j = new Json();
-        j.addInt(P.user_id, Config.dummyID_1);
+        j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
         j.addString(P.old_password, binding.etxOldPassword.getText().toString().trim());
         j.addString(P.new_password, binding.etxNewPassword.getText().toString().trim());
         j.addString(P.cofirm_new_password, binding.etxConfirmPassword.getText().toString().trim());

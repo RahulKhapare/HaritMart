@@ -23,6 +23,7 @@ import com.adoisstudio.helper.Session;
 import java.util.ArrayList;
 import java.util.List;
 
+import grocery.app.BaseActivity;
 import grocery.app.ProductCategoryActivity;
 import grocery.app.ProductChildListActivity;
 import grocery.app.R;
@@ -237,6 +238,8 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
             Json j = new Json();
             if (session.getBool(P.isUserLogin)){
                 j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+            }else {
+                j.addInt(P.user_id, Config.commonUserID);
             }
             Api.newApi(context, P.baseUrl + "home").addJson(j)
                     .setMethod(Api.POST)
@@ -438,9 +441,13 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
     @Override
     public void add(int filterId, ImageView imgAction) {
         Json json = new Json();
-        json.addInt(P.user_id, Config.dummyID_1);
+        if (session.getBool(P.isUserLogin)){
+            json.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }else {
+            json.addInt(P.user_id, Config.commonUserID);
+        }
         json.addInt(P.product_filter_id, filterId);
-        hitAddToWishList(json,imgAction);
+//        hitAddToWishList(json,imgAction);
     }
 
 }

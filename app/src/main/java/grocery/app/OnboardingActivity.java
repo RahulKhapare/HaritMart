@@ -98,6 +98,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         });
         binding.txtSkip.setOnClickListener(v -> {
             Click.preventTwoClick(v);
+//            new Session(this).addBool(P.isSkipUser,true);
 //            Intent intent = new Intent(OnboardingActivity.this, SetLocationActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //            startActivity(intent);

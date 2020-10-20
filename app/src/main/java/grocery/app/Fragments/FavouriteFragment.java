@@ -68,6 +68,8 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
         Json json = new Json();
         if (session.getBool(P.isUserLogin)){
             json.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }else {
+            json.addInt(P.user_id, Config.commonUserID);
         }
         json.addInt(P.wishlist_id, filterId);
         hitRemoveToWishList(json,cardView,position);
@@ -96,6 +98,8 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
         Json j = new Json();
         if (session.getBool(P.isUserLogin)){
             j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }else {
+            j.addInt(P.user_id, Config.commonUserID);
         }
         Api.newApi(context, P.baseUrl + "wishlist").addJson(j)
                 .setMethod(Api.POST)

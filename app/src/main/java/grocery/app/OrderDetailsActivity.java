@@ -358,7 +358,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
 
     private void hitOrderCancelApi(String orderNumber, String comment) {
         Json j = new Json();
-        j.addInt(P.user_id, Config.dummyID_1);
+        j.addInt(P.user_id, H.getInt(new Session(activity).getString(P.user_id)));
         j.addString(P.order_number, orderNumber);
         j.addString(P.order_status, "Cancelled");
         j.addString(P.order_status_comment, comment);

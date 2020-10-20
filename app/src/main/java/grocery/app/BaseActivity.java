@@ -25,6 +25,7 @@ import grocery.app.common.P;
 import grocery.app.databinding.ActivityBaseBinding;
 import grocery.app.util.Click;
 import grocery.app.util.Config;
+import grocery.app.util.PageUtil;
 import grocery.app.util.WindowBarColor;
 
 public class BaseActivity extends AppCompatActivity {
@@ -40,6 +41,7 @@ public class BaseActivity extends AppCompatActivity {
     private boolean checkCartData = false;
     private final int TIME_DELAY = 2000;
     private long back_pressed;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class BaseActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         fragmentManager = getSupportFragmentManager();
         checkCartData = getIntent().getBooleanExtra(Config.CHECK_CART_DATA,false);
+        session = new Session(activity);
 
         if (checkCartData){
             onBottomBarClick(binding.cartLayout);
@@ -59,13 +62,21 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void onClickNotification(View view) {
-        Intent notificationIntent = new Intent(activity,NotificationActivity.class);
-        startActivity(notificationIntent);
+        if (session.getBool(P.isUserLogin)){
+            Intent notificationIntent = new Intent(activity,NotificationActivity.class);
+            startActivity(notificationIntent);
+        }else {
+            PageUtil.goToLoginPage(activity);
+        }
     }
 
     public void onClickProfile(View view) {
-        Intent accountIntent = new Intent(activity, MyAccountActivity.class);
-        startActivity(accountIntent);
+        if (session.getBool(P.isUserLogin)){
+            Intent accountIntent = new Intent(activity, MyAccountActivity.class);
+            startActivity(accountIntent);
+        }else {
+            PageUtil.goToLoginPage(activity);
+        }
     }
 
 
@@ -92,9 +103,13 @@ public class BaseActivity extends AppCompatActivity {
                 break;
             }
             case R.id.favouriteLayout: {
-                if (!TextUtils.isEmpty(currentFlag) && !currentFlag.equals(Config.FAVORITE)){
-                    favouriteFragment = FavouriteFragment.newInstance();
-                    fragmentLoader(favouriteFragment, Config.FAVORITE);
+                if (session.getBool(P.isUserLogin)){
+                    if (!TextUtils.isEmpty(currentFlag) && !currentFlag.equals(Config.FAVORITE)){
+                        favouriteFragment = FavouriteFragment.newInstance();
+                        fragmentLoader(favouriteFragment, Config.FAVORITE);
+                    }
+                }else {
+                    PageUtil.goToLoginPage(activity);
                 }
                 break;
             }

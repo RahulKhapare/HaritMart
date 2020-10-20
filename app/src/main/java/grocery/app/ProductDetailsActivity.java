@@ -5,7 +5,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -42,6 +41,7 @@ import grocery.app.model.SliderModel;
 import grocery.app.util.Click;
 import grocery.app.util.Config;
 import grocery.app.util.ConnectionUtil;
+import grocery.app.util.PageUtil;
 import grocery.app.util.WindowBarColor;
 
 public class ProductDetailsActivity extends AppCompatActivity implements NewArrivalAdapter.ClickItem, CategoryFilterAdapter.ClickView {
@@ -218,13 +218,18 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             @Override
             public void onClick(View v) {
                 Click.preventTwoClick(v);
-                if (binding.btnCart.getText().toString().equals(addToCart)){
-                    checkAddCart();
-                }else if (binding.btnCart.getText().toString().equals(goToCart)){
-                    Intent cartIntent = new Intent(activity,BaseActivity.class);
-                    cartIntent.putExtra(Config.CHECK_CART_DATA,true);
-                    startActivity(cartIntent);
+                if (session.getBool(P.isUserLogin)){
+                    if (binding.btnCart.getText().toString().equals(addToCart)){
+                        checkAddCart();
+                    }else if (binding.btnCart.getText().toString().equals(goToCart)){
+                        Intent cartIntent = new Intent(activity,BaseActivity.class);
+                        cartIntent.putExtra(Config.CHECK_CART_DATA,true);
+                        startActivity(cartIntent);
+                    }
+                }else {
+                    PageUtil.goToLoginPage(activity);
                 }
+
             }
         });
 

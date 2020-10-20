@@ -31,7 +31,7 @@ public class Config {
     public static String CHECK_CART_DATA = "CHECK_CART_DATA";
 
     public static boolean FROM_ADDRESS = false;
-
+    public static String PUSH_NOTIFICATION = "pushNotification";
     public static String HOME = "HOME";
     public static String FAVORITE = "FAVORITE";
     public static String SEARCH = "SEARCH";
@@ -51,7 +51,6 @@ public class Config {
 
     public static Json CART_JSON;
 
-    public static int dummyID_1 = 1;
     public static int commonUserID = 0;
     public static int OPEN = 1;
     public static int SHARE = 2;

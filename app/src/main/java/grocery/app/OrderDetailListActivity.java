@@ -81,7 +81,7 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
         orderDetailListModelList.clear();
         showProgress();
         Json j = new Json();
-        j.addInt(P.user_id, Config.dummyID_1);
+        j.addInt(P.user_id, H.getInt(new Session(activity).getString(P.user_id)));
         j.addString(P.cart_token, new Session(activity).getString(P.cart_token));
         Api.newApi(activity, P.baseUrl + "").addJson(j)
                 .setMethod(Api.POST)

@@ -80,9 +80,13 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnProcessToPay:
-                Intent addressIntent = new Intent(context, MyAddressActivity.class);
-                addressIntent.putExtra(Config.FOR_CHECKOUT,true);
-                startActivity(addressIntent);
+                if (session.getBool(P.isUserLogin)){
+                    Intent addressIntent = new Intent(context, MyAddressActivity.class);
+                    addressIntent.putExtra(Config.FOR_CHECKOUT,true);
+                    startActivity(addressIntent);
+                }else {
+
+                }
                 break;
             case R.id.txtApplyCoupon:
                 onCouponClick();
@@ -236,6 +240,8 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         j.addString(P.cart_token, new Session(context).getString(P.cart_token));
         if (session.getBool(P.isUserLogin)){
             j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }else {
+            j.addInt(P.user_id, Config.commonUserID);
         }
         j.addString(P.coupon_code, couponCode);
         Api.newApi(context, P.baseUrl + "cart").addJson(j)

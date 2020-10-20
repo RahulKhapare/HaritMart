@@ -42,5 +42,32 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/lnrError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_term_condition"
+                android:tint="@color/colorPrimaryDark"></ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:gravity="center_horizontal"
+                android:maxLines="1"
+                android:text="No Cart Added"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+
     </RelativeLayout>
 </layout>

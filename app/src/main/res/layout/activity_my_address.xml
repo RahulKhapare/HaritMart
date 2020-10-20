@@ -90,13 +90,13 @@
 
                             <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center_horizontal"
                                 android:drawableLeft="@drawable/ic_baseline_my_location_24"
                                 android:drawablePadding="10dp"
                                 android:fontFamily="@font/nunito_sans_semibold"
                                 android:padding="10dp"
-                                android:text="Choose current location for address"
+                                android:text="Choose location for address"
                                 android:textColor="#373737"
                                 android:textSize="14sp"></TextView>
 

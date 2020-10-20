@@ -3,6 +3,7 @@ package grocery.app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +12,7 @@ import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.LoadingDialog;
 import com.adoisstudio.helper.Session;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import grocery.app.common.P;
 import grocery.app.util.WindowBarColor;
@@ -26,6 +28,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         loadingDialog = new LoadingDialog(this);
+        getFirebaseToken();
         hitCartTokenApi();
         hitInitApi();
     }
@@ -65,12 +68,31 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 }, 1230);
                             }
                         }else {
-                            new Handler().postDelayed(() -> {
-                                Intent intent = new Intent(this, OnboardingActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                                finish();
-                            }, 1230);
+                            if (new Session(this).getBool(P.isSkipUser))
+                            {
+                                if (!new Session(this).getBool(P.isUserAddress)){
+                                    new Handler().postDelayed(() -> {
+                                        Intent intent = new Intent(this, SetLocationActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finish();
+                                    }, 1230);
+                                }else {
+                                    new Handler().postDelayed(() -> {
+                                        Intent intent = new Intent(this, BaseActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finish();
+                                    }, 1230);
+                                }
+                            }else {
+                                new Handler().postDelayed(() -> {
+                                    Intent intent = new Intent(this, OnboardingActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    finish();
+                                }, 1230);
+                            }
                         }
                     } else {
                         H.showMessage(this, "Something went wrong");
@@ -97,5 +119,13 @@ public class SplashScreenActivity extends AppCompatActivity {
                     }
                 })
                 .run("hitCartTokenApi");
+    }
+
+    public void getFirebaseToken(){
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, instanceIdResult -> {
+            String newToken = instanceIdResult.getToken();
+            new Session(this).addString(P.fcmToken,newToken);
+            Log.e("TAG", "getFirebaseToken: " + new Session(this).getString(P.fcmToken));
+        });
     }
 }

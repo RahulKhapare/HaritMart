@@ -50,13 +50,16 @@ public class TermAndCConditionAdapter extends BaseExpandableListAdapter {
         TextView txtDescription = convertView.findViewById(R.id.txtDescription);
         TextView txtReadMore = convertView.findViewById(R.id.txtReadMore);
         txtDescription.setText(model.getMessage());
-        if (model.getMessage().length()>500){
+        if (model.getMessage().length()>400){
+            txtDescription.setMaxLines(5);
             txtReadMore.setVisibility(View.VISIBLE);
         }
         txtReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                txtReadMore.setVisibility(View.GONE);
+                txtDescription.setMaxLines(500);
+                txtDescription.setText(model.getMessage());
             }
         });
         return convertView;
