@@ -137,7 +137,6 @@
                                 android:fontFamily="@font/nunito_sans_regular"
                                 android:padding="8dp"
                                 android:text="Change"
-                                android:visibility="gone"
                                 android:textColor="@color/saffron">
 
                             </TextView>

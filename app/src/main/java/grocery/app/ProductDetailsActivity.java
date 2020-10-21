@@ -1,6 +1,7 @@
 package grocery.app;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,11 +37,11 @@ import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductDetailsBinding;
 import grocery.app.model.ArrivalModel;
 import grocery.app.model.CategoryFilterModel;
-import grocery.app.model.ProductModel;
 import grocery.app.model.SliderModel;
 import grocery.app.util.Click;
 import grocery.app.util.Config;
 import grocery.app.util.ConnectionUtil;
+import grocery.app.util.LoginFlag;
 import grocery.app.util.PageUtil;
 import grocery.app.util.WindowBarColor;
 
@@ -62,6 +63,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     private List<CategoryFilterModel> subCategoryFilterModelList;
     private String filterId;
     private String producId;
+    private String description;
     private Json optionJson = new Json();
     private LoadingDialog loadingDialog;
     private String rs = "₹ ";
@@ -140,6 +142,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         onClick();
         hitProductDetailsApi(filterId,producId);
         hitHomeApi();
+
     }
 
     @Override
@@ -195,12 +198,16 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             public void onClick(View v) {
                 Click.preventTwoClick(v);
                 if (ConnectionUtil.isOnline(activity)){
-                    Json json = new Json();
                     if (session.getBool(P.isUserLogin)){
+                        Json json = new Json();
                         json.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+                        json.addInt(P.product_filter_id, Integer.parseInt(filterId));
+                        hitAddToWishList(json,binding.imgLike,true);
+                    }else {
+                        LoginFlag.loginProductId = producId;
+                        LoginFlag.loginFilterId = filterId;
+                        PageUtil.goToLoginPage(activity,LoginFlag.productDetailFlagValue);
                     }
-                    json.addInt(P.product_filter_id, Integer.parseInt(filterId));
-                    hitAddToWishList(json,binding.imgLike,true);
                 }else {
                     getResources().getString(R.string.internetMessage);
                 }
@@ -211,6 +218,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             @Override
             public void onClick(View v) {
                 Click.preventTwoClick(v);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, Config.PAGE_LINK + filterId);
+                startActivity(Intent.createChooser(intent, "Share Using"));
             }
         });
 
@@ -218,16 +229,27 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             @Override
             public void onClick(View v) {
                 Click.preventTwoClick(v);
-                if (session.getBool(P.isUserLogin)){
-                    if (binding.btnCart.getText().toString().equals(addToCart)){
-                        checkAddCart();
-                    }else if (binding.btnCart.getText().toString().equals(goToCart)){
-                        Intent cartIntent = new Intent(activity,BaseActivity.class);
-                        cartIntent.putExtra(Config.CHECK_CART_DATA,true);
-                        startActivity(cartIntent);
-                    }
-                }else {
-                    PageUtil.goToLoginPage(activity);
+
+//                if (session.getBool(P.isUserLogin)){
+//                    if (binding.btnCart.getText().toString().equals(addToCart)){
+//                        checkAddCart();
+//                    }else if (binding.btnCart.getText().toString().equals(goToCart)){
+//                        Intent cartIntent = new Intent(activity,BaseActivity.class);
+//                        cartIntent.putExtra(Config.CHECK_CART_DATA,true);
+//                        startActivity(cartIntent);
+//                    }
+//                }else {
+//                    LoginFlag.loginProductId = producId;
+//                    LoginFlag.loginFilterId = filterId;
+//                    PageUtil.goToLoginPage(activity,LoginFlag.productDetailFlagValue);
+//                }
+
+                if (binding.btnCart.getText().toString().equals(addToCart)){
+                    checkAddCart();
+                }else if (binding.btnCart.getText().toString().equals(goToCart)){
+                    Intent cartIntent = new Intent(activity,BaseActivity.class);
+                    cartIntent.putExtra(Config.CHECK_CART_DATA,true);
+                    startActivity(cartIntent);
                 }
 
             }
@@ -259,7 +281,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             json.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
         }
         json.addInt(P.product_filter_id, filterId);
-        hitAddToWishList(json,imgAction,false);
+//        hitAddToWishList(json,imgAction,false);
     }
 
 
@@ -269,6 +291,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             Json j = new Json();
             if (session.getBool(P.isUserLogin)){
                 j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+            }else {
+                j.addInt(P.user_id, Config.commonUserHomeID);
             }
             Api.newApi(activity, P.baseUrl + "home").addJson(j)
                     .setMethod(Api.POST)
@@ -319,7 +343,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             }catch (Exception e){
 
             }
-            specialOfferProductList.add(model);
+
+            if (!model.getFilter_id().equals(filterId)){
+                specialOfferProductList.add(model);
+            }
+
         }
         specialOfferAdapter.notifyDataSetChanged();
 
@@ -350,7 +378,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             }catch (Exception e){
 
             }
-            newProductList.add(model);
+
+            if (!model.getFilter_id().equals(filterId)){
+                newProductList.add(model);
+            }
+
         }
         newProductAdapter.notifyDataSetChanged();
 
@@ -381,7 +413,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             }catch (Exception e){
 
             }
-            trendingProductList.add(model);
+
+            if (!model.getFilter_id().equals(filterId)){
+                trendingProductList.add(model);
+            }
+
         }
         trendingProductAdapter.notifyDataSetChanged();
 
@@ -400,6 +436,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         j.addInt(P.id, Integer.parseInt(productId));
         if (session.getBool(P.isUserLogin)){
             j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }else {
+            j.addInt(P.user_id, Config.commonUserID);
         }
         j.addString(P.cart_token, new Session(this).getString(P.cart_token));
         j.addJSON(P.option, optionJson);
@@ -618,6 +656,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         j.addString(P.cart_token, new Session(this).getString(P.cart_token));
         if (session.getBool(P.isUserLogin)){
             j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }else {
+            j.addInt(P.user_id, Config.commonUserID);
         }
         j.addInt(P.product_filter_id,Integer.parseInt(filterId));
         j.addInt(P.quantity, 1);

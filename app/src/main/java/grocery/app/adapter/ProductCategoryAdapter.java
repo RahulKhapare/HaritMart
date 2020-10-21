@@ -29,7 +29,7 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
     private Context context;
     private List<ProductModel> productModelList;
     private HomeFragment homeFragment;
-    private int maxItem = 4;
+    private int maxItem = 10;
     public interface ItemClick{
         void itemClick(int position);
     }

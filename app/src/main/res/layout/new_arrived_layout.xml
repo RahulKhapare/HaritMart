@@ -17,8 +17,8 @@
 
             <ImageView
                 android:id="@+id/imgVeg"
-                android:layout_width="105dp"
-                android:layout_height="65dp"
+                android:layout_width="116dp"
+                android:layout_height="109dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/tomato" />
 

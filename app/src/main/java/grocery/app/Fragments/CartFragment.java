@@ -37,6 +37,8 @@ import grocery.app.databinding.FragmentCartBinding;
 import grocery.app.model.CartModel;
 import grocery.app.util.AmountFormat;
 import grocery.app.util.Config;
+import grocery.app.util.LoginFlag;
+import grocery.app.util.PageUtil;
 
 
 public class CartFragment extends Fragment implements View.OnClickListener, CartAdapter.CartInterface {
@@ -81,11 +83,12 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         switch (v.getId()) {
             case R.id.btnProcessToPay:
                 if (session.getBool(P.isUserLogin)){
-                    Intent addressIntent = new Intent(context, MyAddressActivity.class);
-                    addressIntent.putExtra(Config.FOR_CHECKOUT,true);
-                    startActivity(addressIntent);
+                    H.showMessage(context,"Action Pending");
+//                    Intent addressIntent = new Intent(context, MyAddressActivity.class);
+//                    addressIntent.putExtra(Config.FOR_CHECKOUT,true);
+//                    startActivity(addressIntent);
                 }else {
-
+                    PageUtil.goToLoginPage(context, LoginFlag.cartFlagValue);
                 }
                 break;
             case R.id.txtApplyCoupon:
@@ -124,6 +127,8 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         j.addString(P.coupon_code, couponCode);
         if (session.getBool(P.isUserLogin)){
             j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }else {
+            j.addInt(P.user_id, Config.commonUserID);
         }
         Api.newApi(context, P.baseUrl + "apply_coupon_code").addJson(j)
                 .setMethod(Api.POST)

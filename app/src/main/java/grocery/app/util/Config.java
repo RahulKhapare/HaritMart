@@ -29,6 +29,7 @@ public class Config {
     public static String PRODUCT_ID = "PRODUCT_ID";
     public static String PRODUCT_FILTER_ID = "PRODUCT_FILTER_ID";
     public static String CHECK_CART_DATA = "CHECK_CART_DATA";
+    public static String UPDATE_LOGIN_FLAG = "UPDATE_LOGIN_FLAG";
 
     public static boolean FROM_ADDRESS = false;
     public static String PUSH_NOTIFICATION = "pushNotification";
@@ -48,10 +49,12 @@ public class Config {
     public static String TrendingProductArrived = "Trending Product";
 
     public static String GOOGLE_ADDRESS = "GOOGLE_ADDRESS";
+    public static String PAGE_LINK = "https://grocery.page.link/";
 
     public static Json CART_JSON;
 
     public static int commonUserID = 0;
+    public static int commonUserHomeID = 1;
     public static int OPEN = 1;
     public static int SHARE = 2;
 }

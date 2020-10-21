@@ -162,7 +162,7 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
         dialog.findViewById(R.id.txtNo).setOnClickListener(v -> {
             dialog.cancel();
         });
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.show();
     }
 

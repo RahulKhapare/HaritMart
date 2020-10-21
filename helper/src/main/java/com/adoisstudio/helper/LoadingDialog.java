@@ -72,6 +72,7 @@ public class LoadingDialog extends Dialog {
     }
 
     public void show(String msg) {
+        rotateLoading.start();
         ((TextView) findViewById(R.id.msg)).setText(msg);
         super.show();
     }

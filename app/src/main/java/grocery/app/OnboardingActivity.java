@@ -28,6 +28,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -58,6 +59,8 @@ import grocery.app.adapter.OnBoardingAdapter;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityOnboardingBinding;
 import grocery.app.util.Click;
+import grocery.app.util.Config;
+import grocery.app.util.LoginFlag;
 
 public class OnboardingActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -76,12 +79,14 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
     private int googleFlag = 1;
     private int facebookFlag = 2;
     private LoadingDialog loadingDialog;
+    private boolean updateLoginFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(activity,R.layout.activity_onboarding);
         loadingDialog = new LoadingDialog(this);
+        updateLoginFlag = getIntent().getBooleanExtra(Config.UPDATE_LOGIN_FLAG,false);
         setupOnBoardingItems();
         hitCartTokenApi();
         initFacebookLogin();
@@ -98,10 +103,14 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         });
         binding.txtSkip.setOnClickListener(v -> {
             Click.preventTwoClick(v);
-//            new Session(this).addBool(P.isSkipUser,true);
-//            Intent intent = new Intent(OnboardingActivity.this, SetLocationActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            startActivity(intent);
+            if (updateLoginFlag){
+                finish();
+            }else {
+                new Session(this).addBool(P.isSkipUser,true);
+                Intent intent = new Intent(OnboardingActivity.this, SetLocationActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
         });
 
         printHashKey(activity);
@@ -225,7 +234,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
     }
 
     private void initFacebookLogin(){
-//        FacebookSdk.sdkInitialize(activity);
+        FacebookSdk.sdkInitialize(activity);
         mAuth = FirebaseAuth.getInstance();
         mCallbackManager = CallbackManager.Factory.create();
         binding.loginButton.setReadPermissions("email", "public_profile");

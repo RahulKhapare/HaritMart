@@ -131,7 +131,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
             if (session.getBool(P.isUserLogin)){
                 j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
             }else {
-                j.addInt(P.user_id, Config.commonUserID);
+                j.addInt(P.user_id, Config.commonUserHomeID);
             }
             Api.newApi(context, P.baseUrl + "home").addJson(j)
                     .setMethod(Api.POST)

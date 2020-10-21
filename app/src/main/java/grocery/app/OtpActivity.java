@@ -21,6 +21,7 @@ import grocery.app.common.P;
 import grocery.app.databinding.ActivityOtpBinding;
 import grocery.app.util.Click;
 import grocery.app.util.Config;
+import grocery.app.util.LoginFlag;
 import grocery.app.util.WindowBarColor;
 
 public class OtpActivity extends AppCompatActivity {
@@ -64,7 +65,9 @@ public class OtpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Click.preventTwoClick(v);
                 if (binding.txtTimer.getText().toString().equals(resetText)){
+                    showProgress();
                     new Handler().postDelayed(() -> {
+                        hideProgress();
                         H.showMessage(activity,"OPT send successfully");
                         binding.etxOtp.setText(loginOTP);
                         startTimer();

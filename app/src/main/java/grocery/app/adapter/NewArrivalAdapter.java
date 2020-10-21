@@ -32,6 +32,7 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
     private List<ArrivalModel> arrivalModelList;
     private HomeFragment fragment;
     private boolean activityClick;
+    private int maxItem = 10;
 
     public interface ClickItem{
         void add(int filterId, ImageView imgAction);
@@ -95,7 +96,11 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return arrivalModelList.size();
+        if (arrivalModelList.size()>maxItem){
+            return maxItem;
+        }else {
+            return arrivalModelList.size();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

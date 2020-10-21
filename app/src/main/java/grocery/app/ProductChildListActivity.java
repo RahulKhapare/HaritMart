@@ -170,7 +170,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
             if (session.getBool(P.isUserLogin)){
                 j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
             }else {
-                j.addInt(P.user_id, Config.commonUserID);
+                j.addInt(P.user_id, Config.commonUserHomeID);
             }
             Api.newApi(activity, P.baseUrl + "home").addJson(j)
                     .setMethod(Api.POST)

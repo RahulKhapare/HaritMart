@@ -21,7 +21,7 @@
             android:textColor="@color/titleColor"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:text="Log Out"></TextView>
+            android:text="Login Alert"></TextView>
 
         <TextView
             android:id="@+id/tV"
@@ -32,7 +32,7 @@
             android:textColor="@color/textColor4"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:text="Do you really want to sign out ?"
+            android:text="Please login to use following feature of application."
             android:layout_marginTop="@dimen/padding10"></TextView>
 
         <LinearLayout
@@ -49,10 +49,10 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_semibold"
                 android:textSize="@dimen/textSizeVerySmall"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/white"
                 android:padding="@dimen/margin15"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/grey_green_border"
+                android:background="@drawable/custom_button"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
                 android:text="YES"></TextView>
@@ -67,8 +67,8 @@
                 android:fontFamily="@font/nunito_sans_semibold"
                 android:textSize="@dimen/textSizeVerySmall"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/custom_button"
-                android:textColor="@color/white"
+                android:background="@drawable/grey_green_border"
+                android:textColor="@color/colorPrimaryDark"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
                 android:text="NO"></TextView>
