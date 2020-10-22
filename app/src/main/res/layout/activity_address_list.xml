@@ -27,6 +27,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/green"
+                    android:visibility="gone"
                     android:buttonTint="@color/green">
                 </RadioButton>
 
@@ -70,15 +71,25 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/txtAddress"
+                android:id="@+id/txtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_semibold"
                 android:textSize="14sp"
                 android:text=""
                 android:textColor="#373737"
-                android:paddingLeft="33dp"
-                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"></TextView>
+
+            <TextView
+                android:id="@+id/txtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="14sp"
+                android:text=""
+                android:textColor="@color/grey1"
+                android:paddingBottom="5dp"
                 android:paddingRight="10dp"></TextView>
 
             <LinearLayout
@@ -88,7 +99,6 @@
                 android:layout_height="0.5dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
-                android:layout_marginLeft="33dp"
                 android:background="@color/colorPrimaryDark"></LinearLayout>
 
         </LinearLayout>

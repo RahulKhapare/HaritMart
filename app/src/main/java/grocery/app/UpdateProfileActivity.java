@@ -338,6 +338,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         j.addString(P.email, binding.etxEmail.getText().toString().trim());
         j.addString(P.phone, binding.etxNumber.getText().toString().trim());
         j.addString(P.profile_image, session.getString(P.profile_image));
+        j.addInt(P.subscribe_newsletter, 0);
 
         Api.newApi(activity, P.baseUrl + "save_profile").addJson(j)
                 .setMethod(Api.POST)

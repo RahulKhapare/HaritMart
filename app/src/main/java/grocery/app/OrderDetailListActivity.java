@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,6 +49,8 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
     private String sortName = "";
     private int cancelKey;
     private List<OrderSortModel> orderSortModelList;
+    private boolean fromSuccessOrder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,7 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
     }
 
     private void initView(){
+        fromSuccessOrder = getIntent().getBooleanExtra(Config.FROM_SUCCESS_ORDER, false);
         loadingDialog = new LoadingDialog(activity);
         orderDetailListModelList = new ArrayList<>();
         orderSortModelList = new ArrayList<>();
@@ -229,7 +233,13 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (fromSuccessOrder) {
+            Intent intent = new Intent(activity, BaseActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        } else {
+            super.onBackPressed();
+        }
     }
 
 }

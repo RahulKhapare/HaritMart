@@ -1,19 +1,21 @@
 package grocery.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.adoisstudio.helper.Api;
 import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.JsonList;
 import com.adoisstudio.helper.LoadingDialog;
+import com.adoisstudio.helper.Session;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import grocery.app.Fragments.CartFragment;
 import grocery.app.adapter.CartAdapter;
 import grocery.app.adapter.GetwayAdapter;
 import grocery.app.common.P;
@@ -45,6 +48,7 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
     private CartAdapter cartAdapter;
     private String paymentID;
     private List<CartModel> cartModelList;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,7 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
         WindowBarColor.setColor(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_check_out_product);
 
-        binding.toolbar.setTitle("Check Out");
+        binding.toolbar.setTitle("Place Order");
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -64,7 +68,7 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
     }
 
     private void initView(){
-
+        session = new Session(activity);
         loadingDialog = new LoadingDialog(activity);
         addressModel = Config.addressModel;
         getwayModelList = new ArrayList<>();
@@ -89,14 +93,16 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
         binding.btnBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                H.showMessage(activity,"Hit Payment WebView");
+                hitPlaceOrder();
             }
         });
 
     }
 
     private void updateAddress(){
-        binding.txtTitle.setText(addressModel.getAddressTitle());
+        binding.txtAddressTitle.setText("Billing & Shipping Address -");
+        binding.txtTitle.setText(addressModel.getAddress_type() + " Address");
+        binding.txtName.setText(addressModel.getFull_name());
         binding.txtAddress.setText(getAddress(addressModel));
     }
 
@@ -171,10 +177,36 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
     }
 
     private String getAddress(AddressModel model){
+
         String address = "";
-        address = model.getName() +"\n"+model.getApartmentName()+","+model.getStreetAddress()+"\n"+model.getLandMark()+"\n"+"pincode : "+model.getPincode()+"\n"+ "ph : "+model.getContactNumber();
+
+        if (!TextUtils.isEmpty(model.getPhone())){
+            if (!TextUtils.isEmpty(model.getPhone2())){
+                address = "Contact : " + model.getPhone() + "/" + model.getPhone2() + "\n";
+            }else {
+                address = "Contact : " + model.getPhone() + "\n";
+            }
+        }
+
+        if (!TextUtils.isEmpty(model.getEmail())){
+            address = address + "Email : " + model.getEmail() + "\n";
+        }
+
+        if (!TextUtils.isEmpty(model.getAddress())){
+            if (!TextUtils.isEmpty(model.getLandmark())){
+                address = address + model.getAddress() + "," + model.getLandmark() + "\n";
+            }else {
+                address = address + model.getAddress() + "\n";
+            }
+        }
+
+        if (!TextUtils.isEmpty(model.getCity()) && !TextUtils.isEmpty(model.getPincode())){
+            address = address +  model.getCity() + " - " + model.getPincode() + "\n";
+        }
+
         return address;
     }
+
 
     @Override
     public void selectedGetway(String id,String name) {
@@ -209,6 +241,11 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
                             }
                         }
                         adapter.notifyDataSetChanged();
+
+                        if (getwayModelList.size()==1){
+                            binding.lnrPaymentView.setVisibility(View.GONE);
+                        }
+
                     } else {
                         H.showMessage(activity, json.getString(P.msg));
                     }
@@ -216,6 +253,94 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
                     hideProgress();
                 })
                 .run("hitForPaymentOption");
+    }
+
+    private void hitPlaceOrder() {
+        showProgress();
+        Json j = new Json();
+        j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        j.addString(P.cart_token, session.getString(P.cart_token));
+        j.addInt(P.payment_id, Integer.parseInt(paymentID));
+
+        j.addString(P.bill_address_type,addressModel.getAddress_type() );
+        j.addInt(P.bill_address_id,H.getInt(addressModel.getId()) );
+        j.addString(P.bill_full_name,addressModel.getFull_name() );
+        j.addString(P.bill_address,addressModel.getAddress() );
+        j.addString(P.bill_country,addressModel.getCountry() );
+        j.addString(P.bill_state, addressModel.getState());
+        j.addString(P.bill_city, addressModel.getCity());
+        j.addString(P.bill_pincode, addressModel.getPincode());
+        j.addString(P.bill_phone, addressModel.getPhone());
+        j.addString(P.bill_email,addressModel.getEmail());
+        j.addString(P.bill_phone2,addressModel.getPhone2() );
+
+        if (Config.IS_DELIVER_ADDRESS){
+            Config.IS_DELIVER_ADDRESS = false;
+            j.addString(P.ship_full_name, addressModel.getFull_name());
+            j.addString(P.ship_address_type, addressModel.getAddress_type());
+            j.addString(P.ship_address,addressModel.getAddress() );
+            j.addString(P.ship_country,addressModel.getCountry() );
+            j.addString(P.ship_state,addressModel.getState() );
+            j.addString(P.ship_city, addressModel.getCity());
+            j.addString(P.ship_pincode, addressModel.getPincode());
+            j.addString(P.ship_phone, addressModel.getPhone());
+            j.addString(P.ship_email,addressModel.getEmail() );
+            j.addString(P.ship_phone2, addressModel.getPhone2());
+            j.addInt(P.shiptodifferetadd,1 );
+        }else {
+            j.addString(P.ship_full_name, "");
+            j.addString(P.ship_address_type, "");
+            j.addString(P.ship_address,"" );
+            j.addString(P.ship_country,"" );
+            j.addString(P.ship_state,"" );
+            j.addString(P.ship_city, "");
+            j.addString(P.ship_pincode, "");
+            j.addString(P.ship_phone, "");
+            j.addString(P.ship_email,"" );
+            j.addString(P.ship_phone2, "");
+            j.addInt(P.shiptodifferetadd,0 );
+        }
+
+        Api.newApi(activity, P.baseUrl + "place_order").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    hideProgress();
+                    H.showMessage(activity, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        int errorCode = json.getInt(P.err_code);
+                        if (errorCode==0){
+                            H.showMessage(activity, json.getString(P.msg));
+//                            check if user not login
+                        }else if (errorCode==1){
+                            H.showMessage(activity, json.getString(P.msg));
+                            //cart problem
+                            CartFragment.paymentFail = true;
+                            finish();
+                        }else if (errorCode==2){
+                            H.showMessage(activity, json.getString(P.msg));
+                            finish();
+                        }else if (errorCode==3){
+                            H.showMessage(activity, json.getString(P.msg));
+                            finish();
+                        } else if (errorCode==4){
+                            H.showMessage(activity, json.getString(P.msg));
+                        }else if (errorCode==5){
+                            json = json.getJson(P.data);
+                            Intent paymentIntent = new Intent(activity,PaymentWebViewActivity.class);
+                            paymentIntent.putExtra(Config.ORDER_ID,json.getString(P.order_id));
+                            paymentIntent.putExtra(Config.PAYMENT_URL,json.getString(P.payment_url));
+                            startActivity(paymentIntent);
+                        }
+                    } else {
+                        H.showMessage(activity, json.getString(P.msg));
+                    }
+                    hideProgress();
+                })
+                .run("hitPlaceOrder");
     }
 
     private void showProgress() {

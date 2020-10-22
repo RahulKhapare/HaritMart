@@ -21,4 +21,8 @@
     <string name="sort">Sort</string>
     <string name="filter">Filter</string>
 
+    <string name="orderPlaced">Order placed !</string>
+    <string name="orderMessage">Your order placed successfully. For more details, check All My Order pages under profile tab </string>
+
+
 </resources>

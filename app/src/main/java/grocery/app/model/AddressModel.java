@@ -2,54 +2,74 @@ package grocery.app.model;
 
 public class AddressModel {
 
-    String name;
-    String contactNumber;
-    String apartmentName;
-    String streetAddress;
-    String landMark;
+    String id;
+    String full_name;
+    String address_type;
+    String address;
+    String landmark;
+    String country;
+    String state;
     String city;
     String pincode;
-    String addressTitle;
-    String isDeliveryAddress;
+    String phone;
+    String email;
+    String phone2;
+    String main_address;
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getContactNumber() {
-        return contactNumber;
+    public String getFull_name() {
+        return full_name;
     }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 
-    public String getApartmentName() {
-        return apartmentName;
+    public String getAddress_type() {
+        return address_type;
     }
 
-    public void setApartmentName(String apartmentName) {
-        this.apartmentName = apartmentName;
+    public void setAddress_type(String address_type) {
+        this.address_type = address_type;
     }
 
-    public String getStreetAddress() {
-        return streetAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getLandMark() {
-        return landMark;
+    public String getLandmark() {
+        return landmark;
     }
 
-    public void setLandMark(String landMark) {
-        this.landMark = landMark;
+    public void setLandmark(String landmark) {
+        this.landmark = landmark;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getCity() {
@@ -68,19 +88,35 @@ public class AddressModel {
         this.pincode = pincode;
     }
 
-    public String getAddressTitle() {
-        return addressTitle;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setAddressTitle(String addressTitle) {
-        this.addressTitle = addressTitle;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getIsDeliveryAddress() {
-        return isDeliveryAddress;
+    public String getEmail() {
+        return email;
     }
 
-    public void setIsDeliveryAddress(String isDeliveryAddress) {
-        this.isDeliveryAddress = isDeliveryAddress;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone2() {
+        return phone2;
+    }
+
+    public void setPhone2(String phone2) {
+        this.phone2 = phone2;
+    }
+
+    public String getMain_address() {
+        return main_address;
+    }
+
+    public void setMain_address(String main_address) {
+        this.main_address = main_address;
     }
 }

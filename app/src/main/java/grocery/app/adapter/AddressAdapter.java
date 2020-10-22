@@ -1,23 +1,22 @@
 package grocery.app.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import grocery.app.CheckOutActivity;
+import grocery.app.MyAddressActivity;
 import grocery.app.NewAddressActivity;
 import grocery.app.R;
 import grocery.app.databinding.ActivityAddressListBinding;
@@ -30,6 +29,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     private List<AddressModel> addressModelList;
     private int lastCheckPosition;
     private boolean forCheckOut;
+
+    public interface onClick{
+        void deleteAddress(AddressModel model, int position, LinearLayout linearLayout);
+    }
 
     public AddressAdapter(Context context, List<AddressModel> addressModelList, boolean forCheckOut) {
         this.context = context;
@@ -50,7 +53,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         AddressModel model = addressModelList.get(position);
 
         holder.binding.radioButton.setChecked(position == lastCheckPosition);
-        holder.binding.txtDefault.setText(model.getAddressTitle());
+        holder.binding.txtDefault.setText(model.getAddress_type() + " Address");
+        holder.binding.txtName.setText(model.getFull_name());
         holder.binding.txtAddress.setText(getAddress(model));
 
         holder.binding.imgEdit.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +70,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         holder.binding.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteDialog(position,holder.binding.lnrAddress);
+                ((MyAddressActivity)context).deleteAddress(model,position,holder.binding.lnrAddress);
             }
         });
 
@@ -77,7 +81,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                 notifyItemRangeChanged(0,addressModelList.size());
                 if (forCheckOut){
                     Config.addressModel = model;
-                    Intent checkOutIntent = new Intent(context, CheckOutActivity.class);
+                    Intent checkOutIntent = new Intent(context, NewAddressActivity.class);
+                    checkOutIntent.putExtra(Config.FOR_CHECKOUT,true);
                     context.startActivity(checkOutIntent);
                 }
             }
@@ -104,53 +109,34 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     }
 
     private String getAddress(AddressModel model){
+
         String address = "";
-        address = model.getName() +"\n"+model.getApartmentName()+","+model.getStreetAddress()+"\n"+model.getLandMark()+"\n"+"pincode : "+model.getPincode()+"\n"+ "ph : "+model.getContactNumber();
+
+        if (!TextUtils.isEmpty(model.getPhone())){
+            if (!TextUtils.isEmpty(model.getPhone2())){
+                address = "Contact : " + model.getPhone() + "/" + model.getPhone2() + "\n";
+            }else {
+                address = "Contact : " + model.getPhone() + "\n";
+            }
+        }
+
+        if (!TextUtils.isEmpty(model.getEmail())){
+            address = address + "Email : " + model.getEmail() + "\n";
+        }
+
+        if (!TextUtils.isEmpty(model.getAddress())){
+            if (!TextUtils.isEmpty(model.getLandmark())){
+                address = address + model.getAddress() + "," + model.getLandmark() + "\n";
+            }else {
+                address = address + model.getAddress() + "\n";
+            }
+        }
+
+        if (!TextUtils.isEmpty(model.getCity()) && !TextUtils.isEmpty(model.getPincode())){
+            address = address +  model.getCity() + " - " + model.getPincode() + "\n";
+        }
+
         return address;
-    }
-
-    private void deleteDialog(int position, LinearLayout lnrAddress){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-        alertDialogBuilder.setTitle("DELETE");
-        alertDialogBuilder.setMessage("Are you sure, You wanted to delete address.");
-        alertDialogBuilder.setPositiveButton("DELETE",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int arg1) {
-                        dialog.dismiss();
-                        lnrAddress.startAnimation(removeItem(position));
-                    }
-                });
-
-        alertDialogBuilder.setNegativeButton("CANCEL",new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
-    private Animation removeItem(int position) {
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_out);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                addressModelList.remove(position);
-                notifyDataSetChanged();
-            }
-        });
-        return animation;
     }
 
 }

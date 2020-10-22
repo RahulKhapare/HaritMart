@@ -58,6 +58,7 @@
                         android:backgroundTint="@color/grey2"
                         android:textColorHint="@color/grey2" />
 
+
                     <EditText
                         android:id="@+id/etxNumber"
                         android:layout_width="match_parent"
@@ -68,6 +69,30 @@
                         android:maxLines="1"
                         android:backgroundTint="@color/grey2"
                         android:inputType="numberDecimal"
+                        android:textColorHint="@color/grey2" />
+
+                    <EditText
+                        android:id="@+id/etxOtherNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:imeOptions="actionNext"
+                        android:hint="Contact Number (Option)"
+                        android:maxLines="1"
+                        android:backgroundTint="@color/grey2"
+                        android:inputType="numberDecimal"
+                        android:textColorHint="@color/grey2" />
+
+                    <EditText
+                        android:id="@+id/etxEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:hint="Email"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:backgroundTint="@color/grey2"
                         android:textColorHint="@color/grey2" />
 
                     <TextView
@@ -81,23 +106,11 @@
 
 
                     <EditText
-                        android:id="@+id/etxAptName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:hint="Apartment name"
-                        android:imeOptions="actionNext"
-                        android:maxLines="2"
-                        android:inputType="textMultiLine"
-                        android:backgroundTint="@color/grey2"
-                        android:textColorHint="@color/grey2" />
-
-                    <EditText
                         android:id="@+id/etxStreet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:hint="Street Address"
+                        android:hint="Address"
                         android:maxLines="2"
                         android:imeOptions="actionNext"
                         android:inputType="textMultiLine"
@@ -123,6 +136,44 @@
                         android:weightSum="2">
 
                         <EditText
+                            android:id="@+id/etxCountry"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Country"
+                            android:maxLines="1"
+                            android:text="India"
+                            android:inputType="textCapWords"
+                            android:backgroundTint="@color/grey2"
+                            android:imeOptions="actionNext"
+                            android:layout_marginRight="5dp"
+                            android:textColorHint="@color/grey2" />
+
+
+                        <EditText
+                            android:id="@+id/etxState"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="State"
+                            android:maxLines="1"
+                            android:backgroundTint="@color/grey2"
+                            android:imeOptions="actionNext"
+                            android:layout_marginLeft="5dp"
+                            android:inputType="textCapWords"
+                            android:textColorHint="@color/grey2" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="15dp"
+                        android:weightSum="2">
+
+                        <EditText
                             android:id="@+id/etxcity"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -132,7 +183,7 @@
                             android:backgroundTint="@color/grey2"
                             android:imeOptions="actionNext"
                             android:layout_marginRight="5dp"
-                            android:inputType="text"
+                            android:inputType="textCapWords"
                             android:textColorHint="@color/grey2" />
 
 
@@ -156,7 +207,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_regular"
-                        android:text="Choose name for this address"
+                        android:text="Choose type for this address"
                         android:layout_marginTop="20dp"
                         android:textColor="@color/grey2"
                         android:textSize="16sp" />
@@ -206,8 +257,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="-5dp"
+                        android:visibility="gone"
                         android:buttonTint="@color/colorPrimaryDark"
-                        android:text="Set this as my default delivery address"
+                        android:text="Set this as my default shipping address"
                         android:fontFamily="@font/nunito_sans_regular"
                         android:textSize="16sp"/>
 
@@ -217,7 +269,7 @@
                         android:layout_height="?actionBarSize"
                         android:layout_gravity="center"
                         android:background="@drawable/custom_button"
-                        android:text="Add Address"
+                        android:text="Save Address"
                         android:textAllCaps="false"
                         android:textColor="#ffffff"
                         android:layout_margin="50dp"

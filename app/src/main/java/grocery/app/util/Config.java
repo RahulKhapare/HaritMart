@@ -25,11 +25,17 @@ public class Config {
     public static String ADDRESS_LOCATION = "ADDRESS_LOCATION";
     public static String EDIT_ADDRESS = "EDIT_ADDRESS";
     public static String FOR_CHECKOUT = "FOR_CHECKOUT";
+    public static String FROM_SUCCESS_ORDER = "FROM_SUCCESS_ORDER";
 
     public static String PRODUCT_ID = "PRODUCT_ID";
     public static String PRODUCT_FILTER_ID = "PRODUCT_FILTER_ID";
-    public static String CHECK_CART_DATA = "CHECK_CART_DATA";
+    public static String CHECK_CART_DATA_FLAG = "CHECK_CART_DATA_FLAG";
     public static String UPDATE_LOGIN_FLAG = "UPDATE_LOGIN_FLAG";
+
+    public static String ORDER_ID = "ORDER_ID";
+    public static String PAYMENT_URL = "PAYMENT_URL";
+
+    public static boolean IS_DELIVER_ADDRESS = false;
 
     public static boolean FROM_ADDRESS = false;
     public static String PUSH_NOTIFICATION = "pushNotification";

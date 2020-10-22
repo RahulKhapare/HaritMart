@@ -248,7 +248,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                     checkAddCart();
                 }else if (binding.btnCart.getText().toString().equals(goToCart)){
                     Intent cartIntent = new Intent(activity,BaseActivity.class);
-                    cartIntent.putExtra(Config.CHECK_CART_DATA,true);
+                    cartIntent.putExtra(Config.CHECK_CART_DATA_FLAG,true);
                     startActivity(cartIntent);
                 }
 

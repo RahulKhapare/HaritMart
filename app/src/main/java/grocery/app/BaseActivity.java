@@ -59,8 +59,8 @@ public class BaseActivity extends AppCompatActivity {
         WindowBarColor.setColor(activity);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         fragmentManager = getSupportFragmentManager();
-        checkCartData = getIntent().getBooleanExtra(Config.CHECK_CART_DATA, false);
         session = new Session(activity);
+        checkCartData = getIntent().getBooleanExtra(Config.CHECK_CART_DATA_FLAG, false);
 
         if (checkCartData) {
             onBottomBarClick(binding.cartLayout);
@@ -71,6 +71,7 @@ public class BaseActivity extends AppCompatActivity {
         }
 
     }
+
 
     private void checkLoginFlag() {
 

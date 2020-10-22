@@ -52,6 +52,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     public String applyCoupon = "Apply";
     public String removeCoupon = "Remove";
     private Session session;
+    public static boolean paymentFail = false;
 
     public static CartFragment newInstance() {
         return new CartFragment();
@@ -63,6 +64,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         context = inflater.getContext();
         loadingDialog = new LoadingDialog(context);
         session = new Session(context);
+        paymentFail = false;
         initView();
         binding.btnProcessToPay.setOnClickListener(this);
         binding.txtApplyCoupon.setOnClickListener(this);
@@ -73,8 +75,8 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
     @Override
     public void onResume() {
         super.onResume();
-        if (getUserVisibleHint()) {
-
+        if (paymentFail){
+            paymentFail = false;
         }
     }
 
@@ -83,10 +85,9 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         switch (v.getId()) {
             case R.id.btnProcessToPay:
                 if (session.getBool(P.isUserLogin)){
-                    H.showMessage(context,"Action Pending");
-//                    Intent addressIntent = new Intent(context, MyAddressActivity.class);
-//                    addressIntent.putExtra(Config.FOR_CHECKOUT,true);
-//                    startActivity(addressIntent);
+                    Intent addressIntent = new Intent(context, MyAddressActivity.class);
+                    addressIntent.putExtra(Config.FOR_CHECKOUT,true);
+                    startActivity(addressIntent);
                 }else {
                     PageUtil.goToLoginPage(context, LoginFlag.cartFlagValue);
                 }
