@@ -68,7 +68,13 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         initView();
         binding.btnProcessToPay.setOnClickListener(this);
         binding.txtApplyCoupon.setOnClickListener(this);
-        hitCartListApi("");
+
+        if (TextUtils.isEmpty(Config.COUPON_CODE)){
+            hitCartListApi("");
+        }else {
+            hitToGetCouponCode(Config.COUPON_CODE);
+        }
+
         return binding.getRoot();
     }
 
@@ -103,11 +109,13 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
             if (TextUtils.isEmpty(binding.etxCoupon.getText().toString().trim())){
                 H.showMessage(context,"Please enter coupon code");
             }else {
+                Config.COUPON_CODE = binding.etxCoupon.getText().toString().trim();
                 hitToGetCouponCode(binding.etxCoupon.getText().toString().trim());
             }
         }else if (binding.txtApplyCoupon.getText().toString().trim().equals(removeCoupon)){
+            Config.COUPON_CODE = "";
             removeCouponData(true);
-            hitCartListApi("");
+            hitCartListApi(Config.COUPON_CODE);
         }
     }
 
@@ -125,12 +133,12 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         showProgress();
         Json j = new Json();
         j.addString(P.cart_token, new Session(context).getString(P.cart_token));
-        j.addString(P.coupon_code, couponCode);
         if (session.getBool(P.isUserLogin)){
             j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
         }else {
             j.addInt(P.user_id, Config.commonUserID);
         }
+        j.addString(P.coupon_code, couponCode);
         Api.newApi(context, P.baseUrl + "apply_coupon_code").addJson(j)
                 .setMethod(Api.POST)
                 //.onHeaderRequest(App::getHeaders)
@@ -279,17 +287,18 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                                 model.setSku(jsonObject.getString(P.sku));
                                 model.setSlug(jsonObject.getString(P.slug));
                                 model.setImage(jsonObject.getString(P.image));
+                                model.setPrice(jsonObject.getString(P.price));
                                 model.setTotal_price(jsonObject.getString(P.total_price));
                                 model.setCoupon_discount_amount(jsonObject.getString(P.coupon_discount_amount));
-                                try {
-                                    JSONObject priceJson = jsonObject.getJSONObject(P.price);
-                                    model.setPrice(priceJson.getString(P.price));
-                                    model.setSaleprice(priceJson.getString(P.saleprice));
-                                    model.setDiscount_amount(priceJson.getString(P.discount_amount));
-                                    model.setDiscount(priceJson.getString(P.discount));
-                                }catch (Exception e){
-
-                                }
+//                                try {
+//                                    JSONObject priceJson = jsonObject.getJSONObject(P.price);
+//                                    model.setPrice(priceJson.getString(P.price));
+//                                    model.setSaleprice(priceJson.getString(P.saleprice));
+//                                    model.setDiscount_amount(priceJson.getString(P.discount_amount));
+//                                    model.setDiscount(priceJson.getString(P.discount));
+//                                }catch (Exception e){
+//
+//                                }
 
                                 try {
                                     if(!TextUtils.isEmpty(jsonObject.getString(P.option1)) && !jsonObject.getString(P.option1).equals("0")){
@@ -335,9 +344,17 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
 
                     if (TextUtils.isEmpty(couponCode)){
                         if (cartModelList.isEmpty()){
+                            Config.COUPON_CODE = "";
                             hideCouponView();
                         }else {
                             showCouponView();
+                        }
+                    }else {
+                        if (cartModelList.isEmpty()){
+                            Config.COUPON_CODE = "";
+                            hideCouponView();
+                        }else {
+                            binding.lnrCoupon.setVisibility(View.VISIBLE);
                         }
                     }
                 })
@@ -349,6 +366,8 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         j.addString(P.cart_token, new Session(context).getString(P.cart_token));
         if (session.getBool(P.isUserLogin)){
             j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        }else {
+            j.addInt(P.user_id, Config.commonUserID);
         }
         j.addString(P.coupon_code, couponCode);
 
@@ -359,8 +378,8 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                     checkError();
                     if (cartModelList.isEmpty()) {
                         hideSummary();
+                        hideCouponView();
                     }
-                    hideCouponView();
                     H.showMessage(context, "On error is called");
                 })
                 .onSuccess(json ->
@@ -378,15 +397,11 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                         H.showMessage(context, json.getString(P.msg));
                     }
                     if (cartModelList.isEmpty()) {
+                        Config.COUPON_CODE = "";
+                        hideCouponView();
                         hideSummary();
                     }
                     checkError();
-
-                    if (cartModelList.isEmpty()){
-                        hideCouponView();
-                    }else {
-                        showCouponView();
-                    }
                 })
                 .run("hitToUpdateSummery");
     }

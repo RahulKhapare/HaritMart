@@ -62,7 +62,10 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="20dp"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="20dp"
+                            android:paddingBottom="20dp"
                             android:orientation="vertical">
 
                             <TextView
@@ -168,7 +171,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@color/white"
-                                android:layout_marginTop="20dp">
+                                android:layout_marginLeft="0dp"
+                                android:layout_marginRight="0dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="20dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -331,7 +337,7 @@
                                     <Button
                                         android:id="@+id/btnBuyNow"
                                         android:layout_width="match_parent"
-                                        android:layout_height="44dp"
+                                        android:layout_height="?actionBarSize"
                                         android:layout_gravity="center"
                                         android:layout_marginLeft="20dp"
                                         android:layout_marginTop="20dp"

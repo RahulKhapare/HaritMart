@@ -272,6 +272,7 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
         addressModel.setPincode(binding.etxPincode.getText().toString().trim());
         addressModel.setPhone(binding.etxNumber.getText().toString().trim());
         addressModel.setPhone2(binding.etxOtherNumber.getText().toString().trim());
+        addressModel.setEmail(binding.etxEmail.getText().toString().trim());
         addressModel.setMain_address(mainAddress+"");
 
         Config.addressModel = addressModel;

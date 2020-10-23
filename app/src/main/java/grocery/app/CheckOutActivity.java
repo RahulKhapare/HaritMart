@@ -125,18 +125,19 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
                 model.setSku(jsonObject.getString(P.sku));
                 model.setSlug(jsonObject.getString(P.slug));
                 model.setImage(jsonObject.getString(P.image));
+                model.setPrice(jsonObject.getString(P.price));
                 model.setTotal_price(jsonObject.getString(P.total_price));
                 model.setCoupon_discount_amount(jsonObject.getString(P.coupon_discount_amount));
 
-                try {
-                    JSONObject priceJson = jsonObject.getJSONObject(P.price);
-                    model.setPrice(priceJson.getString(P.price));
-                    model.setSaleprice(priceJson.getString(P.saleprice));
-                    model.setDiscount_amount(priceJson.getString(P.discount_amount));
-                    model.setDiscount(priceJson.getString(P.discount));
-                }catch (Exception e){
-
-                }
+//                try {
+//                    JSONObject priceJson = jsonObject.getJSONObject(P.price);
+//                    model.setPrice(priceJson.getString(P.price));
+//                    model.setSaleprice(priceJson.getString(P.saleprice));
+//                    model.setDiscount_amount(priceJson.getString(P.discount_amount));
+//                    model.setDiscount(priceJson.getString(P.discount));
+//                }catch (Exception e){
+//
+//                }
 
                 try {
                     if(!TextUtils.isEmpty(jsonObject.getString(P.option1)) && !jsonObject.getString(P.option1).equals("0")){
@@ -221,7 +222,8 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
                 //.onHeaderRequest(App::getHeaders)
                 .onError(() -> {
                     hideProgress();
-                    H.showMessage(activity, "On error is called");
+                    H.showMessage(activity, "Unable to detect payment method, please try again.");
+                    finish();
                 })
                 .onSuccess(json ->
                 {
@@ -247,7 +249,8 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
                         }
 
                     } else {
-                        H.showMessage(activity, json.getString(P.msg));
+                        H.showMessage(activity, "Unable to detect payment method, please try again.");
+                        finish();
                     }
 
                     hideProgress();
@@ -260,12 +263,14 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
         Json j = new Json();
         j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
         j.addString(P.cart_token, session.getString(P.cart_token));
+        j.addString(P.coupon_code, Config.COUPON_CODE);
         j.addInt(P.payment_id, Integer.parseInt(paymentID));
 
         j.addString(P.bill_address_type,addressModel.getAddress_type() );
         j.addInt(P.bill_address_id,H.getInt(addressModel.getId()) );
         j.addString(P.bill_full_name,addressModel.getFull_name() );
         j.addString(P.bill_address,addressModel.getAddress() );
+        j.addString(P.bill_landmark,addressModel.getLandmark() );
         j.addString(P.bill_country,addressModel.getCountry() );
         j.addString(P.bill_state, addressModel.getState());
         j.addString(P.bill_city, addressModel.getCity());
@@ -279,6 +284,7 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
             j.addString(P.ship_full_name, addressModel.getFull_name());
             j.addString(P.ship_address_type, addressModel.getAddress_type());
             j.addString(P.ship_address,addressModel.getAddress() );
+            j.addString(P.ship_landmark,addressModel.getLandmark() );
             j.addString(P.ship_country,addressModel.getCountry() );
             j.addString(P.ship_state,addressModel.getState() );
             j.addString(P.ship_city, addressModel.getCity());
@@ -291,6 +297,7 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
             j.addString(P.ship_full_name, "");
             j.addString(P.ship_address_type, "");
             j.addString(P.ship_address,"" );
+            j.addString(P.ship_landmark,"" );
             j.addString(P.ship_country,"" );
             j.addString(P.ship_state,"" );
             j.addString(P.ship_city, "");
@@ -329,6 +336,7 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
                         } else if (errorCode==4){
                             H.showMessage(activity, json.getString(P.msg));
                         }else if (errorCode==5){
+                            Config.COUPON_CODE = "";
                             json = json.getJson(P.data);
                             Intent paymentIntent = new Intent(activity,PaymentWebViewActivity.class);
                             paymentIntent.putExtra(Config.ORDER_ID,json.getString(P.order_id));

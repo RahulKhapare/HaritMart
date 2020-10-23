@@ -101,9 +101,6 @@
             android:name=".ProductChildListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditProfileActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".BaseActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">

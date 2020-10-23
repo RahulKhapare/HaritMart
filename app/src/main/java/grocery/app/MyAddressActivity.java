@@ -84,7 +84,7 @@ public class MyAddressActivity extends AppCompatActivity implements View.OnClick
         initSearchView();
 
         if (forCheckOut){
-            binding.lnrTitle.setBackgroundColor(getResources().getColor(R.color.grey));
+            binding.lnrTitle.setBackground(getResources().getDrawable(R.drawable.custom_button_grey));
             binding.txtTitleMessage.setText("Select address to place order");
             binding.txtTitleMessage.setTextColor(getResources().getColor(R.color.black));
             binding.cardLocation.setVisibility(View.GONE);

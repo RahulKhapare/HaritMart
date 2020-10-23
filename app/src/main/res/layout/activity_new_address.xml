@@ -24,25 +24,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="20dp"
+            android:padding="0dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/product_bg_card">
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="0dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:fontFamily="@font/nunit_sans_bold"
                         android:text="Personal Details"
+                        android:layout_marginLeft="10dp"
                         android:textColor="#373737"
                         android:textSize="18sp" />
 
@@ -51,6 +52,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:hint="Name"
                         android:imeOptions="actionNext"
                         android:inputType="textCapWords"
@@ -64,6 +67,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:imeOptions="actionNext"
                         android:hint="Contact Number"
                         android:maxLines="1"
@@ -76,6 +81,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:imeOptions="actionNext"
                         android:hint="Contact Number (Option)"
                         android:maxLines="1"
@@ -87,7 +94,9 @@
                         android:id="@+id/etxEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:hint="Email"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
@@ -99,8 +108,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
-                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:fontFamily="@font/nunit_sans_bold"
                         android:text="Address Details"
+                        android:layout_marginLeft="10dp"
                         android:textColor="#373737"
                         android:textSize="18sp" />
 
@@ -109,7 +119,9 @@
                         android:id="@+id/etxStreet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:hint="Address"
                         android:maxLines="2"
                         android:imeOptions="actionNext"
@@ -121,8 +133,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:hint="Landmark"
-                        android:maxLines="2"
+                        android:maxLines="1"
                         android:backgroundTint="@color/grey2"
                         android:imeOptions="actionNext"
                         android:inputType="textMultiLine"
@@ -133,6 +147,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:weightSum="2">
 
                         <EditText
@@ -171,6 +187,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:weightSum="2">
 
                         <EditText
@@ -208,7 +226,9 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_regular"
                         android:text="Choose type for this address"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/grey2"
                         android:textSize="16sp" />
 
@@ -217,6 +237,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:weightSum="4">
 
                         <TextView
@@ -256,7 +278,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:layout_marginLeft="-5dp"
+                        android:layout_marginLeft="5dp"
                         android:visibility="gone"
                         android:buttonTint="@color/colorPrimaryDark"
                         android:text="Set this as my default shipping address"

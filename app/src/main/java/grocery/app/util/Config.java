@@ -53,6 +53,7 @@ public class Config {
     public static String SpecialProductArrived = "Special Product";
     public static String NewProductArrived = "New Product";
     public static String TrendingProductArrived = "Trending Product";
+    public static String COUPON_CODE = "";
 
     public static String GOOGLE_ADDRESS = "GOOGLE_ADDRESS";
     public static String PAGE_LINK = "https://grocery.page.link/";

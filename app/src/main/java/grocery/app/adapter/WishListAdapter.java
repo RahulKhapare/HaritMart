@@ -70,7 +70,6 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 grocery.app.util.Click.preventTwoClick(v);
-                grocery.app.util.Click.preventTwoClick(v);
                 Intent productIntent = new Intent(context, ProductDetailsActivity.class);
                 productIntent.putExtra(Config.PRODUCT_ID,model.getId());
                 productIntent.putExtra(Config.PRODUCT_FILTER_ID,model.getFilter_id());

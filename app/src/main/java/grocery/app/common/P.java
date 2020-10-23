@@ -36,6 +36,9 @@ public class P {
     public static String coupon_discount_amount="coupon_discount_amount";
     public static String filter_option="filter_option";
 
+    public static String order_list="order_list";
+    public static String order_filter="order_filter";
+    public static String order_status_list="order_status_list";
     public static String msg="msg";
     public static String data="data";
     public static String category_name="category_name";
@@ -73,6 +76,9 @@ public class P {
     public static String ship_phone2="ship_phone2";
     public static String shiptodifferetadd="shiptodifferetadd";
 
+    public static String ship_landmark="ship_landmark";
+    public static String bill_landmark="bill_landmark";
+    public static String order_by="order_by";
 
     public static String item_id="item_id";
     public static String item_qty="item_qty";

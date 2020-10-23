@@ -73,13 +73,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         Picasso.get().load(P.imgBaseUrl+model.getImage()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgProduct);
 
-        holder.binding.txtAmount.setText(rs + model.getSaleprice());
-        holder.binding.txtProductOff.setText(rs + model.getPrice());
+        holder.binding.txtAmount.setText(rs + model.getPrice());
+        holder.binding.txtProductOff.setText(rs + model.getTotal_price());
 
         String offValue = "0";
-        if (!TextUtils.isEmpty(model.getPrice()) && !TextUtils.isEmpty(model.getSaleprice())){
-            int actualValue = Integer.parseInt(model.getPrice());
-            int discountValue = Integer.parseInt(model.getSaleprice());
+        if (!TextUtils.isEmpty(model.getPrice()) && !TextUtils.isEmpty(model.getTotal_price())){
+            int actualValue = Integer.parseInt(model.getTotal_price());
+            int discountValue = Integer.parseInt(model.getPrice());
             try {
 //                offValue =  ((actualValue - discountValue) / actualValue) * 100;
 //                offValue = actualValue - (actualValue * (discountValue / 100));
@@ -159,7 +159,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             Click.preventTwoClick(v);
 //            Intent productIntent = new Intent(context, ProductDetailsActivity.class);
 //            productIntent.putExtra(Config.PRODUCT_ID,model.getId());
-//            productIntent.putExtra(Config.PRODUCT_FILTER_ID,model.getFilter_id());
+//            productIntent.putExtra(Config.PRODUCT_FILTER_ID,"");
 //            context.startActivity(productIntent);
         });
     }

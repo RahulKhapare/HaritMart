@@ -11,8 +11,9 @@ import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.JsonList;
 import com.adoisstudio.helper.Static;
 
-import grocery.app.BaseActivity;
+import org.json.JSONArray;
 
+import grocery.app.BaseActivity;
 
 public class App extends Application {
 
@@ -20,7 +21,7 @@ public class App extends Application {
     public static JsonList categoryJsonList = new JsonList();
     public static Json selectedCategoryJson = new Json();
     public static Json selectedSubCategoryJson = new Json();
-
+    public static JSONArray order_status_list = new JSONArray();
     public static String device_id = "";
     public static String session_id = "";
     public static boolean IS_DEV = true;

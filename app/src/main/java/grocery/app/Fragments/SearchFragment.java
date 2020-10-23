@@ -39,9 +39,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
 
     private FragmentSearchBinding binding;
     private Context context;
-    private SearchAdapter searchAdapter;
     private SearchAdapter trendAdapter;
-    private List<SearchModel> searchModelList;
     private List<SearchModel> trendModelList;
     private LoadingDialog loadingDialog;
     private Session session;
@@ -59,14 +57,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
     }
 
     private void initView() {
-        searchModelList = new ArrayList<>();
         trendModelList = new ArrayList<>();
-
-        binding.recyclerSearchHistory.setHasFixedSize(true);
-        binding.recyclerSearchHistory.setNestedScrollingEnabled(false);
-        binding.recyclerSearchHistory.setLayoutManager(new LinearLayoutManager(context));
-        searchAdapter = new SearchAdapter(context, searchModelList, true,SearchFragment.this);
-        binding.recyclerSearchHistory.setAdapter(searchAdapter);
 
         binding.recyclerTrendingSearches.setHasFixedSize(true);
         binding.recyclerTrendingSearches.setNestedScrollingEnabled(false);
@@ -82,9 +73,6 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
     @Override
     public void onResume() {
         super.onResume();
-        if (searchModelList!=null && searchModelList.isEmpty()){
-            binding.txtSearch.setVisibility(View.GONE);
-        }
     }
 
     private void showLoader() {
@@ -112,7 +100,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
                     }
                     trendAdapter = new SearchAdapter(context, list,true,SearchFragment.this);
                     binding.recyclerTrendingSearches.setAdapter(trendAdapter);
-                    searchAdapter.notifyDataSetChanged();
+                    trendAdapter.notifyDataSetChanged();
                 } else {
                     trendAdapter = new SearchAdapter(context, trendModelList,true,SearchFragment.this);
                     binding.recyclerTrendingSearches.setAdapter(trendAdapter);
@@ -210,11 +198,6 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                searchModelList.remove(position);
-                searchAdapter.notifyDataSetChanged();
-                if (searchModelList.isEmpty()){
-                    binding.txtSearch.setVisibility(View.GONE);
-                }
             }
         });
         return animation;

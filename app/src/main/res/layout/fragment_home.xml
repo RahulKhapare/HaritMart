@@ -13,12 +13,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="@dimen/padding10">
+            android:orientation="vertical">
 
 
             <FrameLayout
                 android:id="@+id/ViewPagerLayout"
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -52,6 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding10"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
                 android:visibility="gone"
                 android:orientation="horizontal">
 
@@ -114,6 +116,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
                 android:visibility="gone"
                 android:orientation="horizontal">
 
@@ -158,6 +162,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
                 android:visibility="gone"
                 android:orientation="horizontal">
 
@@ -200,6 +206,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
                 android:visibility="gone"
                 android:orientation="horizontal">
 

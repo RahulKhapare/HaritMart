@@ -17,6 +17,7 @@ import android.view.Window;
 import com.adoisstudio.helper.Api;
 import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
+import com.adoisstudio.helper.JsonList;
 import com.adoisstudio.helper.LoadingDialog;
 import com.adoisstudio.helper.Session;
 
@@ -29,6 +30,7 @@ import java.util.List;
 
 import grocery.app.adapter.OrderDetailListAdapter;
 import grocery.app.adapter.OrderSortAdapter;
+import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityOrderDetailListBinding;
 import grocery.app.model.OrderDetailListModel;
@@ -50,6 +52,7 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
     private int cancelKey;
     private List<OrderSortModel> orderSortModelList;
     private boolean fromSuccessOrder;
+    private int DECENDING = 1;
 
 
     @Override
@@ -77,17 +80,19 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
         binding.recyclerOrderDetailList.setNestedScrollingEnabled(false);
         adapter = new OrderDetailListAdapter(activity,orderDetailListModelList);
         binding.recyclerOrderDetailList.setAdapter(adapter);
-//        hitOrderDetailList();
+//        hitOrderDetailList(DECENDING);
         setDummyData();
     }
 
-    private void hitOrderDetailList(int sortId) {
+    private void hitOrderDetailList(int order_by) {
         orderDetailListModelList.clear();
         showProgress();
         Json j = new Json();
         j.addInt(P.user_id, H.getInt(new Session(activity).getString(P.user_id)));
         j.addString(P.cart_token, new Session(activity).getString(P.cart_token));
-        Api.newApi(activity, P.baseUrl + "").addJson(j)
+        j.addInt(P.order_by, order_by);
+
+        Api.newApi(activity, P.baseUrl + "order_list").addJson(j)
                 .setMethod(Api.POST)
                 //.onHeaderRequest(App::getHeaders)
                 .onError(() -> {
@@ -97,8 +102,17 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
                 })
                 .onSuccess(json ->
                 {
+                    orderDetailListModelList.clear();
                     if (json.getInt(P.status) == 1) {
                         json = json.getJson(P.data);
+                        JSONObject jsonObject = json;
+                        try {
+                            loadSortData(jsonObject.getJSONArray(P.order_filter));
+                            App.order_status_list = jsonObject.getJSONArray(P.order_status_list);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        JsonList jsonOrderList = json.getJsonList(P.order_list);
                     }
                     hideProgress();
                     checkError();

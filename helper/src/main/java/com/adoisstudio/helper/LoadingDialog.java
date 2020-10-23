@@ -30,6 +30,7 @@ public class LoadingDialog extends Dialog {
         setContentView(R.layout.helper_dialog_loading);
         rotateLoading = findViewById(R.id.rotateLoading);
         rotateLoading.start();
+        setCancelable(false);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(5, 0, 0, 0)));
         getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
