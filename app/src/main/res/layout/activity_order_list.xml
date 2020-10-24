@@ -100,12 +100,11 @@
                         android:layout_height="match_parent"
                         android:textColor="#373737"
                         android:paddingBottom="5dp"
-                        android:gravity="bottom"
                         android:textStyle="bold"
                         android:maxLines="1"
                         android:text="@string/app_name"
                         android:fontFamily="@font/nunito_sans_semibold"
-                        android:textSize="14sp"></TextView>
+                        android:textSize="10sp"></TextView>
 
                 </LinearLayout>
 
@@ -124,7 +123,7 @@
                     android:id="@+id/txtStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Deliver"
+                    android:text=""
                     android:layout_gravity="right"
                     android:textSize="12sp"
                     android:fontFamily="@font/nunito_sans_semibold"
@@ -136,7 +135,7 @@
                     android:id="@+id/txtDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="June 0-00-0000"
+                    android:text=""
                     android:textSize="12sp"
                     android:layout_gravity="right"
                     android:fontFamily="@font/nunito_sans_semibold"

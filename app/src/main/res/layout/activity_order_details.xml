@@ -66,8 +66,8 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/nunito_sans_semibold"
                             android:text="Order Status"
-                            android:textColor="#373737"
-                            android:textSize="16sp">
+                            android:textColor="#000"
+                            android:textSize="18sp">
 
                         </TextView>
 
@@ -76,8 +76,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:orientation="vertical">
@@ -88,6 +88,7 @@
                                 android:orientation="horizontal">
 
                                 <LinearLayout
+                                    android:id="@+id/lnrStatus1"
                                     android:layout_weight="1"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -101,14 +102,14 @@
                                         android:orientation="horizontal">
 
                                         <ImageView
-                                            android:layout_width="20dp"
-                                            android:layout_height="20dp"
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
                                             android:src="@drawable/ic_baseline_check_circle_24">
                                         </ImageView>
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
-                                            android:layout_height="1dp"
+                                            android:layout_height="3dp"
                                             android:layout_marginLeft="-2dp"
                                             android:layout_gravity="center_vertical"
                                             android:background="@color/colorPrimaryDark">
@@ -120,11 +121,11 @@
                                 </LinearLayout>
 
                                 <LinearLayout
+                                    android:id="@+id/lnrStatus2"
                                     android:layout_weight="1"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:padding="0dp"
-                                    android:alpha="0.5"
                                     android:orientation="vertical"
                                     android:background="@color/white">
 
@@ -134,14 +135,14 @@
                                         android:orientation="horizontal">
 
                                         <ImageView
-                                            android:layout_width="20dp"
-                                            android:layout_height="20dp"
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
                                             android:src="@drawable/ic_baseline_check_circle_24">
                                         </ImageView>
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
-                                            android:layout_height="1dp"
+                                            android:layout_height="3dp"
                                             android:layout_marginLeft="-2dp"
                                             android:layout_gravity="center_vertical"
                                             android:background="@color/colorPrimaryDark">
@@ -153,11 +154,11 @@
                                 </LinearLayout>
 
                                 <LinearLayout
+                                    android:id="@+id/lnrStatus3"
                                     android:layout_weight="1"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:padding="0dp"
-                                    android:alpha="0.5"
                                     android:orientation="vertical"
                                     android:background="@color/white">
 
@@ -167,14 +168,14 @@
                                         android:orientation="horizontal">
 
                                         <ImageView
-                                            android:layout_width="20dp"
-                                            android:layout_height="20dp"
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
                                             android:src="@drawable/ic_baseline_check_circle_24">
                                         </ImageView>
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
-                                            android:layout_height="1dp"
+                                            android:layout_height="3dp"
                                             android:layout_marginLeft="-2dp"
                                             android:layout_gravity="center_vertical"
                                             android:background="@color/colorPrimaryDark">
@@ -186,10 +187,10 @@
                                 </LinearLayout>
 
                                 <LinearLayout
+                                    android:id="@+id/lnrStatus4"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="0dp"
-                                    android:alpha="0.5"
                                     android:orientation="vertical"
                                     android:background="@color/white">
 
@@ -201,8 +202,8 @@
 
                                         <ImageView
                                             android:id="@+id/imgCircle"
-                                            android:layout_width="20dp"
-                                            android:layout_height="20dp"
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
                                             android:src="@drawable/ic_baseline_check_circle_24">
                                         </ImageView>
 
@@ -245,16 +246,6 @@
 
                         </LinearLayout>
 
-
-                        <androidx.recyclerview.widget.RecyclerView
-
-                            android:id="@+id/recyclerOrderStatus"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone">
-
-                        </androidx.recyclerview.widget.RecyclerView>
-
                     </LinearLayout>
 
 
@@ -270,8 +261,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -333,8 +324,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -355,8 +346,8 @@
                                 android:fontFamily="@font/nunito_sans_semibold"
                                 android:text="Check For Invoice"
                                 android:layout_gravity="center_vertical"
-                                android:textColor="#373737"
-                                android:textSize="16sp">
+                                android:textColor="#000"
+                                android:textSize="18sp">
 
                             </TextView>
 
@@ -427,31 +418,64 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="vertical">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/nunito_sans_semibold"
-                            android:text="Address"
-                            android:textColor="#373737"
-                            android:textSize="16sp">
+                            android:orientation="vertical"
+                            android:layout_gravity="center_vertical">
 
-                        </TextView>
+                            <TextView
+                                android:id="@+id/txtAddressName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text=""
+                                android:textColor="#000"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                app:fontFamily="@font/nunito_sans_semibold" />
 
-                        <TextView
-                            android:id="@+id/txtAddress"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/nunito_sans_semibold"
-                            android:text="123, building name, street name,"
-                            android:textColor="@color/grey1"
-                            android:textSize="14sp">
+                            <TextView
+                                android:layout_weight="1"
+                                android:id="@+id/txtTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/nunito_sans_semibold"
+                                android:textSize="16sp"
+                                android:layout_marginTop="10dp"
+                                android:paddingRight="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:textStyle="bold"
+                                android:text=""
+                                android:textColor="#373737"></TextView>
 
-                        </TextView>
+                            <TextView
+                                android:id="@+id/txtName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/nunito_sans_semibold"
+                                android:textSize="14sp"
+                                android:text=""
+                                android:textColor="#373737"
+                                android:paddingTop="5dp"
+                                android:paddingRight="10dp"></TextView>
+
+                            <TextView
+                                android:id="@+id/txtAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/nunito_sans_semibold"
+                                android:textSize="14sp"
+                                android:text=""
+                                android:paddingTop="0dp"
+                                android:textColor="@color/grey1"></TextView>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -575,6 +599,34 @@
 
                             </FrameLayout>
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Coupon Discount"
+                                    android:textColor="#373737"
+                                    android:textSize="14sp"
+                                    app:fontFamily="@font/nunito_sans_semibold" />
+
+                                <TextView
+                                    android:id="@+id/txtCouponDiscount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="right"
+                                    android:text=""
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="14sp"
+                                    app:fontFamily="@font/nunito_sans_semibold" />
+
+                            </FrameLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
@@ -593,8 +645,8 @@
                                     android:layout_weight="1"
                                     android:text="Total :"
                                     android:textColor="#000"
-                                    android:textSize="18sp"
                                     android:textStyle="bold"
+                                    android:textSize="18sp"
                                     app:fontFamily="@font/nunito_sans_semibold" />
 
                                 <TextView
@@ -603,31 +655,13 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="right"
+                                    android:textStyle="bold"
                                     android:text=""
                                     android:textColor="#000"
                                     android:textSize="14sp"
-                                    android:textStyle="bold"
                                     app:fontFamily="@font/nunito_sans_semibold" />
 
                             </FrameLayout>
-
-                            <TextView
-                                android:id="@+id/txtCancelOrder"
-                                android:layout_width="match_parent"
-                                android:layout_height="?actionBarSize"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="50dp"
-                                android:layout_marginRight="20dp"
-                                android:layout_marginBottom="20dp"
-                                android:layout_toRightOf="@+id/address"
-                                android:background="@drawable/grey_green_border"
-                                android:clickable="true"
-                                android:fontFamily="@font/nunito_sans_semibold"
-                                android:gravity="center"
-                                android:text="Cancel Order"
-                                android:textAllCaps="false"
-                                android:textColor="#52AC03"
-                                android:textSize="19sp" />
 
                         </LinearLayout>
                     </LinearLayout>

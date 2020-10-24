@@ -66,16 +66,17 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_notification"
+                android:src="@drawable/ic_my_order"
                 android:tint="@color/colorPrimaryDark"></ImageView>
 
             <TextView
+                android:id="@+id/txtErrorMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_semibold"
                 android:gravity="center_horizontal"
                 android:maxLines="1"
-                android:text="Empty Notification"
+                android:text="No Order Data Found"
                 android:textColor="@color/textColor"
                 android:textSize="20sp"
                 android:textStyle="bold"></TextView>

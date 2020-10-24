@@ -75,7 +75,6 @@
                     android:text="My Order"
                     android:layout_marginTop="50dp"
                     android:layout_gravity="center_horizontal"
-                    android:textAllCaps="true"
                     android:clickable="true"
                     android:textStyle="bold"
                     android:fontFamily="@font/nunito_sans_semibold"

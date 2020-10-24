@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-import grocery.app.Fragments.CartFragment;
 import grocery.app.R;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityOrderListBinding;
@@ -43,20 +44,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
         OrderModel model = orderModelList.get(position);
 
-        Picasso.get().load(P.imgBaseUrl+model.getCart_image()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgProduct);
+        Picasso.get().load(P.imgBaseUrl+model.getImage()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgProduct);
 
         holder.binding.txtAmount.setText(rs + model.getPrice());
-        holder.binding.txtProductOff.setText(rs + model.getCoupon_discount_amount());
-
-        if (!TextUtils.isEmpty(model.getName())){
-            holder.binding.txtProductName.setText(model.getName());
-        }else {
-            holder.binding.txtProductName.setText("Product Name");
-            holder.binding.txtProductName.setPaintFlags(holder.binding.txtProductName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        }
-
-        holder.binding.txtWeight.setText("0 KG");
-        holder.binding.txtWeight.setPaintFlags(holder.binding.txtWeight.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.binding.txtProductOff.setText(rs + model.getTotal_price());
+        holder.binding.txtProductName.setText(model.getName());
+        holder.binding.txtWeight.setText(getProductDerails(model));
+        holder.binding.txtStatus.setText(model.getStatus());
+        holder.binding.txtDate.setText(formatedDate(model.getDate()));
 
         holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -74,5 +69,29 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    private String getProductDerails(OrderModel model){
+        String details = "";
+
+        if (!TextUtils.isEmpty(model.getLabel1()) && !TextUtils.isEmpty(model.getValue1())){
+            details = model.getLabel1() + " : " + model.getValue1();
+        }
+
+        if (!TextUtils.isEmpty(model.getLabel2()) && !TextUtils.isEmpty(model.getValue2())){
+            details = details + "\n" + model.getLabel2() + " : " + model.getValue2();
+        }
+        return details;
+    }
+
+    private String formatedDate(String stringDate){
+        String orderDate = stringDate;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            Date date = dateFormat.parse(orderDate);
+            orderDate = dateFormat.format(date);
+        }catch (Exception e){
+        }
+        return orderDate;
     }
 }

@@ -100,7 +100,7 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
     }
 
     private void updateAddress(){
-        binding.txtAddressTitle.setText("Billing & Shipping Address -");
+        binding.txtAddressTitle.setText("Billing & Shipping Address");
         binding.txtTitle.setText(addressModel.getAddress_type() + " Address");
         binding.txtName.setText(addressModel.getFull_name());
         binding.txtAddress.setText(getAddress(addressModel));

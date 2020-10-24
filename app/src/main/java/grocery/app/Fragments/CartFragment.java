@@ -146,6 +146,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                     hideProgress();
                     binding.etxCoupon.setText("");
                     H.showMessage(context, "On error is called");
+                    Config.COUPON_CODE = "";
                 })
                 .onSuccess(json ->
                 {
@@ -158,6 +159,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                     } else {
                         H.showMessage(context, json.getString(P.msg));
                         binding.etxCoupon.setText("");
+                        Config.COUPON_CODE = "";
                     }
                     hideProgress();
                 })

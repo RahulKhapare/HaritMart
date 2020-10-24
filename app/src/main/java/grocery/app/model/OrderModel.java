@@ -7,17 +7,42 @@ public class OrderModel {
     String product_id;
     String products_variants_id;
     String qty;
-    String option1;
-    String option2;
-    String option3;
+    String label1;
+    String label2;
+    String value1;
+    String value2;
+    String category_name;
+    String category_id;
+    String tax_per;
+    String name;
+    String sku;
+    String slug;
     String price;
+    String image;
     String total_price;
     String coupon_discount_amount;
-    String cart_image;
-    String name;
+    String tax_amount;
+    String date;
+    String status;
 
     public OrderModel() {
 
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getId() {
@@ -60,28 +85,84 @@ public class OrderModel {
         this.qty = qty;
     }
 
-    public String getOption1() {
-        return option1;
+    public String getLabel1() {
+        return label1;
     }
 
-    public void setOption1(String option1) {
-        this.option1 = option1;
+    public void setLabel1(String label1) {
+        this.label1 = label1;
     }
 
-    public String getOption2() {
-        return option2;
+    public String getLabel2() {
+        return label2;
     }
 
-    public void setOption2(String option2) {
-        this.option2 = option2;
+    public void setLabel2(String label2) {
+        this.label2 = label2;
     }
 
-    public String getOption3() {
-        return option3;
+    public String getValue1() {
+        return value1;
     }
 
-    public void setOption3(String option3) {
-        this.option3 = option3;
+    public void setValue1(String value1) {
+        this.value1 = value1;
+    }
+
+    public String getValue2() {
+        return value2;
+    }
+
+    public void setValue2(String value2) {
+        this.value2 = value2;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public String getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(String category_id) {
+        this.category_id = category_id;
+    }
+
+    public String getTax_per() {
+        return tax_per;
+    }
+
+    public void setTax_per(String tax_per) {
+        this.tax_per = tax_per;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public String getPrice() {
@@ -90,6 +171,14 @@ public class OrderModel {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getTotal_price() {
@@ -108,19 +197,11 @@ public class OrderModel {
         this.coupon_discount_amount = coupon_discount_amount;
     }
 
-    public String getCart_image() {
-        return cart_image;
+    public String getTax_amount() {
+        return tax_amount;
     }
 
-    public void setCart_image(String cart_image) {
-        this.cart_image = cart_image;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setTax_amount(String tax_amount) {
+        this.tax_amount = tax_amount;
     }
 }

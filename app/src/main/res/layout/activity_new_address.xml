@@ -72,6 +72,7 @@
                         android:imeOptions="actionNext"
                         android:hint="Contact Number"
                         android:maxLines="1"
+                        android:maxLength="10"
                         android:backgroundTint="@color/grey2"
                         android:inputType="numberDecimal"
                         android:textColorHint="@color/grey2" />
@@ -86,6 +87,7 @@
                         android:imeOptions="actionNext"
                         android:hint="Contact Number (Option)"
                         android:maxLines="1"
+                        android:maxLength="10"
                         android:backgroundTint="@color/grey2"
                         android:inputType="numberDecimal"
                         android:textColorHint="@color/grey2" />
@@ -212,6 +214,7 @@
                             android:layout_weight="1"
                             android:hint="Pincode"
                             android:maxLines="1"
+                            android:maxLength="6"
                             android:backgroundTint="@color/grey2"
                             android:imeOptions="actionNext"
                             android:layout_marginLeft="5dp"

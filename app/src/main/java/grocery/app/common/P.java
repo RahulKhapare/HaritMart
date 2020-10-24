@@ -51,15 +51,24 @@ public class P {
     public static String tax_amount="tax_amount";
     public static String delivery_amount="delivery_amount";
     public static String grand_total="grand_total";
+    public static String delivery_name="delivery_name";
+    public static String coupon_code_id="coupon_code_id";
 
+    public static String payment_status="payment_status";
+    public static String payment_info="payment_info";
+    public static String payment_name="payment_name";
     public static String payment_id="payment_id";
     public static String bill_address_type="bill_address_type";
     public static String bill_address_id="bill_address_id";
     public static String bill_full_name="bill_full_name";
     public static String bill_address="bill_address";
+    public static String bill_address2="bill_address2";
     public static String bill_country="bill_country";
+    public static String bill_country_id="bill_country_id";
     public static String bill_state="bill_state";
+    public static String bill_state_id="bill_state_id";
     public static String bill_city="bill_city";
+    public static String bill_city_id="bill_city_id";
     public static String bill_pincode="bill_pincode";
     public static String bill_phone="bill_phone";
     public static String bill_email="bill_email";
@@ -67,18 +76,24 @@ public class P {
     public static String ship_full_name="ship_full_name";
     public static String ship_address_type="ship_address_type";
     public static String ship_address="ship_address";
+    public static String ship_address2="ship_address2";
     public static String ship_country="ship_country";
+    public static String ship_country_id="ship_country_id";
     public static String ship_state="ship_state";
     public static String ship_city="ship_city";
+    public static String ship_city_id="ship_city_id";
     public static String ship_pincode="ship_pincode";
     public static String ship_phone="ship_phone";
     public static String ship_email="ship_email";
     public static String ship_phone2="ship_phone2";
     public static String shiptodifferetadd="shiptodifferetadd";
+    public static String ship_state_id="ship_state_id";
 
     public static String ship_landmark="ship_landmark";
     public static String bill_landmark="bill_landmark";
     public static String order_by="order_by";
+    public static String bill_locality="bill_locality";
+    public static String ship_locality="ship_locality";
 
     public static String item_id="item_id";
     public static String item_qty="item_qty";
@@ -100,6 +115,10 @@ public class P {
     public static String coupon_code="coupon_code";
     public static String image_for="image_for";
     public static String extension="extension";
+    public static String pdf_url="pdf_url";
+
+    public static String ordered_date="ordered_date";
+    public static String ordered_amount="ordered_amount";
 
     public static String category_list = "category_list";
     public static String category_image_path = "category_image_path";
@@ -136,6 +155,7 @@ public class P {
     public static String key = "key";
     public static String image_url = "image_url";
     public static String lable = "lable";
+    public static String tax_per = "tax_per";
 
     public static String googleAddress = "googleAddress";
     public static String googleCity = "googleCity";
@@ -157,6 +177,8 @@ public class P {
     public static String phone = "phone";
     public static String phone2 = "phone2";
     public static String main_address = "main_address";
+    public static String company_name = "company_name";
+    public static String productItemList = "productItemList";
 
     public static String new_window = "new_window";
     public static String url = "url";

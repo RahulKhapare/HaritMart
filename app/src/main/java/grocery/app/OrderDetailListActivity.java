@@ -9,10 +9,13 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.adoisstudio.helper.Api;
 import com.adoisstudio.helper.H;
@@ -35,10 +38,11 @@ import grocery.app.common.P;
 import grocery.app.databinding.ActivityOrderDetailListBinding;
 import grocery.app.model.OrderDetailListModel;
 import grocery.app.model.OrderSortModel;
+import grocery.app.util.Click;
 import grocery.app.util.Config;
 import grocery.app.util.WindowBarColor;
 
-public class OrderDetailListActivity extends AppCompatActivity implements OrderSortAdapter.SortClick{
+public class OrderDetailListActivity extends AppCompatActivity implements OrderSortAdapter.SortClick,OrderDetailListAdapter.onClick{
 
     private OrderDetailListActivity activity = this;
     private ActivityOrderDetailListBinding binding;
@@ -53,7 +57,7 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
     private List<OrderSortModel> orderSortModelList;
     private boolean fromSuccessOrder;
     private int DECENDING = 1;
-
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,7 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
     }
 
     private void initView(){
+        session = new Session(activity);
         fromSuccessOrder = getIntent().getBooleanExtra(Config.FROM_SUCCESS_ORDER, false);
         loadingDialog = new LoadingDialog(activity);
         orderDetailListModelList = new ArrayList<>();
@@ -80,16 +85,15 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
         binding.recyclerOrderDetailList.setNestedScrollingEnabled(false);
         adapter = new OrderDetailListAdapter(activity,orderDetailListModelList);
         binding.recyclerOrderDetailList.setAdapter(adapter);
-//        hitOrderDetailList(DECENDING);
-        setDummyData();
+        hitOrderDetailList(DECENDING);
     }
 
     private void hitOrderDetailList(int order_by) {
         orderDetailListModelList.clear();
         showProgress();
         Json j = new Json();
-        j.addInt(P.user_id, H.getInt(new Session(activity).getString(P.user_id)));
-        j.addString(P.cart_token, new Session(activity).getString(P.cart_token));
+        j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        j.addString(P.cart_token, session.getString(P.cart_token));
         j.addInt(P.order_by, order_by);
 
         Api.newApi(activity, P.baseUrl + "order_list").addJson(j)
@@ -113,30 +117,79 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
                             e.printStackTrace();
                         }
                         JsonList jsonOrderList = json.getJsonList(P.order_list);
+
+                        for(Json orderJson : jsonOrderList){
+
+                            OrderDetailListModel model = new OrderDetailListModel();
+                            model.setId(orderJson.getString(P.id));
+                            model.setOrder_number(orderJson.getString(P.order_number));
+                            model.setOrdered_date(orderJson.getString(P.ordered_date));
+                            model.setOrdered_amount(orderJson.getString(P.ordered_amount));
+                            model.setName(orderJson.getString(P.name));
+                            model.setEmail(orderJson.getString(P.email));
+                            model.setPhone(orderJson.getString(P.phone));
+                            model.setProductItemList(orderJson.getJsonList(P.item_list));
+                            model.setGrand_total(orderJson.getString(P.grand_total));
+                            model.setTax_name(orderJson.getString(P.tax_name));
+                            model.setTax_amount(orderJson.getString(P.tax_amount));
+                            model.setDelivery_name(orderJson.getString(P.delivery_name));
+                            model.setDelivery_amount(orderJson.getString(P.delivery_amount));
+                            model.setCoupon_code_id(orderJson.getString(P.coupon_code_id));
+                            model.setCoupon_code(orderJson.getString(P.coupon_code));
+                            model.setCoupon_discount_amount(orderJson.getString(P.coupon_discount_amount));
+                            model.setItem_total(orderJson.getString(P.item_total));
+                            model.setShiptodifferetadd(orderJson.getString(P.shiptodifferetadd));
+                            model.setBill_full_name(orderJson.getString(P.bill_full_name));
+                            model.setBill_phone(orderJson.getString(P.bill_phone));
+                            model.setBill_email(orderJson.getString(P.bill_email));
+                            model.setBill_phone2(orderJson.getString(P.bill_phone2));
+                            model.setBill_address_type(orderJson.getString(P.bill_address_type));
+                            model.setBill_address(orderJson.getString(P.bill_address));
+                            model.setBill_address2(orderJson.getString(P.bill_address2));
+                            model.setBill_landmark(orderJson.getString(P.bill_landmark));
+                            model.setBill_locality(orderJson.getString(P.bill_locality));
+                            model.setBill_country(orderJson.getString(P.bill_country));
+                            model.setBill_country_id(orderJson.getString(P.bill_country_id));
+                            model.setBill_state(orderJson.getString(P.bill_state));
+                            model.setBill_state_id(orderJson.getString(P.bill_state_id));
+                            model.setBill_city(orderJson.getString(P.bill_city));
+                            model.setBill_city_id(orderJson.getString(P.bill_city_id));
+                            model.setBill_pincode(orderJson.getString(P.bill_pincode));
+                            model.setShip_full_name(orderJson.getString(P.ship_full_name));
+                            model.setShip_phone(orderJson.getString(P.ship_phone));
+                            model.setShip_email(orderJson.getString(P.ship_email));
+                            model.setShip_phone2(orderJson.getString(P.ship_phone2));
+                            model.setShip_address_type(orderJson.getString(P.ship_address_type));
+                            model.setShip_address(orderJson.getString(P.ship_address));
+                            model.setShip_address2(orderJson.getString(P.ship_address2));
+                            model.setShip_landmark(orderJson.getString(P.ship_landmark));
+                            model.setShip_locality(orderJson.getString(P.ship_locality));
+                            model.setShip_country(orderJson.getString(P.ship_country));
+                            model.setShip_country_id(orderJson.getString(P.ship_country));
+                            model.setShip_state(orderJson.getString(P.ship_state));
+                            model.setShip_state_id(orderJson.getString(P.ship_state_id));
+                            model.setShip_city(orderJson.getString(P.ship_city));
+                            model.setShip_city_id(orderJson.getString(P.ship_city_id));
+                            model.setShip_pincode(orderJson.getString(P.ship_pincode));
+                            model.setPayment_id(orderJson.getString(P.payment_id));
+                            model.setPayment_name(orderJson.getString(P.payment_name));
+                            model.setPayment_info(orderJson.getString(P.payment_info));
+                            model.setPayment_status(orderJson.getString(P.payment_status));
+                            model.setOrder_status(orderJson.getString(P.order_status));
+                            model.setOrder_status_comment(orderJson.getString(P.order_status_comment));
+                            model.setPdf_url(orderJson.getString(P.pdf_url));
+
+                            orderDetailListModelList.add(model);
+                        }
+
                     }
+
+                    adapter.notifyDataSetChanged();
                     hideProgress();
                     checkError();
                 })
                 .run("hitOrderDetailList");
     }
-
-    private void setDummyData(){
-
-        OrderDetailListModel model = new OrderDetailListModel();
-        model.setOrderId("001");
-        model.setOrderNo("#009933");
-        model.setOrderDate("00/00/0000");
-        model.setOrderAmount("00000");
-        model.setPaymentBy("PhonePe");
-        model.setTotalAmount("00000000");
-
-        orderDetailListModelList.add(model);
-
-        adapter.notifyDataSetChanged();
-
-        checkError();
-    }
-
 
     private void onSortClick() {
         try {
@@ -197,7 +250,12 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
         SORT_POSITION = position;
         sortName = name;
         dialog.dismiss();
-//        hitOrderDetailList(sortValue);
+        hitOrderDetailList(sortValue);
+    }
+
+    @Override
+    public void cancelOrder(OrderDetailListModel model, TextView txtStatus,TextView txtCancel) {
+        commentDialog(model,txtStatus,txtCancel);
     }
 
     @Override
@@ -221,6 +279,80 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
     }
 
 
+    private void commentDialog(OrderDetailListModel model,TextView txtStatus,TextView txtCancelOrder) {
+
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_comment_dialog);
+
+        EditText etxComment = dialog.findViewById(R.id.etxComment);
+
+        TextView txtCancel = dialog.findViewById(R.id.txtCancel);
+        TextView txtSubmit = dialog.findViewById(R.id.txtSubmit);
+
+        txtSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Click.preventTwoClick(v);
+                String comment = etxComment.getText().toString().trim();
+                if (!TextUtils.isEmpty(comment)) {
+                    if (comment.length() > 10) {
+                        dialog.cancel();
+                        hitOrderCancelApi(model, txtStatus,txtCancelOrder, comment);
+                    } else {
+                        H.showMessage(activity, "Enter minimum 10 character");
+                    }
+                } else {
+                    H.showMessage(activity, "Please enter comment");
+                }
+            }
+        });
+
+        txtCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Click.preventTwoClick(v);
+                dialog.cancel();
+            }
+        });
+
+        dialog.setCancelable(true);
+        dialog.show();
+        Window window = dialog.getWindow();
+        window.setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+    }
+
+    private void hitOrderCancelApi(OrderDetailListModel model,TextView txtStatus,TextView txtCancelOrder, String comment) {
+        Json j = new Json();
+        j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        j.addString(P.order_number, model.getOrder_number());
+        j.addString(P.order_status, "Cancelled");
+        j.addString(P.order_status_comment, comment);
+
+        Api.newApi(activity, P.baseUrl + "update_order_status").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    H.showMessage(activity, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        H.showMessage(activity, "Order cancelled successfully");
+                        model.setOrder_status("Cancelled");
+                        txtStatus.setText("Order Cancelled");
+                        txtStatus.setTextColor(getResources().getColor(R.color.red));
+                        txtCancelOrder.setVisibility(View.GONE);
+                    } else {
+                        H.showMessage(activity, json.getString(P.msg));
+                    }
+
+                })
+                .run("hitOrderCancelApi");
+    }
+
+
+
     private void checkError(){
         if (orderDetailListModelList.isEmpty()){
             showError();
@@ -239,6 +371,11 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
 
     private void showError(){
         binding.lnrError.setVisibility(View.VISIBLE);
+        if (sortName.contains("Cancel Order")){
+            binding.txtErrorMessage.setText("No Cancel Order Found");
+        }else {
+            binding.txtErrorMessage.setText("No Order Data Fount");
+        }
     }
 
     private void hideError(){
@@ -255,5 +392,4 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
             super.onBackPressed();
         }
     }
-
 }

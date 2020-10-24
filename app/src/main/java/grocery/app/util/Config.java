@@ -3,6 +3,7 @@ package grocery.app.util;
 import com.adoisstudio.helper.Json;
 
 import grocery.app.model.AddressModel;
+import grocery.app.model.OrderDetailListModel;
 
 public class Config {
 
@@ -12,6 +13,7 @@ public class Config {
     public static String PRODUCT_IMAGE_PATH ;
     public static boolean FROM_HOME = false;
     public static AddressModel addressModel;
+    public static OrderDetailListModel orderDetailListModel;
 
     public static String PARENT_POSITION = "PARENT_POSITION";
     public static String SUB_POSITION = "SUB_POSITION";
