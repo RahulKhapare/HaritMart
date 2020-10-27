@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import grocery.app.R;
-import grocery.app.onBoardItem;
+import grocery.app.model.onBoardItem;
 
 public class OnBoardingAdapter extends  RecyclerView.Adapter<OnBoardingAdapter.onBoardViewHolder>{
 

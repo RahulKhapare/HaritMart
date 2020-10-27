@@ -141,7 +141,7 @@
                         <LinearLayout
                             android:id="@+id/parentLinearLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:animateLayoutChanges="true"
                             android:orientation="horizontal"
                             android:paddingTop="5dp"
@@ -150,7 +150,7 @@
                             <LinearLayout
                                 android:id="@+id/homeLayout"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:animateLayoutChanges="true"
                                 android:background="@drawable/clickable_transparent_bg"
@@ -180,7 +180,7 @@
                             <LinearLayout
                                 android:id="@+id/searchLayout"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:animateLayoutChanges="true"
                                 android:background="@drawable/clickable_transparent_bg"
@@ -209,36 +209,62 @@
                             <LinearLayout
                                 android:id="@+id/cartLayout"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:animateLayoutChanges="true"
-                                android:background="@drawable/clickable_transparent_bg"
+                                android:layout_height="wrap_content"
                                 android:clickable="true"
-                                android:gravity="center"
                                 android:onClick="onBottomBarClick"
-                                android:orientation="vertical">
+                                android:layout_weight="1">
 
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="35dp"
-                                    android:src="@drawable/ic_cart_inactive"
-                                    android:tag="imageView" />
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="25dp"
-                                    android:fontFamily="@font/nunit_sans_bold"
-                                    android:gravity="center"
-                                    android:tag="textView"
-                                    android:text="Cart"
-                                    android:textStyle="bold" />
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:animateLayoutChanges="true"
+                                        android:background="@drawable/clickable_transparent_bg"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="35dp"
+                                            android:src="@drawable/ic_cart_inactive"
+                                            android:tag="imageView" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="25dp"
+                                            android:fontFamily="@font/nunit_sans_bold"
+                                            android:gravity="center"
+                                            android:tag="textView"
+                                            android:text="Cart"
+                                            android:textStyle="bold" />
+
+                                    </LinearLayout>
+
+                                    <TextView
+                                        android:id="@+id/txtCartCount"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingRight="20dp"
+                                        android:fontFamily="@font/nunit_sans_bold"
+                                        android:gravity="center"
+                                        android:tag="textView"
+                                        android:text="0"
+                                        android:textColor="@color/saffron"
+                                        android:layout_alignParentRight="true"
+                                        android:textStyle="bold" />
+
+                                </RelativeLayout>
 
                             </LinearLayout>
+
 
                             <LinearLayout
                                 android:id="@+id/favouriteLayout"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:animateLayoutChanges="true"
                                 android:background="@drawable/clickable_transparent_bg"

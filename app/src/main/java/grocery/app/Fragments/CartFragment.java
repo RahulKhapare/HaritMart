@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import grocery.app.BaseActivity;
 import grocery.app.MyAddressActivity;
 import grocery.app.R;
 import grocery.app.adapter.CartAdapter;
@@ -359,6 +360,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                             binding.lnrCoupon.setVisibility(View.VISIBLE);
                         }
                     }
+                    updateCount();
                 })
                 .run("hitCartListApi");
     }
@@ -404,8 +406,14 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
                         hideSummary();
                     }
                     checkError();
+                    updateCount();
                 })
                 .run("hitToUpdateSummery");
+    }
+
+    private void updateCount(){
+        ((BaseActivity) context).setCartCount(cartModelList.size());
+        ((BaseActivity) context).updateCartCount();
     }
 
     private Animation removeItem(int position) {

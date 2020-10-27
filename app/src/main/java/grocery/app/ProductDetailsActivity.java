@@ -681,6 +681,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                 {
                     if (json.getInt(P.status) == 1) {
                         H.showMessage(activity, "Item added into cart");
+                        updateCount();
                         binding.btnCart.setText(goToCart);
                     } else{
                         H.showMessage(activity, json.getString(P.msg));
@@ -688,6 +689,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                     hideLoader();
                 })
                 .run("hitAddToCartApi");
+    }
+
+    private void updateCount(){
+        session.addInt(P.cart_list_count,session.getInt(P.cart_list_count)+1);
     }
 
     private void hitAddToWishList(Json j,ImageView imgAction,boolean givenFlag) {

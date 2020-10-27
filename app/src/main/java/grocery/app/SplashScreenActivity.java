@@ -28,7 +28,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         loadingDialog = new LoadingDialog(this);
-        getFirebaseToken();
         hitCartTokenApi();
         hitInitApi();
     }
@@ -121,11 +120,4 @@ public class SplashScreenActivity extends AppCompatActivity {
                 .run("hitCartTokenApi");
     }
 
-    public void getFirebaseToken(){
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, instanceIdResult -> {
-            String newToken = instanceIdResult.getToken();
-            new Session(this).addString(P.fcmToken,newToken);
-            Log.e("TAG", "getFirebaseToken: " + new Session(this).getString(P.fcmToken));
-        });
-    }
 }

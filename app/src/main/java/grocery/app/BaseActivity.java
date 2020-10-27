@@ -1,5 +1,6 @@
 package grocery.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -276,9 +277,27 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void setCartCount(int value){
+        new Session(activity).addInt(P.cart_list_count,value);
+    }
+
+    public int getCartCount(){
+        return new Session(activity).getInt(P.cart_list_count);
+    }
+
+    public void updateCartCount(){
+        if (getCartCount()==0){
+            binding.txtCartCount.setVisibility(View.GONE);
+        }else {
+            binding.txtCartCount.setVisibility(View.VISIBLE);
+            binding.txtCartCount.setText(getCartCount()+"");
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        updateCartCount();
         binding.txtAddress.setText(new Session(activity).getString(P.googleAddress));
     }
 

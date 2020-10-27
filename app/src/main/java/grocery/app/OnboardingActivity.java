@@ -47,6 +47,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
 import java.security.MessageDigest;
@@ -58,9 +59,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import grocery.app.adapter.OnBoardingAdapter;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityOnboardingBinding;
+import grocery.app.model.onBoardItem;
 import grocery.app.util.Click;
 import grocery.app.util.Config;
-import grocery.app.util.LoginFlag;
 
 public class OnboardingActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -113,8 +114,16 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
             }
         });
 
+        getFirebaseToken();
         printHashKey(activity);
+    }
 
+    private void getFirebaseToken(){
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, instanceIdResult -> {
+            String newToken = instanceIdResult.getToken();
+            new Session(this).addString(P.fcm_value,newToken);
+            Log.e("TAG", "getFirebaseToken: " + new Session(this).getString(P.fcm_value));
+        });
     }
 
     public static void printHashKey(Context pContext) {
@@ -338,6 +347,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         j.addString(P.app_type, app_type);
         j.addString(P.phone, "");
         j.addString(P.cart_token, new Session(activity).getString(P.cart_token));
+        j.addString(P.fcm_value, new Session(activity).getString(P.fcm_value));
 
         Api.newApi(activity, P.baseUrl + "social_login").addJson(j)
                 .setMethod(Api.POST)

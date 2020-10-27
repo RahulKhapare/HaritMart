@@ -11,7 +11,7 @@ public class P {
     public static String product_image_path="product_image_path";
     public static String slider_list="slider_list";
     public static String all_images="all_images";
-    public static String fcmToken="fcmToken";
+    public static String fcm_value="fcm_value";
 
     public static String login_token="login_token";
     public static String user_data="user_data";
@@ -150,12 +150,16 @@ public class P {
     public static String category_filter_data = "category_filter_data";
     public static String short_by_data = "short_by_data";
     public static String title = "title";
+    public static String action_data = "action_data";
+    public static String icon = "icon";
+    public static String action = "action";
     public static String lable_values = "lable_values";
     public static String value = "value";
     public static String key = "key";
     public static String image_url = "image_url";
     public static String lable = "lable";
     public static String tax_per = "tax_per";
+    public static String cart_list_count = "cart_list_count";
 
     public static String googleAddress = "googleAddress";
     public static String googleCity = "googleCity";

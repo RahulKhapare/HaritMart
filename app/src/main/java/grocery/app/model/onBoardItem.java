@@ -1,4 +1,4 @@
-package grocery.app;
+package grocery.app.model;
 
 public class onBoardItem {
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -16,6 +17,7 @@ import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.LoadingDialog;
 import com.adoisstudio.helper.Session;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityOtpBinding;
@@ -77,7 +79,6 @@ public class OtpActivity extends AppCompatActivity {
         });
 
         startTimer();
-
     }
 
     private void startTimer(){
@@ -146,6 +147,7 @@ public class OtpActivity extends AppCompatActivity {
         j.addString(P.phone, loginNumber);
         j.addString(P.cart_token, new Session(activity).getString(P.cart_token));
         j.addString(P.otp, loginOTP);
+        j.addString(P.fcm_value, new Session(activity).getString(P.fcm_value));
 
         Api.newApi(activity, P.baseUrl + "login_with_otp").addJson(j)
                 .setMethod(Api.POST)

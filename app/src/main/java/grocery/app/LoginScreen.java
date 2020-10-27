@@ -60,6 +60,7 @@ public class LoginScreen extends AppCompatActivity {
         j.addString(P.phone, binding.etxNumber.getText().toString().trim());
         j.addString(P.cart_token, new Session(activity).getString(P.cart_token));
         j.addString(P.otp, "");
+        j.addString(P.fcm_value, new Session(activity).getString(P.fcm_value));
 
         Api.newApi(activity, P.baseUrl + "login_with_otp").addJson(j)
                 .setMethod(Api.POST)
