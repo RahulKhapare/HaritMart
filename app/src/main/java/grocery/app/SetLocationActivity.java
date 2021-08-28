@@ -15,9 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -63,7 +61,6 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
     private String country;
     private String postalCode;
     private String knownName;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,6 +143,7 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
         session.addString(P.googleCode,postalCode);
         session.addString(P.googleKnownName,knownName);
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -272,16 +270,20 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
         try {
             addresses = geocoder.getFromLocation(currentLat, currentLong, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
-            address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-            city = addresses.get(0).getLocality();
-            state = addresses.get(0).getAdminArea();
-            country = addresses.get(0).getCountryName();
-            postalCode = addresses.get(0).getPostalCode();
-            knownName = addresses.get(0).getFeatureName();
+            if (addresses!=null && addresses.size()!=0){
 
-            if (!TextUtils.isEmpty(address)) {
-                addressData = address + "";
-            }
+                address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                city = addresses.get(0).getLocality();
+                state = addresses.get(0).getAdminArea();
+                country = addresses.get(0).getCountryName();
+                postalCode = addresses.get(0).getPostalCode();
+                knownName = addresses.get(0).getFeatureName();
+
+                if (!TextUtils.isEmpty(address)) {
+                    addressData = address + "";
+                }else {
+                    addressData = "No address found";
+                }
 //            if (!TextUtils.isEmpty(city)){
 //                addressData = addressData + city + ",";
 //            }
@@ -291,6 +293,10 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
 //            if (!TextUtils.isEmpty(country)){
 //                addressData = addressData + country;
 //            }
+
+            }else {
+                addressData = "No address found";
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

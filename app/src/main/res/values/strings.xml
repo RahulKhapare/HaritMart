@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Grocery</string>
+    <string name="app_name">HaritMart</string>
     <string name="facebook_app_id">707948156420847</string>
     <string name="fb_login_protocol_scheme">fb707948156420847</string>
     <string name="fb_login_app_id">966813763787443</string>

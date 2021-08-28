@@ -17,7 +17,7 @@ public class WindowBarColor {
 //            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 //            activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, R.color.green));
                 activity.getWindow().setStatusBarColor(activity.getResources().getColor(R.color.colorPrimaryDark));
-                activity.getWindow().setNavigationBarColor(activity.getResources().getColor(R.color.semiTrans));
+                activity.getWindow().setNavigationBarColor(activity.getResources().getColor(R.color.colorPrimaryDark));
             }
         }catch (Exception e){
         }

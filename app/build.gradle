@@ -51,6 +51,10 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 //    implementation 'com.facebook.android:facebook-login:[5,6)'
 
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.6"
     implementation 'com.google.firebase:firebase-core:17.2.1'
     implementation 'com.google.firebase:firebase-auth:19.1.0'
     implementation 'com.facebook.android:facebook-login:4.42.0'

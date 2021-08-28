@@ -1,142 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".SplashScreenActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:gravity="center"
+        android:background="@drawable/ic_splash_bg">
+
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@id/iV"
-            android:layout_marginTop="-20dp"
-            android:layout_marginEnd="30dp"
-            android:src="@drawable/ic_group_4167" />
+            android:layout_width="222dp"
+            android:layout_height="125dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="100dp"
+            android:src="@drawable/ic_splash_logo">
 
-        <ImageView
-            android:id="@+id/iV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="-25dp"
-            android:layout_marginTop="-80dp"
-            android:src="@drawable/ic_path_25890" />
+        </ImageView>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="89dp"
-            android:layout_marginEnd="-21dp"
-            android:alpha="0.2"
-            android:src="@drawable/ic_group_4164" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="67dp"
-            android:layout_marginEnd="-41dp"
-            android:src="@drawable/ic_path_25892" />
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/product_sans_regular"
-                android:text="Big"
-                android:textColor="@color/saffron"
-                android:textSize="58sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-15dp"
-                android:fontFamily="@font/product_sans_regular"
-                android:text="Grocery"
-                android:textColor="@color/green"
-                android:textSize="58sp" />
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-7dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_path_25893" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_group_4171" />
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="-47dp"
-            android:layout_marginBottom="25dp"
-            android:src="@drawable/ic_path_25891" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="-14dp"
-            android:layout_marginBottom="71dp"
-            android:src="@drawable/ic_group_4165" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="80dp"
-            android:alpha="0.1"
-            android:src="@drawable/ic_baseline_brightness_1_24"
-            android:tint="#52AC03" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="-32dp"
-            android:layout_marginBottom="-32dp"
-            android:src="@drawable/ic_path_25888" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="-25dp"
-            android:layout_marginBottom="-24dp"
-            android:src="@drawable/ic_group_4166" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="66dp"
-            android:alpha="0.1"
-            android:src="@drawable/ic_baseline_brightness_1_24"
-            android:tint="#FC8F00" />
-
-    </RelativeLayout>
 
 </layout>

@@ -41,7 +41,6 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
@@ -56,16 +55,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import grocery.app.adapter.OnBoardingAdapter;
+import grocery.app.adapter.OnBoardAdapter;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityOnboardingBinding;
-import grocery.app.model.onBoardItem;
+import grocery.app.model.OnBoardModel;
 import grocery.app.util.Click;
 import grocery.app.util.Config;
+import grocery.app.util.WindowBarColor;
 
 public class OnboardingActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    private OnBoardingAdapter onBoardingAdapter;
+    private OnBoardAdapter onBoardingAdapter;
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions gso;
     private static final int RC_SIGN_IN_GOOGLE = 1;
@@ -85,6 +85,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowBarColor.setColor(this);
         binding = DataBindingUtil.setContentView(activity,R.layout.activity_onboarding);
         loadingDialog = new LoadingDialog(this);
         updateLoginFlag = getIntent().getBooleanExtra(Config.UPDATE_LOGIN_FLAG,false);
@@ -92,16 +93,20 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         hitCartTokenApi();
         initFacebookLogin();
         onInitGoogle();
-        binding.onBoardViewPager.setAdapter(onBoardingAdapter);
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(binding.tabLayout, binding.onBoardViewPager, (tab, position) -> {
 
-        });
-        tabLayoutMediator.attach();
-        binding.loginBtn.setOnClickListener(v -> {
+        binding.btnLogin.setOnClickListener(v -> {
             Click.preventTwoClick(v);
             Intent intent = new Intent(OnboardingActivity.this, LoginScreen.class);
             startActivity(intent);
         });
+
+        binding.btnSecondary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Click.preventTwoClick(v);
+            }
+        });
+
         binding.txtSkip.setOnClickListener(v -> {
             Click.preventTwoClick(v);
             if (updateLoginFlag){
@@ -415,24 +420,26 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
     }
 
     private void setupOnBoardingItems() {
-        List<onBoardItem> onBoardItems = new ArrayList<>();
-        onBoardItem onBoardItem = new onBoardItem();
-        onBoardItem.setImage(R.drawable.ic_group_4173);
-        onBoardItem.setTitle("Select ipsum dolor sit amet");
+        List<OnBoardModel> SlideModels = new ArrayList<>();
+        OnBoardModel SlideModel = new OnBoardModel();
+        SlideModel.setImage(getResources().getDrawable(R.drawable.ic_group_4173));
+        SlideModel.setTitle("Select ipsum dolor sit amet");
 
-        onBoardItem onBoardItem1 = new onBoardItem();
-        onBoardItem1.setImage(R.drawable.ic_group_145);
-        onBoardItem1.setTitle("Select ipsum dolor sit amet");
+        OnBoardModel slideModel1 = new OnBoardModel();
+        slideModel1.setImage(getResources().getDrawable(R.drawable.ic_group_145));
+        slideModel1.setTitle("Select ipsum dolor sit amet");
 
-        onBoardItem onBoardItem2 = new onBoardItem();
-        onBoardItem2.setImage(R.drawable.ic_group_4172);
-        onBoardItem2.setTitle("Fast Doorstep Deliveries ");
+        OnBoardModel slideModel2 = new OnBoardModel();
+        slideModel2.setImage(getResources().getDrawable(R.drawable.ic_group_4172));
+        slideModel2.setTitle("Fast Doorstep Deliveries ");
 
-        onBoardItems.add(onBoardItem);
-        onBoardItems.add(onBoardItem1);
-        onBoardItems.add(onBoardItem2);
+        SlideModels.add(SlideModel);
+        SlideModels.add(slideModel1);
+        SlideModels.add(slideModel2);
 
-        onBoardingAdapter = new OnBoardingAdapter(onBoardItems);
+        onBoardingAdapter = new OnBoardAdapter(activity,SlideModels);
+        binding.viewPager.setAdapter(onBoardingAdapter);
+        binding.indicator.attachToPager(binding.viewPager);
     }
 
 }

@@ -9,181 +9,195 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_board_green">
 
-        <LinearLayout
-            android:id="@+id/view"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_below="@+id/txtSkip"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/onBoardViewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_above="@+id/tabLayout"
-                    android:background="@color/transparent" />
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:clipToPadding="true"
-                    app:tabBackground="@drawable/tab_selector"
-                    app:tabGravity="center"
-                    app:tabIndicatorColor="@color/transparent" />
-
-
-            </RelativeLayout>
-
+            android:background="@drawable/ic_product_bg_2">
 
             <LinearLayout
-                android:layout_weight="1"
+                android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/product_bg_card">
+                android:gravity="center"
+                android:layout_below="@+id/txtSkip"
+                android:orientation="vertical">
 
-                <androidx.core.widget.NestedScrollView
+                <RelativeLayout
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <RelativeLayout
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_above="@+id/indicator"
+                        android:background="@color/transparent" />
+
+
+                    <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+                        android:id="@+id/indicator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="50dp">
+                        app:spi_dotSelectedColor="@color/white"
+                        android:layout_marginTop="10dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginBottom="20dp"
+                        android:layout_gravity="center"/>
 
 
-                            <Button
-                                android:id="@+id/loginBtn"
-                                android:layout_width="match_parent"
-                                android:layout_height="?actionBarSize"
-                                android:layout_gravity="center"
-                                android:background="@drawable/custom_button"
-                                android:text="Login With Mobile"
-                                android:fontFamily="@font/nunito_sans_semibold"
-                                android:textAllCaps="false"
-                                android:textColor="#ffffff"
-                                android:textSize="19sp"
-                                android:textStyle="normal" />
+                </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="?actionBarSize"
-                                android:layout_marginTop="10dp"
-                                android:layout_toRightOf="@+id/address"
-                                android:background="@drawable/grey_green_border"
-                                android:clickable="true"
-                                android:textAllCaps="false"
-                                android:visibility="gone"
-                                android:fontFamily="@font/nunito_sans_semibold"
-                                android:gravity="center"
-                                android:text="Secondary Button"
-                                android:textColor="#52AC03"
-                                android:textSize="19sp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="20dp"
-                                android:fontFamily="@font/nunito_sans_regular"
-                                android:text="OR"
-                                android:textColor="#888888"
-                                android:textSize="20sp" />
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/product_bg_card">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="10dp"
-                                android:text="Login With"
-                                android:textColor="@color/black"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="30dp"
-                                android:gravity="center_horizontal"
-                                android:orientation="horizontal">
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:background="@drawable/ic_product_bg_1"
+                                android:padding="50dp">
 
-                                <FrameLayout
+
+                                <Button
+                                    android:id="@+id/btnLogin"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="?actionBarSize"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/custom_button"
+                                    android:text="Login"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:fontFamily="@font/nunito_sans_semibold"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:textStyle="normal" />
+
+                                <TextView
+                                    android:id="@+id/btnSecondary"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="?actionBarSize"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_toRightOf="@+id/address"
+                                    android:background="@drawable/grey_green_border"
+                                    android:clickable="true"
+                                    android:textAllCaps="false"
+                                    android:fontFamily="@font/nunito_sans_semibold"
+                                    android:gravity="center"
+                                    android:text="Secondary Button"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="16sp" />
+
+                                <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp">
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="20dp"
+                                    android:fontFamily="@font/nunito_sans_regular"
+                                    android:text="OR"
+                                    android:textColor="@color/grey3"
+                                    android:textSize="14sp" />
 
-                                    <com.facebook.login.widget.LoginButton
-                                        android:id="@+id/login_button"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="10dp"
+                                    android:text="Login With"
+                                    android:fontFamily="@font/nunit_sans_bold"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="15dp"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="horizontal">
+
+                                    <FrameLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:visibility="gone" />
+                                        android:layout_marginRight="10dp">
+
+                                        <com.facebook.login.widget.LoginButton
+                                            android:id="@+id/login_button"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:visibility="gone" />
+
+                                        <ImageView
+                                            android:id="@+id/imgFacebook"
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
+                                            android:clickable="true"
+                                            android:layout_marginRight="5dp"
+                                            android:onClick="onFacebookClick"
+                                            android:src="@drawable/ic_path_15456" />
+
+                                    </FrameLayout>
+
 
                                     <ImageView
-                                        android:id="@+id/imgFacebook"
-                                        android:layout_width="40dp"
-                                        android:layout_height="40dp"
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_marginLeft="5dp"
                                         android:clickable="true"
-                                        android:layout_marginRight="10dp"
-                                        android:onClick="onFacebookClick"
-                                        android:src="@drawable/ic_path_15456" />
+                                        android:onClick="onGoogleClick"
+                                        android:src="@drawable/ic_brands_and_logotypes" />
 
-                                </FrameLayout>
-
-
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:clickable="true"
-                                    android:onClick="onGoogleClick"
-                                    android:src="@drawable/ic_brands_and_logotypes" />
+                                </LinearLayout>
 
                             </LinearLayout>
 
-                        </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </androidx.core.widget.NestedScrollView>
 
 
-                    </RelativeLayout>
-
-                </androidx.core.widget.NestedScrollView>
+                </LinearLayout>
 
 
             </LinearLayout>
 
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/txtSkip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="20dp"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Skip"
+                android:visibility="visible"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
-
-        <TextView
-            android:id="@+id/txtSkip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_margin="20dp"
-            android:fontFamily="@font/nunito_sans_semibold"
-            android:text="Skip"
-            android:visibility="visible"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+        </RelativeLayout>
 
     </RelativeLayout>
+
 
 </layout>
 

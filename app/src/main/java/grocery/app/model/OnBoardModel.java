@@ -1,15 +1,17 @@
 package grocery.app.model;
 
-public class onBoardItem {
+import android.graphics.drawable.Drawable;
 
-    private int image;
+public class OnBoardModel {
+
+    private Drawable image;
     private String title;
 
-    public int getImage() {
+    public Drawable getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(Drawable image) {
         this.image = image;
     }
 
