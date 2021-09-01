@@ -10,8 +10,8 @@
         app:cardElevation="5dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp">
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -32,13 +32,12 @@
                     <LinearLayout
                         android:layout_width="87dp"
                         android:layout_height="83dp"
-                        android:background="@drawable/product_bg_two"
                         android:gravity="center">
 
                         <ImageView
                             android:id="@+id/imgProduct"
-                            android:layout_width="70dp"
-                            android:layout_height="59dp"
+                            android:layout_width="75dp"
+                            android:layout_height="64dp"
                             android:src="@mipmap/ic_launcher"></ImageView>
 
                     </LinearLayout>
@@ -107,7 +106,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:maxLines="1"
-                        android:text=""
+                        android:text="@string/app_name"
                         android:textColor="#373737"
                         android:textSize="12sp"
                         android:textStyle="bold"></TextView>
@@ -118,14 +117,31 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:paddingBottom="5dp"
-                        android:text=""
+                        android:text="@string/app_name"
                         android:textColor="#373737"
                         android:textSize="10sp"
+                        android:visibility="gone"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/txtQty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:maxLines="1"
+                        android:layout_gravity="bottom"
+                        android:gravity="bottom"
+                        android:paddingBottom="10dp"
+                        android:text="@string/app_name"
+                        android:textColor="#373737"
+                        android:textSize="12sp"
                         android:textStyle="bold"></TextView>
 
                 </LinearLayout>
 
             </LinearLayout>
+
 
             <RelativeLayout
                 android:id="@+id/lnrAdd"
@@ -135,6 +151,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true">
 
+
+
                 <LinearLayout
                     android:id="@+id/lnrUpdate"
                     android:layout_width="wrap_content"
@@ -142,11 +160,25 @@
                     android:layout_marginRight="10dp"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/imgMinus"
+                    <RelativeLayout
+                        android:id="@+id/lnrMinus"
                         android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:src="@drawable/ic_baseline_indeterminate_check_box_24"></ImageView>
+                        android:layout_height="22dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_brackate"></ImageView>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:tint="@color/colorPrimaryDark"
+                            android:src="@drawable/ic_minus"></ImageView>
+
+
+                    </RelativeLayout>
 
 
                     <TextView
@@ -163,12 +195,24 @@
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:textSize="14sp"></TextView>
 
-                    <ImageView
-                        android:id="@+id/imgPlus"
+                    <RelativeLayout
+                        android:id="@+id/lnrPlus"
                         android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:src="@drawable/ic_baseline_add_box_24"></ImageView>
+                        android:layout_height="22dp">
 
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_brackate"></ImageView>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_plus_new"></ImageView>
+
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 

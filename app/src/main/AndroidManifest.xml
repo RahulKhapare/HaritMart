@@ -132,6 +132,9 @@
             android:name=".LoginScreen"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".CreateAccountAccount"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".SplashScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>

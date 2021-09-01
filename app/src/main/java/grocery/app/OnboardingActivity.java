@@ -96,6 +96,7 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
 
         binding.btnLogin.setOnClickListener(v -> {
             Click.preventTwoClick(v);
+            Config.COME_FOR = Config.LOGIN;
             Intent intent = new Intent(OnboardingActivity.this, LoginScreen.class);
             startActivity(intent);
         });
@@ -103,7 +104,10 @@ public class OnboardingActivity extends AppCompatActivity implements GoogleApiCl
         binding.btnSecondary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Config.COME_FOR = Config.SIGN_UP;
                 Click.preventTwoClick(v);
+                Intent intent = new Intent(OnboardingActivity.this, CreateAccountAccount.class);
+                startActivity(intent);
             }
         });
 

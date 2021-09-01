@@ -65,10 +65,11 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
-                                    android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                                    android:drawableLeft="@drawable/ic_location_bg"
                                     android:fontFamily="@font/nunit_sans_bold"
                                     android:gravity="center"
                                     android:text="LOCATION"
+                                    android:drawablePadding="5dp"
                                     android:textColor="#9F9F9F"
                                     android:textSize="10dp">
 
@@ -98,8 +99,8 @@
                                 android:padding="3dp">
 
                                 <ImageView
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
                                     android:layout_marginRight="10dp"
                                     android:layout_gravity="center_vertical"
                                     android:background="@drawable/clickable_transparent_bg"
@@ -109,8 +110,8 @@
                                     android:tint="@color/black" />
 
                                 <ImageView
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
                                     android:layout_gravity="center_vertical"
                                     android:background="@drawable/clickable_transparent_bg"
                                     android:clickable="true"
@@ -134,7 +135,7 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:layout_alignParentBottom="true"
                         app:cardElevation="4dp">
 
@@ -144,6 +145,8 @@
                             android:layout_height="wrap_content"
                             android:animateLayoutChanges="true"
                             android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp">
 
@@ -160,8 +163,8 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="35dp"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
                                     android:src="@drawable/ic_home_active"
                                     android:tag="imageView" />
 
@@ -173,6 +176,7 @@
                                     android:tag="textView"
                                     android:textColor="@color/green"
                                     android:text="Home"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
                             </LinearLayout>
@@ -190,8 +194,8 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="35dp"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
                                     android:src="@drawable/ic_search_inactive"
                                     android:tag="imageView" />
 
@@ -202,6 +206,7 @@
                                     android:gravity="center"
                                     android:tag="textView"
                                     android:text="Search"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
                             </LinearLayout>
@@ -227,8 +232,8 @@
                                         android:orientation="vertical">
 
                                         <ImageView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="35dp"
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
                                             android:src="@drawable/ic_cart_inactive"
                                             android:tag="imageView" />
 
@@ -239,6 +244,7 @@
                                             android:gravity="center"
                                             android:tag="textView"
                                             android:text="Cart"
+                                            android:textSize="12sp"
                                             android:textStyle="bold" />
 
                                     </LinearLayout>
@@ -252,6 +258,7 @@
                                         android:gravity="center"
                                         android:tag="textView"
                                         android:text="0"
+                                        android:textSize="10sp"
                                         android:textColor="@color/saffron"
                                         android:layout_alignParentRight="true"
                                         android:textStyle="bold" />
@@ -274,8 +281,8 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="35dp"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
                                     android:src="@drawable/ic_favorite_inactive"
                                     android:tag="imageView" />
 
@@ -286,6 +293,7 @@
                                     android:gravity="center"
                                     android:tag="textView"
                                     android:text="Favourite"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
                             </LinearLayout>

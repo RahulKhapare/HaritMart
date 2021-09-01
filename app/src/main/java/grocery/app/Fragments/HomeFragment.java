@@ -159,11 +159,7 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         sliderModelList = new ArrayList<>();
         sliderImageAdapter = new SliderImageAdapter(context, sliderModelList);
         binding.pager.setAdapter(sliderImageAdapter);
-        binding.tabLayout.setupWithViewPager(binding.pager, true);
-
-//        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(binding.tL, binding.vP2, (tab, position) -> {
-//        });
-//        tabLayoutMediator.attach();
+        binding.indicator.attachToPager(binding.pager);
 
     }
 
@@ -447,7 +443,7 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
             json.addInt(P.user_id, Config.commonUserID);
         }
         json.addInt(P.product_filter_id, filterId);
-//        hitAddToWishList(json,imgAction);
+        hitAddToWishList(json,imgAction);
     }
 
 }

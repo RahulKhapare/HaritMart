@@ -42,7 +42,7 @@
             android:text=""
             android:fontFamily="@font/nunito_sans_regular"
             android:textColor="#373737"
-            android:textSize="10dp"></TextView>
+            android:textSize="12dp"></TextView>
 
     </LinearLayout>
 

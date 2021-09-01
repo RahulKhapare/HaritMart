@@ -100,7 +100,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             holder.binding.txtProductName.setPaintFlags(holder.binding.txtProductName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
+        holder.binding.txtQty.setText(model.getQty() +" KG");
+
         holder.binding.txtWeight.setText(getProductDerails(model));
+        holder.binding.txtWeight.setVisibility(View.GONE);
 
         holder.binding.txtItemCount.setText(model.getQty());
         holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -117,7 +120,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     private void onClickItem(CartModel model,ViewHolder holder,int position) {
-        holder.binding.imgMinus.setOnClickListener(v -> {
+        holder.binding.lnrMinus.setOnClickListener(v -> {
             Click.preventTwoClick(v);
             int cartValue = Integer.parseInt(holder.binding.txtItemCount.getText().toString());
             if (cartValue>1){
@@ -132,7 +135,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             }
         });
 
-        holder.binding.imgPlus.setOnClickListener(v -> {
+        holder.binding.lnrPlus.setOnClickListener(v -> {
             Click.preventTwoClick(v);
             int itemCount = Integer.parseInt(holder.binding.txtItemCount.getText().toString())+1;
             if (isFragment){

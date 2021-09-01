@@ -41,6 +41,15 @@ public class LoginScreen extends AppCompatActivity {
             Click.preventTwoClick(v);
             checkValidation();
         });
+
+        if (Config.COME_FOR.equals(Config.LOGIN)){
+            binding.txtTitle.setText("Welcome");
+            binding.txtMessage.setText("Please login to your account");
+        }else if (Config.COME_FOR.equals(Config.SIGN_UP)){
+            binding.txtTitle.setText("Create Your Account");
+            binding.txtMessage.setText("Please enter your registered phone number");
+            binding.etxNumber.setText(Config.SIGN_UP_NUMBER);
+        }
     }
 
     public void checkValidation(){

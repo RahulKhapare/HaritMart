@@ -172,7 +172,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, Cart
         if (removeCoupon){
             binding.etxCoupon.setEnabled(true);
             binding.etxCoupon.setText("");
-            binding.etxCoupon.setHint("Enter coupon code");
+            binding.etxCoupon.setHint("Type coupon code here");
             binding.txtApplyCoupon.setText(applyCoupon);
         }
     }

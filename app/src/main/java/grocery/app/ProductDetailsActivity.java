@@ -281,7 +281,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
             json.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
         }
         json.addInt(P.product_filter_id, filterId);
-//        hitAddToWishList(json,imgAction,false);
+        hitAddToWishList(json,imgAction,false);
     }
 
 
@@ -716,7 +716,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                                 imgAction.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_baseline_favorite_1));
                             }
                             Config.Update_Favorite_List = true;
-//                            hitHomeApi();
+                            hitHomeApi();
                         }else {
                             if (json.getString(P.msg).equals("wishlisted")){
                                 H.showMessage(activity, "Item added into favorite");

@@ -314,6 +314,7 @@ public class SetLocationActivity extends FragmentActivity implements LocationLis
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLong));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
             binding.txtAddress.setText(getAddress(currentLat,currentLong));
+            binding.txtAddress.setTextColor(getResources().getColor(R.color.black));
             binding.btnLocation.setText(setLocation);
             new Session(activity).addString(P.locationAddress, binding.txtAddress.getText().toString());
         }

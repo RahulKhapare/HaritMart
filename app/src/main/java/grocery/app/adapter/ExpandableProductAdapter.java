@@ -109,13 +109,19 @@ public class ExpandableProductAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.activity_category_parent_view, null);
         }
         ImageView image =  convertView.findViewById(R.id.image);
+        ImageView imgArrow =  convertView.findViewById(R.id.imgArrow);
         TextView txtTitle = convertView.findViewById(R.id.txtTitle);
-//        TextView txtDescription = convertView.findViewById(R.id.txtDescription);
+        TextView txtDescription = convertView.findViewById(R.id.txtDescription);
         Picasso.get().load(P.imgBaseUrl + App.categoryImageUrl + model.getImage())
                 .placeholder(R.drawable.progress_animation)
                 .error(R.mipmap.ic_launcher).into(image);
         txtTitle.setText(model.getName());
-//        txtDescription.setText("Description will here.....");
+        txtDescription.setText("Description will here.....");
+        if (isExpanded){
+            imgArrow.setImageDrawable(convertView.getResources().getDrawable(R.drawable.ic_baseline_keyboard_arrow_right_24_green));
+        }else {
+            imgArrow.setImageDrawable(convertView.getResources().getDrawable(R.drawable.ic_baseline_keyboard_arrow_down_24));
+        }
         return convertView;
     }
 

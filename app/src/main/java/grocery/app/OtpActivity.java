@@ -1,6 +1,7 @@
 package grocery.app;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -34,7 +35,7 @@ public class OtpActivity extends AppCompatActivity {
     private String loginOTP;
     private LoadingDialog loadingDialog;
     private CountDownTimer timer;
-    private String resetText = "Resend OPT";
+    private String resetText = "Resend OTP";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +52,10 @@ public class OtpActivity extends AppCompatActivity {
         loginNumber = getIntent().getStringExtra(Config.LOGIN_NUMBER);
         loginOTP = getIntent().getStringExtra(Config.LOGIN_OTP);
 
-        binding.txtInfo.setText("Please enter the OPT sent to " + loginNumber);
+        binding.txtInfo.setText("Please enter the OTP sent to " + loginNumber);
         binding.etxOtp.setText(loginOTP);
+
+        binding.txtTimer.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         binding.btnProcess.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +73,7 @@ public class OtpActivity extends AppCompatActivity {
                     showProgress();
                     new Handler().postDelayed(() -> {
                         hideProgress();
-                        H.showMessage(activity,"OPT send successfully");
+                        H.showMessage(activity,"OTP send successfully");
                         binding.etxOtp.setText(loginOTP);
                         startTimer();
                     }, 1230);

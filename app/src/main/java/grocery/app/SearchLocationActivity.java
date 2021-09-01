@@ -40,7 +40,7 @@ public class SearchLocationActivity extends AppCompatActivity implements Locatio
         super.onCreate(savedInstanceState);
         WindowBarColor.setColor(this);
         binding = DataBindingUtil.setContentView(activity, R.layout.activity_search_location);
-        binding.toolbar.setTitle("Search Location");
+        binding.toolbar.setTitle("");
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -74,8 +74,8 @@ public class SearchLocationActivity extends AppCompatActivity implements Locatio
 
     private void initSearchView() {
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
-        searchView.setHint("Search location here");
-        searchView.setTextColor(getResources().getColor(R.color.green));
+        searchView.setHint("Search");
+        searchView.setTextColor(getResources().getColor(R.color.grey1));
         searchView.setHintTextColor(getResources().getColor(R.color.grey1));
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
@@ -153,6 +153,7 @@ public class SearchLocationActivity extends AppCompatActivity implements Locatio
         MenuItem item = menu.findItem(R.id.action_search);
         MenuItem filter = menu.findItem(R.id.action_filter);
         searchView.setMenuItem(item);
+        searchView.showSearch();
         filter.setVisible(false);
         return true;
     }
@@ -169,6 +170,7 @@ public class SearchLocationActivity extends AppCompatActivity implements Locatio
     public void onBackPressed() {
         if (searchView.isSearchOpen()) {
             searchView.closeSearch();
+            super.onBackPressed();
         } else {
             super.onBackPressed();
         }

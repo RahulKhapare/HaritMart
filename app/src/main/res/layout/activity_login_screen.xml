@@ -69,21 +69,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:padding="10dp"
                     android:layout_margin="20dp">
 
                     <TextView
-                        android:id="@+id/CreateTextView"
+                        android:id="@+id/txtTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunit_sans_bold"
-                        android:text="Login With Mobile"
+                        android:text="Create Your Account"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
                     <TextView
+                        android:id="@+id/txtMessage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Please enter your mobile number"
+                        android:text="Please enter your registered phone number"
                         android:textColor="@color/grey1"
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:textSize="14dp"
@@ -95,18 +97,33 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/etxNumber"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="?actionBarSize"
                         android:hint="Mobile Number"
-                        android:padding="10dp"
-                        android:backgroundTint="@color/colorPrimaryDark"
-                        android:textColorHint="@color/grey1"
                         android:layout_margin="20dp"
-                        android:inputType="numberDecimal" />
+                        app:hintTextColor="@color/colorPrimaryDark"
+                        app:backgroundTint="@color/colorPrimaryDark"
+                        android:textColorHint="@color/grey1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etxNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:singleLine="true"
+                            android:textSize="18dp"
+                            android:maxLength="10"
+                            android:theme="@style/EditTextTheme"
+                            android:fontFamily="@font/nunito_sans_regular"
+                            android:textColor="@color/black"
+                            app:backgroundTint="@color/colorPrimaryDark"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
                         android:id="@+id/btnProcess"
@@ -114,15 +131,15 @@
                         android:layout_height="?actionBarSize"
                         android:layout_gravity="center"
                         android:background="@drawable/custom_button"
-                        android:text="Login"
+                        android:text="Proceed"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="20dp"
-                        android:layout_marginRight="50dp"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="60dp"
+                        android:layout_marginLeft="60dp"
                         android:textAllCaps="false"
                         android:textColor="#ffffff"
                         android:fontFamily="@font/nunito_sans_semibold"
-                        android:textSize="19sp"
+                        android:textSize="16sp"
                         android:textStyle="normal" />
 
                 </LinearLayout>

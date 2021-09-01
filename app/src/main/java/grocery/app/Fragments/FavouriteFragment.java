@@ -2,6 +2,7 @@ package grocery.app.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,6 +120,7 @@ public class FavouriteFragment extends Fragment implements WishListAdapter.Click
                         for (int i = 0; i < jsonArray.length(); i++) {
                             try {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                Log.e("TAG", "hitForWishListasas: "+ jsonObject.toString() );
                                 WishListModel model = new WishListModel();
 
                                 model.setProduct_image_path(imagePath);

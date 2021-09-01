@@ -2,6 +2,7 @@ package grocery.app.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,11 +53,15 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
         WishListModel model = wishListModelList.get(position);
         Picasso.get().load(P.imgBaseUrl+model.getProduct_image_path()+model.getProduct_image()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgProduct);
 
-        holder.binding.txtProductName.setText(model.getName());
-        holder.binding.txtCategory.setText("Category : "+model.getCategory_name());
-        holder.binding.txtProductVariant.setText("Variant : "+model.getVariants_name());
+        holder.binding.txtAmount.setText(rs + "0");
+        holder.binding.txtProductOff.setText(rs + "0");
+        holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.binding.txtPercent.setText("0" + "% OFF");
 
-        holder.binding.lnrAdd.setOnClickListener(new View.OnClickListener() {
+        holder.binding.txtCategory.setText(model.getCategory_name());
+        holder.binding.txtQuantity.setText("0 KG");
+
+        holder.binding.lnrRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 grocery.app.util.Click.preventTwoClick(v);

@@ -54,7 +54,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="10dp">
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -65,8 +68,7 @@
                                 android:layout_width="18dp"
                                 android:layout_height="18dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/ic_baseline_my_location_24"
-                                android:tint="@color/grey1"></ImageView>
+                                android:src="@drawable/ic_nav_new"></ImageView>
 
                             <TextView
                                 android:id="@+id/txtTitle"
@@ -85,7 +87,7 @@
                             android:id="@+id/txtAddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/nunito_sans_semibold"
+                            android:fontFamily="@font/nunito_sans_regular"
                             android:maxLines="2"
                             android:paddingLeft="28dp"
                             android:paddingTop="5dp"
@@ -97,19 +99,19 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="38dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginLeft="48dp"
                         android:background="@color/grey1"></LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:fontFamily="@font/nunito_sans_regular"
                         android:maxLines="2"
                         android:text="Search Result"
-                        android:paddingLeft="38dp"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/black"
+                        android:paddingLeft="48dp"
+                        android:paddingTop="15dp"
+                        android:textColor="@color/grey1"
                         android:textSize="12sp"></TextView>
 
                 </LinearLayout>

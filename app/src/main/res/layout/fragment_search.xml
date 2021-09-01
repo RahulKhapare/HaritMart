@@ -26,13 +26,13 @@
                     android:maxLines="1"
                     android:layout_margin="20dp"
                     android:drawablePadding="10dp"
-                    android:fontFamily="@font/nunito_sans_semibold"
+                    android:fontFamily="@font/nunito_sans_regular"
                     android:textColor="@color/textColor"
-                    android:textColorHint="#373737"
+                    android:textColorHint="@color/grey3"
                     android:background="@drawable/search_bg"
                     android:drawableTint="@color/colorPrimaryDark"
                     android:drawableLeft="@drawable/ic_baseline_search_24"
-                    android:hint="Search for products">
+                    android:hint="Search">
 
                 </EditText>
 
@@ -47,14 +47,14 @@
                         android:id="@+id/txtTendingSearch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/nunit_sans_bold"
+                        android:layout_marginLeft="20dp"
+                        android:fontFamily="@font/nunito_sans_regular"
                         android:gravity="center_vertical"
                         android:text="Trending Searched"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:visibility="gone"
-                        android:textStyle="bold" />
+                        android:textColor="@color/textColor"
+                        android:alpha="0.5"
+                        android:textSize="14sp"
+                        android:visibility="gone" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerTrendingSearches"

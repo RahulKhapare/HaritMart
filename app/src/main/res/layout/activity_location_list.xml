@@ -6,7 +6,10 @@
         android:id="@+id/lnrSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="0dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="0dp"
+        android:paddingTop="0dp"
         android:background="@color/white">
 
         <LinearLayout
@@ -18,19 +21,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_location_new"></ImageView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_baseline_location_on_24"
-                        android:tint="@color/grey1"></ImageView>
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/txtTitle"
@@ -40,21 +42,23 @@
                         android:textSize="16sp"
                         android:paddingLeft="10dp"
                         android:textColor="@color/black"
+                        android:text=""
                         android:fontFamily="@font/nunito_sans_semibold"></TextView>
 
+                    <TextView
+                        android:id="@+id/txtAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp"
+                        android:textSize="12sp"
+                        android:text=""
+                        android:textColor="@color/grey1"
+                        android:fontFamily="@font/nunito_sans_semibold"></TextView>
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/txtAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="2"
-                    android:paddingLeft="28dp"
-                    android:paddingTop="5dp"
-                    android:textSize="12sp"
-                    android:textColor="@color/grey1"
-                    android:fontFamily="@font/nunito_sans_semibold"></TextView>
 
 
             </LinearLayout>

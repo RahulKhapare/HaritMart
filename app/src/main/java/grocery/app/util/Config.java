@@ -60,6 +60,11 @@ public class Config {
     public static String GOOGLE_ADDRESS = "GOOGLE_ADDRESS";
     public static String PAGE_LINK = "https://grocery.page.link/";
 
+    public static String COME_FOR = "COME_FOR";
+    public static String LOGIN = "LOGIN";
+    public static String SIGN_UP = "SIGN_UP";
+    public static String SIGN_UP_NUMBER = "";
+
     public static Json CART_JSON;
 
     public static int commonUserID = 0;
