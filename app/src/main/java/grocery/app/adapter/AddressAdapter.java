@@ -112,14 +112,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
         String address = "";
 
-        if (!TextUtils.isEmpty(model.getPhone())){
-            if (!TextUtils.isEmpty(model.getPhone2())){
-                address = "Contact : " + model.getPhone() + "/" + model.getPhone2() + "\n";
-            }else {
-                address = "Contact : " + model.getPhone() + "\n";
-            }
-        }
-
         if (!TextUtils.isEmpty(model.getEmail())){
             address = address + "Email : " + model.getEmail() + "\n";
         }
@@ -133,7 +125,15 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         }
 
         if (!TextUtils.isEmpty(model.getCity()) && !TextUtils.isEmpty(model.getPincode())){
-            address = address +  model.getCity() + " - " + model.getPincode() + "\n";
+            address = address +  model.getCity() + "\n" + model.getPincode() + "\n";
+        }
+
+        if (!TextUtils.isEmpty(model.getPhone())){
+            if (!TextUtils.isEmpty(model.getPhone2())){
+                address = address + "ph: " + model.getPhone() + "/" + model.getPhone2() + "\n";
+            }else {
+                address = address + "ph: " + model.getPhone() + "\n";
+            }
         }
 
         return address;

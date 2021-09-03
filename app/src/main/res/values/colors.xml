@@ -5,6 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="textColor">#393939</color>
+    <color name="textDark">#373737</color>
     <color name="semiTrans">#30000000</color>
     <color name="lightGray">#30B6B3B3</color>
     <color name="trans">#00000000</color>

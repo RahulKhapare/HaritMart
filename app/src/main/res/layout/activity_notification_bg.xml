@@ -11,9 +11,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:orientation="vertical">
 
             <TextView
@@ -23,7 +24,7 @@
                 android:text="Title"
                 android:fontFamily="@font/nunito_sans_semibold"
                 android:textSize="16sp"
-                android:textColor="#373737">
+                android:textColor="@color/textDark">
 
             </TextView>
 
@@ -32,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Title"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_sans_semibold"
                 android:textSize="16sp"
                 android:textColor="@color/grey1">
@@ -44,7 +45,7 @@
         <ImageView
             android:id="@+id/imgNotification"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:scaleType="fitXY">
         </ImageView>
 

@@ -85,7 +85,23 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
         binding.recyclerOrderDetailList.setNestedScrollingEnabled(false);
         adapter = new OrderDetailListAdapter(activity,orderDetailListModelList);
         binding.recyclerOrderDetailList.setAdapter(adapter);
-        hitOrderDetailList(DECENDING);
+
+//        hitOrderDetailList(DECENDING);
+        setDat();
+
+    }
+
+    private void setDat(){
+        OrderDetailListModel model = new OrderDetailListModel();
+        model.setName("Onion-Medium");
+        model.setOrder_status("Order Shipped");
+        orderDetailListModelList.add(model);
+        orderDetailListModelList.add(model);
+        orderDetailListModelList.add(model);
+        orderDetailListModelList.add(model);
+        orderDetailListModelList.add(model);
+        orderDetailListModelList.add(model);
+        adapter.notifyDataSetChanged();
     }
 
     private void hitOrderDetailList(int order_by) {

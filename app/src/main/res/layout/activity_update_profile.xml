@@ -48,9 +48,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Personal Details"
-                android:textColor="#373737"
+                android:textColor="@color/textDark"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/nunit_sans_bold"
+                android:fontFamily="@font/nunito_sans_semibold"
                 android:textSize="18sp">
 
             </TextView>
@@ -89,46 +89,79 @@
             </RelativeLayout>
 
 
-            <EditText
-                android:id="@+id/etxName"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_height="?actionBarSize"
                 android:hint="Name"
-                android:imeOptions="actionNext"
-                android:inputType="textCapWords"
-                android:fontFamily="@font/nunito_sans_regular"
-                android:backgroundTint="@color/grey2"
-                android:textColorHint="@color/grey2"
-                android:textColor="#373737"/>
+                android:layout_marginTop="30dp"
+                app:hintTextColor="@color/grey1"
+                app:backgroundTint="@color/grey1"
+                android:textColorHint="@color/grey1">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etxName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:inputType="textCapWords"
+                    android:textSize="18dp"
+                    android:theme="@style/EditTextTheme"
+                    android:fontFamily="@font/nunito_sans_regular"
+                    android:textColor="@color/textColor"
+                    app:backgroundTint="@color/grey1"
+                    />
 
-            <EditText
-                android:id="@+id/etxNumber"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:imeOptions="actionNext"
+                android:layout_height="?actionBarSize"
                 android:hint="Contact Number"
-                android:fontFamily="@font/nunito_sans_regular"
-                android:inputType="numberDecimal"
-                android:backgroundTint="@color/grey2"
-                android:textColorHint="@color/grey2"
-                android:textColor="#373737"/>
-
-
-            <EditText
-                android:id="@+id/etxEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                app:hintTextColor="@color/grey1"
+                app:backgroundTint="@color/grey1"
+                android:textColorHint="@color/grey1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etxNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="18dp"
+                    android:maxLength="10"
+                    android:theme="@style/EditTextTheme"
+                    android:fontFamily="@font/nunito_sans_regular"
+                    android:textColor="@color/textColor"
+                    app:backgroundTint="@color/grey1"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
                 android:hint="Email Address"
-                android:fontFamily="@font/nunito_sans_regular"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
-                android:backgroundTint="@color/grey2"
-                android:textColorHint="@color/grey2"
-                android:textColor="#373737"/>
+                android:layout_marginTop="20dp"
+                app:hintTextColor="@color/grey1"
+                app:backgroundTint="@color/grey1"
+                android:textColorHint="@color/grey1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etxEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:inputType="textEmailAddress"
+                    android:textSize="18dp"
+                    android:theme="@style/EditTextTheme"
+                    android:fontFamily="@font/nunito_sans_regular"
+                    android:textColor="@color/textColor"
+                    app:backgroundTint="@color/grey1"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
 
             <CheckBox
@@ -143,6 +176,21 @@
                 android:text="Send me emails on promotions, offers and Services "/>
 
 
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:textColor="@color/textColor"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="top"
+                android:gravity="top"
+                android:paddingLeft="5dp"
+                android:checked="true"
+                android:fontFamily="@font/nunito_sans_regular"
+                android:text="Send me emails on promotions, offers and services"></CheckBox>
+
             <Button
                 android:id="@+id/btnProcess"
                 android:layout_width="match_parent"
@@ -151,11 +199,12 @@
                 android:background="@drawable/custom_button"
                 android:text="Update Profile"
                 android:textAllCaps="false"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
                 android:layout_margin="50dp"
                 android:fontFamily="@font/nunito_sans_semibold"
                 android:textSize="19sp"
                 android:textStyle="normal" />
+
 
         </LinearLayout>
 

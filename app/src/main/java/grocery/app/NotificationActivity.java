@@ -14,6 +14,10 @@ import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.LoadingDialog;
 import com.adoisstudio.helper.Session;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,8 +62,25 @@ public class NotificationActivity extends AppCompatActivity {
         binding.recyclerNotification.setNestedScrollingEnabled(false);
         adapter = new NotificationAdapter(activity,notificationModelList);
         binding.recyclerNotification.setAdapter(adapter);
-        hitNotificationList();
+//        hitNotificationList();
+        setData();
     }
+
+    private void setData(){
+        NotificationModel model = new NotificationModel();
+        model.setTitle("FLAT 50% off");
+        model.setDescription("Over 250+ best sellers on deal today");
+        model.setImage("https://img.freepik.com/free-vector/gradient-abstract-horizontal-sale-banner_52683-67806.jpg?size=626&ext=jpg");
+        notificationModelList.add(model);
+        notificationModelList.add(model);
+        notificationModelList.add(model);
+        notificationModelList.add(model);
+        notificationModelList.add(model);
+        adapter.notifyDataSetChanged();
+
+        checkError();
+    }
+
 
     private void hitNotificationList() {
         showProgress();
@@ -82,17 +103,17 @@ public class NotificationActivity extends AppCompatActivity {
                 {
                     if (json.getInt(P.status) == 1) {
                         json = json.getJson(P.data);
-//                        JSONArray jsonArray = json.getJsonArray(P.list);
-//                        for (int i = 0; i < jsonArray.length(); i++) {
-//                            try {
-//                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                NotificationModel model = new NotificationModel();
-//
-//                                notificationModelList.add(model);
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
+                        JSONArray jsonArray = json.getJsonArray(P.list);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                NotificationModel model = new NotificationModel();
+
+                                notificationModelList.add(model);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         adapter.notifyDataSetChanged();
                     }
                     hideProgress();

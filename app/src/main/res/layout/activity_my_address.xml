@@ -68,12 +68,19 @@
                                 android:id="@+id/txtTitleMessage"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/nunito_sans_semibold"
+                                android:fontFamily="@font/nunito_sans_regular"
                                 android:textSize="14sp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginTop="0dp"
                                 android:text="Search for area landmark or apartment"
-                                android:textColor="#373737"></TextView>
+                                android:textColor="@color/grey1"></TextView>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@color/grey1"></LinearLayout>
 
 
                         </LinearLayout>
@@ -98,12 +105,13 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center_horizontal"
-                                    android:drawableLeft="@drawable/ic_baseline_my_location_24"
+                                    android:drawableLeft="@drawable/ic_loc_bg"
                                     android:drawablePadding="10dp"
-                                    android:fontFamily="@font/nunito_sans_semibold"
+                                    android:drawableTint="@color/grey1"
+                                    android:fontFamily="@font/nunito_sans_regular"
                                     android:padding="10dp"
-                                    android:text="Choose current location for address"
-                                    android:textColor="#373737"
+                                    android:text="Choose Current Location"
+                                    android:textColor="@color/grey1"
                                     android:textSize="14sp"></TextView>
 
                             </LinearLayout>
@@ -127,9 +135,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/nunito_sans_semibold"
-                                android:textSize="14sp"
-                                android:text="Save Address"
-                                android:textColor="#373737"></TextView>
+                                android:textSize="16sp"
+                                android:text="Saved Addresses"
+                                android:textColor="@color/textDark"></TextView>
                             <TextView
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
@@ -144,8 +152,8 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:layout_marginTop="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
                             android:id="@+id/recyclerAddress"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">

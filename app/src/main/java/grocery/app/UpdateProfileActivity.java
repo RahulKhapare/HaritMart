@@ -82,6 +82,17 @@ public class UpdateProfileActivity extends AppCompatActivity {
         sendEmail = false;
         loadingDialog = new LoadingDialog(activity);
 
+        binding.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+
+                }else {
+
+                }
+            }
+        });
+
         binding.btnProcess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

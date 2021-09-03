@@ -48,12 +48,11 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
 
         loadingDialog = new LoadingDialog(activity);
         session = new Session(activity);
-        binding.txtTermAndCondition.setText("Term & Conditions");
         binding.txtChange.setOnClickListener(this);
         binding.lnrMyOrder.setOnClickListener(this);
         binding.lnrWallet.setOnClickListener(this);
         binding.lnrMyPayment.setOnClickListener(this);
-        binding.txtRatingReview.setOnClickListener(this);
+        binding.lnrMyRating.setOnClickListener(this);
         binding.lnrNotifications.setOnClickListener(this);
         binding.lnrGiftCard.setOnClickListener(this);
         binding.lnrMyAddress.setOnClickListener(this);
@@ -117,7 +116,7 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
                 Intent paymentIntent = new Intent(activity, MyPaymentActivity.class);
                 startActivity(paymentIntent);
                 break;
-            case R.id.txtRatingReview:
+            case R.id.lnrMyRating:
                 //not using now
                 break;
             case R.id.lnrNotifications:

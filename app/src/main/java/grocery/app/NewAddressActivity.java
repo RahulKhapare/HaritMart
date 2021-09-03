@@ -34,7 +34,7 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
     private String addressName;
     private boolean ediAddress;
     private boolean forCheckOut;
-    private String home = "Home";
+    private String home = "Default Address";
     private String office = "Office";
     private String placeOrder = "Place Order";
     private boolean GOOGLE_ADDRESS;
@@ -71,7 +71,7 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
         binding.txtHomeAddress.setOnClickListener(this);
         binding.txtOfficeAddress.setOnClickListener(this);
 
-        binding.checkBoxDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
@@ -93,7 +93,7 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
 
         if (forCheckOut){
             binding.btnProcess.setText(placeOrder);
-            binding.checkBoxDefault.setVisibility(View.VISIBLE);
+            binding.checkBox.setVisibility(View.VISIBLE);
         }
 
     }

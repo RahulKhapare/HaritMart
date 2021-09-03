@@ -43,6 +43,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunit_sans_bold"
                         android:text="Personal Details"
+                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"
                         android:textColor="#373737"
                         android:textSize="18sp" />
@@ -229,7 +230,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_regular"
-                        android:text="Choose type for this address"
+                        android:text="Choose name for this address"
                         android:layout_marginTop="30dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp"
@@ -252,7 +253,7 @@
                             android:layout_gravity="center_vertical"
                             android:background="@drawable/grey_border2"
                             android:fontFamily="@font/nunito_sans_regular"
-                            android:padding="5dp"
+                            android:padding="8dp"
                             android:layout_weight="1"
                             android:text="Home"
                             android:gravity="center"
@@ -266,7 +267,7 @@
                             android:layout_gravity="center_vertical"
                             android:background="@drawable/grey_border2"
                             android:fontFamily="@font/nunito_sans_regular"
-                            android:padding="5dp"
+                            android:padding="8dp"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="1"
                             android:text="Office"
@@ -277,17 +278,22 @@
 
                     </LinearLayout>
 
+
                     <CheckBox
-                        android:id="@+id/checkBoxDefault"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/checkBox"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="5dp"
-                        android:visibility="gone"
                         android:buttonTint="@color/colorPrimaryDark"
-                        android:text="Set this as my default shipping address"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:paddingLeft="5dp"
+                        android:checked="true"
                         android:fontFamily="@font/nunito_sans_regular"
-                        android:textSize="16sp"/>
+                        android:text="Set this as my default delivery address"></CheckBox>
+
 
                     <Button
                         android:id="@+id/btnProcess"
@@ -295,10 +301,10 @@
                         android:layout_height="?actionBarSize"
                         android:layout_gravity="center"
                         android:background="@drawable/custom_button"
-                        android:text="Save Address"
+                        android:text="Add Address"
                         android:textAllCaps="false"
-                        android:textColor="#ffffff"
-                        android:layout_margin="50dp"
+                        android:textColor="@color/white"
+                        android:layout_margin="60dp"
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:textSize="19sp"
                         android:textStyle="normal" />
