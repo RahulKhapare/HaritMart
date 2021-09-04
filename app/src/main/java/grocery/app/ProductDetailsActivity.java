@@ -31,18 +31,21 @@ import java.util.List;
 
 import grocery.app.adapter.CategoryFilterAdapter;
 import grocery.app.adapter.NewArrivalAdapter;
+import grocery.app.adapter.RateAdapter;
 import grocery.app.adapter.SliderImageAdapter;
 import grocery.app.common.App;
 import grocery.app.common.P;
 import grocery.app.databinding.ActivityProductDetailsBinding;
 import grocery.app.model.ArrivalModel;
 import grocery.app.model.CategoryFilterModel;
+import grocery.app.model.RateModel;
 import grocery.app.model.SliderModel;
 import grocery.app.util.Click;
 import grocery.app.util.Config;
 import grocery.app.util.ConnectionUtil;
 import grocery.app.util.LoginFlag;
 import grocery.app.util.PageUtil;
+import grocery.app.util.RemoveHtml;
 import grocery.app.util.WindowBarColor;
 
 public class ProductDetailsActivity extends AppCompatActivity implements NewArrivalAdapter.ClickItem, CategoryFilterAdapter.ClickView {
@@ -78,6 +81,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
     private String wishListValue = "";
     private Session session;
 
+    private List<RateModel> rateModelList;
+    private RateAdapter rateAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,11 +114,14 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         mainCategoryFilterModelList = new ArrayList<>();
         subCategoryFilterModelList = new ArrayList<>();
 
+        binding.txtSpecialNew.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+        binding.txtViewNew.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+        binding.txtViewTrending.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         sliderModelList = new ArrayList<>();
-        sliderImageAdapter = new SliderImageAdapter(activity, sliderModelList);
+        sliderImageAdapter = new SliderImageAdapter(activity, sliderModelList,2);
         binding.pager.setAdapter(sliderImageAdapter);
-        binding.tabLayout.setupWithViewPager(binding.pager, true);
+        binding.indicator.attachToPager(binding.pager);
 
         binding.recyclerMainCategory.setHasFixedSize(true);
         binding.recyclerMainCategory.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false));
@@ -139,10 +148,29 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
         trendingProductAdapter = new NewArrivalAdapter(activity,trendingProductList,true);
         binding.recyclerTrendingProduct.setAdapter(trendingProductAdapter);
 
+        rateModelList = new ArrayList<>();
+        rateAdapter = new RateAdapter(activity,rateModelList);
+        binding.recyclerRateProduct.setHasFixedSize(true);
+        binding.recyclerRateProduct.setLayoutManager(new LinearLayoutManager(activity));
+        binding.recyclerRateProduct.setAdapter(rateAdapter);
+        setRateData();
+
         onClick();
         hitProductDetailsApi(filterId,producId);
         hitHomeApi();
 
+    }
+
+    private void setRateData(){
+        RateModel model = new RateModel();
+        model.setName("John Doe");
+        model.setDescription("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna");
+        rateModelList.add(model);
+        rateModelList.add(model);
+        rateModelList.add(model);
+        rateModelList.add(model);
+        rateModelList.add(model);
+        rateAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -460,16 +488,19 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                         binding.txtAmount.setText(json.getString(P.name));
 
                         if (!TextUtils.isEmpty(json.getString(P.description))){
-                            binding.txtAbout.setText(json.getString(P.description));
+                            binding.txtAbout.setText(RemoveHtml.html2text(json.getString(P.description)));
                         }else {
                             binding.txtAbout.setText("No details found");
                         }
 
                         if (!TextUtils.isEmpty(json.getString(P.description1))){
-                            binding.txtFact.setText(json.getString(P.description1));
+                            binding.txtFact.setText(RemoveHtml.html2text(json.getString(P.description1)));
                         }else {
                             binding.txtFact.setText("No details found");
+
                         }
+
+                        binding.txtBenefits.setText("No details found");
 
                         try {
                             Json priceJson = json.getJson(P.price);
@@ -478,7 +509,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements NewArri
                             priceJson.getString(P.discount);
 
                             binding.txtAmount.setText(rs + priceJson.getString(P.saleprice));
-                            binding.txtProductOff.setText(rs + priceJson.getString(P.price));
+                            binding.txtProductOff.setText("MRP: "+rs + priceJson.getString(P.price));
                             binding.txtProductOff.setPaintFlags(binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
                             String offValue = "";

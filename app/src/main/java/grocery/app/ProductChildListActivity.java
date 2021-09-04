@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -577,13 +578,13 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
     }
 
     @Override
-    public void add(int filterId, ImageView imgAction) {
+    public void add(int filterId, ImageView imgAction,String value,ProductModel model) {
         Json json = new Json();
         if (session.getBool(P.isUserLogin)){
             json.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
         }
         json.addInt(P.product_filter_id, filterId);
-//        hitAddToWishList(json,imgAction);
+        hitAddToWishList(json,imgAction);
     }
 
     private void showError(){

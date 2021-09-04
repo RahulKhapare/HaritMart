@@ -82,9 +82,17 @@ public class TearmAndConditionActivity extends AppCompatActivity {
 
     private void loadTermConditionData(){
 
-        for (int i=0; i<3; i++){
+        for (int i=0; i<4; i++){
             TermConditionModel model = new TermConditionModel();
-            model.setTitle("Term of use");
+            if (i==0){
+                model.setTitle("Term of use");
+            }else  if (i==1){
+                model.setTitle("Privacy Policy");
+            }else  if (i==2){
+                model.setTitle("Cancellations and Refunds");
+            }else  if (i==3){
+                model.setTitle("About Us");
+            }
 
             List<TermConditionModel> childItemList = new ArrayList<TermConditionModel>();
             TermConditionModel childModel = new TermConditionModel();

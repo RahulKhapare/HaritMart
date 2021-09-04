@@ -148,6 +148,7 @@
                                         android:layout_width="12dp"
                                         android:layout_height="12dp"
                                         android:layout_weight="1"
+                                        android:tint="@color/colorPrimaryDark"
                                         android:src="@drawable/ic_baseline_star_gray_24">
 
                                     </ImageView>
@@ -157,6 +158,7 @@
                                         android:layout_width="12dp"
                                         android:layout_height="12dp"
                                         android:layout_weight="1"
+                                        android:tint="@color/colorPrimaryDark"
                                         android:src="@drawable/ic_baseline_star_gray_24">
 
                                     </ImageView>
@@ -166,6 +168,7 @@
                                         android:layout_width="12dp"
                                         android:layout_height="12dp"
                                         android:layout_weight="1"
+                                        android:tint="@color/colorPrimaryDark"
                                         android:src="@drawable/ic_baseline_star_gray_24">
 
                                     </ImageView>
@@ -175,6 +178,7 @@
                                         android:layout_width="12dp"
                                         android:layout_height="12dp"
                                         android:layout_weight="1"
+                                        android:tint="@color/semi_transparent"
                                         android:src="@drawable/ic_baseline_star_gray_24">
 
                                     </ImageView>
@@ -184,6 +188,7 @@
                                         android:layout_width="12dp"
                                         android:layout_height="12dp"
                                         android:layout_weight="1"
+                                        android:tint="@color/semi_transparent"
                                         android:src="@drawable/ic_baseline_star_gray_24">
 
                                     </ImageView>
@@ -200,7 +205,7 @@
                                 android:gravity="center_vertical"
                                 android:text="( Inclusive all of taxes )"
                                 android:textColor="@color/grey1"
-                                android:textSize="12sp"></TextView>
+                                android:textSize="10sp"></TextView>
 
                         </LinearLayout>
 
@@ -210,44 +215,50 @@
                             android:layout_height="match_parent"
                             android:layout_marginTop="15dp">
 
-                            <androidx.viewpager.widget.ViewPager
-                                android:id="@+id/pager"
-                                android:layout_width="match_parent"
-                                android:layout_height="200dp" />
-
-                            <com.google.android.material.tabs.TabLayout
-                                android:layout_below="@+id/pager"
-                                android:id="@+id/tabLayout"
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="0dp"
-                                app:tabBackground="@drawable/tab_selected"
-                                app:tabGravity="center"
-                                app:tabIndicatorHeight="0dp" />
+                                android:orientation="vertical">
+
+                                <androidx.viewpager.widget.ViewPager
+                                    android:id="@+id/pager"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="180dp"
+                                    android:background="@color/transparent" />
+
+
+                                <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+                                    android:id="@+id/indicator"
+                                    android:layout_below="@+id/pager"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:spi_dotSelectedColor="@color/colorPrimaryDark"
+                                    android:layout_marginTop="0dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:layout_gravity="center_horizontal" />
+
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:layout_alignParentBottom="true"
-                                android:orientation="horizontal"
+                                android:orientation="vertical"
                                 android:layout_marginTop="10dp"
                                 android:paddingRight="10dp">
 
                                 <ImageView
                                     android:id="@+id/imgLike"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_marginRight="10dp"
-                                    android:tint="@color/colorPrimaryDark"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_marginTop="10dp"
                                     android:src="@drawable/ic_baseline_favorite_1"></ImageView>
 
                                 <ImageView
                                     android:id="@+id/imgShare"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:tint="@color/colorPrimaryDark"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_marginTop="20dp"
                                     android:src="@drawable/ic_baseline_share_24"></ImageView>
 
                             </LinearLayout>
@@ -259,10 +270,10 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.3dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:background="@color/black"></LinearLayout>
+                        android:background="@color/grey1"></LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/lnrMainCategory"
@@ -288,7 +299,7 @@
                             android:text=""/>
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="0dp"
                             android:id="@+id/recyclerMainCategory"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -321,7 +332,7 @@
                             android:text=""/>
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="0dp"
                             android:id="@+id/recyclerSubCategory"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -396,6 +407,174 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nunit_sans_bold"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:textColor="#373737"
+                            android:text="Benefits"/>
+
+                        <TextView
+                            android:id="@+id/txtBenefits"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/nunito_sans_semibold"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textColor="@color/grey1"
+                            android:textSize="12sp"></TextView>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/grey1"></LinearLayout>
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/lnrRateProduct"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/nunit_sans_bold"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:textColor="#373737"
+                                android:text="Ratings &amp; Reviews"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:layout_weight="1"
+                                        android:tint="@color/colorPrimaryDark"
+                                        android:src="@drawable/ic_baseline_star_gray_24">
+
+                                    </ImageView>
+
+                                    <ImageView
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:layout_weight="1"
+                                        android:tint="@color/colorPrimaryDark"
+                                        android:src="@drawable/ic_baseline_star_gray_24">
+
+                                    </ImageView>
+
+                                    <ImageView
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:layout_weight="1"
+                                        android:tint="@color/colorPrimaryDark"
+                                        android:src="@drawable/ic_baseline_star_gray_24">
+
+                                    </ImageView>
+
+                                    <ImageView
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:layout_weight="1"
+                                        android:tint="@color/semi_transparent"
+                                        android:src="@drawable/ic_baseline_star_gray_24">
+
+                                    </ImageView>
+
+                                    <ImageView
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:layout_weight="1"
+                                        android:tint="@color/semi_transparent"
+                                        android:src="@drawable/ic_baseline_star_gray_24">
+
+                                    </ImageView>
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/nunito_sans_semibold"
+                                    android:gravity="center_vertical"
+                                    android:text="3 out of 5"
+                                    android:paddingLeft="10dp"
+                                    android:textColor="@color/grey1"
+                                    android:textSize="12sp"></TextView>
+
+
+                            </LinearLayout>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_marginTop="10dp"
+                                android:id="@+id/recyclerRateProduct"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                            </androidx.recyclerview.widget.RecyclerView>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nunito_sans_semibold"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:background="@drawable/corner_green_bg"
+                            android:text="Rate Product"/>
+
+
+                    </RelativeLayout>
+
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -429,7 +608,7 @@
                                 android:layout_marginEnd="15dp"
                                 android:fontFamily="@font/nunito_sans_regular"
                                 android:gravity="end|center_vertical"
-                                android:text="View More"
+                                android:text="See All"
                                 android:textColor="#FC8F00"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
@@ -477,7 +656,7 @@
                                 android:layout_marginEnd="15dp"
                                 android:fontFamily="@font/nunito_sans_regular"
                                 android:gravity="end|center_vertical"
-                                android:text="View More"
+                                android:text="See All"
                                 android:textColor="#FC8F00"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
@@ -525,7 +704,7 @@
                                 android:layout_marginEnd="15dp"
                                 android:fontFamily="@font/nunito_sans_regular"
                                 android:gravity="end|center_vertical"
-                                android:text="View More"
+                                android:text="See All"
                                 android:textColor="#FC8F00"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
@@ -550,21 +729,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="20dp"
+                android:padding="25dp"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/product_bg_card_semi">
 
                 <Button
                     android:id="@+id/btnCart"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
-                    android:layout_marginRight="40dp"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:padding="16dp"
+                    android:text=""
+                    android:background="@drawable/edit_corner_green_bg"></Button>
+
+                <Button
+                    android:id="@+id/btnBuyNow"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textAllCaps="false"
-                    android:padding="20dp"
-                    android:text=""
+                    android:padding="16dp"
+                    android:text="Buy Now"
                     android:background="@drawable/custom_button"></Button>
 
             </LinearLayout>

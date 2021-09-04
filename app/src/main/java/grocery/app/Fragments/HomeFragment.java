@@ -157,7 +157,7 @@ public class HomeFragment extends Fragment implements ProductCategoryAdapter.Ite
         binding.recyclerTrendingProduct.setAdapter(trendingProductAdapter);
 
         sliderModelList = new ArrayList<>();
-        sliderImageAdapter = new SliderImageAdapter(context, sliderModelList);
+        sliderImageAdapter = new SliderImageAdapter(context, sliderModelList,1);
         binding.pager.setAdapter(sliderImageAdapter);
         binding.indicator.attachToPager(binding.pager);
 

@@ -2,7 +2,6 @@ package grocery.app.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import grocery.app.Fragments.HomeFragment;
-import grocery.app.ProductChildListActivity;
 import grocery.app.ProductDetailsActivity;
 import grocery.app.R;
 import grocery.app.databinding.NewArrivedLayoutBinding;
@@ -34,11 +32,11 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
     private boolean activityClick;
     private int maxItem = 10;
 
-    public interface ClickItem{
+    public interface ClickItem {
         void add(int filterId, ImageView imgAction);
     }
 
-    public NewArrivalAdapter(Context context, List<ArrivalModel> arrivalModelList,HomeFragment fragment) {
+    public NewArrivalAdapter(Context context, List<ArrivalModel> arrivalModelList, HomeFragment fragment) {
         this.context = context;
         this.arrivalModelList = arrivalModelList;
         this.fragment = fragment;
@@ -69,9 +67,9 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
             public void onClick(View v) {
                 Click.preventTwoClick(v);
                 Config.Update_Direct_Home = true;
-                Intent productIntent = new Intent(context,ProductDetailsActivity.class);
-                productIntent.putExtra(Config.PRODUCT_ID,model.getId());
-                productIntent.putExtra(Config.PRODUCT_FILTER_ID,model.getFilter_id());
+                Intent productIntent = new Intent(context, ProductDetailsActivity.class);
+                productIntent.putExtra(Config.PRODUCT_ID, model.getId());
+                productIntent.putExtra(Config.PRODUCT_FILTER_ID, model.getFilter_id());
                 context.startActivity(productIntent);
             }
         });
@@ -80,31 +78,41 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
             @Override
             public void onClick(View v) {
                 Click.preventTwoClick(v);
-                if (ConnectionUtil.isOnline(context)){
-                    if (activityClick){
-                        ((ProductDetailsActivity)context).add(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
-                    }else {
-                        ((HomeFragment)fragment).add(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
+                if (ConnectionUtil.isOnline(context)) {
+                    if (activityClick) {
+                        ((ProductDetailsActivity) context).add(Integer.parseInt(model.getFilter_id()), holder.binding.imgAction);
+                    } else {
+                        ((HomeFragment) fragment).add(Integer.parseInt(model.getFilter_id()), holder.binding.imgAction);
                     }
-                }else {
+                } else {
                     context.getResources().getString(R.string.internetMessage);
                 }
             }
         });
 
+
+        if (activityClick) {
+            holder.binding.lnrProduct.setBackground(context.getResources().getDrawable(R.drawable.product_bg_dark));
+            holder.binding.txtName.setVisibility(View.GONE);
+        } else {
+            holder.binding.lnrProduct.setBackground(context.getResources().getDrawable(R.drawable.product_bg_two));
+            holder.binding.txtName.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        if (arrivalModelList.size()>maxItem){
+        if (arrivalModelList.size() > maxItem) {
             return maxItem;
-        }else {
+        } else {
             return arrivalModelList.size();
         }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         NewArrivedLayoutBinding binding;
+
         public ViewHolder(@NonNull NewArrivedLayoutBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

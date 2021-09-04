@@ -1,6 +1,7 @@
 package grocery.app.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,8 @@ public class TermAndCConditionAdapter extends BaseExpandableListAdapter {
                 txtDescription.setText(model.getMessage());
             }
         });
+
+        txtReadMore.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         return convertView;
     }
 
@@ -100,6 +103,12 @@ public class TermAndCConditionAdapter extends BaseExpandableListAdapter {
         ImageView imgArrow =  convertView.findViewById(R.id.imgArrow);
 
         txtTitle.setText(model.getTitle());
+
+        if (isExpanded){
+            imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_arrow_right_24));
+        }else {
+            imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_arrow_down_24));
+        }
         return convertView;
     }
 

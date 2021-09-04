@@ -23,11 +23,13 @@ public class SliderImageAdapter extends PagerAdapter {
     private List<SliderModel> imageModelList;
     private LayoutInflater inflater;
     private Context context;
+    private int value;
 
 
-    public SliderImageAdapter(Context context, List<SliderModel> imageModelList) {
+    public SliderImageAdapter(Context context, List<SliderModel> imageModelList,int value) {
         this.context = context;
         this.imageModelList = imageModelList;
+        this.value = value;
         inflater = LayoutInflater.from(context);
         notifyDataSetChanged();
     }
@@ -50,7 +52,14 @@ public class SliderImageAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup view, int position) {
-        View imageLayout = inflater.inflate(R.layout.activity_slider_view, view, false);
+        View imageLayout = null;
+
+        if (value==1){
+            imageLayout = inflater.inflate(R.layout.activity_slider_view, view, false);
+        }else if (value==2){
+            imageLayout = inflater.inflate(R.layout.activity_slider_view_new, view, false);
+        }
+
         assert imageLayout != null;
         final ImageView imageView = imageLayout
                 .findViewById(R.id.imgView);

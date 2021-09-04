@@ -43,7 +43,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     private List<ProductModel> productModelList;
     private String rs = "₹.";
     public interface Click{
-        void add(int filterId, ImageView imageView);
+        void add(int filterId, ImageView imageView,String value,ProductModel model);
     }
 
     public ProductListAdapter(Context context, List<ProductModel> productModelList) {
@@ -61,13 +61,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ProductModel model = productModelList.get(position);
-        Picasso.get().load(model.getProduct_image()).error(R.mipmap.ic_launcher).placeholder(R.drawable.progress_animation).into(holder.binding.imgProduct);
-        holder.binding.txtProductName.setText(model.getName());
-        holder.binding.txtProductWeight.setText(model.getVariants_name());
-        holder.binding.txtProductOff.setText(rs + model.getPrice());
-        holder.binding.txtProductPrice.setText(rs + model.getSaleprice());
 
-        setFilterData(model,holder.binding.spinnerFilter,holder.binding.lnrFilter);
+        Picasso.get().load(model.getProduct_image()).error(R.mipmap.ic_launcher).placeholder(R.drawable.progress_animation).into(holder.binding.imgProduct);
 
         String offValue = "0";
         if (!TextUtils.isEmpty(model.getPrice()) && !TextUtils.isEmpty(model.getSaleprice())){
@@ -84,9 +79,22 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             }
         }
 
+        holder.binding.txtAmount.setText(rs + model.getSaleprice());
+        holder.binding.txtProductOff.setText(rs + model.getPrice());
+        holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.binding.txtPercent.setText(offValue + "% OFF");
 
-        holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.binding.txtQuantity.setText("0 KG");
+
+        if(!Config.FROM_HOME){
+            holder.binding.txtQuantity.setVisibility(View.VISIBLE);
+            holder.binding.txtCategory.setText(model.getCategory_name());
+        }else {
+            holder.binding.txtQuantity.setVisibility(View.GONE);
+            holder.binding.txtCategory.setText(model.getVariants_name());
+        }
+
+        setFilterData(model,holder.binding.spinnerFilter,holder.binding.lnrFilter);
 
         holder.binding.lnrProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +116,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             public void onClick(View v) {
                 grocery.app.util.Click.preventTwoClick(v);
                 if (ConnectionUtil.isOnline(context)){
-                    ((ProductChildListActivity)context).add(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction);
+                    ((ProductChildListActivity)context).add(Integer.parseInt(model.getFilter_id()),holder.binding.imgAction,model.getIs_wishlisted(),model);
                 }else {
                     context.getResources().getString(R.string.internetMessage);
                 }
