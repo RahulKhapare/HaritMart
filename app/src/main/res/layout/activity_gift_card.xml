@@ -49,7 +49,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         app:cardCornerRadius="10dp"
-                        android:layout_marginTop="20dp">
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_marginLeft="1dp">
 
                         <ImageView
                             android:id="@+id/imgGift"
@@ -66,7 +68,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textSize="18sp"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="5dp"
                         android:fontFamily="@font/nunit_sans_bold"
                         android:textColor="#373737"
                         android:text="Redeem Gift Card">
@@ -78,7 +80,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
-                        android:hint="Your gift card number"
+                        android:hint="Your gift card number*"
                         android:imeOptions="actionNext"
                         android:fontFamily="@font/nunito_sans_regular"
                         android:backgroundTint="@color/grey2"
@@ -91,7 +93,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:hint="Your gift card pin"
+                        android:hint="Your gift card PIN*"
                         android:imeOptions="actionNext"
                         android:fontFamily="@font/nunito_sans_regular"
                         android:backgroundTint="@color/grey2"
@@ -101,16 +103,18 @@
 
                     <Button
                         android:id="@+id/btnRedeem"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="?actionBarSize"
                         android:layout_gravity="center"
                         android:background="@drawable/custom_button"
                         android:text="Redeem"
+                        android:paddingRight="50dp"
+                        android:paddingLeft="50dp"
                         android:textAllCaps="false"
                         android:textColor="#ffffff"
-                        android:layout_margin="50dp"
+                        android:layout_marginTop="50dp"
                         android:fontFamily="@font/nunito_sans_semibold"
-                        android:textSize="19sp"
+                        android:textSize="16sp"
                         android:textStyle="normal" />
 
                 </LinearLayout>

@@ -141,7 +141,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/lnrPaymentView"
+                                android:id="@+id/lnrCreditPaymentView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
@@ -154,7 +154,133 @@
                                     android:layout_marginTop="20dp"
                                     android:fontFamily="@font/nunito_sans_semibold"
                                     android:textColor="#373737"
-                                    android:text="Payment Method"></TextView>
+                                    android:text="Credit/Debit Cards"></TextView>
+
+                                <LinearLayout
+                                    android:id="@+id/lnrAddNewView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+
+                                    <EditText
+                                        android:id="@+id/etxCardNumber"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="?actionBarSize"
+                                        android:layout_marginBottom="0dp"
+                                        android:layout_marginTop="10dp"
+                                        android:textSize="16sp"
+                                        android:imeOptions="actionNext"
+                                        android:textColor="@color/textDark"
+                                        android:textColorHint="@color/grey1"
+                                        android:textCursorDrawable="@drawable/color_cursor"
+                                        android:backgroundTint="@color/colorPrimaryDark"
+                                        android:fontFamily="@font/nunito_sans_regular"
+                                        android:inputType="number"
+                                        android:maxLength="16"
+                                        android:digits="01234 56789"
+                                        android:hint="Card Number">
+
+                                    </EditText>
+
+                                    <EditText
+                                        android:id="@+id/etxCardName"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="?actionBarSize"
+                                        android:layout_marginBottom="0dp"
+                                        android:layout_marginTop="0dp"
+                                        android:textSize="16sp"
+                                        android:imeOptions="actionNext"
+                                        android:textColor="@color/textDark"
+                                        android:textColorHint="@color/grey1"
+                                        android:textCursorDrawable="@drawable/color_cursor"
+                                        android:backgroundTint="@color/colorPrimaryDark"
+                                        android:fontFamily="@font/nunito_sans_regular"
+                                        android:inputType="textCapWords"
+                                        android:hint="Name on Card">
+
+                                    </EditText>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="0dp"
+                                        android:layout_marginTop="0dp"
+                                        android:orientation="horizontal">
+
+                                        <EditText
+                                            android:id="@+id/etxValidMonth"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="?actionBarSize"
+                                            android:textSize="16sp"
+                                            android:imeOptions="actionNext"
+                                            android:textColor="@color/textDark"
+                                            android:paddingRight="50dp"
+                                            android:textColorHint="@color/grey1"
+                                            android:textCursorDrawable="@drawable/color_cursor"
+                                            android:backgroundTint="@color/colorPrimaryDark"
+                                            android:fontFamily="@font/nunito_sans_regular"
+                                            android:inputType="number"
+                                            android:maxLength="5"
+                                            android:digits="0123456789/"
+                                            android:layout_marginRight="20dp"
+                                            android:hint="Valid Through (MM/YY)">
+
+                                        </EditText>
+
+                                        <EditText
+                                            android:id="@+id/etxCvv"
+                                            android:layout_width="100dp"
+                                            android:layout_height="?actionBarSize"
+                                            android:textSize="16sp"
+                                            android:digits="0123456789"
+                                            android:maxLength="3"
+                                            android:imeOptions="actionNext"
+                                            android:textColor="@color/textDark"
+                                            android:textColorHint="@color/grey1"
+                                            android:textCursorDrawable="@drawable/color_cursor"
+                                            android:backgroundTint="@color/colorPrimaryDark"
+                                            android:fontFamily="@font/nunito_sans_regular"
+                                            android:inputType="number"
+                                            android:hint="CVV">
+
+                                        </EditText>
+
+                                    </LinearLayout>
+
+                                    <CheckBox
+                                        android:id="@+id/checkSecure"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:buttonTint="@color/green"
+                                        android:textColor="@color/grey1"
+                                        android:fontFamily="@font/nunito_sans_regular"
+                                        android:textSize="14sp"
+                                        android:checked="true"
+                                        android:text="Securely ave card details">
+
+                                    </CheckBox>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/lnrOtherPaymentView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="30dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:textSize="18sp"
+                                    android:fontFamily="@font/nunito_sans_semibold"
+                                    android:textColor="#373737"
+                                    android:text="Other Payment Method"></TextView>
 
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:layout_marginTop="10dp"
@@ -171,10 +297,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@color/white"
-                                android:layout_marginLeft="0dp"
-                                android:layout_marginRight="0dp"
-                                android:layout_marginTop="20dp"
-                                android:layout_marginBottom="20dp">
+                                android:paddingLeft="0dp"
+                                android:paddingRight="0dp"
+                                android:paddingTop="20dp"
+                                android:paddingBottom="20dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -300,9 +426,9 @@
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
-                                        android:layout_height="1dp"
+                                        android:layout_height="5dp"
                                         android:layout_marginTop="10dp"
-                                        android:background="@color/semi_transparent"></LinearLayout>
+                                        android:background="@drawable/dotted_line"></LinearLayout>
 
                                     <FrameLayout
                                         android:layout_width="match_parent"
@@ -318,7 +444,7 @@
                                             android:textColor="#000"
                                             android:textStyle="bold"
                                             android:textSize="18sp"
-                                            app:fontFamily="@font/nunito_sans_semibold" />
+                                            app:fontFamily="@font/nunit_sans_bold" />
 
                                         <TextView
                                             android:id="@+id/txtTotalAMount"
@@ -330,7 +456,7 @@
                                             android:text=""
                                             android:textColor="#000"
                                             android:textSize="14sp"
-                                            app:fontFamily="@font/nunito_sans_semibold" />
+                                            app:fontFamily="@font/nunit_sans_bold" />
 
                                     </FrameLayout>
 
@@ -339,12 +465,12 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="?actionBarSize"
                                         android:layout_gravity="center"
-                                        android:layout_marginLeft="20dp"
+                                        android:layout_marginLeft="50dp"
                                         android:layout_marginTop="20dp"
-                                        android:layout_marginRight="20dp"
+                                        android:layout_marginRight="50dp"
                                         android:background="@drawable/custom_button"
                                         android:fontFamily="@font/nunito_sans_semibold"
-                                        android:text="Buy Now"
+                                        android:text="Proceed"
                                         android:textAllCaps="false"
                                         android:textColor="#ffffff"
                                         android:textSize="14sp"

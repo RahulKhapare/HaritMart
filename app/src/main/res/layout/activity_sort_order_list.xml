@@ -33,7 +33,7 @@
                 android:id="@+id/radioSort"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimaryDark"
+                android:buttonTint="@color/colorPrimaryDark"
                 android:paddingLeft="@dimen/padding10"
                 android:text=""
                 android:textColor="@color/textColor"></RadioButton>

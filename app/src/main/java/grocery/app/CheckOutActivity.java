@@ -245,7 +245,7 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
                         adapter.notifyDataSetChanged();
 
                         if (getwayModelList.size()==1){
-                            binding.lnrPaymentView.setVisibility(View.GONE);
+                            binding.lnrOtherPaymentView.setVisibility(View.GONE);
                         }
 
                     } else {
@@ -357,6 +357,39 @@ public class CheckOutActivity extends AppCompatActivity implements GetwayAdapter
 
     private void hideProgress() {
         loadingDialog.hide();
+    }
+
+    private boolean checkCardDetails() {
+        boolean value = true;
+
+        if (TextUtils.isEmpty(binding.etxCardNumber.getText().toString().trim())) {
+            value = false;
+            H.showMessage(activity, "Please enter card number");
+        } else if (binding.etxCardNumber.getText().toString().trim().length() < 16 || binding.etxCardNumber.getText().toString().trim().length() > 16) {
+            value = false;
+            H.showMessage(activity, "Please enter 16 digit card number");
+        } else if (TextUtils.isEmpty(binding.etxCardName.getText().toString().trim())) {
+            value = false;
+            H.showMessage(activity, "Please enter name on card");
+        } else if (TextUtils.isEmpty(binding.etxValidMonth.getText().toString().trim())) {
+            value = false;
+            H.showMessage(activity, "Please enter month/year");
+        } else if (binding.etxValidMonth.getText().toString().trim().length() < 5 || binding.etxValidMonth.getText().toString().trim().length() > 5) {
+            value = false;
+            H.showMessage(activity, "Please enter valid month/year");
+        } else if (!binding.etxValidMonth.getText().toString().matches("(?:0[1-9]|1[0-2])/[0-9]{2}")) {
+            value = false;
+            H.showMessage(activity, "Please check card expire format");
+        }
+        else if (TextUtils.isEmpty(binding.etxCvv.getText().toString().trim())) {
+            value = false;
+            H.showMessage(activity, "Please enter cvv");
+        } else if (binding.etxCvv.getText().toString().trim().length() < 3 || binding.etxCvv.getText().toString().trim().length() > 3) {
+            value = false;
+            H.showMessage(activity, "Please enter valid cvv");
+        }
+
+        return value;
     }
 
     @Override

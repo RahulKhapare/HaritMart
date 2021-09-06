@@ -63,43 +63,44 @@ public class OrderDetailListAdapter extends RecyclerView.Adapter<OrderDetailList
         holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.binding.txtPercent.setText("0" + "% OFF");
 
-        holder.binding.txtCategory.setText(model.getName());
+        holder.binding.txtCategory.setText("Category Name");
         holder.binding.txtQuantity.setText("0 KG");
 
         holder.binding.txtOrderStatus.setText(model.getOrder_status());
 
-//        if (model.getOrder_status().contains("Cancelled")) {
-//            holder.binding.txtOrderStatus.setText("Order Cancelled");
-//            holder.binding.txtOrderStatus.setTextColor(context.getResources().getColor(R.color.red));
-//            holder.binding.txtCancelOrder.setVisibility(View.GONE);
-//        } else if (model.getOrder_status().contains("Delivered")) {
-//            holder.binding.txtOrderStatus.setText("Order Cancelled");
-//            holder.binding.txtOrderStatus.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
-//            holder.binding.txtCancelOrder.setVisibility(View.GONE);
-//        } else {
-//            holder.binding.txtOrderStatus.setText("Click To Check Order Details   >");
-//            holder.binding.txtOrderStatus.setTextColor(context.getResources().getColor(R.color.saffron));
-//        }
+        if (model.getOrder_status().contains("Cancelled")) {
+            holder.binding.txtOrderStatus.setText("Order Cancelled");
+            holder.binding.txtOrderStatus.setTextColor(context.getResources().getColor(R.color.red));
+            holder.binding.txtCancelOrder.setVisibility(View.GONE);
+            holder.binding.txtTrackOrder.setVisibility(View.GONE);
+        } else if (model.getOrder_status().contains("Delivered")) {
+            holder.binding.txtOrderStatus.setText("Order Delivered");
+            holder.binding.txtOrderStatus.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+            holder.binding.txtCancelOrder.setVisibility(View.GONE);
+        } else {
+            holder.binding.txtOrderStatus.setText("Click To Track Order Details >");
+            holder.binding.txtOrderStatus.setTextColor(context.getResources().getColor(R.color.saffron));
+        }
 
         holder.binding.txtTrackOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (model.getOrder_status().contains("Cancelled")) {
-//                    H.showMessage(context, "Order Cancelled");
-//                } else if (model.getOrder_status().contains("Delivered")) {
-//                    H.showMessage(context, "Order Delivered");
-//                } else {
-//                    Config.orderDetailListModel = model;
-//                    Intent orderIntent = new Intent(context, OrderDetailsActivity.class);
-//                    context.startActivity(orderIntent);
-//                }
+                if (model.getOrder_status().contains("Cancelled")) {
+                    H.showMessage(context, "Order Cancelled");
+                } else if (model.getOrder_status().contains("Delivered")) {
+                    H.showMessage(context, "Order Delivered");
+                } else {
+                    Config.orderDetailListModel = model;
+                    Intent orderIntent = new Intent(context, OrderDetailsActivity.class);
+                    context.startActivity(orderIntent);
+                }
             }
         });
 
         holder.binding.txtCancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ((OrderDetailListActivity) context).cancelOrder(model, holder.binding.txtOrderStatus, holder.binding.txtCancelOrder);
+                ((OrderDetailListActivity) context).cancelOrder(model, holder.binding.txtOrderStatus, holder.binding.txtCancelOrder);
             }
         });
     }

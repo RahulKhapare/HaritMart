@@ -36,8 +36,10 @@
 
                 <LinearLayout
                     android:id="@+id/lnrMain"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/product_trans_bg_card"
                     android:orientation="vertical">
 
                     <!--                   title data-->
@@ -745,6 +747,8 @@
                     android:textAllCaps="false"
                     android:padding="16dp"
                     android:text=""
+                    android:textSize="14sp"
+                    android:fontFamily="@font/nunito_sans_semibold"
                     android:background="@drawable/edit_corner_green_bg"></Button>
 
                 <Button
@@ -758,6 +762,8 @@
                     android:textStyle="bold"
                     android:textAllCaps="false"
                     android:padding="16dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/nunito_sans_semibold"
                     android:text="Buy Now"
                     android:background="@drawable/custom_button"></Button>
 

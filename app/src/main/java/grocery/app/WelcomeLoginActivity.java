@@ -185,14 +185,6 @@ public class WelcomeLoginActivity extends AppCompatActivity implements GoogleApi
 //        LoginManager.getInstance().logOut();
     }
 
-
-
-
-
-
-
-
-
     public void onLoginClick(View view) {
 
     }

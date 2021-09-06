@@ -13,19 +13,18 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:titleTextColor="@color/white"
-            app:subtitleTextColor="@color/white"
+            android:background="@color/green"
             android:theme="@style/ToolbarColoredBackArrow"
-            android:background="@color/green">
-        </androidx.appcompat.widget.Toolbar>
+            app:subtitleTextColor="@color/white"
+            app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
             android:layout_marginTop="10dp"
-            android:orientation="vertical"
             android:background="@drawable/product_bg_card"
-            android:layout_below="@+id/toolbar">
+            android:orientation="vertical">
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -34,51 +33,63 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:layout_margin="20dp"
-                        android:textColor="#373737"
-                        android:text="Wallet Summery"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/ic_group_4459"
-                        android:fontFamily="@font/nunito_sans_semibold">
-
-                    </TextView>
-
-                    <TextView
-                        android:id="@+id/txtCurrentBalance"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:textColor="@color/grey1"
-                        android:text=""
-                        android:paddingLeft="55dp"
-                        android:layout_marginBottom="20dp"
-                        android:fontFamily="@font/nunito_sans_semibold">
-
-                    </TextView>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/black"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"></LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:drawableLeft="@drawable/ic_wallet_bg"
+                            android:drawablePadding="5dp"
+                            android:fontFamily="@font/nunito_sans_semibold"
+                            android:gravity="center|start"
+                            android:text="Wallet Summery"
+                            android:textColor="#373737"
+                            android:textSize="18sp">
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/txtCurrentBalance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-10dp"
+                            android:layout_marginBottom="20dp"
+                            android:fontFamily="@font/nunito_sans_regular"
+                            android:paddingLeft="50dp"
+                            android:text="@string/app_name"
+                            android:textColor="@color/grey1"
+                            android:textSize="14sp">
+
+                        </TextView>
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/black"></LinearLayout>
 
                     <Button
                         android:id="@+id/btnAddMoney"
                         android:layout_width="match_parent"
                         android:layout_height="?actionBarSize"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginLeft="60dp"
                         android:layout_marginTop="20dp"
+                        android:layout_marginRight="60dp"
                         android:layout_marginBottom="20dp"
-                        android:layout_marginRight="50dp"
                         android:background="@drawable/custom_button"
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:text="Add Money"
@@ -90,27 +101,25 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/black"
+                        android:layout_height="0.3dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"></LinearLayout>
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/black"></LinearLayout>
 
                     <TextView
                         android:id="@+id/txtMessage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:textColor="@color/grey1"
+                        android:fontFamily="@font/nunito_sans_regular"
                         android:padding="20dp"
-                        android:fontFamily="@font/nunito_sans_semibold">
+                        android:textColor="@color/grey1"
+                        android:textSize="14sp">
 
                     </TextView>
-
 
                 </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>
-
 
 
         </LinearLayout>

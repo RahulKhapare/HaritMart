@@ -306,7 +306,7 @@
                         android:textColor="@color/white"
                         android:layout_margin="60dp"
                         android:fontFamily="@font/nunito_sans_semibold"
-                        android:textSize="19sp"
+                        android:textSize="14sp"
                         android:textStyle="normal" />
 
                 </LinearLayout>

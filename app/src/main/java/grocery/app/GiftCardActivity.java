@@ -16,7 +16,7 @@ public class GiftCardActivity extends AppCompatActivity {
 
     private GiftCardActivity activity = this;
     private ActivityGiftCardBinding binding;
-    String image = "https://i0.wp.com/www.eatthis.com/wp-content/uploads/2020/07/grocery-shopping-2.jpg?resize=640%2C360&ssl=1";
+    String image = "http://assets.myntassets.com/assets/images/2020/12/18/4d7a8a79-7223-4e33-9e08-3db9090ca13c1608270334657-festive-gifting-min.png";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

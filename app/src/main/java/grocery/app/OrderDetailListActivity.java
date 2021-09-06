@@ -86,8 +86,8 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
         adapter = new OrderDetailListAdapter(activity,orderDetailListModelList);
         binding.recyclerOrderDetailList.setAdapter(adapter);
 
-//        hitOrderDetailList(DECENDING);
-        setDat();
+        hitOrderDetailList(DECENDING);
+//        setDat();
 
     }
 
