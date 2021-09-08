@@ -18,111 +18,122 @@
             app:subtitleTextColor="@color/white"
             app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="0dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/product_bg_card"
-            android:orientation="vertical">
+            android:layout_marginBottom="-40dp">
 
-            <androidx.core.widget.NestedScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/product_bg_card"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingRight="20dp"
-                        android:paddingLeft="20dp">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingTop="30dp"
+                            android:paddingRight="20dp"
+                            android:paddingLeft="20dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:drawableLeft="@drawable/ic_wallet_bg"
+                                android:drawablePadding="5dp"
+                                android:fontFamily="@font/nunito_sans_semibold"
+                                android:gravity="center|start"
+                                android:text="Wallet Summery"
+                                android:textColor="#373737"
+                                android:textSize="18sp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/txtCurrentBalance"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="-10dp"
+                                android:layout_marginBottom="20dp"
+                                android:fontFamily="@font/nunito_sans_regular"
+                                android:paddingLeft="50dp"
+                                android:text="@string/app_name"
+                                android:textColor="@color/grey1"
+                                android:textSize="14sp">
+
+                            </TextView>
+
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0.3dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/black"></LinearLayout>
+
+                        <Button
+                            android:id="@+id/btnAddMoney"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
                             android:layout_gravity="center"
-                            android:drawableLeft="@drawable/ic_wallet_bg"
-                            android:drawablePadding="5dp"
+                            android:layout_marginLeft="60dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="60dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/custom_button"
                             android:fontFamily="@font/nunito_sans_semibold"
-                            android:gravity="center|start"
-                            android:text="Wallet Summery"
-                            android:textColor="#373737"
-                            android:textSize="18sp">
+                            android:text="Add Money"
+                            android:textAllCaps="false"
+                            android:textColor="#ffffff"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
 
-                        </TextView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0.3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/black"></LinearLayout>
 
                         <TextView
-                            android:id="@+id/txtCurrentBalance"
+                            android:id="@+id/txtMessage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="-10dp"
-                            android:layout_marginBottom="20dp"
                             android:fontFamily="@font/nunito_sans_regular"
-                            android:paddingLeft="50dp"
-                            android:text="@string/app_name"
+                            android:padding="20dp"
                             android:textColor="@color/grey1"
                             android:textSize="14sp">
 
                         </TextView>
 
-
-
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_marginBottom="5dp"
-                        android:background="@color/black"></LinearLayout>
-
-                    <Button
-                        android:id="@+id/btnAddMoney"
-                        android:layout_width="match_parent"
-                        android:layout_height="?actionBarSize"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="60dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="60dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/custom_button"
-                        android:fontFamily="@font/nunito_sans_semibold"
-                        android:text="Add Money"
-                        android:textAllCaps="false"
-                        android:textColor="#ffffff"
-                        android:textSize="14sp"
-                        android:textStyle="normal" />
+                </androidx.core.widget.NestedScrollView>
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:background="@color/black"></LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                    <TextView
-                        android:id="@+id/txtMessage"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/nunito_sans_regular"
-                        android:padding="20dp"
-                        android:textColor="@color/grey1"
-                        android:textSize="14sp">
-
-                    </TextView>
-
-                </LinearLayout>
-
-            </androidx.core.widget.NestedScrollView>
-
-
-        </LinearLayout>
 
     </RelativeLayout>
 </layout>

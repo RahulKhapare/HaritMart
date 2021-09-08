@@ -1,6 +1,8 @@
 package grocery.app;
 
 import android.Manifest;
+import android.app.ActionBar;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -8,21 +10,27 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.adoisstudio.helper.Api;
 import com.adoisstudio.helper.H;
 import com.adoisstudio.helper.Json;
 import com.adoisstudio.helper.JsonList;
+import com.adoisstudio.helper.Session;
 
 import org.json.JSONObject;
 
@@ -57,6 +65,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
     private List<OrderModel> orderModelList;
     private OrderAdapter orderAdapter;
     private String rs = "₹ ";
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +85,8 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
 
         orderModel = Config.orderDetailListModel;
 
+        session = new Session(activity);
+
         pdf_url = orderModel.getPdf_url();
         order_number = orderModel.getOrder_number();
 
@@ -83,8 +94,8 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         binding.recyclerOrderProduct.setHasFixedSize(true);
         binding.recyclerOrderProduct.setNestedScrollingEnabled(false);
         binding.recyclerOrderProduct.setLayoutManager(new LinearLayoutManager(activity));
-        orderAdapter = new OrderAdapter(activity, orderModelList);
-        binding.recyclerOrderProduct.setAdapter(orderAdapter);
+
+//        binding.txtDate.setText(orderModel.getOrdered_date());
 
         binding.imgStar1.setOnClickListener(this);
         binding.imgStar2.setOnClickListener(this);
@@ -93,12 +104,14 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         binding.imgStar5.setOnClickListener(this);
         binding.btnShareInvoice.setOnClickListener(this);
         binding.btnDownloadInvoice.setOnClickListener(this);
+        binding.btnCancelOrder.setOnClickListener(this);
 
         getOrderData(orderModel.getProductItemList());
         setOrderStatus(orderModel.getOrder_status());
         setAddressData();
         setBillData();
 
+        binding.imgStar3.performClick();
     }
 
     private void setOrderStatus(String status) {
@@ -185,7 +198,24 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
 
             }
 
-            orderAdapter.notifyDataSetChanged();
+            if(orderModelList.size()>2){
+                orderAdapter = new OrderAdapter(activity, orderModelList,2);
+                binding.recyclerOrderProduct.setAdapter(orderAdapter);
+                binding.lnrShowMore.setVisibility(View.VISIBLE);
+            }else {
+                orderAdapter = new OrderAdapter(activity, orderModelList,orderModelList.size());
+                binding.recyclerOrderProduct.setAdapter(orderAdapter);
+                binding.lnrShowMore.setVisibility(View.GONE);
+            }
+
+            binding.lnrShowMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    binding.lnrShowMore.setVisibility(View.GONE);
+                    orderAdapter = new OrderAdapter(activity, orderModelList,orderModelList.size());
+                    binding.recyclerOrderProduct.setAdapter(orderAdapter);
+                }
+            });
 
         }
 
@@ -251,38 +281,115 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                 clickInvoice = viewInvoice;
                 checkInvoice();
                 break;
+            case R.id.btnCancelOrder:
+                commentDialog(orderModel);
+                break;
         }
     }
+
+    private void commentDialog(OrderDetailListModel model) {
+
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_comment_dialog);
+
+        EditText etxComment = dialog.findViewById(R.id.etxComment);
+
+        TextView txtCancel = dialog.findViewById(R.id.txtCancel);
+        TextView txtSubmit = dialog.findViewById(R.id.txtSubmit);
+
+        txtSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Click.preventTwoClick(v);
+                String comment = etxComment.getText().toString().trim();
+                if (!TextUtils.isEmpty(comment)) {
+                    if (comment.length() > 10) {
+                        dialog.cancel();
+                        hitOrderCancelApi(model,comment);
+                    } else {
+                        H.showMessage(activity, "Enter minimum 10 character");
+                    }
+                } else {
+                    H.showMessage(activity, "Please enter comment");
+                }
+            }
+        });
+
+        txtCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Click.preventTwoClick(v);
+                dialog.cancel();
+            }
+        });
+
+        dialog.setCancelable(true);
+        dialog.show();
+        Window window = dialog.getWindow();
+        window.setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+    }
+
+    private void hitOrderCancelApi(OrderDetailListModel model,String comment) {
+        Json j = new Json();
+        j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
+        j.addString(P.order_number, model.getOrder_number());
+        j.addString(P.order_status, "Cancelled");
+        j.addString(P.order_status_comment, comment);
+
+        Api.newApi(activity, P.baseUrl + "update_order_status").addJson(j)
+                .setMethod(Api.POST)
+                //.onHeaderRequest(App::getHeaders)
+                .onError(() -> {
+                    H.showMessage(activity, "On error is called");
+                })
+                .onSuccess(json ->
+                {
+                    if (json.getInt(P.status) == 1) {
+                        H.showMessage(activity, "Order cancelled successfully");
+                        model.setOrder_status("Cancelled");
+                        new Handler().postDelayed(() -> {
+                            OrderDetailListActivity.isCancelOrder = true;
+                            finish();
+                        }, 1500);
+                    } else {
+                        H.showMessage(activity, json.getString(P.msg));
+                    }
+
+                })
+                .run("hitOrderCancelApi");
+    }
+
 
     private void updateRating(int value) {
         if (value == 1) {
             userRating = "1";
             binding.imgStar1.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_green_24));
-            binding.imgStar2.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_gray_24));
-            binding.imgStar3.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_gray_24));
-            binding.imgStar4.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_gray_24));
-            binding.imgStar5.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_gray_24));
+            binding.imgStar2.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_24));
+            binding.imgStar3.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_24));
+            binding.imgStar4.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_24));
+            binding.imgStar5.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_24));
         } else if (value == 2) {
             userRating = "2";
             binding.imgStar1.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_green_24));
             binding.imgStar2.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_green_24));
-            binding.imgStar3.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_gray_24));
-            binding.imgStar4.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_gray_24));
-            binding.imgStar5.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_gray_24));
+            binding.imgStar3.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_24));
+            binding.imgStar4.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_24));
+            binding.imgStar5.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_24));
         } else if (value == 3) {
             userRating = "3";
             binding.imgStar1.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_green_24));
             binding.imgStar2.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_green_24));
             binding.imgStar3.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_green_24));
-            binding.imgStar4.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_gray_24));
-            binding.imgStar5.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_gray_24));
+            binding.imgStar4.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_24));
+            binding.imgStar5.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_24));
         } else if (value == 4) {
             userRating = "4";
             binding.imgStar1.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_green_24));
             binding.imgStar2.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_green_24));
             binding.imgStar3.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_green_24));
             binding.imgStar4.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_green_24));
-            binding.imgStar5.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_gray_24));
+            binding.imgStar5.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_24));
         } else if (value == 5) {
             userRating = "5";
             binding.imgStar1.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_star_green_24));

@@ -1,46 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-tools:context=".ProductCategoryActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ProductCategoryActivity">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/green">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:titleTextColor="@color/white"
-        app:subtitleTextColor="@color/white"
-        android:theme="@style/ToolbarColoredBackArrow"
-        android:background="@color/green">
-    </androidx.appcompat.widget.Toolbar>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/product_bg_card"
-        android:layout_below="@+id/toolbar">
+        android:background="@color/green">
 
-        <ExpandableListView
-            android:id="@+id/productExpandList"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/green"
+            android:theme="@style/ToolbarColoredBackArrow"
+            app:subtitleTextColor="@color/white"
+            app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:groupIndicator="@null"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:divider="@color/white"
-            android:childDivider="@color/semiTrans"
-            android:dividerHeight="0.5dp">
+            android:layout_below="@+id/toolbar"
+            android:layout_marginTop="10dp"
+            android:paddingTop="10dp"
+            android:layout_marginBottom="-40dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="0dp">
 
-        </ExpandableListView>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginBottom="40dp"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="20dp">
 
-</RelativeLayout>
+                <ExpandableListView
+                    android:id="@+id/productExpandList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:childDivider="@color/semiTrans"
+                    android:divider="@color/semiTrans"
+                    android:dividerHeight="0.5dp"
+                    android:groupIndicator="@null">
+
+                </ExpandableListView>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
 </layout>

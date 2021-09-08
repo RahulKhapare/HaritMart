@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -26,10 +27,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     private Context context;
     private List<OrderModel> orderModelList;
     private String rs = "₹.";
+    private int itemSize = 0;
 
-    public OrderAdapter(Context context, List<OrderModel> orderModelList) {
+    public OrderAdapter(Context context, List<OrderModel> orderModelList,int itemSize) {
         this.context = context;
         this.orderModelList = orderModelList;
+        this.itemSize = itemSize;
     }
 
     @NonNull
@@ -44,7 +47,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
         OrderModel model = orderModelList.get(position);
 
-        Picasso.get().load(P.imgBaseUrl+model.getImage()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgProduct);
+        if (!TextUtils.isEmpty(model.getImage())){
+            Picasso.get().load(P.imgBaseUrl+model.getImage()).placeholder( R.drawable.progress_animation ).error(R.mipmap.ic_launcher_round).into(holder.binding.imgProduct);
+        }
 
         holder.binding.txtAmount.setText(rs + model.getPrice());
         holder.binding.txtProductOff.setText(rs + model.getTotal_price());
@@ -55,12 +60,29 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
         holder.binding.txtProductOff.setPaintFlags(holder.binding.txtProductOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
+        if (position==itemSize-1){
+            holder.binding.lnr.setVisibility(View.VISIBLE);
+        }else {
+            holder.binding.lnr.setVisibility(View.GONE);
+        }
+
+        if (position==0){
+            setMargins(holder.binding.lnrView,0,50,0,0);
+        }
     }
 
 
+    private void setMargins (View view, int left, int top, int right, int bottom) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(left, top, right, bottom);
+            view.requestLayout();
+        }
+    }
+
     @Override
     public int getItemCount() {
-        return orderModelList.size();
+        return itemSize;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

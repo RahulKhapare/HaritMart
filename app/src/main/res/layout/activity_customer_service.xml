@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".OrderDetailsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/green">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/green"
+            android:theme="@style/ToolbarColoredBackArrow"
+            app:subtitleTextColor="@color/white"
+            app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="-40dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/product_bg_card"
+                android:orientation="vertical">
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/etxSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="15dp"
+                            android:textSize="14sp"
+                            android:maxLines="1"
+                            android:layout_margin="20dp"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="@font/nunito_sans_regular"
+                            android:textColor="@color/textColor"
+                            android:textColorHint="@color/grey3"
+                            android:background="@drawable/search_bg"
+                            android:drawableTint="@color/colorPrimaryDark"
+                            android:drawableLeft="@drawable/ic_baseline_search_24"
+                            android:hint="Search">
+
+                        </EditText>
+
+                        <androidx.recyclerview.widget.RecyclerView
+
+                            android:id="@+id/recyclerOrderProduct"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+
+                        <LinearLayout
+                            android:id="@+id/lnrShowMore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/nunito_sans_regular"
+                                android:gravity="center"
+                                android:text="Show More"
+                                android:textColor="@color/saffron"
+                                android:textSize="12sp"></TextView>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                                android:tint="@color/saffron"></ImageView>
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/nunito_sans_semibold"
+                                android:text="Popular Topics"
+                                android:textColor="#000"
+                                android:textSize="18sp">
+
+                            </TextView>
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+
+                                android:id="@+id/recyclerPopularTopic"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                            </androidx.recyclerview.widget.RecyclerView>
+
+                            <LinearLayout
+                                android:id="@+id/lnrShowMorePopular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/nunito_sans_regular"
+                                    android:gravity="center"
+                                    android:text="Show More"
+                                    android:textColor="@color/saffron"
+                                    android:textSize="12sp"></TextView>
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                                    android:tint="@color/saffron"></ImageView>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/lnrContact"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:fontFamily="@font/nunito_sans_semibold"
+                                    android:padding="10dp"
+                                    android:text="Contact Us"
+                                    android:textColor="#000"
+                                    android:textSize="18sp">
+
+                                </TextView>
+
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0.3dp"
+                                android:background="@color/grey1"></LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/lnrFAQ"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:fontFamily="@font/nunito_sans_semibold"
+                                    android:padding="10dp"
+                                    android:text="FAQs"
+                                    android:textColor="#000"
+                                    android:textSize="18sp">
+
+                                </TextView>
+
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0.3dp"
+                                android:background="@color/grey1"></LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/lnrTermCondition"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:fontFamily="@font/nunito_sans_semibold"
+                                    android:padding="10dp"
+                                    android:text="Legal Term &amp; Conditions"
+                                    android:textColor="#000"
+                                    android:textSize="18sp">
+
+                                </TextView>
+
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0.3dp"
+                                android:background="@color/grey1"></LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+</layout>

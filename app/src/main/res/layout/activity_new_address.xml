@@ -21,298 +21,309 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="0dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="0dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/product_bg_card">
+            android:layout_marginBottom="-40dp">
 
-            <androidx.core.widget.NestedScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp">
+                android:padding="0dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/product_bg_card">
 
-                <LinearLayout
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/nunit_sans_bold"
-                        android:text="Personal Details"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="#373737"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/etxName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:hint="Name"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapWords"
-                        android:maxLines="1"
-                        android:backgroundTint="@color/grey2"
-                        android:textColorHint="@color/grey2" />
-
-
-                    <EditText
-                        android:id="@+id/etxNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:imeOptions="actionNext"
-                        android:hint="Contact Number"
-                        android:maxLines="1"
-                        android:maxLength="10"
-                        android:backgroundTint="@color/grey2"
-                        android:inputType="numberDecimal"
-                        android:textColorHint="@color/grey2" />
-
-                    <EditText
-                        android:id="@+id/etxOtherNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:imeOptions="actionNext"
-                        android:hint="Contact Number (Option)"
-                        android:maxLines="1"
-                        android:maxLength="10"
-                        android:backgroundTint="@color/grey2"
-                        android:inputType="numberDecimal"
-                        android:textColorHint="@color/grey2" />
-
-                    <EditText
-                        android:id="@+id/etxEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:hint="Email"
-                        android:imeOptions="actionNext"
-                        android:inputType="textEmailAddress"
-                        android:maxLines="1"
-                        android:backgroundTint="@color/grey2"
-                        android:textColorHint="@color/grey2" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:fontFamily="@font/nunit_sans_bold"
-                        android:text="Address Details"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="#373737"
-                        android:textSize="18sp" />
-
-
-                    <EditText
-                        android:id="@+id/etxStreet"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:hint="Address"
-                        android:maxLines="2"
-                        android:imeOptions="actionNext"
-                        android:inputType="textMultiLine"
-                        android:textColorHint="@color/grey2" />
-
-                    <EditText
-                        android:id="@+id/etxLandMark"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:hint="Landmark"
-                        android:maxLines="1"
-                        android:backgroundTint="@color/grey2"
-                        android:imeOptions="actionNext"
-                        android:inputType="textMultiLine"
-                        android:textColorHint="@color/grey2" />
+                    android:layout_marginTop="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:weightSum="2">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                        <EditText
-                            android:id="@+id/etxCountry"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="Country"
-                            android:maxLines="1"
-                            android:text="India"
-                            android:visibility="gone"
-                            android:inputType="textCapWords"
-                            android:backgroundTint="@color/grey2"
-                            android:imeOptions="actionNext"
-                            android:layout_marginRight="5dp"
-                            android:textColorHint="@color/grey2" />
-
-
-                        <EditText
-                            android:id="@+id/etxState"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="State"
+                            android:fontFamily="@font/nunit_sans_bold"
+                            android:text="Personal Details"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="#373737"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/etxName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:hint="Name"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
                             android:maxLines="1"
                             android:backgroundTint="@color/grey2"
-                            android:imeOptions="actionNext"
-                            android:layout_marginLeft="0dp"
-                            android:inputType="textCapWords"
                             android:textColorHint="@color/grey2" />
 
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:weightSum="2">
+                        <EditText
+                            android:id="@+id/etxNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:imeOptions="actionNext"
+                            android:hint="Contact Number"
+                            android:maxLines="1"
+                            android:maxLength="10"
+                            android:backgroundTint="@color/grey2"
+                            android:inputType="numberDecimal"
+                            android:textColorHint="@color/grey2" />
 
                         <EditText
-                            android:id="@+id/etxcity"
-                            android:layout_width="0dp"
+                            android:id="@+id/etxOtherNumber"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="City"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:imeOptions="actionNext"
+                            android:hint="Contact Number (Option)"
+                            android:maxLines="1"
+                            android:maxLength="10"
+                            android:backgroundTint="@color/grey2"
+                            android:inputType="numberDecimal"
+                            android:textColorHint="@color/grey2" />
+
+                        <EditText
+                            android:id="@+id/etxEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:hint="Email"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:backgroundTint="@color/grey2"
+                            android:textColorHint="@color/grey2" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/nunit_sans_bold"
+                            android:text="Address Details"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="#373737"
+                            android:textSize="18sp" />
+
+
+                        <EditText
+                            android:id="@+id/etxStreet"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:hint="Address"
+                            android:maxLines="2"
+                            android:imeOptions="actionNext"
+                            android:inputType="textMultiLine"
+                            android:textColorHint="@color/grey2" />
+
+                        <EditText
+                            android:id="@+id/etxLandMark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:hint="Landmark"
                             android:maxLines="1"
                             android:backgroundTint="@color/grey2"
                             android:imeOptions="actionNext"
+                            android:inputType="textMultiLine"
+                            android:textColorHint="@color/grey2" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:weightSum="2">
+
+                            <EditText
+                                android:id="@+id/etxCountry"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Country"
+                                android:maxLines="1"
+                                android:text="India"
+                                android:visibility="gone"
+                                android:inputType="textCapWords"
+                                android:backgroundTint="@color/grey2"
+                                android:imeOptions="actionNext"
+                                android:layout_marginRight="5dp"
+                                android:textColorHint="@color/grey2" />
+
+
+                            <EditText
+                                android:id="@+id/etxState"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="State"
+                                android:maxLines="1"
+                                android:backgroundTint="@color/grey2"
+                                android:imeOptions="actionNext"
+                                android:layout_marginLeft="0dp"
+                                android:inputType="textCapWords"
+                                android:textColorHint="@color/grey2" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:weightSum="2">
+
+                            <EditText
+                                android:id="@+id/etxcity"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="City"
+                                android:maxLines="1"
+                                android:backgroundTint="@color/grey2"
+                                android:imeOptions="actionNext"
+                                android:layout_marginRight="5dp"
+                                android:inputType="textCapWords"
+                                android:textColorHint="@color/grey2" />
+
+
+                            <EditText
+                                android:id="@+id/etxPincode"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Pincode"
+                                android:maxLines="1"
+                                android:maxLength="6"
+                                android:backgroundTint="@color/grey2"
+                                android:imeOptions="actionNext"
+                                android:layout_marginLeft="5dp"
+                                android:inputType="number"
+                                android:textColorHint="@color/grey2" />
+
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nunito_sans_regular"
+                            android:text="Choose name for this address"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/grey2"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:weightSum="4">
+
+                            <TextView
+                                android:id="@+id/txtHomeAddress"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:background="@drawable/grey_border2"
+                                android:fontFamily="@font/nunito_sans_regular"
+                                android:padding="8dp"
+                                android:layout_weight="1"
+                                android:text="Home"
+                                android:gravity="center"
+                                android:textColor="#52AC03"
+                                android:textSize="19sp" />
+
+                            <TextView
+                                android:id="@+id/txtOfficeAddress"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:background="@drawable/grey_border2"
+                                android:fontFamily="@font/nunito_sans_regular"
+                                android:padding="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_weight="1"
+                                android:text="Office"
+                                android:gravity="center"
+                                android:textColor="#52AC03"
+                                android:textSize="19sp" />
+
+
+                        </LinearLayout>
+
+
+                        <CheckBox
+                            android:id="@+id/checkBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorPrimaryDark"
+                            android:textColor="@color/textColor"
+                            android:textSize="16sp"
+                            android:layout_marginTop="30dp"
                             android:layout_marginRight="5dp"
-                            android:inputType="textCapWords"
-                            android:textColorHint="@color/grey2" />
-
-
-                        <EditText
-                            android:id="@+id/etxPincode"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="Pincode"
-                            android:maxLines="1"
-                            android:maxLength="6"
-                            android:backgroundTint="@color/grey2"
-                            android:imeOptions="actionNext"
                             android:layout_marginLeft="5dp"
-                            android:inputType="number"
-                            android:textColorHint="@color/grey2" />
+                            android:paddingLeft="5dp"
+                            android:checked="true"
+                            android:fontFamily="@font/nunito_sans_regular"
+                            android:text="Set this as my default delivery address"></CheckBox>
 
+
+                        <Button
+                            android:id="@+id/btnProcess"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
+                            android:layout_gravity="center"
+                            android:background="@drawable/custom_button"
+                            android:text="Add Address"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:layout_margin="60dp"
+                            android:fontFamily="@font/nunito_sans_semibold"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
 
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/nunito_sans_regular"
-                        android:text="Choose name for this address"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/grey2"
-                        android:textSize="16sp" />
+                </androidx.core.widget.NestedScrollView>
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:weightSum="4">
+        </androidx.cardview.widget.CardView>
 
-                        <TextView
-                            android:id="@+id/txtHomeAddress"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/grey_border2"
-                            android:fontFamily="@font/nunito_sans_regular"
-                            android:padding="8dp"
-                            android:layout_weight="1"
-                            android:text="Home"
-                            android:gravity="center"
-                            android:textColor="#52AC03"
-                            android:textSize="19sp" />
-
-                        <TextView
-                            android:id="@+id/txtOfficeAddress"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/grey_border2"
-                            android:fontFamily="@font/nunito_sans_regular"
-                            android:padding="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_weight="1"
-                            android:text="Office"
-                            android:gravity="center"
-                            android:textColor="#52AC03"
-                            android:textSize="19sp" />
-
-
-                    </LinearLayout>
-
-
-                    <CheckBox
-                        android:id="@+id/checkBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimaryDark"
-                        android:textColor="@color/textColor"
-                        android:textSize="16sp"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:paddingLeft="5dp"
-                        android:checked="true"
-                        android:fontFamily="@font/nunito_sans_regular"
-                        android:text="Set this as my default delivery address"></CheckBox>
-
-
-                    <Button
-                        android:id="@+id/btnProcess"
-                        android:layout_width="match_parent"
-                        android:layout_height="?actionBarSize"
-                        android:layout_gravity="center"
-                        android:background="@drawable/custom_button"
-                        android:text="Add Address"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:layout_margin="60dp"
-                        android:fontFamily="@font/nunito_sans_semibold"
-                        android:textSize="14sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
-
-            </androidx.core.widget.NestedScrollView>
-        </LinearLayout>
 
     </LinearLayout>
 

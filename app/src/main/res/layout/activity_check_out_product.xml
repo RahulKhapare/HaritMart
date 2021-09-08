@@ -33,459 +33,469 @@
 
             </FrameLayout>
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/product_bg_card"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="-40dp"
                 android:layout_below="@+id/frameView">
 
-                <androidx.core.widget.NestedScrollView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:fillViewport="true"
-                    >
+                    android:layout_marginBottom="40dp">
 
-                    <LinearLayout
+                    <androidx.core.widget.NestedScrollView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:layout_marginTop="0dp"
-                            android:id="@+id/recyclerCartDetail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                        </androidx.recyclerview.widget.RecyclerView>
+                        android:fillViewport="true"
+                        >
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingRight="10dp"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="20dp"
-                            android:paddingBottom="20dp"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/txtAddressTitle"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:textSize="18sp"
+                            <androidx.recyclerview.widget.RecyclerView
                                 android:layout_marginTop="0dp"
-                                android:fontFamily="@font/nunito_sans_semibold"
-                                android:textColor="#373737"
-                                android:text=""></TextView>
+                                android:id="@+id/recyclerCartDetail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                            </androidx.recyclerview.widget.RecyclerView>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_marginTop="10dp"
-                                android:layout_gravity="center_vertical">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <RadioButton
-                                        android:id="@+id/radioButton"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:backgroundTint="@color/green"
-                                        android:checked="true"
-                                        android:visibility="gone"
-                                        android:buttonTint="@color/green">
-                                    </RadioButton>
-
-                                    <TextView
-                                        android:layout_weight="1"
-                                        android:id="@+id/txtTitle"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/nunito_sans_semibold"
-                                        android:textSize="16sp"
-                                        android:paddingRight="10dp"
-                                        android:layout_gravity="center_vertical"
-                                        android:gravity="center_vertical"
-                                        android:textStyle="bold"
-                                        android:text=""
-                                        android:textColor="#373737"></TextView>
-
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/txtName"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/nunito_sans_semibold"
-                                    android:textSize="14sp"
-                                    android:text=""
-                                    android:textColor="#373737"
-                                    android:paddingTop="5dp"
-                                    android:paddingRight="10dp"></TextView>
-
-                                <TextView
-                                    android:id="@+id/txtAddress"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/nunito_sans_semibold"
-                                    android:textSize="14sp"
-                                    android:text=""
-                                    android:paddingTop="0dp"
-                                    android:textColor="@color/grey1"></TextView>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/lnrCreditPaymentView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textStyle="bold"
-                                    android:textSize="18sp"
-                                    android:layout_marginTop="20dp"
-                                    android:fontFamily="@font/nunito_sans_semibold"
-                                    android:textColor="#373737"
-                                    android:text="Credit/Debit Cards"></TextView>
-
-                                <LinearLayout
-                                    android:id="@+id/lnrAddNewView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
-
-
-                                    <EditText
-                                        android:id="@+id/etxCardNumber"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="?actionBarSize"
-                                        android:layout_marginBottom="0dp"
-                                        android:layout_marginTop="10dp"
-                                        android:textSize="16sp"
-                                        android:imeOptions="actionNext"
-                                        android:textColor="@color/textDark"
-                                        android:textColorHint="@color/grey1"
-                                        android:textCursorDrawable="@drawable/color_cursor"
-                                        android:backgroundTint="@color/colorPrimaryDark"
-                                        android:fontFamily="@font/nunito_sans_regular"
-                                        android:inputType="number"
-                                        android:maxLength="16"
-                                        android:digits="01234 56789"
-                                        android:hint="Card Number">
-
-                                    </EditText>
-
-                                    <EditText
-                                        android:id="@+id/etxCardName"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="?actionBarSize"
-                                        android:layout_marginBottom="0dp"
-                                        android:layout_marginTop="0dp"
-                                        android:textSize="16sp"
-                                        android:imeOptions="actionNext"
-                                        android:textColor="@color/textDark"
-                                        android:textColorHint="@color/grey1"
-                                        android:textCursorDrawable="@drawable/color_cursor"
-                                        android:backgroundTint="@color/colorPrimaryDark"
-                                        android:fontFamily="@font/nunito_sans_regular"
-                                        android:inputType="textCapWords"
-                                        android:hint="Name on Card">
-
-                                    </EditText>
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="0dp"
-                                        android:layout_marginTop="0dp"
-                                        android:orientation="horizontal">
-
-                                        <EditText
-                                            android:id="@+id/etxValidMonth"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="?actionBarSize"
-                                            android:textSize="16sp"
-                                            android:imeOptions="actionNext"
-                                            android:textColor="@color/textDark"
-                                            android:paddingRight="50dp"
-                                            android:textColorHint="@color/grey1"
-                                            android:textCursorDrawable="@drawable/color_cursor"
-                                            android:backgroundTint="@color/colorPrimaryDark"
-                                            android:fontFamily="@font/nunito_sans_regular"
-                                            android:inputType="number"
-                                            android:maxLength="5"
-                                            android:digits="0123456789/"
-                                            android:layout_marginRight="20dp"
-                                            android:hint="Valid Through (MM/YY)">
-
-                                        </EditText>
-
-                                        <EditText
-                                            android:id="@+id/etxCvv"
-                                            android:layout_width="100dp"
-                                            android:layout_height="?actionBarSize"
-                                            android:textSize="16sp"
-                                            android:digits="0123456789"
-                                            android:maxLength="3"
-                                            android:imeOptions="actionNext"
-                                            android:textColor="@color/textDark"
-                                            android:textColorHint="@color/grey1"
-                                            android:textCursorDrawable="@drawable/color_cursor"
-                                            android:backgroundTint="@color/colorPrimaryDark"
-                                            android:fontFamily="@font/nunito_sans_regular"
-                                            android:inputType="number"
-                                            android:hint="CVV">
-
-                                        </EditText>
-
-                                    </LinearLayout>
-
-                                    <CheckBox
-                                        android:id="@+id/checkSecure"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:buttonTint="@color/green"
-                                        android:textColor="@color/grey1"
-                                        android:fontFamily="@font/nunito_sans_regular"
-                                        android:textSize="14sp"
-                                        android:checked="true"
-                                        android:text="Securely ave card details">
-
-                                    </CheckBox>
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/lnrOtherPaymentView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="30dp"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textStyle="bold"
-                                    android:textSize="18sp"
-                                    android:fontFamily="@font/nunito_sans_semibold"
-                                    android:textColor="#373737"
-                                    android:text="Other Payment Method"></TextView>
-
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:layout_marginTop="10dp"
-                                    android:id="@+id/recyclerPayment"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-
-                                </androidx.recyclerview.widget.RecyclerView>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/lnrSummary"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:paddingLeft="0dp"
-                                android:paddingRight="0dp"
+                                android:layout_height="match_parent"
+                                android:paddingRight="10dp"
+                                android:paddingLeft="10dp"
                                 android:paddingTop="20dp"
-                                android:paddingBottom="20dp">
+                                android:paddingBottom="20dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/txtAddressTitle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:textSize="18sp"
+                                    android:layout_marginTop="0dp"
+                                    android:fontFamily="@font/nunito_sans_semibold"
+                                    android:textColor="#373737"
+                                    android:text=""></TextView>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical"
-                                    android:paddingBottom="20dp"
-                                    android:paddingTop="10dp"
-                                    android:visibility="visible">
-
-
-                                    <FrameLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:orientation="horizontal">
-
-                                        <TextView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="Sub-Total"
-                                            android:textColor="#373737"
-                                            android:textSize="14sp"
-                                            app:fontFamily="@font/nunito_sans_semibold" />
-
-                                        <TextView
-                                            android:id="@+id/txtSubTotal"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:gravity="right"
-                                            android:text=""
-                                            android:textColor="#373737"
-                                            android:textSize="14sp"
-                                            app:fontFamily="@font/nunito_sans_semibold" />
-
-                                    </FrameLayout>
-
-                                    <FrameLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:orientation="horizontal">
-
-                                        <TextView
-                                            android:id="@+id/txtTaxName"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="Tax 5%"
-                                            android:textColor="#373737"
-                                            android:textSize="14sp"
-                                            app:fontFamily="@font/nunito_sans_semibold" />
-
-                                        <TextView
-                                            android:id="@+id/txtTaxCharge"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:gravity="right"
-                                            android:text=""
-                                            android:textColor="#373737"
-                                            android:textSize="14sp"
-                                            app:fontFamily="@font/nunito_sans_semibold" />
-
-                                    </FrameLayout>
-
-                                    <FrameLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:orientation="horizontal">
-
-                                        <TextView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="Delivery Charge"
-                                            android:textColor="#373737"
-                                            android:textSize="14sp"
-                                            app:fontFamily="@font/nunito_sans_semibold" />
-
-                                        <TextView
-                                            android:id="@+id/txtDeliverCharge"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:gravity="right"
-                                            android:text=""
-                                            android:textColor="#373737"
-                                            android:textSize="14sp"
-                                            app:fontFamily="@font/nunito_sans_semibold" />
-
-                                    </FrameLayout>
-
-                                    <FrameLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:orientation="horizontal">
-
-                                        <TextView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="Coupon Discount"
-                                            android:textColor="#373737"
-                                            android:textSize="14sp"
-                                            app:fontFamily="@font/nunito_sans_semibold" />
-
-                                        <TextView
-                                            android:id="@+id/txtCouponDiscount"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:gravity="right"
-                                            android:text=""
-                                            android:textColor="@color/colorPrimaryDark"
-                                            android:textSize="14sp"
-                                            app:fontFamily="@font/nunito_sans_semibold" />
-
-                                    </FrameLayout>
+                                    android:layout_marginTop="10dp"
+                                    android:layout_gravity="center_vertical">
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
-                                        android:layout_height="5dp"
-                                        android:layout_marginTop="10dp"
-                                        android:background="@drawable/dotted_line"></LinearLayout>
-
-                                    <FrameLayout
-                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
                                         android:orientation="horizontal">
 
-                                        <TextView
-                                            android:layout_width="match_parent"
+                                        <RadioButton
+                                            android:id="@+id/radioButton"
+                                            android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="Total :"
-                                            android:textColor="#000"
-                                            android:textStyle="bold"
-                                            android:textSize="18sp"
-                                            app:fontFamily="@font/nunit_sans_bold" />
+                                            android:backgroundTint="@color/green"
+                                            android:checked="true"
+                                            android:visibility="gone"
+                                            android:buttonTint="@color/green">
+                                        </RadioButton>
 
                                         <TextView
-                                            android:id="@+id/txtTotalAMount"
+                                            android:layout_weight="1"
+                                            android:id="@+id/txtTitle"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:gravity="right"
+                                            android:fontFamily="@font/nunito_sans_semibold"
+                                            android:textSize="16sp"
+                                            android:paddingRight="10dp"
+                                            android:layout_gravity="center_vertical"
+                                            android:gravity="center_vertical"
                                             android:textStyle="bold"
                                             android:text=""
-                                            android:textColor="#000"
-                                            android:textSize="14sp"
-                                            app:fontFamily="@font/nunit_sans_bold" />
+                                            android:textColor="#373737"></TextView>
 
-                                    </FrameLayout>
+                                    </LinearLayout>
 
-                                    <Button
-                                        android:id="@+id/btnBuyNow"
+                                    <TextView
+                                        android:id="@+id/txtName"
                                         android:layout_width="match_parent"
-                                        android:layout_height="?actionBarSize"
-                                        android:layout_gravity="center"
-                                        android:layout_marginLeft="50dp"
-                                        android:layout_marginTop="20dp"
-                                        android:layout_marginRight="50dp"
-                                        android:background="@drawable/custom_button"
+                                        android:layout_height="wrap_content"
                                         android:fontFamily="@font/nunito_sans_semibold"
-                                        android:text="Proceed"
-                                        android:textAllCaps="false"
-                                        android:textColor="#ffffff"
                                         android:textSize="14sp"
-                                        android:textStyle="normal" />
+                                        android:text=""
+                                        android:textColor="#373737"
+                                        android:paddingTop="5dp"
+                                        android:paddingRight="10dp"></TextView>
+
+                                    <TextView
+                                        android:id="@+id/txtAddress"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/nunito_sans_semibold"
+                                        android:textSize="14sp"
+                                        android:text=""
+                                        android:paddingTop="0dp"
+                                        android:textColor="@color/grey1"></TextView>
 
                                 </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/lnrCreditPaymentView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle="bold"
+                                        android:textSize="18sp"
+                                        android:layout_marginTop="20dp"
+                                        android:fontFamily="@font/nunito_sans_semibold"
+                                        android:textColor="#373737"
+                                        android:text="Credit/Debit Cards"></TextView>
+
+                                    <LinearLayout
+                                        android:id="@+id/lnrAddNewView"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+
+                                        <EditText
+                                            android:id="@+id/etxCardNumber"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="?actionBarSize"
+                                            android:layout_marginBottom="0dp"
+                                            android:layout_marginTop="10dp"
+                                            android:textSize="16sp"
+                                            android:imeOptions="actionNext"
+                                            android:textColor="@color/textDark"
+                                            android:textColorHint="@color/grey1"
+                                            android:textCursorDrawable="@drawable/color_cursor"
+                                            android:backgroundTint="@color/colorPrimaryDark"
+                                            android:fontFamily="@font/nunito_sans_regular"
+                                            android:inputType="number"
+                                            android:maxLength="16"
+                                            android:digits="01234 56789"
+                                            android:hint="Card Number">
+
+                                        </EditText>
+
+                                        <EditText
+                                            android:id="@+id/etxCardName"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="?actionBarSize"
+                                            android:layout_marginBottom="0dp"
+                                            android:layout_marginTop="0dp"
+                                            android:textSize="16sp"
+                                            android:imeOptions="actionNext"
+                                            android:textColor="@color/textDark"
+                                            android:textColorHint="@color/grey1"
+                                            android:textCursorDrawable="@drawable/color_cursor"
+                                            android:backgroundTint="@color/colorPrimaryDark"
+                                            android:fontFamily="@font/nunito_sans_regular"
+                                            android:inputType="textCapWords"
+                                            android:hint="Name on Card">
+
+                                        </EditText>
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="0dp"
+                                            android:layout_marginTop="0dp"
+                                            android:orientation="horizontal">
+
+                                            <EditText
+                                                android:id="@+id/etxValidMonth"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="?actionBarSize"
+                                                android:textSize="16sp"
+                                                android:imeOptions="actionNext"
+                                                android:textColor="@color/textDark"
+                                                android:paddingRight="50dp"
+                                                android:textColorHint="@color/grey1"
+                                                android:textCursorDrawable="@drawable/color_cursor"
+                                                android:backgroundTint="@color/colorPrimaryDark"
+                                                android:fontFamily="@font/nunito_sans_regular"
+                                                android:inputType="number"
+                                                android:maxLength="5"
+                                                android:digits="0123456789/"
+                                                android:layout_marginRight="20dp"
+                                                android:hint="Valid Through (MM/YY)">
+
+                                            </EditText>
+
+                                            <EditText
+                                                android:id="@+id/etxCvv"
+                                                android:layout_width="100dp"
+                                                android:layout_height="?actionBarSize"
+                                                android:textSize="16sp"
+                                                android:digits="0123456789"
+                                                android:maxLength="3"
+                                                android:imeOptions="actionNext"
+                                                android:textColor="@color/textDark"
+                                                android:textColorHint="@color/grey1"
+                                                android:textCursorDrawable="@drawable/color_cursor"
+                                                android:backgroundTint="@color/colorPrimaryDark"
+                                                android:fontFamily="@font/nunito_sans_regular"
+                                                android:inputType="number"
+                                                android:hint="CVV">
+
+                                            </EditText>
+
+                                        </LinearLayout>
+
+                                        <CheckBox
+                                            android:id="@+id/checkSecure"
+                                            android:layout_marginTop="10dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:buttonTint="@color/green"
+                                            android:textColor="@color/grey1"
+                                            android:fontFamily="@font/nunito_sans_regular"
+                                            android:textSize="14sp"
+                                            android:checked="true"
+                                            android:text="Securely ave card details">
+
+                                        </CheckBox>
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/lnrOtherPaymentView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="30dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle="bold"
+                                        android:textSize="18sp"
+                                        android:fontFamily="@font/nunito_sans_semibold"
+                                        android:textColor="#373737"
+                                        android:text="Other Payment Method"></TextView>
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_marginTop="10dp"
+                                        android:id="@+id/recyclerPayment"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/lnrSummary"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    android:paddingLeft="0dp"
+                                    android:paddingRight="0dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingBottom="20dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:paddingBottom="20dp"
+                                        android:paddingTop="10dp"
+                                        android:visibility="visible">
+
+
+                                        <FrameLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:text="Sub-Total"
+                                                android:textColor="#373737"
+                                                android:textSize="14sp"
+                                                app:fontFamily="@font/nunito_sans_semibold" />
+
+                                            <TextView
+                                                android:id="@+id/txtSubTotal"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:gravity="right"
+                                                android:text=""
+                                                android:textColor="#373737"
+                                                android:textSize="14sp"
+                                                app:fontFamily="@font/nunito_sans_semibold" />
+
+                                        </FrameLayout>
+
+                                        <FrameLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:id="@+id/txtTaxName"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:text="Tax 5%"
+                                                android:textColor="#373737"
+                                                android:textSize="14sp"
+                                                app:fontFamily="@font/nunito_sans_semibold" />
+
+                                            <TextView
+                                                android:id="@+id/txtTaxCharge"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:gravity="right"
+                                                android:text=""
+                                                android:textColor="#373737"
+                                                android:textSize="14sp"
+                                                app:fontFamily="@font/nunito_sans_semibold" />
+
+                                        </FrameLayout>
+
+                                        <FrameLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:text="Delivery Charge"
+                                                android:textColor="#373737"
+                                                android:textSize="14sp"
+                                                app:fontFamily="@font/nunito_sans_semibold" />
+
+                                            <TextView
+                                                android:id="@+id/txtDeliverCharge"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:gravity="right"
+                                                android:text=""
+                                                android:textColor="#373737"
+                                                android:textSize="14sp"
+                                                app:fontFamily="@font/nunito_sans_semibold" />
+
+                                        </FrameLayout>
+
+                                        <FrameLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:text="Coupon Discount"
+                                                android:textColor="#373737"
+                                                android:textSize="14sp"
+                                                app:fontFamily="@font/nunito_sans_semibold" />
+
+                                            <TextView
+                                                android:id="@+id/txtCouponDiscount"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:gravity="right"
+                                                android:text=""
+                                                android:textColor="@color/colorPrimaryDark"
+                                                android:textSize="14sp"
+                                                app:fontFamily="@font/nunito_sans_semibold" />
+
+                                        </FrameLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="5dp"
+                                            android:layout_marginTop="10dp"
+                                            android:background="@drawable/dotted_line"></LinearLayout>
+
+                                        <FrameLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:text="Total :"
+                                                android:textColor="#000"
+                                                android:textStyle="bold"
+                                                android:textSize="18sp"
+                                                app:fontFamily="@font/nunit_sans_bold" />
+
+                                            <TextView
+                                                android:id="@+id/txtTotalAMount"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:gravity="right"
+                                                android:textStyle="bold"
+                                                android:text=""
+                                                android:textColor="#000"
+                                                android:textSize="14sp"
+                                                app:fontFamily="@font/nunit_sans_bold" />
+
+                                        </FrameLayout>
+
+                                        <Button
+                                            android:id="@+id/btnBuyNow"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="?actionBarSize"
+                                            android:layout_gravity="center"
+                                            android:layout_marginLeft="50dp"
+                                            android:layout_marginTop="20dp"
+                                            android:layout_marginRight="50dp"
+                                            android:background="@drawable/custom_button"
+                                            android:fontFamily="@font/nunito_sans_semibold"
+                                            android:text="Proceed"
+                                            android:textAllCaps="false"
+                                            android:textColor="#ffffff"
+                                            android:textSize="14sp"
+                                            android:textStyle="normal" />
+
+                                    </LinearLayout>
+                                </LinearLayout>
+
                             </LinearLayout>
 
                         </LinearLayout>
 
-                    </LinearLayout>
+                    </androidx.core.widget.NestedScrollView>
 
-                </androidx.core.widget.NestedScrollView>
+                </LinearLayout>
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
 
         </RelativeLayout>
 

@@ -56,6 +56,7 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
         binding.lnrNotifications.setOnClickListener(this);
         binding.lnrGiftCard.setOnClickListener(this);
         binding.lnrMyAddress.setOnClickListener(this);
+        binding.lnrCustomerService.setOnClickListener(this);
         binding.lnrLogOut.setOnClickListener(this);
         binding.imgEdit.setOnClickListener(this);
         binding.lnrImage.setOnClickListener(this);
@@ -130,6 +131,10 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
             case R.id.lnrMyAddress:
                 Intent addressIntent = new Intent(activity, MyAddressActivity.class);
                 startActivity(addressIntent);
+                break;
+            case R.id.lnrCustomerService:
+                Intent serviceIntent = new Intent(activity, CustomerServiceActivity.class);
+                startActivity(serviceIntent);
                 break;
             case R.id.lnrChangePass:
                 Intent changePassIntent = new Intent(activity, ChangePasswordActivity.class);

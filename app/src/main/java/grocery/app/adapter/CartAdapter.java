@@ -117,6 +117,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         if (!isFragment){
             holder.binding.lnrRemove.setVisibility(View.GONE);
         }
+
+        if (processToPay){
+            if (position==0){
+                setMargins(holder.binding.cardView,40,50,40,10);
+            }
+        }
+
+    }
+
+    private void setMargins (View view, int left, int top, int right, int bottom) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(left, top, right, bottom);
+            view.requestLayout();
+        }
     }
 
     private void onClickItem(CartModel model,ViewHolder holder,int position) {

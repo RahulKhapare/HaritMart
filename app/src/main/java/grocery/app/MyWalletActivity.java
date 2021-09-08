@@ -34,7 +34,7 @@ public class MyWalletActivity extends AppCompatActivity {
     private void initView(){
 
         binding.txtCurrentBalance.setText("Current Balance - Rs.00");
-        binding.txtMessage.setText(message);
+        binding.txtMessage.setText(message + message + message);
         binding.btnAddMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

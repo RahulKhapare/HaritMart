@@ -162,11 +162,11 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_marginLeft="-5dp"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_marginLeft="0dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/ic_my_order_new"></ImageView>
+                                android:src="@drawable/ic_order_new"></ImageView>
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -415,6 +415,36 @@
 
                         </LinearLayout>
 
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#EFEFEF" />
+
+                        <LinearLayout
+                            android:id="@+id/lnrCustomerService"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_service"></ImageView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="?actionBarSize"
+                                android:layout_gravity="center"
+                                android:paddingLeft="15dp"
+                                android:gravity="center_vertical"
+                                android:text="Customer Service"
+                                android:textColor="#373737"
+                                android:fontFamily="@font/nunito_sans_regular"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"

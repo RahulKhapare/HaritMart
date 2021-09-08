@@ -55,6 +55,9 @@
             android:name=".OrderDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".CustomerServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".CheckOutActivity"
             android:screenOrientation="portrait" />
         <activity

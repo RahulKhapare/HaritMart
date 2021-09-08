@@ -59,6 +59,8 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
     private int DECENDING = 1;
     private Session session;
 
+    public static boolean isCancelOrder = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +77,7 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
     }
 
     private void initView(){
+        isCancelOrder = false;
         session = new Session(activity);
         fromSuccessOrder = getIntent().getBooleanExtra(Config.FROM_SUCCESS_ORDER, false);
         loadingDialog = new LoadingDialog(activity);
@@ -89,6 +92,15 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
         hitOrderDetailList(DECENDING);
 //        setDat();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isCancelOrder){
+            isCancelOrder = false;
+            hitOrderDetailList(DECENDING);
+        }
     }
 
     private void setDat(){
@@ -196,6 +208,7 @@ public class OrderDetailListActivity extends AppCompatActivity implements OrderS
                             model.setPdf_url(orderJson.getString(P.pdf_url));
 
                             orderDetailListModelList.add(model);
+
                         }
 
                     }

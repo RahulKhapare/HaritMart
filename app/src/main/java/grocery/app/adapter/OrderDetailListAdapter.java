@@ -103,6 +103,18 @@ public class OrderDetailListAdapter extends RecyclerView.Adapter<OrderDetailList
                 ((OrderDetailListActivity) context).cancelOrder(model, holder.binding.txtOrderStatus, holder.binding.txtCancelOrder);
             }
         });
+
+        if (position==0){
+            setMargins(holder.binding.cardView,20,50,20,10);
+        }
+    }
+
+    private void setMargins (View view, int left, int top, int right, int bottom) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(left, top, right, bottom);
+            view.requestLayout();
+        }
     }
 
     @Override

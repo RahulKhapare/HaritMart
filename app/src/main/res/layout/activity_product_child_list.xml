@@ -33,37 +33,48 @@
         </FrameLayout>
 
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_below="@+id/frameView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:elevation="0dp"
+            app:cardCornerRadius="30dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/product_bg_card">
+            android:layout_marginBottom="-40dp">
 
+            <LinearLayout
 
-            <androidx.recyclerview.widget.RecyclerView
-
-                android:id="@+id/recyclerProductCategory"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginBottom="40dp">
 
-            </androidx.recyclerview.widget.RecyclerView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/recyclerProductList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
 
-            </androidx.recyclerview.widget.RecyclerView>
+                    android:id="@+id/recyclerProductCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp">
 
-        </LinearLayout>
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/recyclerProductList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
         <RelativeLayout
             android:id="@+id/lnrFilter"

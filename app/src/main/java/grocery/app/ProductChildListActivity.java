@@ -226,6 +226,7 @@ public class ProductChildListActivity extends AppCompatActivity implements Produ
 
                 }
                 productModelList.add(model);
+
             }
             productListAdapter.notifyDataSetChanged();
             if (productModelList.isEmpty()){
