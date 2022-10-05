@@ -35,7 +35,7 @@ import grocery.app.model.SearchModel;
 import grocery.app.util.Config;
 
 
-public class SearchFragment extends Fragment implements SearchAdapter.Click{
+public class SearchFragment extends Fragment implements SearchAdapter.Click {
 
     private FragmentSearchBinding binding;
     private Context context;
@@ -62,7 +62,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
         binding.recyclerTrendingSearches.setHasFixedSize(true);
         binding.recyclerTrendingSearches.setNestedScrollingEnabled(false);
         binding.recyclerTrendingSearches.setLayoutManager(new LinearLayoutManager(context));
-        trendAdapter = new SearchAdapter(context, trendModelList, true,SearchFragment.this);
+        trendAdapter = new SearchAdapter(context, trendModelList, true, SearchFragment.this);
         binding.recyclerTrendingSearches.setAdapter(trendAdapter);
 
         onSearchView();
@@ -83,11 +83,12 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
         loadingDialog.hide();
     }
 
-    private void onSearchView(){
+    private void onSearchView() {
         binding.etxSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String newText = s.toString();
@@ -98,14 +99,15 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
                             list.add(model);
                         }
                     }
-                    trendAdapter = new SearchAdapter(context, list,true,SearchFragment.this);
+                    trendAdapter = new SearchAdapter(context, list, true, SearchFragment.this);
                     binding.recyclerTrendingSearches.setAdapter(trendAdapter);
                     trendAdapter.notifyDataSetChanged();
                 } else {
-                    trendAdapter = new SearchAdapter(context, trendModelList,true,SearchFragment.this);
+                    trendAdapter = new SearchAdapter(context, trendModelList, true, SearchFragment.this);
                     binding.recyclerTrendingSearches.setAdapter(trendAdapter);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -116,9 +118,9 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
         showLoader();
         try {
             Json j = new Json();
-            if (session.getBool(P.isUserLogin)){
+            if (session.getBool(P.isUserLogin)) {
                 j.addInt(P.user_id, H.getInt(session.getString(P.user_id)));
-            }else {
+            } else {
                 j.addInt(P.user_id, Config.commonUserHomeID);
             }
             Api.newApi(context, P.baseUrl + "home").addJson(j)
@@ -163,17 +165,17 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
                 model.setSaleprice(priceJson.getString(P.saleprice));
                 model.setDiscount_amount(priceJson.getString(P.discount_amount));
                 model.setDiscount(priceJson.getString(P.discount));
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
             trendModelList.add(model);
         }
         trendAdapter.notifyDataSetChanged();
 
-        if (trendModelList.isEmpty()){
+        if (trendModelList.isEmpty()) {
             binding.txtTendingSearch.setVisibility(View.GONE);
             showError();
-        }else {
+        } else {
             binding.txtTendingSearch.setVisibility(View.VISIBLE);
             hideError();
         }
@@ -208,10 +210,11 @@ public class SearchFragment extends Fragment implements SearchAdapter.Click{
         return fragment;
     }
 
-    private void showError(){
+    private void showError() {
         binding.lnrError.setVisibility(View.VISIBLE);
     }
-    private void hideError(){
+
+    private void hideError() {
         binding.lnrError.setVisibility(View.GONE);
     }
 }

@@ -35,6 +35,7 @@ public class SearchLocationActivity extends AppCompatActivity implements Locatio
     private MaterialSearchView searchView;
     private LocationAdapter locationAdapter;
     private Geocoder geocoder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
